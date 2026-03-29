@@ -26,6 +26,7 @@ export const BottomNavBar = () => {
     const { isDrawerOpen, setDrawerOpen, closeAll } = useNavigationStore();
     const drawerRef = useRef<HTMLDivElement>(null);
     const [userCategory, setUserCategory] = React.useState<'aluno_usp' | 'pesquisador' | 'curioso'>('curioso');
+    const [isAdult, setIsAdult] = React.useState<boolean>(false);
 
     // V8.0 Role-Based Navigation Protocol
     useEffect(() => {
@@ -37,12 +38,13 @@ export const BottomNavBar = () => {
 
             const { data: profile } = await supabase
                 .from('profiles')
-                .select('user_category, is_usp_member')
+                .select('user_category, is_usp_member, is_adult')
                 .eq('id', authUser.id)
                 .single();
 
             const isUspMember = profile?.is_usp_member || authUser.email?.endsWith('@usp.br') || authUser.email?.endsWith('@if.usp.br');
             const category = profile?.user_category;
+            setIsAdult(profile?.is_adult === true);
 
             if (['pesquisador', 'docente_pesquisador'].includes(category)) {
                 setUserCategory('pesquisador');
@@ -59,7 +61,7 @@ export const BottomNavBar = () => {
     const dynamicNavItems = [
         { name: 'Comunidade', href: '/', icon: 'groups', color: 'brand-red' },
         { name: 'GCIF', href: '/gcif', icon: 'colisor', color: 'brand-blue' },
-        { name: 'Lançar à Órbita', href: AppRoutes.ENVAR, icon: 'rocket_launch', isAction: true, color: 'brand-blue' },
+        ...(isAdult ? [{ name: 'Lançar à Órbita', href: AppRoutes.ENVAR, icon: 'rocket_launch', isAction: true, color: 'brand-blue' }] : []),
         ...(userCategory === 'pesquisador' 
             ? [{ name: 'Pesquisa', href: '/arena', icon: 'visibility', color: 'brand-red' }]
             : userCategory === 'aluno_usp'

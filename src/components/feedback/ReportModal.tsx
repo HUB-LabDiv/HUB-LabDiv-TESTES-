@@ -100,6 +100,9 @@ export function ReportModal({ isOpen, onClose }: ReportModalProps) {
                         initial={{ scale: 0.9, opacity: 0, y: 20 }}
                         animate={{ scale: 1, opacity: 1, y: 0 }}
                         exit={{ scale: 0.9, opacity: 0, y: 20 }}
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="report-modal-title"
                         className="relative w-full max-w-lg bg-[#1E1E1E] border border-white/10 rounded-[32px] overflow-hidden shadow-2xl"
                     >
                         {step === 'form' ? (
@@ -107,9 +110,9 @@ export function ReportModal({ isOpen, onClose }: ReportModalProps) {
                                 <div className="flex items-center justify-between mb-8">
                                     <div className="flex items-center gap-3">
                                         <div className="size-10 bg-brand-red/10 rounded-xl flex items-center justify-center">
-                                            <AlertCircle className="text-brand-red size-6" />
+                                            <AlertCircle className="text-brand-red size-6" aria-hidden="true" />
                                         </div>
-                                        <h2 className="text-xl font-black text-white italic uppercase tracking-tighter">Reportar Pulsação</h2>
+                                        <h2 id="report-modal-title" className="text-xl font-black text-white italic uppercase tracking-tighter">Reportar Pulsação</h2>
                                     </div>
                                     <button
                                         type="button"
@@ -202,9 +205,9 @@ export function ReportModal({ isOpen, onClose }: ReportModalProps) {
                                 </div>
                             </form>
                         ) : (
-                            <div className="p-12 text-center">
+                            <div className="p-12 text-center" aria-live="polite" role="status">
                                 <div className="size-20 bg-brand-yellow/10 rounded-[32px] flex items-center justify-center mx-auto mb-8">
-                                    <CheckCircle2 className="text-brand-yellow size-10" />
+                                    <CheckCircle2 className="text-brand-yellow size-10" aria-hidden="true" />
                                 </div>
                                 <h2 className="text-2xl font-black text-white italic uppercase tracking-tighter mb-4">Pulsação Recebida!</h2>
                                 <p className="text-gray-400 font-medium mb-12">Nossa equipe de manutenção já foi notificada sobre esta anomalia.</p>

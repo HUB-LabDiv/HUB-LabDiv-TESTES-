@@ -73,7 +73,8 @@ export async function fetchThreads(parentId: string) {
             )
         `)
         .eq('parent_id', parentId)
-        .eq('status', 'approved') // Apenas threads aprovadas
+        .eq('status', 'approved')
+        .neq('moderation_status', 'suspended')
         .order('created_at', { ascending: true });
 
     if (error) {
@@ -90,7 +91,8 @@ export async function fetchThreads(parentId: string) {
             .from('micro_articles')
             .select('*', { count: 'exact', head: true })
             .eq('parent_id', thread.id)
-            .eq('status', 'approved');
+            .eq('status', 'approved')
+            .neq('moderation_status', 'suspended');
 
         // Reação do usuário atual
         let userReaction = null;

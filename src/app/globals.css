@@ -180,6 +180,14 @@ body::before {
   h1, h2, h3, h4, h5, h6 {
     @apply font-display;
   }
+
+  /* ♿ High Visibility Focus Indicator - WCAG 2.1 Essential */
+  :focus-visible {
+    outline: 3px solid var(--color-brand-yellow) !important;
+    outline-offset: 2px !important;
+    box-shadow: 0 0 0 5px rgba(255, 204, 0, 0.4) !important;
+    border-radius: 4px !important;
+  }
 }
 
 @layer components {

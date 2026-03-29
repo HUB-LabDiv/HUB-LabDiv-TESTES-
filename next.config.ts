@@ -34,6 +34,56 @@ const nextConfig: NextConfig = {
       { source: '/guia', destination: '/manual', permanent: true },
     ];
   },
+  async headers() {
+    const cspHeader = `
+      default-src 'self';
+      script-src 'self' 'unsafe-eval' 'unsafe-inline' blob: https://*.supabase.co https://*.vercel-scripts.com https://*.vercel.app;
+      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+      img-src 'self' blob: data: https://*.supabase.co https://res.cloudinary.com https://*.ytimg.com https://img.youtube.com https://images.unsplash.com https://lh3.googleusercontent.com https://upload.wikimedia.org https://portal.if.usp.br;
+      font-src 'self' data: https://fonts.gstatic.com;
+      connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.vercel.app;
+      media-src 'self' https://*.supabase.co https://res.cloudinary.com https://*.youtube.com;
+      frame-src 'self' https://*.youtube.com https://*.youtube-nocookie.com;
+      object-src 'none';
+      base-uri 'self';
+      form-action 'self';
+      frame-ancestors 'none';
+      block-all-mixed-content;
+      upgrade-insecure-requests;
+    `.replace(/\s{2,}/g, ' ').trim();
+
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=63072000; includeSubDomains; preload', // 2 anos
+          },
+          {
+            key: 'Content-Security-Policy',
+            value: cspHeader,
+          },
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY',
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'strict-origin-when-cross-origin',
+          },
+          {
+            key: 'Permissions-Policy',
+            value: 'camera=(), microphone=(), geolocation=()',
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;

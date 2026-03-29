@@ -233,23 +233,31 @@ export function CuratorStep({ onSubmit, isLoading }: { onSubmit: (data: any) => 
             </div>
 
             {/* Final Submission Button */}
-            <div className="flex justify-between items-center pt-10 border-t border-gray-100 dark:border-gray-800">
-                <button onClick={() => setStep('optional')} type="button" className="text-gray-500 font-black uppercase tracking-widest text-sm flex items-center gap-2">
-                    <span className="material-symbols-outlined">west</span> Revisar Opcionais
-                </button>
-                
-                <button
-                    type="button"
-                    disabled={isLoading}
-                    onClick={() => {
-                        const formData = getValues();
-                        onSubmit(formData);
-                    }}
-                    className="bg-brand-red px-12 py-5 rounded-2xl font-black text-white uppercase tracking-widest shadow-2xl shadow-brand-red/30 hover:-translate-y-1 transition-all flex items-center gap-3 disabled:opacity-50"
-                >
-                    {isLoading ? 'Catalogando Grafo...' : 'Publicar Acervo'}
-                    {!isLoading && <span className="material-symbols-outlined">save</span>}
-                </button>
+            <div className="flex flex-col gap-4 pt-10 border-t border-gray-100 dark:border-gray-800">
+                <div className="flex justify-between items-center">
+                    <button onClick={() => setStep('optional')} type="button" className="text-gray-500 font-black uppercase tracking-widest text-sm flex items-center gap-2">
+                        <span className="material-symbols-outlined">west</span> Revisar Opcionais
+                    </button>
+                    
+                    <button
+                        type="button"
+                        disabled={isLoading}
+                        onClick={() => {
+                            const formData = getValues();
+                            onSubmit(formData);
+                        }}
+                        className="bg-brand-red px-12 py-5 rounded-2xl font-black text-white uppercase tracking-widest shadow-2xl shadow-brand-red/30 hover:-translate-y-1 transition-all flex items-center gap-3 disabled:opacity-50"
+                    >
+                        {isLoading ? 'Catalogando Grafo...' : 'Publicar Acervo'}
+                        {!isLoading && <span className="material-symbols-outlined">save</span>}
+                    </button>
+                </div>
+                <div className="text-right">
+                    <p className="text-[10px] text-gray-400 font-medium">
+                        Ao publicar, você concorda em licenciar este conteúdo permanentemente sob a licença 
+                        <a href="https://creativecommons.org/licenses/by/4.0/deed.pt_BR" target="_blank" rel="noopener noreferrer" className="text-brand-blue hover:underline font-bold ml-1">CC BY 4.0</a>.
+                    </p>
+                </div>
             </div>
         </div>
     );

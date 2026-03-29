@@ -42,11 +42,6 @@ export async function proxy(request: NextRequest) {
         pathname.startsWith('/drops') ||
         pathname.startsWith('/api/og');
 
-    if (!isPublicRoute) {
-        // This call triggers the token refresh if needed
-        await supabase.auth.getUser();
-    }
-
     const isProd = process.env.NODE_ENV === 'production';
     const cspHeader = `
         default-src 'self';
@@ -76,6 +71,43 @@ export async function proxy(request: NextRequest) {
         }
         return res;
     };
+
+    if (!isPublicRoute) {
+        // This call triggers the token refresh if needed
+        const { data: { user } } = await supabase.auth.getUser();
+
+        // [FASE 2 e FASE 3: Gatekeepers (ECA & Termos Legados)]
+        if (user && !pathname.startsWith('/re-accept-terms') && !pathname.startsWith('/auth') && !pathname.startsWith('/api/auth')) {
+            const { data: profile } = await supabase
+                .from('profiles')
+                .select('accepted_terms_version, is_adult')
+                .eq('id', user.id)
+                .single();
+
+            // Gatekeeper de Termos (Fase 2)
+            if (profile?.accepted_terms_version !== 'v2.0') {
+                 const reacceptUrl = new URL('/re-accept-terms', request.url);
+                 return applyHeaders(NextResponse.redirect(reacceptUrl));
+            }
+
+            // Gatekeeper de ECA Strict RBAC (Fase 3) - Bloqueia mutações PÚBLICAS
+            if (request.method !== 'GET' && request.method !== 'HEAD' && request.method !== 'OPTIONS' && profile?.is_adult === false) {
+                const isWhitelisted = 
+                    pathname.startsWith('/api/feedback') || 
+                    pathname.startsWith('/api/reports') ||
+                    pathname.startsWith('/perguntas') ||
+                    pathname.startsWith('/lab'); // Aprovado: Contato direto a pesquisadores e laboratório.
+
+                if (!isWhitelisted) {
+                    console.warn(`[ECA Gatekeeper] Interceptado e Bloqueado ${request.method} mutacional do Jovem no path: ${pathname}`);
+                    return new NextResponse(
+                        JSON.stringify({ error: "[ECA RBAC] Ação bloqueada pelo Sistema de Proteção. Usuário não é adulto." }),
+                        { status: 403, headers: { 'content-type': 'application/json', 'Content-Security-Policy': cspHeader } }
+                    );
+                }
+            }
+        }
+    }
 
     // --- Admin Auth Check (Hardened) ---
     if (pathname.startsWith('/admin') && !pathname.startsWith('/admin/login')) {

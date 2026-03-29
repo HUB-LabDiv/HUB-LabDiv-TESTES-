@@ -7,6 +7,7 @@ import { Footer } from './Footer';
 import { SidebarLeft } from './SidebarLeft';
 import { BottomNavBar } from './BottomNavBar';
 import { useNavigationStore } from '@/store/useNavigationStore';
+import { useAuth } from '@/providers/AuthProvider';
 
 interface MainLayoutWrapperProps {
     children: React.ReactNode;
@@ -23,6 +24,7 @@ interface MainLayoutWrapperProps {
  */
 export function MainLayoutWrapper({ children, focusMode = false, wide = false, fullWidth = false, userId, rightSidebar }: MainLayoutWrapperProps) {
     const { isSidebarCollapsed } = useNavigationStore();
+    const { profile } = useAuth();
 
     return (
         <div className="min-h-screen bg-transparent font-sans text-gray-900 dark:text-gray-100 flex flex-col">
@@ -57,7 +59,7 @@ export function MainLayoutWrapper({ children, focusMode = false, wide = false, f
             <BottomNavBar />
 
             {/* Nova Submissão FAB (Desktop Only — xl+) */}
-            {!focusMode && (
+            {!focusMode && profile?.is_adult === true && (
                 <Link
                     href="/enviar"
                     className="hidden xl:flex fixed bottom-8 right-8 z-[60] bg-brand-blue text-white px-6 h-14 rounded-full shadow-2xl items-center justify-center gap-3 hover:scale-105 active:scale-95 transition-all group border border-white/10"

@@ -39,6 +39,7 @@ async function getSubmission(id: string) {
             .select('*')
             .eq('id', id)
             .eq('status', 'aprovado')
+            .neq('moderation_status', 'suspended')
             .single();
 
         if (data && !error) return data;
@@ -76,6 +77,7 @@ async function getRelatedSubmissions(categoryId: string, currentSubmissionId: st
         .from('submissions')
         .select('*')
         .eq('status', 'aprovado')
+        .neq('moderation_status', 'suspended')
         .eq('category', categoryId)
         .neq('id', currentSubmissionId)
         .order('created_at', { ascending: false })
@@ -188,6 +190,7 @@ export default async function ArquivoItemPage({ params }: PageProps) {
         .select('*')
         .eq('submission_id', submission.id)
         .eq('status', 'aprovado')
+        .neq('moderation_status', 'suspended')
         .order('created_at', { ascending: false });
 
     // Get user for history tracking — use cookie-aware server client

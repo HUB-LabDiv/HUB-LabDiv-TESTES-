@@ -86,6 +86,7 @@ export function LogsView() {
             `)
             .is('parent_id', null)
             .eq('status', 'approved')
+            .neq('moderation_status', 'suspended')
             .or(`is_featured.eq.true,created_at.gte.${twentyFourHoursAgo}`)
             .order('is_featured', { ascending: false })
             .order('created_at', { ascending: false });
@@ -100,7 +101,8 @@ export function LogsView() {
                 .from('micro_articles')
                 .select('*', { count: 'exact', head: true })
                 .eq('parent_id', drop.id)
-                .eq('status', 'approved');
+                .eq('status', 'approved')
+                .neq('moderation_status', 'suspended');
 
             let userReaction = null;
             if (user) {

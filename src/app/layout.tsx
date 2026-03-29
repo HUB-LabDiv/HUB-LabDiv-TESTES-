@@ -38,6 +38,9 @@ import { AuthProvider } from "@/providers/AuthProvider";
 import { ImpersonationBanner } from "@/components/admin/ImpersonationBanner";
 import { createServerSupabase } from "@/lib/supabase/server";
 import { TelemetryManager } from "@/components/telemetry/TelemetryManager";
+import { CookieBanner } from "@/components/shared/CookieBanner";
+import { RouteFocusManager } from "@/components/shared/RouteFocusManager";
+import { VLibrasWidget } from "@/components/ui/VLibrasWidget";
 
 /**
  * V4.0.0 Layout - Protocol Apocalypse Certified
@@ -147,33 +150,25 @@ export default async function RootLayout({
                     color: '#fff',
                     border: '1px solid #334155',
                     borderRadius: '16px',
-                  }
+                  },
+                  ariaProps: {
+                    role: 'status',
+                    'aria-live': 'polite',
+                  },
                 }} />
                 <ClientPwaManager />
                 <ReadingProgressBar />
                 <SkipLink />
                 <TelemetryManager />
-                {/* Microsoft Clarity */}
-                {process.env.NEXT_PUBLIC_CLARITY_ID && (
-                    <Script
-                      id="microsoft-clarity"
-                      strategy="afterInteractive"
-                      dangerouslySetInnerHTML={{
-                        __html: `
-                          (function(c,l,a,r,i,t,y){
-                              c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-                              t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-                              y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-                          })(window, document, "clarity", "script", "${process.env.NEXT_PUBLIC_CLARITY_ID}");
-                        `,
-                      }}
-                    />
-                )}
+                {/* Conditional Telemetry is managed internally by TelemetryManager */}
 
 
                 {impersonatedId && <ImpersonationBanner impersonatedName={impersonatedName} />}
 
                 {children}
+                <CookieBanner />
+                <RouteFocusManager />
+                <VLibrasWidget />
               </SearchProvider>
             </ReadingExperienceProvider>
           </AuthProvider>

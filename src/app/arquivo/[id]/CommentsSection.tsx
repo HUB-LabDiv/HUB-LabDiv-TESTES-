@@ -168,49 +168,55 @@ export function CommentsSection({ submissionId, submissionTitle, initialComments
                             placeholder="Deixe uma reflexão, dúvida ou contribuição sobre esta publicação..."
                         />
                     </div>
-                    <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-                        <button
-                            type="submit"
-                            disabled={isSubmitting}
-                            className="px-6 py-2.5 bg-brand-blue hover:bg-brand-darkBlue text-white font-bold rounded-lg transition-colors flex items-center gap-2 disabled:opacity-50"
-                        >
-                            {isSubmitting ? (
-                                <><span className="material-symbols-outlined animate-spin text-[18px]">progress_activity</span> Publicando...</>
-                            ) : (
-                                <><span className="material-symbols-outlined text-[18px]">send</span> Publicar Comentário</>
-                            )}
-                        </button>
+                    <div className="flex flex-col gap-4">
+                        <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+                            <button
+                                type="submit"
+                                disabled={isSubmitting}
+                                className="px-6 py-2.5 bg-brand-blue hover:bg-brand-darkBlue text-white font-bold rounded-lg transition-colors flex items-center gap-2 disabled:opacity-50"
+                            >
+                                {isSubmitting ? (
+                                    <><span className="material-symbols-outlined animate-spin text-[18px]">progress_activity</span> Publicando...</>
+                                ) : (
+                                    <><span className="material-symbols-outlined text-[18px]">send</span> Publicar Comentário</>
+                                )}
+                            </button>
 
-                        <div className="flex items-center gap-3">
-                            <label htmlFor="comment-file" className="cursor-pointer text-gray-500 hover:text-brand-blue dark:text-gray-400 font-bold text-sm flex items-center gap-1 transition-colors">
-                                <span className="material-symbols-outlined text-[20px]">add_photo_alternate</span>
-                                Anexar Imagem
-                            </label>
-                            <input
-                                id="comment-file"
-                                type="file"
-                                accept="image/*"
-                                className="hidden"
-                                onChange={(e) => {
-                                    if (e.target.files && e.target.files[0]) {
-                                        if (e.target.files[0].size > 5 * 1024 * 1024) {
-                                            setError('A imagem deve ter no máximo 5MB.');
-                                            return;
+                            <div className="flex items-center gap-3">
+                                <label htmlFor="comment-file" className="cursor-pointer text-gray-500 hover:text-brand-blue dark:text-gray-400 font-bold text-sm flex items-center gap-1 transition-colors">
+                                    <span className="material-symbols-outlined text-[20px]">add_photo_alternate</span>
+                                    Anexar Imagem
+                                </label>
+                                <input
+                                    id="comment-file"
+                                    type="file"
+                                    accept="image/*"
+                                    className="hidden"
+                                    onChange={(e) => {
+                                        if (e.target.files && e.target.files[0]) {
+                                            if (e.target.files[0].size > 5 * 1024 * 1024) {
+                                                setError('A imagem deve ter no máximo 5MB.');
+                                                return;
+                                            }
+                                            setSelectedFile(e.target.files[0]);
+                                            setError('');
                                         }
-                                        setSelectedFile(e.target.files[0]);
-                                        setError('');
-                                    }
-                                }}
-                            />
-                            {selectedFile && (
-                                <div className="flex items-center gap-2 bg-gray-100 dark:bg-gray-800 px-3 py-1.5 rounded-md border border-gray-200 dark:border-gray-700">
-                                    <span className="text-xs font-bold text-gray-700 dark:text-gray-300 truncate max-w-[150px]">{selectedFile.name}</span>
-                                    <button type="button" onClick={() => setSelectedFile(null)} className="text-gray-400 hover:text-red-500 flex items-center">
-                                        <span className="material-symbols-outlined text-[14px]">close</span>
-                                    </button>
-                                </div>
-                            )}
+                                    }}
+                                />
+                                {selectedFile && (
+                                    <div className="flex items-center gap-2 bg-gray-100 dark:bg-gray-800 px-3 py-1.5 rounded-md border border-gray-200 dark:border-gray-700">
+                                        <span className="text-xs font-bold text-gray-700 dark:text-gray-300 truncate max-w-[150px]">{selectedFile.name}</span>
+                                        <button type="button" onClick={() => setSelectedFile(null)} className="text-gray-400 hover:text-red-500 flex items-center">
+                                            <span className="material-symbols-outlined text-[14px]">close</span>
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
                         </div>
+                        <p className="text-[10px] text-gray-400 font-medium">
+                            Ao comentar, você concorda em licenciar este conteúdo sob a licença 
+                            <a href="https://creativecommons.org/licenses/by/4.0/deed.pt_BR" target="_blank" rel="noopener noreferrer" className="text-brand-blue hover:underline font-bold ml-1">CC BY 4.0</a>.
+                        </p>
                     </div>
                 </div>
             </form>

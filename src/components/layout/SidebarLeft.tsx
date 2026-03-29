@@ -20,7 +20,8 @@ import {
     LayoutDashboard,
     ChevronLeft,
     ChevronRight,
-    Search
+    Search,
+    Settings
 } from 'lucide-react';
 import { AppRoutes } from '@/types/navigation';
 import { fetchRecentEntanglements } from '@/app/actions/submissions';
@@ -43,6 +44,7 @@ const categoryLinks = [
 ];
 
 const secondaryLinks = [
+    { name: 'Conta & Privacidade', href: '/conta', icon: <Settings className="w-5 h-5" /> },
     { name: 'Painel Admin', href: '/admin', icon: <ShieldAlert className="w-5 h-5" /> },
 ];
 
@@ -55,6 +57,7 @@ export const SidebarLeft = ({ userId }: { userId?: string }) => {
     const [isLoggedIn, setIsLoggedIn] = React.useState(false);
     const { trackEvent } = useTelemetry();
     const [mounted, setMounted] = React.useState(false);
+    const [isAdult, setIsAdult] = React.useState<boolean>(false);
 
     React.useEffect(() => {
         setMounted(true);
@@ -75,12 +78,13 @@ export const SidebarLeft = ({ userId }: { userId?: string }) => {
             if (currentUserId) {
                 setIsLoggedIn(true);
                 const { data: profileData } = await supabase.from('profiles')
-                    .select('user_category, is_usp_member')
+                    .select('user_category, is_usp_member, is_adult')
                     .eq('id', currentUserId)
                     .single();
                 
                 const category = profileData?.user_category;
                 const isUspMember = profileData?.is_usp_member || userEmail?.endsWith('@usp.br') || userEmail?.endsWith('@if.usp.br');
+                setIsAdult(profileData?.is_adult === true);
                 
                 if (['pesquisador', 'docente_pesquisador'].includes(category)) {
                     setUserCategory('pesquisador');
@@ -312,7 +316,7 @@ export const SidebarLeft = ({ userId }: { userId?: string }) => {
                                     </Link>
                                 )}
                             </>
-                        ) : (
+                        ) : isAdult ? (
                             <Link href="/emaranhamento" className={`mx-auto flex flex-col items-center gap-1.5 ${isSidebarCollapsed ? 'w-12 h-12 justify-center border-0 p-0' : 'mx-5 px-4 py-4 border border-dashed border-gray-300 dark:border-white/10 rounded-2xl'} hover:border-brand-blue/40 hover:bg-brand-blue/5 transition-all text-center cursor-pointer group`}>
                                 <MessageSquare className={`w-4 h-4 text-gray-400 group-hover:text-brand-blue transition-colors ${isSidebarCollapsed ? 'w-5 h-5' : ''}`} />
                                 {!isSidebarCollapsed && (
@@ -322,6 +326,13 @@ export const SidebarLeft = ({ userId }: { userId?: string }) => {
                                     </>
                                 )}
                             </Link>
+                        ) : (
+                            <div className={`mx-auto flex flex-col items-center gap-1.5 ${isSidebarCollapsed ? 'w-12 h-12 justify-center border-0 p-0' : 'mx-5 px-4 py-4 border border-dashed border-gray-200 dark:border-white/5 rounded-2xl'} opacity-50`}>
+                                <MessageSquare className={`w-4 h-4 text-gray-400 ${isSidebarCollapsed ? 'w-5 h-5' : ''}`} />
+                                {!isSidebarCollapsed && (
+                                    <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest text-center leading-tight">Conexão Pública Desativada</span>
+                                )}
+                            </div>
                         )}
                     </div>
                 </div>

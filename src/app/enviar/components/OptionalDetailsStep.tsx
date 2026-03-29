@@ -393,36 +393,44 @@ export function OptionalDetailsStep({ onSubmit, isLoading }: { onSubmit: (data: 
                 </div>
             </div>
 
-            <div className="flex justify-between items-center pt-10">
-                <button onClick={() => setStep('basic')} className="text-gray-500 font-black uppercase tracking-widest text-sm flex items-center gap-2">
-                    <span className="material-symbols-outlined">west</span> Voltar
-                </button>
-                <button
-                    type="button"
-                    disabled={isLoading}
-                    onClick={() => {
-                        console.log("Submit button clicked");
-                        handleSubmit((data) => {
-                            const isLabDiv = profile?.role && ['admin', 'labdiv', 'moderator', 'labdiv adm'].includes(profile.role);
-                            
-                            if (category === 'Lab-Div' && isLabDiv) {
-                                setStep('curator');
-                            } else {
-                                onSubmit(data);
-                            }
-                        }, (errors) => {
-                            console.error("VALIDATION ERRORS FOUND");
-                            const errorObj = errors as any;
-                            const firstErrorField = Object.keys(errorObj)[0];
-                            const errorMsg = errorObj[firstErrorField]?.message || "Verifique este campo";
-                            toast.error(`${firstErrorField}: ${errorMsg}`);
-                        })();
-                    }}
-                    className="bg-gradient-to-r from-brand-blue via-brand-yellow to-brand-red px-12 py-5 rounded-2xl font-black text-white uppercase tracking-widest shadow-2xl hover:-translate-y-1 transition-all flex items-center gap-3 disabled:opacity-50"
-                >
-                    {isLoading ? 'Aguarde...' : ((category === 'Lab-Div' && profile?.role && ['admin', 'labdiv', 'moderator', 'labdiv adm'].includes(profile.role)) ? 'Etapa Curadoria' : 'Concluir Envio')}
-                    {!isLoading && <span className="material-symbols-outlined">{(category === 'Lab-Div' && profile?.role && ['admin', 'labdiv', 'moderator', 'labdiv adm'].includes(profile.role)) ? 'admin_panel_settings' : 'rocket_launch'}</span>}
-                </button>
+            <div className="flex flex-col gap-4 pt-10">
+                <div className="flex justify-between items-center">
+                    <button onClick={() => setStep('basic')} className="text-gray-500 font-black uppercase tracking-widest text-sm flex items-center gap-2">
+                        <span className="material-symbols-outlined">west</span> Voltar
+                    </button>
+                    <button
+                        type="button"
+                        disabled={isLoading}
+                        onClick={() => {
+                            console.log("Submit button clicked");
+                            handleSubmit((data) => {
+                                const isLabDiv = profile?.role && ['admin', 'labdiv', 'moderator', 'labdiv adm'].includes(profile.role);
+                                
+                                if (category === 'Lab-Div' && isLabDiv) {
+                                    setStep('curator');
+                                } else {
+                                    onSubmit(data);
+                                }
+                            }, (errors) => {
+                                console.error("VALIDATION ERRORS FOUND");
+                                const errorObj = errors as any;
+                                const firstErrorField = Object.keys(errorObj)[0];
+                                const errorMsg = errorObj[firstErrorField]?.message || "Verifique este campo";
+                                toast.error(`${firstErrorField}: ${errorMsg}`);
+                            })();
+                        }}
+                        className="bg-gradient-to-r from-brand-blue via-brand-yellow to-brand-red px-12 py-5 rounded-2xl font-black text-white uppercase tracking-widest shadow-2xl hover:-translate-y-1 transition-all flex items-center gap-3 disabled:opacity-50"
+                    >
+                        {isLoading ? 'Aguarde...' : ((category === 'Lab-Div' && profile?.role && ['admin', 'labdiv', 'moderator', 'labdiv adm'].includes(profile.role)) ? 'Etapa Curadoria' : 'Concluir Envio')}
+                        {!isLoading && <span className="material-symbols-outlined">{(category === 'Lab-Div' && profile?.role && ['admin', 'labdiv', 'moderator', 'labdiv adm'].includes(profile.role)) ? 'admin_panel_settings' : 'rocket_launch'}</span>}
+                    </button>
+                </div>
+                <div className="text-right">
+                    <p className="text-[10px] text-gray-400 font-medium">
+                        Ao publicar, você concorda em licenciar este conteúdo permanentemente sob a licença 
+                        <a href="https://creativecommons.org/licenses/by/4.0/deed.pt_BR" target="_blank" rel="noopener noreferrer" className="text-brand-blue hover:underline font-bold ml-1">CC BY 4.0</a>.
+                    </p>
+                </div>
             </div>
         </div>
     );

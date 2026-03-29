@@ -54,7 +54,8 @@ export async function fetchSubmissions({ page, limit, query, categories, mediaTy
     let queryBuilder = supabaseServer
         .from('submissions')
         .select('*, profiles(avatar_url, xp, level, is_labdiv), energy_reactions, atomic_excitation', { count: 'exact' })
-        .eq('status', 'aprovado');
+        .eq('status', 'aprovado')
+        .neq('moderation_status', 'suspended');
 
     if (featured) queryBuilder = queryBuilder.eq('is_featured', true);
     if (is_golden_standard !== undefined) queryBuilder = queryBuilder.eq('is_golden_standard', is_golden_standard);
@@ -103,6 +104,7 @@ export const fetchTrendingSubmissions = unstable_cache(
             .from('submissions')
             .select('*, profiles(avatar_url, xp, level, is_labdiv), like_count')
             .eq('status', 'aprovado')
+            .neq('moderation_status', 'suspended')
             .order('views', { ascending: false })
             .limit(6);
 
@@ -122,6 +124,7 @@ export const getFeaturedSubmissions = unstable_cache(
             .from('submissions')
             .select('*, profiles(avatar_url, xp, level, is_labdiv)')
             .eq('status', 'aprovado')
+            .neq('moderation_status', 'suspended')
             .eq('is_featured', true)
             .order('created_at', { ascending: false })
             .limit(limit);

@@ -33,6 +33,7 @@ export default function PerguntasPage() {
                 .from('perguntas')
                 .select('id, nome, pergunta, resposta, respondido_por, created_at')
                 .eq('status', 'respondida')
+                .neq('moderation_status', 'suspended')
                 .order('created_at', { ascending: false });
 
             if (error) {
