@@ -63,6 +63,9 @@ export async function createServerSupabase() {
                         },
                         error: null
                     };
+                } else {
+                    // Safety: Clear cookie if user is not admin
+                    cookieStore.delete('admin_impersonating_id');
                 }
             }
             return { data, error } as any;
@@ -70,4 +73,21 @@ export async function createServerSupabase() {
     }
 
     return client;
+}
+
+/**
+ * Supabase client for **Static/Cached** contexts:
+ * - Functions wrapped with unstable_cache()
+ *
+ * This client is **NOT** cookie-aware. It does not call cookies(),
+ * which allows it to be used inside Next.js data-cache scopes.
+ * Use this only for public data that doesn't require user-specific Auth.
+ */
+export async function createSupabaseStatic() {
+    return createServerClient(supabaseUrl, supabaseAnonKey, {
+        cookies: {
+            getAll() { return []; },
+            setAll() { /* No-op in static context */ },
+        },
+    });
 }

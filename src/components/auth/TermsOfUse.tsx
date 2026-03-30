@@ -7,21 +7,21 @@ interface TermsOfUseProps {
 
 export function TermsOfUse({ onAccept, acceptedVersion }: TermsOfUseProps) {
   return (
-    <div className="flex flex-col h-full max-h-[60vh] overflow-hidden bg-white dark:bg-[#1E1E1E] rounded-lg border border-gray-200 dark:border-gray-800 shadow-sm">
-      <div className="p-4 border-b border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-[#121212]">
-        <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100">
+    <div className="flex flex-col h-full max-h-[60vh] overflow-hidden bg-white dark:bg-[#1E1E1E] rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm font-open-sans">
+      <div className="p-5 border-b border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-[#121212]">
+        <h3 className="text-lg font-bold text-[#0F4780] dark:text-blue-400 uppercase tracking-tight">
           Termos de Uso e LGPD (HUB Lab-Div)
         </h3>
-        <p className="text-sm text-gray-500">Versão: v2.0</p>
+        <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mt-1 italic">Versão: v2.0</p>
       </div>
 
       <div className="flex-1 overflow-y-auto p-6 space-y-6 text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
         <section>
           <h4 className="font-semibold text-gray-900 dark:text-gray-100 text-base mb-2">
-            1. Consentimento e Privacidade (LGPD & ECA)
+            1. Consentimento e Privacidade (LGPD, ECA & Marco Civil)
           </h4>
           <p>
-            O acesso a ferramentas de pesquisa por menores de idade requer, impreterivelmente, a validação de um responsável legal. O processamento de dados do HUB Lab-Div obedece estritamente à Lei Geral de Proteção de Dados (LGPD) e ao Estatuto da Criança e do Adolescente (ECA).
+            O acesso a ferramentas de pesquisa por menores de idade requer, impreterivelmente, a validação de um responsável legal. O processamento de dados do HUB Lab-Div obedece estritamente à <strong>Lei Geral de Proteção de Dados (LGPD)</strong>, ao <strong>Estatuto da Criança e do Adolescente (ECA)</strong> e ao <strong>Marco Civil da Internet</strong>.
             Nenhum dado pessoal de acesso/autenticação, como CPF, é armazenado em texto claro, passando por irreversíveis processos de hashing em memória.
           </p>
         </section>
@@ -48,6 +48,9 @@ export function TermsOfUse({ onAccept, acceptedVersion }: TermsOfUseProps) {
             Caso você solicite a exclusão de sua conta, reservamo-nos o direito de retenção autoral e científica. Seu perfil pessoal, foto, e-mail e dados identificáveis serão definitivamente deletados. 
             Contudo, conteúdos públicos previamente submetidos serão mantidos na plataforma no formato de <strong>Anonimizados ("Usuário Excluído")</strong>, para preservar o histórico colaborativo da rede científica.
           </p>
+          <p className="mt-2 font-medium text-blue-600 dark:text-blue-400">
+            O usuário tem o direito de solicitar a portabilidade de seus dados a qualquer momento através da ferramenta de exportação estruturada disponível nas configurações.
+          </p>
         </section>
 
         <section>
@@ -56,6 +59,15 @@ export function TermsOfUse({ onAccept, acceptedVersion }: TermsOfUseProps) {
           </h4>
           <p>
             Qualquer uso da plataforma para assédio, spam, quebra de propriedade intelectual alheia não regida perante a respectiva licença, ou exploração inadequada acarretará no banimento e encaminhamento de logs criptografados (por retenção semestral do Marco Civil) para medidas cabíveis.
+          </p>
+        </section>
+
+        <section>
+          <h4 className="font-semibold text-gray-900 dark:text-gray-100 text-base mb-2">
+            5. Finalidade Institucional e Comunicação Científica
+          </h4>
+          <p>
+            O HUB Lab-Div atua como um laboratório de comunicação científica interativa, aproximando a sociedade do cotidiano acadêmico do IFUSP. O conteúdo reflete o processo dinâmico de pesquisa e aprendizado de alunos e pesquisadores; portanto, a plataforma não garante a acurácia absoluta ou caráter definitivo das postagens. O valor reside na transparência institucional e no debate acadêmico em tempo real, servindo como uma ferramenta de aproximação entre a Universidade e o público geral, promovendo o entendimento de como a ciência é organizada e produzida.
           </p>
         </section>
       </div>

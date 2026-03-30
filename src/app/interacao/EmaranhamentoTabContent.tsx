@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { getProfileById, fetchRecentEntanglements } from '@/app/actions/submissions';
+import { getProfileById } from '@/app/actions/submissions';
+import { fetchRecentEntanglements } from '@/app/actions/entanglements';
 import { searchUsersByName } from '@/app/actions/profiles';
 import { createEntangledGroup, fetchMyGroups, fetchGroupMessages, sendGroupMessage, fetchRecommendedGroups, joinGroup } from '@/app/actions/groups';
 import { getUserInterest } from '@/app/actions/recommendations';

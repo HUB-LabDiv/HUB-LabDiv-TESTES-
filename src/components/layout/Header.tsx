@@ -243,8 +243,16 @@ export function Header() {
                                                 onClick={() => setProfileMenuOpen(false)}
                                                 className="px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors flex items-center gap-2 font-medium"
                                             >
-                                                <span className="material-symbols-outlined text-[18px]">science</span>
+                                                <span className="material-symbols-outlined text-[18px] text-[#0F4780] dark:text-[#8bb8e8]">science</span>
                                                 Meu Laboratório
+                                            </Link>
+                                            <Link
+                                                href="/conta"
+                                                onClick={() => setProfileMenuOpen(false)}
+                                                className="px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors flex items-center gap-2 font-medium"
+                                            >
+                                                <span className="material-symbols-outlined text-[18px] text-[#0F4780] dark:text-[#8bb8e8]">manage_accounts</span>
+                                                Conta & Privacidade
                                             </Link>
                                             <div className="h-[1px] bg-gray-100 dark:bg-white/10 my-1"></div>
                                             <button

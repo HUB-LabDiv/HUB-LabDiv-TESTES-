@@ -17,39 +17,41 @@ export function DeleteAccountModal({ isOpen, onClose }: DeleteAccountModalProps)
 
   if (!isOpen) return null;
 
-  const handleDelete = async () => {
-    if (confirmText !== 'EXCLUIR') {
-      toast.error('Por favor, digite EXCLUIR para confirmar.');
-      return;
-    }
-
-    setIsLoading(true);
-    try {
-      // 1. Chamar API Route segura (uses service_role via backend)
-      const res = await fetch('/api/account/delete', {
-        method: 'POST',
-      });
-
-      if (!res.ok) {
-        throw new Error('Falha ao processar exclusão no servidor.');
+    const handleDelete = async () => {
+      if (confirmText !== 'EXCLUIR') {
+        toast.error('Por favor, digite EXCLUIR para confirmar.');
+        return;
       }
 
-      // 2. Deep Cleanup (Navegador local) - Lado do Cliente
-      await handleDeepCleanup();
+      setIsLoading(true);
+      try {
+        // 1. Chamar API Route segura (uses service_role via backend)
+        const res = await fetch('/api/account/delete', {
+          method: 'POST',
+        });
 
-      toast.success('Sua conta foi excluída permanentemente. Adeus, pesquisador(a).');
-      
-      // 3. Redirecionar para home e recarregar
-      router.push('/');
-      setTimeout(() => window.location.reload(), 500);
-      
-    } catch (error: any) {
-      console.error(error);
-      toast.error('Um erro crítico ocorreu. Tente novamente mais tarde.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.error || 'Falha ao processar exclusão no servidor.');
+        }
+
+        // 2. Deep Cleanup (Navegador local) - Lado do Cliente
+        await handleDeepCleanup();
+
+        toast.success(data.message || 'Sua conta foi excluída permanentemente. Adeus, pesquisador(a).');
+        
+        // 3. Redirecionar para home e recarregar
+        router.push('/');
+        setTimeout(() => window.location.reload(), 500);
+        
+      } catch (error: any) {
+        console.error('Erro na exclusão de conta:', error);
+        toast.error(error.message || 'Um erro crítico ocorreu. Tente novamente mais tarde.');
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-in fade-in duration-300">

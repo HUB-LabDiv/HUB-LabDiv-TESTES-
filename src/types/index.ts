@@ -75,7 +75,14 @@ export interface Profile {
     areas_of_interest?: string[];
     pending_edits?: any;
     hobbies_gallery?: HobbyCard[];
+    is_adult?: boolean;
+    accepted_terms_version?: string;
+    accepted_at?: string;
+    cpf_hash?: string;
+    birthdate?: string;
+    guardian_email?: string;
     created_at: string;
+
 }
 
 export interface Freshman {

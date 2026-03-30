@@ -10,7 +10,7 @@ import { toast } from 'react-hot-toast';
 import { HelpTooltip } from './HelpTooltip';
 import { SelectedIndicators } from './SelectedIndicators';
 
-export function CuratorStep({ onSubmit, isLoading }: { onSubmit: (data: any) => void, isLoading: boolean }) {
+export function CuratorStep({ onSubmit, isLoading, loadingMessage }: { onSubmit: (data: any) => void, isLoading: boolean, loadingMessage?: string }) {
     const { 
         setStep,
         isHistorical, setIsHistorical,
@@ -248,7 +248,12 @@ export function CuratorStep({ onSubmit, isLoading }: { onSubmit: (data: any) => 
                         }}
                         className="bg-brand-red px-12 py-5 rounded-2xl font-black text-white uppercase tracking-widest shadow-2xl shadow-brand-red/30 hover:-translate-y-1 transition-all flex items-center gap-3 disabled:opacity-50"
                     >
-                        {isLoading ? 'Catalogando Grafo...' : 'Publicar Acervo'}
+                        {isLoading ? (
+                            <div className="flex items-center gap-2">
+                                <span className="material-symbols-outlined animate-spin text-sm">progress_activity</span>
+                                {loadingMessage || 'Catalogando...'}
+                            </div>
+                        ) : 'Publicar Acervo'}
                         {!isLoading && <span className="material-symbols-outlined">save</span>}
                     </button>
                 </div>

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { addComment } from '@/app/actions/comments';
-import { triggerNotification } from '@/lib/notifications';
+import { triggerNotification } from '@/lib/notifications.client';
 import ReactMarkdown from 'react-markdown';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';

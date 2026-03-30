@@ -1,10 +1,13 @@
 import { createAdminSupabase } from '@/lib/supabase/admin';
 import { createServerSupabase } from '@/lib/supabase/server';
 import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 
 export async function POST(req: Request) {
   try {
-    // 1. Verificar Autenticação (Session) - Use lib client
+    const cookieStore = await cookies();
+    
+    // 1. Verificar Autenticação (Session)
     const supabaseSession = await createServerSupabase();
     const { data: { user }, error: authError } = await supabaseSession.auth.getUser();
 
@@ -14,7 +17,7 @@ export async function POST(req: Request) {
 
     const userId = user.id;
 
-    // 2. Cliente com Service Role (Privilégios de Admin) - Use lib client
+    // 2. Cliente com Service Role (Privilégios de Admin)
     const supabaseAdmin = createAdminSupabase();
 
     // 3. Executar o Soft Delete via RPC (Lógica MK5)
@@ -24,13 +27,26 @@ export async function POST(req: Request) {
     });
 
     if (rpcError) {
-      console.error('Erro na RPC de exclusão:', rpcError);
-      return NextResponse.json({ error: 'Falha ao processar exclusão no banco de dados' }, { status: 500 });
+      console.error('ERRO CRÍTICO NA RPC DE EXCLUSÃO (Soft Delete):', {
+        message: rpcError.message,
+        details: rpcError.details,
+        hint: rpcError.hint,
+        code: rpcError.code
+      });
+      return NextResponse.json({ 
+        error: 'Falha ao processar exclusão no banco de dados',
+        details: rpcError.message 
+      }, { status: 500 });
     }
 
-    // 4. Limpar Cookies de Sessão (Logout Forçado no Servidor)
-    // Nota: O client-side ainda deve rodar o deepCleanup em seguida.
-    return NextResponse.json({ success: true, message: 'Conta processada para exclusão e anonimização.' });
+    // 4. Limpar Cookies de Segurança e Sessão
+    cookieStore.delete('admin_impersonating_id');
+    
+    // O client-side deve rodar o deepCleanup no browser.
+    return NextResponse.json({ 
+      success: true, 
+      message: 'Sua conta foi excluída com sucesso. Todos os dados sensíveis foram removidos.' 
+    });
 
   } catch (err: any) {
     console.error('Erro crítico na rota de exclusão:', err);

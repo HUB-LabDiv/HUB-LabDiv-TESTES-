@@ -5,7 +5,7 @@ import { createAdminSupabase } from '@/lib/supabase/admin';
 import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import { Profile, Freshman } from '@/types';
-import { sendAdminNotification } from '@/lib/notifications';
+import { sendAdminNotification } from '@/lib/notifications.server';
 import { sendAutomaticNotification } from './notifications';
 
 async function checkIsAdmin() {

@@ -7,6 +7,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Trophy } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { HubLogo } from '@/components/shared/HubLogo';
 
 
 function LoginContent() {
@@ -85,13 +86,11 @@ function LoginContent() {
                     </Link>
 
                     <div className="flex flex-col items-center text-center space-y-4 mb-10">
-                        <div className="mb-6">
-                            <img src="/labdiv-logo.png" alt="Hub Lab-Div" className="w-16 h-16 object-contain rounded-2xl mx-auto shadow-lg" />
-                        </div>
-                        <h1 className="text-3xl font-display font-bold text-gray-900 dark:text-white tracking-tight">
-                            Bem-vindo à <span className="text-brand-blue">Comunidade</span>
+                        <HubLogo size={72} className="mb-4" />
+                        <h1 className="text-3xl font-bukra font-bold text-gray-900 dark:text-white tracking-tight">
+                            Bem-vindo à <span className="text-[#0F4780] dark:text-[#0F4780]">Comunidade</span>
                         </h1>
-                        <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed max-w-[260px]">
+                        <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed max-w-[280px] font-open-sans">
                             Conecte-se para compartilhar suas descobertas e acessar ferramentas exclusivas.
                         </p>
                     </div>
@@ -106,13 +105,13 @@ function LoginContent() {
                         <button
                             onClick={() => handleLogin('usp', 'aluno_usp')}
                             disabled={isLoading}
-                            className="w-full flex items-center justify-center gap-4 bg-[#3B82F6] hover:bg-blue-600 text-white py-4 px-6 rounded-2xl font-bold transition-all transform hover:-translate-y-1 active:scale-[0.98] shadow-lg shadow-blue-500/20 disabled:opacity-50 disabled:cursor-not-allowed group"
+                            className="w-full flex items-center justify-center gap-4 bg-[#0F4780] hover:bg-[#0c3966] text-white py-4 px-6 rounded-2xl font-bukra font-bold transition-all transform hover:-translate-y-1 active:scale-[0.98] shadow-lg shadow-[#0F4780]/20 disabled:opacity-50 disabled:cursor-not-allowed group uppercase tracking-widest text-sm"
                         >
                             {isLoading ? (
                                 <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                             ) : (
-                                <span className="flex items-center gap-3 text-lg">
-                                    <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                                <span className="flex items-center gap-3">
+                                    <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
                                         <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
                                         <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
                                         <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.25.81-.59z" />
@@ -126,10 +125,10 @@ function LoginContent() {
                         <button
                             onClick={() => handleLogin('usp', 'pesquisador')}
                             disabled={isLoading}
-                            className="w-full flex items-center justify-center gap-4 bg-transparent hover:bg-white/5 text-gray-300 border-2 border-brand-red hover:border-brand-red/70 py-4 px-6 rounded-2xl font-bold transition-all transform hover:-translate-y-1 active:scale-[0.98] disabled:opacity-50"
+                            className="w-full flex items-center justify-center gap-4 bg-transparent hover:bg-[#F14343]/5 text-[#F14343] border-2 border-[#F14343] hover:border-[#F14343]/70 py-4 px-6 rounded-2xl font-bukra font-bold transition-all transform hover:-translate-y-1 active:scale-[0.98] disabled:opacity-50 uppercase tracking-widest text-sm"
                         >
-                            <span className="flex items-center gap-3 text-lg text-brand-red">
-                                <Trophy className="w-6 h-6" />
+                            <span className="flex items-center gap-3">
+                                <Trophy className="w-5 h-5" />
                                 Sou Pesquisador USP
                             </span>
                         </button>

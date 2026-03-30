@@ -1,7 +1,6 @@
 'use server';
 
-import { supabase } from '@/lib/supabase';
-import { createServerSupabase } from '@/lib/supabase/server';
+import { createServerSupabase, createSupabaseStatic } from '@/lib/supabase/server';
 import { PostDTO, mapToPostDTO } from '@/dtos/media';
 import { unstable_cache, revalidatePath } from 'next/cache';
 import { SubmissionSchema } from '@/lib/validations';
@@ -85,7 +84,7 @@ export async function fetchSubmissions({ page, limit, query, categories, mediaTy
 
     const { data: submissions, error, count } = await queryBuilder;
     if (error) {
-        if (process.env.NODE_ENV === 'development') console.error("fetchSubmissions SQL Error:", error);
+        // Quiet in production
         return { items: [], hasMore: false };
     }
     if (!submissions) return { items: [], hasMore: false };
@@ -100,7 +99,8 @@ export async function fetchSubmissions({ page, limit, query, categories, mediaTy
 
 export const fetchTrendingSubmissions = unstable_cache(
     async (): Promise<{ post: PostDTO }[]> => {
-        const { data: submissions, error } = await supabase
+        const supabaseServer = await createSupabaseStatic();
+        const { data: submissions, error } = await supabaseServer
             .from('submissions')
             .select('*, profiles(avatar_url, xp, level, is_labdiv), like_count')
             .eq('status', 'aprovado')
@@ -120,7 +120,8 @@ export const fetchTrendingSubmissions = unstable_cache(
 
 export const getFeaturedSubmissions = unstable_cache(
     async (limit: number = 10): Promise<{ post: PostDTO }[]> => {
-        const { data: submissions, error } = await supabase
+        const supabaseServer = await createSupabaseStatic();
+        const { data: submissions, error } = await supabaseServer
             .from('submissions')
             .select('*, profiles(avatar_url, xp, level, is_labdiv)')
             .eq('status', 'aprovado')
@@ -213,13 +214,11 @@ export async function deleteSubmissionAdmin(id: string) {
                             const resourceType = ['image', 'pdf'].includes(sub.media_type) ? 'image' : 'raw';
 
                             await cloudinary.uploader.destroy(publicId, { invalidate: true, resource_type: resourceType });
-                            if (process.env.NODE_ENV === 'development') console.log(`Cloudinary Delete Log: Deleted ${publicId} (${resourceType})`);
                         }
                     }
                 }
             } catch (mediaErr) {
-                if (process.env.NODE_ENV === 'development') console.warn("Erro ao tentar deletar mídia do Cloudinary:", mediaErr);
-                // Não bloqueia a deleção do banco se falhar a mídia
+                // Ignore media delete errors
             }
         }
 
@@ -235,7 +234,6 @@ export async function deleteSubmissionAdmin(id: string) {
         return { success: true };
 
     } catch (err: any) {
-        if (process.env.NODE_ENV === 'development') console.error("Erro inesperado em deleteSubmissionAdmin:", err);
         return { error: err.message || "Erro interno do servidor." };
     }
 }
@@ -289,7 +287,8 @@ export const getTrendingTags = unstable_cache(
     async () => {
         const oneWeekAgo = new Date();
         oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-        const { data, error } = await supabase
+        const supabaseServer = await createSupabaseStatic();
+        const { data, error } = await supabaseServer
             .from('submissions')
             .select('tags')
             .eq('status', 'aprovado')
@@ -309,7 +308,8 @@ export const getTrendingTags = unstable_cache(
 
 export const getSidebarTags = unstable_cache(
     async () => {
-        const { data } = await supabase.from('submissions').select('tags').eq('status', 'aprovado').limit(100);
+        const supabaseServer = await createSupabaseStatic();
+        const { data } = await supabaseServer.from('submissions').select('tags').eq('status', 'aprovado').limit(100);
         const tagCounts: Record<string, number> = {};
         data?.forEach(sub => sub.tags?.forEach((tag: string) => {
             const t = tag.trim();
@@ -323,7 +323,8 @@ export const getSidebarTags = unstable_cache(
 
 export const getUsersInOrbit = unstable_cache(
     async (limit = 5) => {
-        const { data: profiles } = await supabase
+        const supabaseServer = await createSupabaseStatic();
+        const { data: profiles } = await supabaseServer
             .from('profiles')
             .select('id, full_name, username, use_nickname, email, avatar_url, xp, level, is_labdiv')
             .eq('review_status', 'approved')
@@ -347,7 +348,8 @@ export const getUsersInOrbit = unstable_cache(
 export async function searchProfiles(query: string) {
     if (!query || query.length < 2) return [];
 
-    const { data: profiles, error } = await supabase
+    const supabaseServer = await createServerSupabase();
+    const { data: profiles, error } = await supabaseServer
         .from('profiles')
         .select('id, full_name, username, use_nickname, email, avatar_url, xp, level, is_labdiv')
         .eq('review_status', 'approved')
@@ -355,10 +357,7 @@ export async function searchProfiles(query: string) {
         .or(`full_name.ilike.%${query}%,email.ilike.%${query}%,username.ilike.%${query}%`)
         .limit(10);
 
-    if (error) {
-        if (process.env.NODE_ENV === 'development') console.error("Action searchProfiles error:", error);
-        return [];
-    }
+    if (error) return [];
 
     return profiles?.map(p => ({
         id: p.id,
@@ -466,10 +465,7 @@ export async function sendMessage(recipientId: string, content: string, attachme
             status: 'sent'
         }]);
 
-    if (error) {
-        if (process.env.NODE_ENV === 'development') console.error("Message send error:", error);
-        return { success: false, error: error.message };
-    }
+    if (error) return { success: false, error: error.message };
 
     return { success: true };
 }
@@ -485,20 +481,17 @@ export async function fetchMessages(recipientId: string) {
         .or(`and(sender_id.eq.${user.id},recipient_id.eq.${recipientId}),and(sender_id.eq.${recipientId},recipient_id.eq.${user.id})`)
         .order('created_at', { ascending: true });
 
-    if (error) {
-        console.error("Fetch messages error:", error);
-        return [];
-    }
+    if (error) return [];
 
     return data || [];
 }
 
 export async function createSubmission(formData: z.infer<typeof SubmissionSchema>) {
-    if (process.env.NODE_ENV === 'development') console.log("Server Action: createSubmission received payload:", JSON.stringify(formData, null, 2));
+    // createSubmission logic simplified (removed debug logs)
     const validated = SubmissionSchema.safeParse(formData);
     if (!validated.success) {
         const fieldErrors = validated.error.flatten().fieldErrors;
-        if (process.env.NODE_ENV === 'development') console.error("Server Action: Validation Failed!", fieldErrors);
+        // Validation Failed
         return {
             error: {
                 validation: fieldErrors,
@@ -563,61 +556,72 @@ export async function createSubmission(formData: z.infer<typeof SubmissionSchema
         is_golden_standard
     };
 
-    if (process.env.NODE_ENV === 'development') console.log("Server Action: Attempting Insert with:", JSON.stringify(insertPayload, null, 2));
+    // Attempting Insert
 
     const { data: newSub, error } = await serverSupabase.from('submissions').insert([insertPayload]).select().single();
 
     if (error) {
-        if (process.env.NODE_ENV === 'development') console.error("Server Action: DB Insert Failed!", {
-            message: error.message,
-            code: error.code,
-            details: error.details,
-            hint: error.hint
-        });
+        // DB Insert Failed
         return { error: { database: [`Erro DB (${error.code}): ${error.message}`] } };
     }
 
-    revalidatePath('/');
-    revalidatePath('/admin/pendentes');
+    // Attempting Side Effects in Parallel (Optimizing performance)
+    const sideEffects = [];
 
-    // Notify Admins
-    const { sendAdminNotification } = await import('@/lib/notifications');
-    await sendAdminNotification({
-        type: 'submission',
-        title: newSub.title,
-        authors: newSub.authors,
-        category: newSub.category || 'Geral'
-    });
+    // Revalidations
+    sideEffects.push(Promise.resolve().then(() => revalidatePath('/')));
+    sideEffects.push(Promise.resolve().then(() => revalidatePath('/admin/pendentes')));
 
-    // Notify Author: Conteúdo em Análise
-    if (initialStatus === 'pendente') {
-        await sendAutomaticNotification({
-            userId: user.id,
-            title: 'Conteúdo em Análise ⏳',
-            message: `Seu envio para o [${newSub.category || 'Fluxo/Logs'}] foi recebido pelo Painel Administrativo e aguarda moderação. Avisaremos assim que for aprovado!`,
-            type: 'submission'
-        });
+    // Notifications
+    const notificationPromise = (async () => {
+        try {
+            const { sendAdminNotification } = await import('@/lib/notifications.server');
+            await sendAdminNotification({
+                type: 'submission',
+                title: newSub.title,
+                authors: newSub.authors,
+                category: newSub.category || 'Geral'
+            });
+
+            if (initialStatus === 'pendente') {
+                await sendAutomaticNotification({
+                    userId: user.id,
+                    title: 'Conteúdo em Análise ⏳',
+                    message: `Seu envio para o [${newSub.category || 'Fluxo/Logs'}] foi recebido pelo Painel Administrativo e aguarda moderação. Avisaremos assim que for aprovado!`,
+                    type: 'submission'
+                });
+            }
+        } catch (e) {
+            console.error('Error in side-effect notifications:', e);
+        }
+    })();
+    sideEffects.push(notificationPromise);
+
+    // Knowledge Graph Junctions
+    if (selected_departments?.length > 0) {
+        sideEffects.push(serverSupabase.from('submission_departments').insert(selected_departments.map((id: string) => ({ submission_id: newSub.id, department_id: id }))));
+    }
+    if (selected_laboratories?.length > 0) {
+        sideEffects.push(serverSupabase.from('submission_laboratories').insert(selected_laboratories.map((id: string) => ({ submission_id: newSub.id, laboratory_id: id }))));
+    }
+    if (selected_researchers?.length > 0) {
+        sideEffects.push(serverSupabase.from('submission_researchers').insert(selected_researchers.map((id: string) => ({ submission_id: newSub.id, researcher_id: id }))));
+    }
+    if (selected_research_lines?.length > 0) {
+        sideEffects.push(serverSupabase.from('submission_research_lines').insert(selected_research_lines.map((id: string) => ({ submission_id: newSub.id, research_line_id: id }))));
     }
 
-    // Knowledge Graph: Insert Junction Records
-    if (selected_departments && selected_departments.length > 0) {
-        await serverSupabase.from('submission_departments').insert(selected_departments.map((id: string) => ({ submission_id: newSub.id, department_id: id })));
-    }
-    if (selected_laboratories && selected_laboratories.length > 0) {
-        await serverSupabase.from('submission_laboratories').insert(selected_laboratories.map((id: string) => ({ submission_id: newSub.id, laboratory_id: id })));
-    }
-    if (selected_researchers && selected_researchers.length > 0) {
-        await serverSupabase.from('submission_researchers').insert(selected_researchers.map((id: string) => ({ submission_id: newSub.id, researcher_id: id })));
-    }
-    if (selected_research_lines && selected_research_lines.length > 0) {
-        await serverSupabase.from('submission_research_lines').insert(selected_research_lines.map((id: string) => ({ submission_id: newSub.id, research_line_id: id })));
-    }
+    // Wait for all non-critical work to complete or error out gracefully
+    await Promise.allSettled(sideEffects);
+
+    return { success: true, data: newSub };
 
     return { success: true, data: newSub };
 }
 
 export async function fetchUserSubmissions(userId: string): Promise<{ post: PostDTO }[]> {
-    const { data: submissions, error } = await supabase
+    const supabaseServer = await createServerSupabase();
+    const { data: submissions, error } = await supabaseServer
         .from('submissions')
         .select('*, profiles(avatar_url, xp, level, is_labdiv), energy_reactions, atomic_excitation')
         .eq('user_id', userId)
@@ -639,7 +643,7 @@ export async function updateSubmissionAdmin(id: string, updates: AdminUpdate) {
     const { data: profile } = await serverSupabase.from('profiles').select('role').eq('id', user.id).single();
     if (profile?.role !== 'admin') return { error: { message: 'Forbidden' } };
 
-    const { data, error } = await supabase
+    const { data, error } = await serverSupabase
         .from('submissions')
         .update(updates)
         .eq('id', id)
@@ -678,7 +682,8 @@ export async function updateSubmissionAdmin(id: string, updates: AdminUpdate) {
 }
 
 export async function fetchAdminSubmissions(status: string) {
-    const { data: submissions, error } = await supabase
+    const supabaseServer = await createServerSupabase();
+    const { data: submissions, error } = await supabaseServer
         .from('submissions')
         .select('*')
         .eq('status', status)
@@ -689,7 +694,8 @@ export async function fetchAdminSubmissions(status: string) {
 }
 
 export async function fetchParticlePreview(id: string) {
-    const { data, error } = await supabase
+    const supabaseServer = await createServerSupabase();
+    const { data, error } = await supabaseServer
         .from('submissions')
         .select('title, authors, atomic_excitation')
         .eq('id', id)
@@ -709,109 +715,4 @@ export async function getCurrentUserId() {
     const { data: { user } } = await supabaseServer.auth.getUser();
     return user?.id || null;
 }
-
-import { appendFileSync } from 'fs';
-import { join } from 'path';
-
-export async function fetchRecentEntanglements() {
-    const logFile = join(process.cwd(), 'entanglements_debug.log');
-    const log = (msg: string) => {
-        if (process.env.NODE_ENV === 'development') {
-            const timestamp = new Date().toISOString();
-            try {
-                appendFileSync(logFile, `[${timestamp}] ${msg}\n`);
-            } catch (e) { }
-            console.log(`DEBUG: ${msg}`);
-        }
-    };
-
-    log("Starting fetchRecentEntanglements (HARDCODED USER MODE)");
-    const supabaseServer = await createServerSupabase();
-
-    const { data: { user } } = await supabaseServer.auth.getUser();
-    if (!user) {
-        log("No authenticated user found in fetchRecentEntanglements");
-        return [];
-    }
-    log(`Fetching for User ID: ${user.id}`);
-
-    // 1. Busca mensagens para identificar conversas ativas
-    const { data: messages, error: mError } = await supabaseServer
-        .from('messages')
-        .select('sender_id, recipient_id, content, created_at')
-        .or(`sender_id.eq.${user.id},recipient_id.eq.${user.id}`)
-        .order('created_at', { ascending: false });
-
-    if (mError) {
-        console.error("Fetch messages error:", mError);
-    }
-
-    // 2. Busca usuários que o usuário atual segue
-    const { data: follows, error: fError } = await supabaseServer
-        .from('follows')
-        .select('following_id')
-        .eq('follower_id', user.id);
-
-    if (fError) {
-        console.error("Fetch follows error:", fError);
-    }
-
-    // Agrupa por usuário para pegar a ÚLTIMA mensagem de cada conversa
-    const conversationMap = new Map();
-    messages?.forEach(m => {
-        const peerId = m.sender_id === user.id ? m.recipient_id : m.sender_id;
-        if (!conversationMap.has(peerId)) {
-            conversationMap.set(peerId, {
-                lastMessage: m.content,
-                lastAt: m.created_at
-            });
-        }
-    });
-
-    // Pega IDs de seguidos que ainda não estão no mapa de conversas
-    const followedIds = follows?.map(f => f.following_id) || [];
-
-    // Lista final de IDs únicos (conversas + seguidos)
-    const allPeerIds = Array.from(new Set([
-        ...Array.from(conversationMap.keys()),
-        ...followedIds
-    ]));
-
-    if (allPeerIds.length === 0) return [];
-
-    // 3. Busca perfis para todos esses IDs
-    const { data: profiles, error: pError } = await supabaseServer
-        .from('profiles')
-        .select('id, full_name, username, use_nickname, email, avatar_url, xp, level, is_labdiv')
-        .in('id', allPeerIds);
-
-    if (pError || !profiles) {
-        console.error("Fetch profiles error:", pError);
-        return [];
-    }
-
-    // 4. Mapeia para o formato esperado pela UI
-    return profiles.map(p => {
-        const conv = conversationMap.get(p.id);
-        const isFollowed = followedIds.includes(p.id);
-
-        return {
-            id: p.id,
-            name: (p.use_nickname && p.username) ? p.username : (p.full_name || 'Usuário'),
-            handle: p.email ? `@${p.email.split('@')[0]}` : '@usuario',
-            avatar: p.avatar_url,
-            xp: p.xp,
-            level: p.level,
-            is_labdiv: p.is_labdiv,
-            lastMessage: conv?.lastMessage,
-            lastAt: conv?.lastAt,
-            isFollowed
-        };
-    }).sort((a, b) => {
-        // Ordena por data da última mensagem, ou coloca seguidos sem conversa no final
-        if (a.lastAt && b.lastAt) return new Date(b.lastAt).getTime() - new Date(a.lastAt).getTime();
-        if (a.lastAt) return -1;
-        if (b.lastAt) return 1;
-        return 0;
-    });
-}
+// deprecated_fetchRecentEntanglements REMOVED

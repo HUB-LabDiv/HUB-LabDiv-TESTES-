@@ -22,6 +22,7 @@ import { ReadingHistoryTracker } from '@/components/history/ReadingHistoryTracke
 import { FollowTagButton } from '@/components/engagement/FollowTagButton';
 import { PostQuiz } from '@/components/media/PostQuiz';
 import { ContentRating } from '@/components/feedback/ContentRating';
+import { ReportButton } from './ReportButton';
 
 interface PageProps {
     params: Promise<{ id: string }>;
@@ -308,6 +309,7 @@ export default async function ArquivoItemPage({ params }: PageProps) {
                                             </div>
                                         </div>
                                         <div className="flex items-center gap-2">
+                                            <ReportButton submissionId={submission.id} />
                                             <ExportPDFButton />
                                             <ShareButtons title={submission.title} id={submission.id} />
                                         </div>

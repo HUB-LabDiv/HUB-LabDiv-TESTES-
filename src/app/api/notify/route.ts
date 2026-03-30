@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { sendAdminNotification } from '@/lib/notifications';
+import { sendAdminNotification } from '@/lib/notifications.server';
 
 export async function POST(request: Request) {
   try {

@@ -24,7 +24,7 @@ import {
     Settings
 } from 'lucide-react';
 import { AppRoutes } from '@/types/navigation';
-import { fetchRecentEntanglements } from '@/app/actions/submissions';
+import { fetchRecentEntanglements } from '@/app/actions/entanglements';
 import { Avatar } from '../ui/Avatar';
 import { supabase } from '@/lib/supabase';
 import { useTelemetry } from '@/hooks/useTelemetry';
@@ -135,14 +135,16 @@ export const SidebarLeft = ({ userId }: { userId?: string }) => {
 
     return (
         <div className={`w-full h-full flex flex-col gap-2 py-6 ${isSidebarCollapsed ? 'px-2' : 'px-4'} overflow-x-hidden relative transition-all duration-300`}>
-            {/* Collapse Toggle Button */}
-            <button
-                onClick={() => setSidebarCollapsed(!isSidebarCollapsed)}
-                className={`absolute top-4 ${isSidebarCollapsed ? 'left-1/2 -translate-x-1/2' : 'right-4'} z-50 p-1.5 bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg text-gray-400 hover:text-brand-blue transition-all shadow-sm`}
-                title={isSidebarCollapsed ? "Expandir menu" : "Recolher menu"}
-            >
-                {isSidebarCollapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
-            </button>
+            {/* Collapse Toggle Button - Repositioned to Top (between Header/Logo and Nav) */}
+            <div className={`flex items-center ${isSidebarCollapsed ? 'justify-center' : 'justify-end'} mb-4 px-2`}>
+                <button
+                    onClick={() => setSidebarCollapsed(!isSidebarCollapsed)}
+                    className="p-1.5 bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg text-gray-400 hover:text-brand-blue transition-all shadow-sm group"
+                    title={isSidebarCollapsed ? "Expandir menu" : "Recolher menu"}
+                >
+                    {isSidebarCollapsed ? <ChevronRight size={16} className="group-hover:scale-110 transition-transform" /> : <ChevronLeft size={16} className="group-hover:scale-110 transition-transform" />}
+                </button>
+            </div>
 
             {/* Primary Navigation */}
             <nav className={`flex flex-col gap-1 ${isSidebarCollapsed ? 'items-center' : ''}`}>

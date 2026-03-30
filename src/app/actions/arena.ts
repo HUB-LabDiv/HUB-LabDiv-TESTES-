@@ -80,7 +80,7 @@ export async function proposeChallenge(title: string, description: string) {
     revalidatePath('/arena');
 
     // Notify Admins
-    const { sendAdminNotification } = await import('@/lib/notifications');
+    const { sendAdminNotification } = await import('@/lib/notifications.server');
     const { data: profile } = await supabase.from('profiles').select('full_name, username').eq('id', user.id).single();
     
     await sendAdminNotification({

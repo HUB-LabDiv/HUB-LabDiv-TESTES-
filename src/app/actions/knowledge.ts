@@ -33,7 +33,7 @@ export async function submitKnowledgeSuggestion(payload: {
     }
 
     // Opcional: Notificar admins
-    const { sendAdminNotification } = await import('@/lib/notifications');
+    const { sendAdminNotification } = await import('@/lib/notifications.server');
     await sendAdminNotification({
         type: 'question',
         title: `Nova Sugestão: ${payload.tipo.replace('_', ' ')}`,

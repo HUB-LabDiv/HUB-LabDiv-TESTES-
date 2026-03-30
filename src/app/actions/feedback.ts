@@ -60,7 +60,7 @@ export async function submitFeedback(formData: FormData) {
     revalidatePath('/admin/reports');
 
     // Notify Admins
-    const { sendAdminNotification } = await import('@/lib/notifications');
+    const { sendAdminNotification } = await import('@/lib/notifications.server');
     await sendAdminNotification({
         type: 'bug_report',
         userName: userEmail || 'Anônimo',
@@ -97,7 +97,7 @@ export async function submitHubSuggestion(description: string) {
     revalidatePath('/admin/reports');
 
     // Notify Admins
-    const { sendAdminNotification } = await import('@/lib/notifications');
+    const { sendAdminNotification } = await import('@/lib/notifications.server');
     const { data: profile } = await supabase.from('profiles').select('full_name, username').eq('id', user?.id).single();
 
     await sendAdminNotification({

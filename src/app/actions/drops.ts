@@ -2,7 +2,7 @@
 
 import { createServerSupabase } from '@/lib/supabase/server';
 import { revalidatePath } from 'next/cache';
-import { triggerNotification } from '@/lib/notifications';
+
 
 export async function createDrop(content: string, parentId?: string) {
     const supabase = await createServerSupabase();
@@ -37,7 +37,7 @@ export async function createDrop(content: string, parentId?: string) {
     try {
         const username = (drop.profiles as any)?.username || user.email?.split('@')[0] || 'membro';
         
-        const { sendAdminNotification } = await import('@/lib/notifications');
+        const { sendAdminNotification } = await import('@/lib/notifications.server');
         await sendAdminNotification({
             type: parentId ? 'thread_reply' : 'drop_submission',
             content: content.trim(),

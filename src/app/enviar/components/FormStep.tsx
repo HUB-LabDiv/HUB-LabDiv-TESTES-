@@ -20,6 +20,7 @@ export function FormStep() {
     const router = useRouter();
     const { currentStep, category, mediaType, reset: resetStore, selectedFiles } = useSubmissionStore();
     const [isLoading, setIsLoading] = useState(false);
+    const [loadingMessage, setLoadingMessage] = useState('Aguarde...');
     const [isSubmitted, setIsSubmitted] = useState(false);
 
     const methods = useForm<SubmissionFormData>({
@@ -85,6 +86,7 @@ export function FormStep() {
 
     const onFormSubmit = async (data: SubmissionFormData) => {
         setIsLoading(true);
+        setLoadingMessage('Iniciando...');
         try {
             const { data: { session } } = await supabase.auth.getSession();
             if (!session?.user) throw new Error("Você precisa estar logado.");
@@ -95,6 +97,7 @@ export function FormStep() {
 
             if (showFileUpload) {
                 if (selectedFiles.length === 0) throw new Error("Selecione os arquivos.");
+                setLoadingMessage(`Enviando ${selectedFiles.length} arquivo(s)...`);
                 finalMediaUrl = await Promise.all(selectedFiles.map(f => uploadToCloudinary(f)));
             } else if (showVideoUrl) {
                 const vidId = parseYoutubeUrl(data.video_url || '');
@@ -132,6 +135,7 @@ export function FormStep() {
                 media_url: mediaType === 'video' ? payloadFields.media_url : 'FILE_DATA_JSON',
             }, null, 2));
 
+            setLoadingMessage('Salvando informações...');
             const result = await createSubmission(payloadFields as any);
 
             if (process.env.NODE_ENV === 'development') console.log("createSubmission server response:", JSON.stringify(result, null, 2));
@@ -189,8 +193,8 @@ export function FormStep() {
     return (
         <FormProvider {...methods}>
             {currentStep === 'basic' && <BasicDetailsStep />}
-            {currentStep === 'optional' && <OptionalDetailsStep onSubmit={onFormSubmit} isLoading={isLoading} />}
-            {currentStep === 'curator' && <CuratorStep onSubmit={onFormSubmit} isLoading={isLoading} />}
+            {currentStep === 'optional' && <OptionalDetailsStep onSubmit={onFormSubmit} isLoading={isLoading} loadingMessage={loadingMessage} />}
+            {currentStep === 'curator' && <CuratorStep onSubmit={onFormSubmit} isLoading={isLoading} loadingMessage={loadingMessage} />}
         </FormProvider>
     );
 }

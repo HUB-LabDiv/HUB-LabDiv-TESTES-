@@ -18,6 +18,7 @@ import {
     Clock,
     ImageOff,
     Atom,
+    Flag,
 } from 'lucide-react';
 import dynamic from 'next/dynamic';
 
@@ -34,6 +35,7 @@ import { stripMarkdownAndLatex, highlightMatch } from '@/lib/utils';
 import { useInView } from 'react-intersection-observer';
 import { CardPresenceBadge } from './CardPresenceBadge';
 import { supabase } from '@/lib/supabase';
+import { useNavigationStore } from '@/store/useNavigationStore';
 const CollectionManager = dynamic(() => import('./engagement/CollectionManager').then(mod => mod.CollectionManager));
 const DownloadModal = dynamic(() => import('./DownloadModal').then(mod => mod.DownloadModal));
 import { MediaReaction } from './engagement/MediaReaction';
@@ -59,6 +61,7 @@ import { CATEGORY_STYLES, DEFAULT_STYLE } from '@/lib/constants';
  */
 export const MediaCard = React.memo(({ post, priority = false, isLikedByUser = false, isSavedByUser = false, highlightQuery = '', setIsSyncing }: MediaCardProps) => {
     const { user } = useAuth();
+    const { openContentReport } = useNavigationStore();
     const userId = user?.id;
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [isHovered, setIsHovered] = useState(false);
@@ -349,10 +352,23 @@ export const MediaCard = React.memo(({ post, priority = false, isLikedByUser = f
     
                         {displayUrl && <button onClick={(e) => { e.stopPropagation(); setShowDownloadModal(true); }} aria-label="Baixar Arquivo" className="text-gray-700 dark:text-gray-200 hover:text-brand-yellow cursor-pointer"><Download className="w-6 h-6" /></button>}
                     </div>
-                    <button onClick={(e) => { e.stopPropagation(); handleSave(); }} aria-label={saved ? "Remover Favorito" : "Adicionar aos Favoritos"} className="flex items-center gap-1 text-gray-700 dark:text-gray-200 hover:text-brand-yellow cursor-pointer">
-                        <Star className={`w-6 h-6 ${saved ? 'fill-current text-brand-yellow' : ''}`} />
-                        <span className="text-xs font-bold tabular-nums">{saves}</span>
-                    </button>
+                    <div className="flex items-center gap-4">
+                        <button
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                openContentReport(post.id);
+                            }}
+                            className="text-gray-400 hover:text-brand-red transition-colors flex items-center gap-1 group"
+                            title="Reportar Problema"
+                        >
+                            <Flag className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                        </button>
+
+                        <button onClick={(e) => { e.stopPropagation(); handleSave(); }} aria-label={saved ? "Remover Favorito" : "Adicionar aos Favoritos"} className="flex items-center gap-1 text-gray-700 dark:text-gray-200 hover:text-brand-yellow cursor-pointer">
+                            <Star className={`w-6 h-6 ${saved ? 'fill-current text-brand-yellow' : ''}`} />
+                            <span className="text-xs font-bold tabular-nums">{saves}</span>
+                        </button>
+                    </div>
                 </div>
 
                 <div className="space-y-1 cursor-pointer">

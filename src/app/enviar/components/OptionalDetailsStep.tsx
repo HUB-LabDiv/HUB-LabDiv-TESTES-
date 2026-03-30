@@ -11,7 +11,7 @@ import { HelpTooltip } from './HelpTooltip';
 import { SelectedIndicators } from './SelectedIndicators';
 import { useAuth } from '@/providers/AuthProvider';
 
-export function OptionalDetailsStep({ onSubmit, isLoading }: { onSubmit: (data: any) => void, isLoading: boolean }) {
+export function OptionalDetailsStep({ onSubmit, isLoading, loadingMessage }: { onSubmit: (data: any) => void, isLoading: boolean, loadingMessage?: string }) {
     const { profile } = useAuth();
     const { setStep, category } = useSubmissionStore();
     const {
@@ -421,15 +421,47 @@ export function OptionalDetailsStep({ onSubmit, isLoading }: { onSubmit: (data: 
                         }}
                         className="bg-gradient-to-r from-brand-blue via-brand-yellow to-brand-red px-12 py-5 rounded-2xl font-black text-white uppercase tracking-widest shadow-2xl hover:-translate-y-1 transition-all flex items-center gap-3 disabled:opacity-50"
                     >
-                        {isLoading ? 'Aguarde...' : ((category === 'Lab-Div' && profile?.role && ['admin', 'labdiv', 'moderator', 'labdiv adm'].includes(profile.role)) ? 'Etapa Curadoria' : 'Concluir Envio')}
-                        {!isLoading && <span className="material-symbols-outlined">{(category === 'Lab-Div' && profile?.role && ['admin', 'labdiv', 'moderator', 'labdiv adm'].includes(profile.role)) ? 'admin_panel_settings' : 'rocket_launch'}</span>}
+                        {isLoading ? (
+                            <div className="flex items-center gap-2">
+                                <span className="material-symbols-outlined animate-spin text-sm">progress_activity</span>
+                                {loadingMessage || 'Aguarde...'}
+                            </div>
+                        ) : ((category === 'Lab-Div' && profile?.role && ['admin', 'labdiv', 'moderator', 'labdiv adm'].includes(profile.role)) ? 'Etapa Curadoria' : 'Concluir Envio')}
+                         {!isLoading && <span className="material-symbols-outlined">{(category === 'Lab-Div' && profile?.role && ['admin', 'labdiv', 'moderator', 'labdiv adm'].includes(profile.role)) ? 'admin_panel_settings' : 'rocket_launch'}</span>}
                     </button>
                 </div>
-                <div className="text-right">
-                    <p className="text-[10px] text-gray-400 font-medium">
-                        Ao publicar, você concorda em licenciar este conteúdo permanentemente sob a licença 
-                        <a href="https://creativecommons.org/licenses/by/4.0/deed.pt_BR" target="_blank" rel="noopener noreferrer" className="text-brand-blue hover:underline font-bold ml-1">CC BY 4.0</a>.
-                    </p>
+                <div className="flex flex-col items-end gap-3 mt-4">
+                    <div className="max-w-lg bg-brand-blue/5 dark:bg-brand-blue/10 border border-brand-blue/20 dark:border-brand-blue/30 rounded-[24px] p-5 flex items-start gap-4 transition-all hover:bg-brand-blue/[0.08] group relative overflow-hidden">
+                        {/* Decorative Background Icon */}
+                        <span className="material-symbols-outlined absolute -right-2 -bottom-2 text-brand-blue/5 text-6xl rotate-12 select-none pointer-events-none">gavel</span>
+                        
+                        <div className="bg-brand-blue/10 p-2.5 rounded-xl flex items-center justify-center shrink-0">
+                            <span className="material-symbols-outlined text-brand-blue text-xl leading-none">balance</span>
+                        </div>
+                        
+                        <div className="space-y-1.5 flex-1 relative z-10">
+                            <p className="text-[12px] text-gray-700 dark:text-gray-200 font-semibold leading-relaxed uppercase tracking-wider">
+                                Licença de Conteúdo Científico Aberto
+                            </p>
+                            <p className="text-[11px] text-gray-500 dark:text-gray-400 leading-relaxed font-medium">
+                                Ao publicar no HUB, você concorda em licenciar seu trabalho permanentemente sob a licença 
+                                <a 
+                                    href="https://creativecommons.org/licenses/by/4.0/deed.pt_BR" 
+                                    target="_blank" 
+                                    rel="noopener noreferrer" 
+                                    className="text-brand-blue hover:text-brand-blue-dark underline decoration-brand-blue/40 underline-offset-4 font-bold mx-1 transition-colors"
+                                >
+                                    Creative Commons BY 4.0
+                                </a>.
+                            </p>
+                            <div className="flex items-center gap-1.5 pt-1 border-t border-brand-blue/10">
+                                <span className="w-1.5 h-1.5 rounded-full bg-brand-blue/40"></span>
+                                <p className="text-[10px] text-gray-400 dark:text-gray-500 italic">
+                                    Isso permite que sua pesquisa seja citada e compartilhada, garantindo sempre a sua autoria.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

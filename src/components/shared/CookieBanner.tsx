@@ -14,10 +14,18 @@ export const CookieBanner = () => {
         if (consent === null) { 
             setIsVisible(true);
         }
+
+        const handleManualShow = () => {
+            setIsVisible(true);
+        };
+
+        window.addEventListener('show_cookie_banner', handleManualShow);
+        return () => window.removeEventListener('show_cookie_banner', handleManualShow);
     }, []);
 
     const handleAcceptAll = () => {
-        localStorage.setItem('cookie_consent', 'true');
+        // Agora o banner principal só lida com cookies ESSENCIAIS por padrão (Opt-in reestrito)
+        localStorage.setItem('cookie_consent', 'false'); // 'false' no sentido de 'telemetria desativada'
         window.dispatchEvent(new Event('cookie_consent_changed'));
         setIsVisible(false);
     };
@@ -39,29 +47,21 @@ export const CookieBanner = () => {
                         Sua Privacidade, Nossas Regras.
                     </h3>
                     <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed font-medium">
-                        Utilizamos cookies e telemetria anônima estritamente para corrigir bugs e melhorar a sua experiência educacional no Instituto. Respeitamos de ponta a ponta a <strong>LGPD</strong> e o <strong>ECA</strong>. Não vendemos dados. Leia a nossa{' '}
-                        <Link href="/privacy-policy" onClick={() => setIsVisible(false)} className="text-brand-blue hover:text-brand-yellow font-bold underline transition-colors">
+                        Respeitamos de ponta a ponta a <strong>LGPD</strong>, o <strong>ECA</strong> e o <strong>Marco Civil da Internet</strong>. Utilizamos cookies essenciais para navegação. A telemetria anônima para melhoria de bugs é ativada <strong>exclusivamente após a criação do perfil</strong> e apenas para usuários <strong>maiores de 18 anos</strong> que optarem pelo aceite em nossa{' '}
+                        <Link href="/re-accept-terms" onClick={() => setIsVisible(false)} className="text-brand-blue hover:text-brand-yellow font-bold underline transition-colors">
                             Política de Privacidade
-                        </Link>{' '}
-                        simplificada para entender mais.
+                        </Link>.
                     </p>
                 </div>
                 
                 {/* Zero Dark Patterns: Mesma proporção e legibilidade para Aceitar e Recusar */}
                 <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
                     <button
-                        onClick={handleRejectAll}
-                        className="w-full sm:w-auto px-6 py-3 rounded-xl border-2 border-gray-300 dark:border-white/20 text-gray-700 dark:text-gray-300 font-bold hover:bg-gray-100 dark:hover:bg-white/5 hover:border-gray-500 transition-all flex items-center justify-center gap-2 active:scale-95"
-                    >
-                        <span className="material-symbols-outlined text-[18px]">gpp_maybe</span>
-                        Apenas Essenciais
-                    </button>
-                    <button
                         onClick={handleAcceptAll}
-                        className="w-full sm:w-auto px-6 py-3 rounded-xl border-2 border-brand-blue bg-brand-blue text-white font-bold hover:bg-brand-blue/90 hover:border-brand-blue/90 shadow-lg shadow-brand-blue/30 transition-all flex items-center justify-center gap-2 active:scale-95"
+                        className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-[#0F4780] text-white font-bukra font-bold hover:bg-[#0c3966] transition-all flex items-center justify-center gap-3 active:scale-95 shadow-lg shadow-[#0F4780]/20 uppercase tracking-widest text-xs"
                     >
-                        <span className="material-symbols-outlined text-[18px]">verified_user</span>
-                        Aceito (Telemetria)
+                        <span className="material-symbols-outlined text-[18px]">gpp_good</span>
+                        Aceitar Cookies Essenciais (Navegação)
                     </button>
                 </div>
             </div>

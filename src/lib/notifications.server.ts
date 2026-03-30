@@ -1,3 +1,4 @@
+import 'server-only';
 import nodemailer from 'nodemailer';
 
 const GMAIL_USER = process.env.GMAIL_USER;
@@ -16,7 +17,7 @@ const adminEmails = ['hublabdiv@gmail.com'];
 
 export type NotificationType = 'submission' | 'question' | 'comment' | 'profile_update' | 'profile_creation' | 'bug_report' | 'arena_suggestion' | 'hub_improvement' | 'drop_submission' | 'thread_reply';
 
-interface NotificationData {
+export interface NotificationData {
     type: NotificationType;
     authors?: string;
     title?: string;
@@ -39,8 +40,6 @@ export async function sendAdminNotification(data: NotificationData) {
     let emailTemplate = '';
     let dashboardLink = 'https://hub-lab-div.vercel.app/admin';
 
-    // Os cases permanecem iguais para manter a estrutura dos templates, 
-    // mas vamos garantir que o link do dashboard aponte para a produção/correta se possível.
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://hub-lab-div.vercel.app';
 
     switch (data.type) {
@@ -197,23 +196,5 @@ export async function sendAdminNotification(data: NotificationData) {
     } catch (error: any) {
         console.error("Gmail/Nodemailer error:", error);
         return { success: false, error: error.message };
-    }
-}
-
-/**
- * Helper to trigger a notification from the client side.
- * This should be used instead of raw fetch calls to /api/notify.
- */
-export async function triggerNotification(data: NotificationData) {
-    try {
-        const response = await fetch('/api/notify', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        });
-        return await response.json();
-    } catch (error) {
-        console.error("Client-side notification error:", error);
-        return { success: false, error: 'Failed to reach notification API' };
     }
 }

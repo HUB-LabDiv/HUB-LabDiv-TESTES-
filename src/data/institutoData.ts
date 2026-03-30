@@ -68,7 +68,7 @@ export const institutoData: Record<string, Department> = {
                 id: "win-1", 
                 postId: "post-1", 
                 title: "Simulação de Difração em Cristais de Proteínas", 
-                mediaUrl: "https://images.unsplash.com/photo-1532187863486-abf9d39d99c3?auto=format&fit=crop&q=80&w=800",
+                mediaUrl: "https://images.unsplash.com/photo-1581093458791-9f3c3250bb8b?auto=format&fit=crop&q=80&w=800",
                 autor: "Sergio Luiz Morelhão", 
                 categoria: "Melhor Visualização Científica", 
                 ano: "2024.2", 
