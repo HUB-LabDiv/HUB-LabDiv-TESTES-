@@ -278,12 +278,12 @@ function buildPosterHtml({ qrWebSvg, qrPlaySvg }) {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 16px;
-      margin-top: 12px;
+      margin-top: 14px;
     }
     .axis-card {
       background: rgba(16, 20, 30, 0.85);
       border-radius: 26px;
-      padding: 20px 18px;
+      padding: 22px 20px;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
@@ -374,19 +374,8 @@ function buildPosterHtml({ qrWebSvg, qrPlaySvg }) {
       font-size: 38px;
       font-weight: 900;
       color: #FFFFFF;
-      margin-bottom: 3px;
+      margin-bottom: 14px;
       letter-spacing: -0.5px;
-    }
-    .axis-tagline, .axis-desc {
-      font-size: 16.5px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.7px;
-      line-height: 1.35;
-      min-height: 38px;
-      display: flex;
-      align-items: center;
-      margin-bottom: 12px;
     }
     .axis-social .axis-tagline, .axis-social .axis-desc, .axis-comunidade .axis-tagline, .axis-comunidade .axis-desc { color: #7DD3FC; }
     .axis-informativo .axis-tagline, .axis-informativo .axis-desc, .axis-cgif .axis-tagline, .axis-cgif .axis-desc { color: #FCA5A5; }
@@ -396,7 +385,7 @@ function buildPosterHtml({ qrWebSvg, qrPlaySvg }) {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 13px;
     }
     .axis-feature-item {
       display: flex;
@@ -660,17 +649,6 @@ function buildPosterHtml({ qrWebSvg, qrPlaySvg }) {
         <p class="hero-subtext">
           Uma plataforma digital que reune diversas funções para facilitar a vida do universitário (discente ou docente) ajudando-os a se informar, planejar, acompanhar o curso e se conectar com outros do instituto e de fora dele, se tratando não de uma mera extensão da &ldquo;ciência&rdquo; feita na academia e sim um processo comunicativo.
         </p>
-        <div class="hero-pills font-bukra">
-          <div class="hero-pill pill-blue">
-            <span>●</span> Eixo 1: Social
-          </div>
-          <div class="hero-pill pill-red">
-            <span>●</span> Eixo 2: Informativo (Wiki & Dados)
-          </div>
-          <div class="hero-pill pill-yellow">
-            <span>●</span> Eixo 3: Ferramentas de Estudo
-          </div>
-        </div>
       </div>
 
       <!-- Os 3 Eixos -->
@@ -682,7 +660,6 @@ function buildPosterHtml({ qrWebSvg, qrPlaySvg }) {
             <div class="axis-icon-badge">${iconComunidadeSvg}</div>
           </div>
           <h3 class="axis-title font-bukra">Social</h3>
-          <div class="axis-desc">REDE SOCIAL COMUNICATIVA &amp; INTERAÇÕES</div>
           <ul class="axis-features">
             <li class="axis-feature-item">
               <span class="axis-feature-dot"></span>
@@ -710,7 +687,6 @@ function buildPosterHtml({ qrWebSvg, qrPlaySvg }) {
             <div class="axis-icon-badge">${iconCgifSvg}</div>
           </div>
           <h3 class="axis-title font-bukra">Informativo</h3>
-          <div class="axis-desc">CENTRAL DE GESTÃO E INFORMAÇÃO DA FÍSICA (CGIF)</div>
           <ul class="axis-features">
             <li class="axis-feature-item">
               <span class="axis-feature-dot"></span>
@@ -746,7 +722,6 @@ function buildPosterHtml({ qrWebSvg, qrPlaySvg }) {
             <div class="axis-icon-badge">${iconFerramentasSvg}</div>
           </div>
           <h3 class="axis-title font-bukra">Ferramentas</h3>
-          <div class="axis-desc">ACOMPANHAMENTO E PLANEJAMENTO DO CURSO</div>
           <ul class="axis-features">
             <li class="axis-feature-item">
               <span class="axis-feature-dot"></span>
