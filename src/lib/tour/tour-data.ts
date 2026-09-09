@@ -136,7 +136,7 @@ export function getDesktopGlobalTourSteps(role: UserRoleCategory = detectUserRol
         {
             element: '[data-tour="navbar-eixo-cgif"]',
             popover: {
-                title: '10. Eixo CGIF (Informação & Wiki) — Barra Superior',
+                title: '10. Eixo Informativo (Wiki & Dados) — Barra Superior',
                 description: '<b>INFORMAÇÃO & WIKI:</b> A central do Centro de Graduação do IFUSP. Espaços, iniciativas discentes, criadores de conteúdo científico, mapa interativo e a <b>Wiki centralizada</b> com manuais de cursos e editais.',
                 side: 'bottom',
                 align: 'center',
@@ -145,8 +145,8 @@ export function getDesktopGlobalTourSteps(role: UserRoleCategory = detectUserRol
         {
             element: '[data-tour="sidebar-eixo-cgif"]',
             popover: {
-                title: '11. Eixo CGIF — Painel Lateral',
-                description: 'Acesse rapidamente o <b>GCIF</b> pelo menu lateral para consultas curriculares, editais e avisos acadêmicos sempre a um clique.',
+                title: '11. Eixo Informativo — Painel Lateral',
+                description: 'Acesse rapidamente a <b>Central de Informação (GCIF)</b> pelo menu lateral para consultas curriculares, editais e avisos acadêmicos sempre a um clique.',
                 side: 'right',
                 align: 'start',
             }
@@ -322,7 +322,7 @@ export function getMobileGlobalTourSteps(role: UserRoleCategory = detectUserRole
         {
             element: '[data-tour="mobile-eixo-cgif"]',
             popover: {
-                title: '9. Eixo CGIF (Informação & Wiki)',
+                title: '9. Eixo Informativo (Wiki & Dados)',
                 description: '<b>INFORMAÇÃO & WIKI:</b> Conheça espaços do IFUSP, iniciativas discentes, criadores de conteúdo e a Wiki oficial centralizada.',
                 side: 'top',
                 align: 'center',
@@ -428,8 +428,8 @@ export const EIXO_CGIF_TOUR_STEPS: TourStepConfig[] = [
     {
         element: '[data-tour="gcif-subnav"], [data-tour="navbar-eixo-cgif"], [data-tour="mobile-eixo-cgif"]',
         popover: {
-            title: '1. As 3 Subabas do Grande Colisor (GCIF)',
-            description: 'O <b>GCIF</b> organiza todo o conhecimento e vivência do Instituto de Física em 3 áreas integradas: <b>Wiki</b>, <b>Instituto</b> e <b>Interativo</b>.',
+            title: '1. As 3 Subabas do Eixo Informativo (GCIF)',
+            description: 'O <b>Eixo Informativo (GCIF)</b> organiza todo o conhecimento e vivência do Instituto de Física em 3 áreas integradas: <b>Wiki</b>, <b>Instituto</b> e <b>Interativo</b>.',
             side: 'bottom',
             align: 'center',
         }
@@ -536,11 +536,11 @@ export const EIXO_OBSERVATORIO_TOUR_STEPS: TourStepConfig[] = [
 ];
 
 export function getEixoTourInfo(pathname: string): TourLevelInfo {
-    if (pathname.startsWith('/gcif') || pathname.startsWith('/colisor') || pathname.startsWith('/wiki')) {
+    if (pathname.startsWith('/gcif') || pathname.startsWith('/cgif') || pathname.startsWith('/colisor') || pathname.startsWith('/wiki') || pathname.startsWith('/informativo')) {
         return {
-            key: 'eixo-cgif',
-            title: 'Tutorial do Eixo CGIF',
-            shortLabel: 'Eixo CGIF',
+            key: 'eixo-informativo',
+            title: 'Tutorial do Eixo Informativo',
+            shortLabel: 'Eixo Informativo',
             steps: EIXO_CGIF_TOUR_STEPS
         };
     }
@@ -1319,7 +1319,7 @@ export function getPageTourInfo(pathname: string, searchParams?: URLSearchParams
         return { key: 'fluxo', title: 'Tutorial de Fluxo', shortLabel: 'Fluxo', steps: COMUNIDADE_FLUXO_TOUR_STEPS };
     }
 
-    // 3. Eixo CGIF:
+    // 3. Eixo Informativo:
     if (pathname.startsWith('/gcif/instituto')) {
         return { key: 'gcif-instituto', title: 'Tutorial do Instituto', shortLabel: 'Instituto', steps: CGIF_INSTITUTO_TOUR_STEPS };
     }

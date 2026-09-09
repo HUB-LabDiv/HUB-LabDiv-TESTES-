@@ -127,9 +127,9 @@ async function buildHubPptx() {
     });
 
     const axes = [
-      { title: '1. Eixo Comunidade', tag: 'REDE SOCIAL & LOGS', desc: 'Feed de comunicação científica dialógica, quizzes, narração, galeria de Arte e Logs de vivência discente.', color: COLOR_YELLOW },
-      { title: '2. Eixo CGIF', tag: 'INFORMAÇÃO & WIKI', desc: 'Wiki institucional centralizada do IFUSP, manuais do curso, oportunidades (PUB/IC), iniciativas e mapa interativo com QR Code.', color: COLOR_BLUE_ACCENT },
-      { title: '3. Eixo Ferramentas', tag: 'ESTUDO & PESQUISA', desc: 'Planejador de grade horária 1h:1h, acompanhamento de trilhas do curso e Match Acadêmico ("Quero uma IC").', color: COLOR_RED }
+      { title: '1. Eixo Social', tag: 'REDE SOCIAL & INTERAÇÕES', desc: 'Feed de comunicação científica dialógica, galeria de Arte, Logs de vivência e Central de Interações (Emaranhamento e Pergunte a um Cientista).', color: COLOR_BLUE_ACCENT },
+      { title: '2. Eixo Informativo', tag: 'INFORMAÇÃO & WIKI', desc: 'Wiki institucional centralizada do IFUSP, manuais do curso, oportunidades (PUB/IC), iniciativas e mapa interativo com QR Code.', color: COLOR_RED },
+      { title: '3. Eixo Ferramentas', tag: 'ESTUDO & PESQUISA', desc: 'Planejador de grade horária 1h:1h, acompanhamento de trilhas do curso e Match Acadêmico ("Quero uma IC").', color: COLOR_YELLOW }
     ];
 
     axes.forEach((axis, idx) => {

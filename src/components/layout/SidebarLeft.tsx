@@ -44,8 +44,8 @@ import { useNavigationStore } from '@/store/useNavigationStore';
 import { useUserRoleNavigation } from '@/hooks/useUserRoleNavigation';
 
 const mainLinks = [
-    { name: 'Comunidade', href: '/', icon: <span className="material-symbols-outlined text-2xl">groups</span>, color: 'brand-red', dataTour: 'sidebar-eixo-comunidade' },
-    { name: 'GCIF', href: '/gcif', icon: <ColisorIcon className="w-6 h-6" />, color: 'brand-blue', dataTour: 'sidebar-eixo-cgif' },
+    { name: 'Social', href: '/', icon: <span className="material-symbols-outlined text-2xl">groups</span>, color: 'brand-blue', dataTour: 'sidebar-eixo-comunidade' },
+    { name: 'Informativo', href: '/gcif', icon: <ColisorIcon className="w-6 h-6" />, color: 'brand-red', dataTour: 'sidebar-eixo-cgif' },
 ];
 
 const secondaryLinks = [

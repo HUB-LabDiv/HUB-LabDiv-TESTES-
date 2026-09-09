@@ -17,8 +17,10 @@ const puppeteer = require('puppeteer-core');
 const chromium = require('@sparticuz/chromium');
 const QRCode = require('qrcode');
 
-const ARTIFACTS_DIR = '/home/stangorlini/.gemini/antigravity-ide/brain/90ea6bd1-00d4-4ca3-8d98-f99b651ba43e';
-const OLD_ARTIFACTS_DIR = '/home/stangorlini/.gemini/antigravity-ide/brain/75a66f1f-4013-4339-81e8-9f14c798c218';
+const CURRENT_ARTIFACTS_DIR = '/home/stangorlini/.gemini/antigravity-ide/brain/428e32c7-567d-45d8-b7ad-ab5fde490f1e';
+const PREV_ARTIFACTS_DIR = '/home/stangorlini/.gemini/antigravity-ide/brain/fd161ea1-fa7d-4972-bcde-115e845d6002';
+const ARTIFACTS_DIR = '/home/stangorlini/.gemini/antigravity-ide/brain/845ad2ca-78f5-436f-8f31-e658577a520f';
+const OLD_ARTIFACTS_DIR = '/home/stangorlini/.gemini/antigravity-ide/brain/19d9a201-ddf9-4656-af2f-404f1da3c2b9';
 const PUBLIC_DIR = path.resolve(__dirname, '../public');
 const OUT_DIR = path.join(PUBLIC_DIR, 'divulgacao');
 
@@ -132,12 +134,11 @@ function buildPosterHtml({ qrWebSvg, qrPlaySvg }) {
       color: #FFFFFF;
     }
     .poster-container {
-      background-color: #111624;
+      background-color: #12141d;
       background-image: 
-        radial-gradient(circle at 18% 12%, rgba(255, 204, 0, 0.12) 0%, transparent 38%),
-        radial-gradient(circle at 85% 25%, rgba(56, 189, 248, 0.15) 0%, transparent 42%),
-        radial-gradient(circle at 12% 75%, rgba(241, 67, 67, 0.11) 0%, transparent 38%),
-        radial-gradient(circle at 85% 85%, rgba(15, 71, 128, 0.18) 0%, transparent 42%);
+        radial-gradient(circle at 14% 45%, rgba(56, 189, 248, 0.28) 0%, transparent 46%),
+        radial-gradient(circle at 86% 45%, rgba(255, 204, 0, 0.26) 0%, transparent 46%),
+        radial-gradient(circle at 50% 86%, rgba(241, 67, 67, 0.28) 0%, transparent 48%);
     }
     .bg-math-pattern {
       position: absolute;
@@ -161,25 +162,32 @@ function buildPosterHtml({ qrWebSvg, qrPlaySvg }) {
       justify-content: space-between;
     }
 
-    /* LOGO SECTION */
+    /* LOGO SECTION / HEADER CARD */
     .header-logo-group {
       display: flex;
       align-items: center;
-      justify-content: flex-start;
+      justify-content: space-between;
+      background: linear-gradient(180deg, rgba(20, 26, 40, 0.88) 0%, rgba(12, 16, 26, 0.94) 100%);
+      border: 1.5px solid rgba(255, 255, 255, 0.16);
+      border-radius: 26px;
+      padding: 14px 28px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
       margin-top: 0;
     }
     .logo-wrapper {
       display: flex;
       align-items: center;
-      gap: 22px;
+      gap: 20px;
     }
     .logo-icon {
-      width: 118px;
-      height: 118px;
-      filter: drop-shadow(0 0 28px rgba(15, 71, 128, 0.6));
+      width: 106px;
+      height: 106px;
+      flex-shrink: 0;
+      filter: drop-shadow(0 0 24px rgba(15, 71, 128, 0.6));
     }
     .logo-text-title {
-      font-size: 78px;
+      font-size: 68px;
       font-weight: 900;
       line-height: 1;
       letter-spacing: -1.5px;
@@ -193,11 +201,12 @@ function buildPosterHtml({ qrWebSvg, qrPlaySvg }) {
       -webkit-text-fill-color: transparent;
     }
     .logo-subtitle {
-      font-size: 25px;
+      font-size: 20px;
       color: #E2E8F0;
       font-weight: 700;
-      letter-spacing: 0.5px;
-      margin-top: 6px;
+      letter-spacing: 0.2px;
+      margin-top: 5px;
+      line-height: 1.3;
     }
 
     /* HERO BANNER */
@@ -220,8 +229,8 @@ function buildPosterHtml({ qrWebSvg, qrPlaySvg }) {
       margin-bottom: 10px;
     }
     .hero-headline span.highlight {
-      color: #FFCC00;
-      text-shadow: 0 0 30px rgba(255, 204, 0, 0.5);
+      color: #38BDF8;
+      text-shadow: 0 0 30px rgba(56, 189, 248, 0.6);
     }
     .hero-subtext {
       font-size: 22.5px;
@@ -291,26 +300,26 @@ function buildPosterHtml({ qrWebSvg, qrPlaySvg }) {
       right: 0;
       height: 5px;
     }
-    .axis-comunidade {
-      border: 2px solid rgba(255, 204, 0, 0.4);
+    .axis-social, .axis-comunidade {
+      border: 2px solid rgba(56, 189, 248, 0.45);
     }
-    .axis-comunidade::before {
-      background: #FFCC00;
-      box-shadow: 0 0 16px #FFCC00;
+    .axis-social::before, .axis-comunidade::before {
+      background: #38BDF8;
+      box-shadow: 0 0 16px #38BDF8;
     }
-    .axis-cgif {
-      border: 2px solid rgba(31, 159, 207, 0.45);
-    }
-    .axis-cgif::before {
-      background: #1F9FCF;
-      box-shadow: 0 0 16px #1F9FCF;
-    }
-    .axis-ferramentas {
+    .axis-informativo, .axis-cgif {
       border: 2px solid rgba(241, 67, 67, 0.45);
     }
-    .axis-ferramentas::before {
+    .axis-informativo::before, .axis-cgif::before {
       background: #F14343;
       box-shadow: 0 0 16px #F14343;
+    }
+    .axis-ferramentas {
+      border: 2px solid rgba(255, 204, 0, 0.4);
+    }
+    .axis-ferramentas::before {
+      background: #FFCC00;
+      box-shadow: 0 0 16px #FFCC00;
     }
     .axis-header {
       display: flex;
@@ -326,17 +335,17 @@ function buildPosterHtml({ qrWebSvg, qrPlaySvg }) {
       letter-spacing: 1.5px;
       text-transform: uppercase;
     }
-    .axis-comunidade .axis-number {
-      background: rgba(255, 204, 0, 0.22);
-      color: #FFCC00;
-    }
-    .axis-cgif .axis-number {
-      background: rgba(31, 159, 207, 0.24);
+    .axis-social .axis-number, .axis-comunidade .axis-number {
+      background: rgba(15, 71, 128, 0.45);
       color: #38BDF8;
     }
-    .axis-ferramentas .axis-number {
+    .axis-informativo .axis-number, .axis-cgif .axis-number {
       background: rgba(241, 67, 67, 0.22);
       color: #F87171;
+    }
+    .axis-ferramentas .axis-number {
+      background: rgba(255, 204, 0, 0.22);
+      color: #FFCC00;
     }
     .axis-icon-badge {
       display: flex;
@@ -346,20 +355,20 @@ function buildPosterHtml({ qrWebSvg, qrPlaySvg }) {
       height: 44px;
       border-radius: 11px;
     }
-    .axis-comunidade .axis-icon-badge {
-      background: rgba(255, 204, 0, 0.16);
-      color: #FFCC00;
-      border: 1px solid rgba(255, 204, 0, 0.35);
-    }
-    .axis-cgif .axis-icon-badge {
+    .axis-social .axis-icon-badge, .axis-comunidade .axis-icon-badge {
       background: rgba(56, 189, 248, 0.16);
       color: #38BDF8;
       border: 1px solid rgba(56, 189, 248, 0.35);
     }
-    .axis-ferramentas .axis-icon-badge {
+    .axis-informativo .axis-icon-badge, .axis-cgif .axis-icon-badge {
       background: rgba(241, 67, 67, 0.16);
       color: #F87171;
       border: 1px solid rgba(241, 67, 67, 0.35);
+    }
+    .axis-ferramentas .axis-icon-badge {
+      background: rgba(255, 204, 0, 0.16);
+      color: #FFCC00;
+      border: 1px solid rgba(255, 204, 0, 0.35);
     }
     .axis-title {
       font-size: 38px;
@@ -368,7 +377,7 @@ function buildPosterHtml({ qrWebSvg, qrPlaySvg }) {
       margin-bottom: 3px;
       letter-spacing: -0.5px;
     }
-    .axis-tagline {
+    .axis-tagline, .axis-desc {
       font-size: 16.5px;
       font-weight: 800;
       text-transform: uppercase;
@@ -379,9 +388,9 @@ function buildPosterHtml({ qrWebSvg, qrPlaySvg }) {
       align-items: center;
       margin-bottom: 12px;
     }
-    .axis-comunidade .axis-tagline { color: #FCD34D; }
-    .axis-cgif .axis-tagline { color: #7DD3FC; }
-    .axis-ferramentas .axis-tagline { color: #FCA5A5; }
+    .axis-social .axis-tagline, .axis-social .axis-desc, .axis-comunidade .axis-tagline, .axis-comunidade .axis-desc { color: #7DD3FC; }
+    .axis-informativo .axis-tagline, .axis-informativo .axis-desc, .axis-cgif .axis-tagline, .axis-cgif .axis-desc { color: #FCA5A5; }
+    .axis-ferramentas .axis-tagline, .axis-ferramentas .axis-desc { color: #FCD34D; }
 
     .axis-features {
       list-style: none;
@@ -404,9 +413,9 @@ function buildPosterHtml({ qrWebSvg, qrPlaySvg }) {
       margin-top: 8px;
       flex-shrink: 0;
     }
-    .axis-comunidade .axis-feature-dot { background: #FFCC00; box-shadow: 0 0 8px #FFCC00; }
-    .axis-cgif .axis-feature-dot { background: #38BDF8; box-shadow: 0 0 8px #38BDF8; }
-    .axis-ferramentas .axis-feature-dot { background: #F14343; box-shadow: 0 0 8px #F14343; }
+    .axis-social .axis-feature-dot, .axis-comunidade .axis-feature-dot { background: #38BDF8; box-shadow: 0 0 8px #38BDF8; }
+    .axis-informativo .axis-feature-dot, .axis-cgif .axis-feature-dot { background: #F14343; box-shadow: 0 0 8px #F14343; }
+    .axis-ferramentas .axis-feature-dot { background: #FFCC00; box-shadow: 0 0 8px #FFCC00; }
     .axis-feature-item strong {
       color: #FFFFFF;
       font-weight: 800;
@@ -427,7 +436,7 @@ function buildPosterHtml({ qrWebSvg, qrPlaySvg }) {
       backdrop-filter: blur(18px);
     }
     .qr-cta-text {
-      max-width: 530px;
+      max-width: 545px;
     }
     .qr-cta-badge {
       font-size: 17px;
@@ -450,26 +459,51 @@ function buildPosterHtml({ qrWebSvg, qrPlaySvg }) {
       box-shadow: 0 0 10px #FFCC00;
     }
     .qr-cta-title {
-      font-size: 50px;
+      font-size: 46px;
       font-weight: 900;
       color: #FFFFFF;
-      line-height: 1.15;
+      line-height: 1.12;
       text-transform: uppercase;
       letter-spacing: -0.5px;
     }
     .qr-cta-desc {
-      font-size: 22px;
+      font-size: 20px;
       color: #CBD5E1;
       margin-top: 8px;
-      line-height: 1.46;
+      line-height: 1.42;
+    }
+    .qr-institutos-callout {
+      margin-top: 10px;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1.5px solid rgba(56, 189, 248, 0.35);
+      border-radius: 14px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .qr-institutos-callout .callout-sparkle {
+      color: #38BDF8;
+      font-size: 18px;
+      line-height: 1.2;
+    }
+    .qr-institutos-callout .callout-body {
+      font-size: 16.5px;
+      line-height: 1.4;
+      color: #E2E8F0;
+    }
+    .qr-institutos-callout .callout-body strong {
+      color: #38BDF8;
+      font-weight: 800;
+      letter-spacing: 0.2px;
     }
     .qr-cta-perks {
-      margin-top: 12px;
-      font-size: 17.5px;
+      margin-top: 10px;
+      font-size: 17px;
       font-weight: 700;
       color: #94A3B8;
       display: flex;
-      gap: 18px;
+      gap: 16px;
     }
     .qr-cards-wrap {
       display: flex;
@@ -479,17 +513,17 @@ function buildPosterHtml({ qrWebSvg, qrPlaySvg }) {
       background: linear-gradient(#FFFFFF, #FFFFFF) padding-box, linear-gradient(135deg, #0F4780 0%, #38BDF8 32%, #F14343 68%, #FFCC00 100%) border-box;
       border: 3.5px solid transparent;
       border-radius: 24px;
-      padding: 14px 12px 16px 12px;
+      padding: 16px 14px 18px 14px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      box-shadow: 0 18px 38px rgba(0, 0, 0, 0.55), 0 0 20px rgba(56, 189, 248, 0.25);
-      width: 196px;
+      box-shadow: 0 18px 38px rgba(0, 0, 0, 0.55), 0 0 24px rgba(56, 189, 248, 0.28);
+      width: 226px;
       text-align: center;
     }
     .qr-svg-holder {
-      width: 155px;
-      height: 155px;
+      width: 190px;
+      height: 190px;
       position: relative;
       display: flex;
       align-items: center;
@@ -506,28 +540,28 @@ function buildPosterHtml({ qrWebSvg, qrPlaySvg }) {
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 44px;
-      height: 44px;
+      width: 50px;
+      height: 50px;
       background: linear-gradient(#FFFFFF, #FFFFFF) padding-box, linear-gradient(135deg, #0F4780 0%, #F14343 50%, #FFCC00 100%) border-box;
       border: 2px solid transparent;
-      border-radius: 11px;
-      box-shadow: 0 0 0 2px #FFFFFF, 0 3px 10px rgba(0, 0, 0, 0.35);
+      border-radius: 12px;
+      box-shadow: 0 0 0 2px #FFFFFF, 0 3px 12px rgba(0, 0, 0, 0.35);
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 3px;
+      padding: 4px;
       z-index: 10;
     }
     .qr-center-icon {
-      width: 34px;
-      height: 34px;
+      width: 38px;
+      height: 38px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
     .qr-card-label {
       margin-top: 12px;
-      font-size: 16px;
+      font-size: 17.5px;
       font-weight: 900;
       color: #0F172A;
       text-transform: uppercase;
@@ -538,7 +572,7 @@ function buildPosterHtml({ qrWebSvg, qrPlaySvg }) {
       white-space: nowrap;
     }
     .qr-card-sub {
-      font-size: 13.5px;
+      font-size: 14.5px;
       font-weight: 700;
       color: #475569;
       margin-top: 3px;
@@ -612,7 +646,7 @@ function buildPosterHtml({ qrWebSvg, qrPlaySvg }) {
               <div class="logo-text-title font-bukra">
                 <span class="hub">HUB</span> <span class="labdiv">LabDiv</span>
               </div>
-              <div class="logo-subtitle">O HUB de comunicação científica do LabDiv</div>
+              <div class="logo-subtitle">O HUB de comunicação científica do Laboratório de expressão e divulgação do IFUSP</div>
             </div>
           </div>
         </div>
@@ -621,19 +655,19 @@ function buildPosterHtml({ qrWebSvg, qrPlaySvg }) {
       <!-- Hero Callout -->
       <div class="hero-banner">
         <h1 class="hero-headline font-bukra">
-          O <span class="highlight">Super App</span> da Física
+          O <span class="highlight">HUB</span> da Física
         </h1>
         <p class="hero-subtext">
-          Uma plataforma digital que visa facilitar a vida do universitário discente ou docente ajudando-os a se informar, planejar, acompanhar o curso e se conectar com outros do instituto e de fora dele, se tratando não de uma mera extensão da &ldquo;ciência&rdquo; feita na academia e sim um processo comunicativo.
+          Uma plataforma digital que reune diversas funções para facilitar a vida do universitário (discente ou docente) ajudando-os a se informar, planejar, acompanhar o curso e se conectar com outros do instituto e de fora dele, se tratando não de uma mera extensão da &ldquo;ciência&rdquo; feita na academia e sim um processo comunicativo.
         </p>
         <div class="hero-pills font-bukra">
-          <div class="hero-pill pill-yellow">
-            <span>●</span> Eixo 1: Comunidade
-          </div>
           <div class="hero-pill pill-blue">
-            <span>●</span> Eixo 2: CGIF (Wiki & Dados)
+            <span>●</span> Eixo 1: Social
           </div>
           <div class="hero-pill pill-red">
+            <span>●</span> Eixo 2: Informativo (Wiki & Dados)
+          </div>
+          <div class="hero-pill pill-yellow">
             <span>●</span> Eixo 3: Ferramentas de Estudo
           </div>
         </div>
@@ -641,38 +675,42 @@ function buildPosterHtml({ qrWebSvg, qrPlaySvg }) {
 
       <!-- Os 3 Eixos -->
       <div class="axes-grid">
-        <!-- Eixo 1: Comunidade -->
-        <div class="axis-card axis-comunidade">
+        <!-- Eixo 1: Social -->
+        <div class="axis-card axis-social">
           <div class="axis-header font-bukra">
             <div class="axis-number">Eixo 1</div>
             <div class="axis-icon-badge">${iconComunidadeSvg}</div>
           </div>
-          <h3 class="axis-title font-bukra">Comunidade</h3>
-          <div class="axis-tagline">Rede Social Comunicativa</div>
+          <h3 class="axis-title font-bukra">Social</h3>
+          <div class="axis-desc">REDE SOCIAL COMUNICATIVA &amp; INTERAÇÕES</div>
           <ul class="axis-features">
             <li class="axis-feature-item">
               <span class="axis-feature-dot"></span>
-              <div><strong>Fluxo:</strong> Feed com publicações focadas não em métricas de retenção e vaidade, mas pedagógicas, estimulando o pensar crítico e seu efeito na sociedade.</div>
+              <div><strong>Fluxo:</strong> Feed com publicações focadas não em métricas de retenção e vaidade, mas sim em métricas pedagógicas, estimulando o pensar crítico sobre a ciência e seus efeitos na sociedade.</div>
             </li>
             <li class="axis-feature-item">
               <span class="axis-feature-dot"></span>
-              <div><strong>Logs:</strong> A comunicação científica além de ensinar ciência: desabafos e discussões do cotidiano do instituto para humanizar quem faz a ciência.</div>
+              <div><strong>Logs:</strong> Desabafos e discussões do cotidiano que contextualizam os processos sociais, políticos e metodológicos da pesquisa, humanizando quem faz a ciência.</div>
             </li>
             <li class="axis-feature-item">
               <span class="axis-feature-dot"></span>
               <div><strong>Arte:</strong> Humanizar quem faz a ciência pela forma mais criativa de expressão humana: um ambiente para apreciar a individualidade de quem produz ciência.</div>
             </li>
+            <li class="axis-feature-item">
+              <span class="axis-feature-dot"></span>
+              <div><strong>Central de Interações:</strong> Emaranhamento Quântico (mensagens diretas ou em grupo criptografadas) e o canal &ldquo;Pergunte a um Cientista&rdquo; para mentoria direta e colaboração.</div>
+            </li>
           </ul>
         </div>
 
-        <!-- Eixo 2: CGIF -->
-        <div class="axis-card axis-cgif">
+        <!-- Eixo 2: Informativo -->
+        <div class="axis-card axis-informativo">
           <div class="axis-header font-bukra">
             <div class="axis-number">Eixo 2</div>
             <div class="axis-icon-badge">${iconCgifSvg}</div>
           </div>
-          <h3 class="axis-title font-bukra">CGIF</h3>
-          <div class="axis-tagline">Grande Colisor do IF</div>
+          <h3 class="axis-title font-bukra">Informativo</h3>
+          <div class="axis-desc">CENTRAL DE GESTÃO E INFORMAÇÃO DA FÍSICA (CGIF)</div>
           <ul class="axis-features">
             <li class="axis-feature-item">
               <span class="axis-feature-dot"></span>
@@ -690,6 +728,14 @@ function buildPosterHtml({ qrWebSvg, qrPlaySvg }) {
               <span class="axis-feature-dot"></span>
               <div><strong>Iniciativas & Influenciadores:</strong> Mapeamento de coletivos, grupos de extensão e divulgadores científicos do IF.</div>
             </li>
+            <li class="axis-feature-item">
+              <span class="axis-feature-dot"></span>
+              <div><strong>Instituto:</strong> Acesso a informações dos departamentos, história e funcionamento do IFUSP.</div>
+            </li>
+            <li class="axis-feature-item">
+              <span class="axis-feature-dot"></span>
+              <div><strong>Interativo & FAQ:</strong> Testes interativos de perfil, quizzes temáticos e canal de dúvidas frequentes (SAC).</div>
+            </li>
           </ul>
         </div>
 
@@ -700,11 +746,11 @@ function buildPosterHtml({ qrWebSvg, qrPlaySvg }) {
             <div class="axis-icon-badge">${iconFerramentasSvg}</div>
           </div>
           <h3 class="axis-title font-bukra">Ferramentas</h3>
-          <div class="axis-tagline">Acompanhamento e Planejamento do Curso</div>
+          <div class="axis-desc">ACOMPANHAMENTO E PLANEJAMENTO DO CURSO</div>
           <ul class="axis-features">
             <li class="axis-feature-item">
               <span class="axis-feature-dot"></span>
-              <div><strong>Grade Horária:</strong> Metodologia 1h:1h, controle de faltas e cronograma com sincronização via Júpiter.</div>
+              <div><strong>Grade Horária:</strong> Criação de blocos de estudo na metodologia de estudos:aulas 1h:1h, controle de faltas, grade com sincronização via Júpiter e opção de adicionar blocos personalizados.</div>
             </li>
             <li class="axis-feature-item">
               <span class="axis-feature-dot"></span>
@@ -712,11 +758,11 @@ function buildPosterHtml({ qrWebSvg, qrPlaySvg }) {
             </li>
             <li class="axis-feature-item">
               <span class="axis-feature-dot"></span>
-              <div><strong>Match Acadêmico:</strong> Adoção de bixos por veteranos, "Quero uma IC" com pesquisadores e grupos de estudo.</div>
+              <div><strong>Match Acadêmico:</strong> Adoção de bixos por veteranos, "Quero uma IC" unindo ajudantes com pesquisadores e os grupos de estudo que busca na plataforma usuarios que estão cursando a mesma disciplina que você.</div>
             </li>
             <li class="axis-feature-item">
               <span class="axis-feature-dot"></span>
-              <div><strong>Central de Anotações:</strong> Cadernos acadêmicos e notas de estudos com funcionamento offline-first.</div>
+              <div><strong>Central de Anotações:</strong> Uma seção para os alunos que estão ou já cursaram uma disciplina compartilharem suas anotações para aqueles que viram depois.</div>
             </li>
           </ul>
         </div>
@@ -728,8 +774,14 @@ function buildPosterHtml({ qrWebSvg, qrPlaySvg }) {
           <div class="qr-cta-badge font-bukra">Acesso Imediato & Gratuito</div>
           <h2 class="qr-cta-title font-bukra">Experimente o HUB Agora</h2>
           <p class="qr-cta-desc">
-            Aponte a câmera do celular para os QR Codes ao lado. Acesse instantaneamente pelo navegador ou instale o aplicativo oficial para Android.
+            Aponte a câmera do celular para os QR Codes ao lado. Acesse pelo navegador ou instale o aplicativo oficial para Android.
           </p>
+          <div class="qr-institutos-callout">
+            <span class="callout-sparkle">✦</span>
+            <div class="callout-body">
+              <strong>Funções personalizadas para outros institutos chegarão EM BREVE.</strong> Até lá, qualquer um pode baixar e dizer o que quer ver nas próximas atualizações!
+            </div>
+          </div>
           <div class="qr-cta-perks font-bukra">
             <span>✓ Sincronização em Nuvem</span>
             <span>✓ Modo Offline PWA</span>
@@ -844,7 +896,7 @@ async function main() {
   });
   console.log(`Rendered PNG: ${pngPath}`);
 
-  for (const dir of [ARTIFACTS_DIR, OLD_ARTIFACTS_DIR]) {
+  for (const dir of [CURRENT_ARTIFACTS_DIR, PREV_ARTIFACTS_DIR, ARTIFACTS_DIR, OLD_ARTIFACTS_DIR]) {
     if (fs.existsSync(dir)) {
       fs.copyFileSync(pngPath, path.join(dir, 'poster-1-dark-mode.png'));
     }
@@ -860,7 +912,7 @@ async function main() {
   });
   console.log(`Rendered PDF: ${pdfPath}`);
 
-  for (const dir of [ARTIFACTS_DIR, OLD_ARTIFACTS_DIR]) {
+  for (const dir of [CURRENT_ARTIFACTS_DIR, PREV_ARTIFACTS_DIR, ARTIFACTS_DIR, OLD_ARTIFACTS_DIR]) {
     if (fs.existsSync(dir)) {
       fs.copyFileSync(pdfPath, path.join(dir, 'poster-1-dark-mode.pdf'));
     }

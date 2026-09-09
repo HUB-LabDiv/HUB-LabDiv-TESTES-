@@ -191,10 +191,10 @@ export function Header() {
                     <div className="hidden xl:flex absolute left-1/2 -translate-x-1/2 top-0 z-50">
                         <div className="bg-[#0F4780] rounded-b-[24px] px-8 py-3 flex items-center gap-1.5 shadow-[0_8px_32px_rgba(0,0,0,0.5)] border-x border-b border-white/10 backdrop-blur-xl transition-colors duration-300">
                             {[
-                                { label: 'Comunidade', href: '/', color: '#F14343', dataTour: 'navbar-eixo-comunidade' },
-                                { label: 'GCIF', href: '/gcif', color: '#1F9FCF', dataTour: 'navbar-eixo-cgif' },
+                                { label: 'Social', href: '/', color: '#38BDF8', dataTour: 'navbar-eixo-comunidade' },
+                                { label: 'Informativo', href: '/gcif', color: '#F14343', dataTour: 'navbar-eixo-cgif' },
                                 navbarThirdAxis,
-                                { label: 'Interações', href: '/interacao', color: '#1F9FCF', dataTour: 'navbar-eixo-interacoes' },
+                                { label: 'Interações', href: '/interacao', color: '#38BDF8', dataTour: 'navbar-eixo-interacoes' },
                             ].map((tab) => {
                                 const isActive = pathname === tab.href || (tab.href !== '/' && pathname.startsWith(tab.href));
                                 

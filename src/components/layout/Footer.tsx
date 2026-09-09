@@ -112,9 +112,9 @@ export function Footer() {
             </h4>
             
             <div className="space-y-4 font-sans">
-                {/* EIXO 1: SOCIAL (Barra Vermelha) */}
-                <div className="space-y-2 border-l-2 border-brand-red pl-3 py-0.5">
-                    <span className="text-[10px] font-black uppercase tracking-wider text-brand-red font-bukra block">
+                {/* EIXO 1: SOCIAL (Barra Azul) */}
+                <div className="space-y-2 border-l-2 border-brand-blue pl-3 py-0.5">
+                    <span className="text-[10px] font-black uppercase tracking-wider text-brand-blue font-bukra block">
                         1. Social
                     </span>
                     <ul className="space-y-1.5">
@@ -133,10 +133,10 @@ export function Footer() {
                     </ul>
                 </div>
 
-                {/* EIXO 2: CGIF / INFORMAÇÃO & WIKI (Barra Branca) */}
-                <div className="space-y-2 border-l-2 border-white pl-3 py-0.5">
-                    <span className="text-[10px] font-black uppercase tracking-wider text-white font-bukra block">
-                        2. CGIF (Informação & Wiki)
+                {/* EIXO 2: INFORMATIVO / WIKI & DADOS (Barra Vermelha) */}
+                <div className="space-y-2 border-l-2 border-brand-red pl-3 py-0.5">
+                    <span className="text-[10px] font-black uppercase tracking-wider text-brand-red font-bukra block">
+                        2. Informativo (Wiki & Dados)
                     </span>
                     <ul className="space-y-1.5">
                         <li>

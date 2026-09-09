@@ -29,9 +29,15 @@ export const BottomNavBar = () => {
     const { closeAll } = useNavigationStore();
     const { bottomNavThirdAxis, isAdult, userCategory, isLoggedIn } = useUserRoleNavigation();
 
+    const colorStyles: Record<string, { text: string; bg: string }> = {
+        'brand-blue': { text: 'text-brand-blue', bg: 'bg-brand-blue' },
+        'brand-red': { text: 'text-brand-red', bg: 'bg-brand-red' },
+        'brand-yellow': { text: 'text-brand-yellow', bg: 'bg-brand-yellow' },
+    };
+
     const dynamicNavItems = [
-        { name: 'Comunidade', href: '/', icon: 'groups', color: 'brand-red', dataTour: 'mobile-eixo-comunidade' },
-        { name: 'GCIF', href: '/gcif', icon: 'colisor', color: 'brand-blue', dataTour: 'mobile-eixo-cgif' },
+        { name: 'Social', href: '/', icon: 'groups', color: 'brand-blue', dataTour: 'mobile-eixo-comunidade' },
+        { name: 'Informativo', href: '/gcif', icon: 'colisor', color: 'brand-red', dataTour: 'mobile-eixo-cgif' },
         ...(isLoggedIn
             ? ((isAdult || userCategory === 'pesquisador')
                 ? [{ name: 'Lançar à Órbita', href: AppRoutes.ENVAR, icon: 'rocket_launch', isAction: true, color: 'brand-blue' }]
@@ -62,6 +68,7 @@ export const BottomNavBar = () => {
                     {dynamicNavItems.map((item) => {
                         const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
                         const activeColor = item.color || 'brand-blue';
+                        const cStyle = colorStyles[activeColor] || colorStyles['brand-blue'];
 
                         {/* Central action button (Rocket for authenticated adults/researchers, Login for unauthenticated) */ }
                         if (item.isAction) {
@@ -88,7 +95,7 @@ export const BottomNavBar = () => {
                                 key={item.name}
                                 href={item.href}
                                 data-tour={item.dataTour}
-                                className={`flex flex-col items-center justify-center gap-0.5 p-2 rounded-2xl transition-all relative ${isActive ? `text-${activeColor}` : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-200'}`}
+                                className={`flex flex-col items-center justify-center gap-0.5 p-2 rounded-2xl transition-all relative ${isActive ? cStyle.text : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-200'}`}
                             >
                                 <div className="size-[22px] flex items-center justify-center">
                                     {item.icon === 'colisor' ? (
@@ -104,7 +111,7 @@ export const BottomNavBar = () => {
                                 </span>
                                 {isActive && (
                                     <div
-                                        className={`absolute -bottom-1 w-1 h-1 rounded-full bg-${activeColor} animate-fade-in`}
+                                        className={`absolute -bottom-1 w-1 h-1 rounded-full ${cStyle.bg} animate-fade-in`}
                                     />
                                 )}
                             </Link>

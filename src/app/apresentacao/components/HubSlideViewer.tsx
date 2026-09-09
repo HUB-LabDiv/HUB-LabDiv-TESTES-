@@ -80,10 +80,10 @@ export const HUB_INSTITUCIONAL_SLIDES: HubSlideItem[] = [
     title: 'Divisão do HUB em 3 Eixos Principais',
     subtitle: 'As 3 Frentes Fundamentais da Plataforma HUB LabDiv',
     category: 'ESTRUTURA DOS 3 EIXOS | HUB LABDIV',
-    description: 'Organização da plataforma nas 3 frentes de atuação: Comunidade, CGIF e Ferramentas.',
+    description: 'Organização da plataforma nas 3 frentes de atuação: Social, Informativo e Ferramentas.',
     showThreeAxes: true,
     notes: [
-      'Destacar a divisão tricolor oficial dos eixos: Amarelo (Comunidade), Azul (CGIF) e Vermelho (Ferramentas).'
+      'Destacar a divisão tricolor oficial dos eixos: Azul (Social), Vermelho (Informativo) e Amarelo (Ferramentas).'
     ]
   },
   {
@@ -388,32 +388,17 @@ export function HubSlideViewer() {
 
                 {/* 3 Eixos Cards Tricolores */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-5 text-left my-2">
-                  <div className="glass-card p-6 rounded-3xl border-2 border-brand-yellow/60 bg-gradient-to-b from-brand-yellow/15 to-black/80 shadow-2xl flex flex-col justify-between hover:scale-105 transition-all">
-                    <div>
-                      <div className="w-12 h-12 rounded-2xl bg-brand-yellow/20 border border-brand-yellow/50 flex items-center justify-center mb-4">
-                        <Users className="w-6 h-6 text-brand-yellow" />
-                      </div>
-                      <h4 className="text-xl font-black text-white mb-1">1. Eixo Comunidade</h4>
-                      <span className="inline-block px-3 py-1 rounded-full bg-brand-yellow/20 text-brand-yellow text-xs font-black uppercase mb-3 border border-brand-yellow/40">
-                        REDE SOCIAL
-                      </span>
-                      <p className="text-xs text-gray-200 leading-relaxed font-semibold">
-                        Feed focado na comunicação científica (Fluxo), em um espaço para publicar as suas artes (arte) e pequenos relatos/informações de vivência no instituto (Logs).
-                      </p>
-                    </div>
-                  </div>
-
                   <div className="glass-card p-6 rounded-3xl border-2 border-brand-blue/60 bg-gradient-to-b from-brand-blue/20 to-black/80 shadow-2xl flex flex-col justify-between hover:scale-105 transition-all">
                     <div>
                       <div className="w-12 h-12 rounded-2xl bg-brand-blue/30 border border-brand-blue/60 flex items-center justify-center mb-4">
-                        <FileText className="w-6 h-6 text-brand-blue-accent" />
+                        <Users className="w-6 h-6 text-brand-blue-accent" />
                       </div>
-                      <h4 className="text-xl font-black text-white mb-1">2. Eixo CGIF</h4>
+                      <h4 className="text-xl font-black text-white mb-1">1. Eixo Social</h4>
                       <span className="inline-block px-3 py-1 rounded-full bg-brand-blue/30 text-brand-blue-accent text-xs font-black uppercase mb-3 border border-brand-blue/50">
-                        INFORMAÇÃO & WIKI
+                        REDE SOCIAL &amp; INTERAÇÕES
                       </span>
                       <p className="text-xs text-gray-200 leading-relaxed font-semibold">
-                        Onde você pode conhecer os espaços, iniciativas, influencers e comunidades do instituto; um mapa interativo do IFUSP (em desenvolvimento); e uma Wiki centralizada reunindo portais, manuais e editais.
+                        Feed focado na comunicação científica (Fluxo), galeria artística (Arte), vivências cotidianas (Logs) e a Central de Interações com Emaranhamento Quântico e Pergunte a um Cientista.
                       </p>
                     </div>
                   </div>
@@ -421,11 +406,26 @@ export function HubSlideViewer() {
                   <div className="glass-card p-6 rounded-3xl border-2 border-brand-red/60 bg-gradient-to-b from-brand-red/20 to-black/80 shadow-2xl flex flex-col justify-between hover:scale-105 transition-all">
                     <div>
                       <div className="w-12 h-12 rounded-2xl bg-brand-red/20 border border-brand-red/50 flex items-center justify-center mb-4">
-                        <Wrench className="w-6 h-6 text-brand-red" />
+                        <FileText className="w-6 h-6 text-brand-red" />
+                      </div>
+                      <h4 className="text-xl font-black text-white mb-1">2. Eixo Informativo</h4>
+                      <span className="inline-block px-3 py-1 rounded-full bg-brand-red/20 text-brand-red text-xs font-black uppercase mb-3 border border-brand-red/40">
+                        INFORMATIVO &amp; WIKI
+                      </span>
+                      <p className="text-xs text-gray-200 leading-relaxed font-semibold">
+                        Central de Gestão e Informação (CGIF), espaços, iniciativas, coletivos e divulgadores do instituto, mapa interativo do IFUSP e Wiki centralizada reunindo portais, manuais e editais.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="glass-card p-6 rounded-3xl border-2 border-brand-yellow/60 bg-gradient-to-b from-brand-yellow/15 to-black/80 shadow-2xl flex flex-col justify-between hover:scale-105 transition-all">
+                    <div>
+                      <div className="w-12 h-12 rounded-2xl bg-brand-yellow/20 border border-brand-yellow/50 flex items-center justify-center mb-4">
+                        <Wrench className="w-6 h-6 text-brand-yellow" />
                       </div>
                       <h4 className="text-xl font-black text-white mb-1">3. Eixo Ferramentas</h4>
-                      <span className="inline-block px-3 py-1 rounded-full bg-brand-red/20 text-brand-red text-xs font-black uppercase mb-3 border border-brand-red/40">
-                        ESTUDO & PESQUISA
+                      <span className="inline-block px-3 py-1 rounded-full bg-brand-yellow/20 text-brand-yellow text-xs font-black uppercase mb-3 border border-brand-yellow/40">
+                        ESTUDO &amp; PESQUISA
                       </span>
                       <p className="text-xs text-gray-200 leading-relaxed font-semibold">
                         Planejador de grade horária 1h:1h, acompanhamento de faltas, evolução no curso e Match Acadêmico ("Quero uma IC" e grupos de estudo).

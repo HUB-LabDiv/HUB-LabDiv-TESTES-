@@ -135,7 +135,7 @@ export function ToolsSubNav({ hasSoftwaresAccess = false }: ToolsSubNavProps) {
                                         flex items-center gap-1.5 sm:gap-2 px-2.5 py-1.5 sm:px-4 sm:py-2.5 rounded-[16px] text-[8px] sm:text-[9px] font-black uppercase tracking-widest
                                         transition-all duration-300 whitespace-nowrap shrink-0
                                         ${active
-                                            ? 'bg-brand-blue text-white shadow-lg shadow-brand-blue/20'
+                                            ? 'bg-brand-yellow text-gray-950 font-black shadow-lg shadow-brand-yellow/20'
                                             : 'text-gray-500 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/5'
                                         }
                                     `}
