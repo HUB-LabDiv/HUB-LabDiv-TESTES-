@@ -15,12 +15,15 @@ import { WifiOff } from 'lucide-react';
 
 export default function OfflinePage() {
     return (
-        <div className="min-h-screen flex flex-col items-center justify-center p-6 text-center bg-background-light dark:bg-background-dark">
-            <div className="size-24 bg-brand-blue/10 rounded-full flex items-center justify-center mb-8 text-brand-blue">
+        <div 
+            style={{ backgroundColor: '#121212', color: '#ffffff' }}
+            className="min-h-screen flex flex-col items-center justify-center p-6 text-center bg-background-light dark:bg-background-dark"
+        >
+            <div className="size-24 bg-brand-blue/10 rounded-full flex items-center justify-center mb-8 text-brand-blue" style={{ backgroundColor: 'rgba(15, 71, 128, 0.15)', color: '#FFCC00' }}>
                 <WifiOff size={48} />
             </div>
 
-            <h1 className="text-3xl font-black text-gray-900 dark:text-white mb-4">
+            <h1 className="text-3xl font-black text-gray-900 dark:text-white mb-4" style={{ color: '#ffffff' }}>
                 Oops! Sem conexão?
             </h1>
 

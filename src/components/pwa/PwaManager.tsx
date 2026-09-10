@@ -32,7 +32,7 @@ export function PwaManager() {
                 window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/)
             );
 
-            if (process.env.NODE_ENV === 'development' || isLocalhost) {
+            if (process.env.NODE_ENV === 'development') {
                 navigator.serviceWorker.getRegistrations().then((registrations) => {
                     for (const registration of registrations) {
                         registration.unregister();
@@ -41,8 +41,7 @@ export function PwaManager() {
                 return;
             }
 
-            const buildId = process.env.NEXT_PUBLIC_BUILD_ID || 'v6.1-gold';
-            navigator.serviceWorker.register(`/sw.js?id=${buildId}`).then((reg) => {
+            navigator.serviceWorker.register('/sw.js').then((reg) => {
                 console.log('✅ [PWA] Service Worker ativo:', reg.scope);
                 // Força verificação imediata de atualizações no deploy
                 reg.update().catch(() => {});
@@ -54,6 +53,8 @@ export function PwaManager() {
             let refreshing = false;
             const handleControllerChange = () => {
                 if (refreshing) return;
+                // Não recarrega automaticamente se estiver offline para evitar loops de reload
+                if (!navigator.onLine) return;
                 refreshing = true;
                 toast.success('✨ Nova versão do HUB LabDiv instalada! Atualizando...', {
                     id: 'pwa-update-toast',

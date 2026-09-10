@@ -6,7 +6,8 @@ const config: CapacitorConfig = {
   webDir: 'out',
   server: {
     url: 'https://hub-lab-div.vercel.app/',
-    cleartext: true
+    cleartext: true,
+    errorPath: 'offline.html'
   },
   appendUserAgent: 'LabDiv-App',
   plugins: {

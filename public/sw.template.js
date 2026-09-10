@@ -8,8 +8,9 @@
 
 const BUILD_ID = 'self.__BUILD_ID__';
 /**
- * Hub de Comunicação Científica - V6.0
+ * Hub de Comunicação Científica - V6.2
  * Estratégia de Cache Otimizada: Network-First para Páginas & RSC, Cache-First para Assets
+ * Resiliência Total Offline com Fallback Autônomo e Proteção contra Tela Preta
  */
 
 const CACHE_NAME = `labdiv-hub-${BUILD_ID}`;
@@ -24,13 +25,33 @@ const BYPASS_ROUTES = [
     '/login'
 ];
 
-const OFFLINE_URL = '/offline';
+const OFFLINE_URL = '/offline.html';
+
+const PRECACHE_ASSETS = [
+    '/',
+    '/offline.html',
+    '/labdiv-logo.png',
+    '/manifest.json',
+    '/icons/icon-192.webp',
+    '/icons/icon-512.webp'
+];
 
 try {
     self.addEventListener('install', (event) => {
         event.waitUntil(
-            caches.open(CACHE_NAME).then((cache) => {
-                return cache.addAll([OFFLINE_URL, '/labdiv-logo.png']);
+            caches.open(CACHE_NAME).then(async (cache) => {
+                // Precache seguro e atômico (uma falha individual não invalida os demais)
+                const cachePromises = PRECACHE_ASSETS.map(async (asset) => {
+                    try {
+                        const response = await fetch(asset, { cache: 'reload' });
+                        if (response.ok) {
+                            await cache.put(asset, response);
+                        }
+                    } catch (err) {
+                        console.warn(`⚠️ [SW] Falha ao precachear ${asset}:`, err.message);
+                    }
+                });
+                await Promise.all(cachePromises);
             })
         );
         self.skipWaiting();
@@ -53,11 +74,6 @@ try {
 
         const url = new URL(request.url);
 
-        // Ignora qualquer interceptação em localhost/dev para nunca interferir no ambiente de desenvolvimento
-        if (url.hostname === 'localhost' || url.hostname === '127.0.0.1') {
-            return;
-        }
-
         // 1. NETWORK-ONLY: Admin, Auth & Rotas de Bypass
         if (BYPASS_ROUTES.some(route => url.pathname.startsWith(route))) {
             if (request.mode === 'navigate') {
@@ -69,7 +85,6 @@ try {
         }
 
         // 2. NETWORK-FIRST: Navegações HTML e Dados Dinâmicos do Next.js (RSC)
-        // Garante que novos deploys e novidades apareçam imediatamente aos usuários online
         const isNavigate = request.mode === 'navigate';
         const isRscData = url.searchParams.has('_rsc') || url.pathname.startsWith('/_next/data/');
 
@@ -84,13 +99,39 @@ try {
                         return networkResponse;
                     })
                     .catch(async () => {
-                        const cached = await caches.match(request);
-                        if (cached) return cached;
-                        if (isNavigate) {
-                            const offlinePage = await caches.match(OFFLINE_URL);
-                            if (offlinePage) return offlinePage;
+                        // 1. Tenta recuperar a URL exata do cache (com e sem query parameters)
+                        let cached = await caches.match(request);
+                        if (!cached) {
+                            cached = await caches.match(request, { ignoreSearch: true });
                         }
-                        throw new Error('Falha de rede e sem cache disponível.');
+                        if (cached) return cached;
+
+                        // 2. Se for navegação de página (HTML)
+                        if (isNavigate) {
+                            // Tenta a página inicial se estiver em cache
+                            const homeCached = await caches.match('/');
+                            if (homeCached) return homeCached;
+
+                            // Fallback garantido para a página offline estática
+                            const offlineStatic = await caches.match(OFFLINE_URL);
+                            if (offlineStatic) return offlineStatic;
+                        }
+
+                        // 3. Se for dados de Server Component (_rsc) e não estiver no cache:
+                        // Retornamos status 503 para que o Next.js App Router realize um fallback suave
+                        // de navegação via browser (window.location) em vez de crashar a árvore do React
+                        if (isRscData) {
+                            return new Response('', {
+                                status: 503,
+                                statusText: 'Service Unavailable'
+                            });
+                        }
+
+                        // Fallback geral
+                        const fallbackOffline = await caches.match(OFFLINE_URL);
+                        if (fallbackOffline) return fallbackOffline;
+
+                        return new Response('Sem conexão com a internet', { status: 503, statusText: 'Service Unavailable' });
                     })
             );
             return;
@@ -104,13 +145,18 @@ try {
             event.respondWith(
                 caches.match(request).then((cachedResponse) => {
                     if (cachedResponse) return cachedResponse;
-                    return fetch(request).then((networkResponse) => {
-                        if (networkResponse && networkResponse.ok) {
-                            const cacheCopy = networkResponse.clone();
-                            caches.open(CACHE_NAME).then(cache => cache.put(request, cacheCopy));
-                        }
-                        return networkResponse;
-                    });
+                    return fetch(request)
+                        .then((networkResponse) => {
+                            if (networkResponse && networkResponse.ok) {
+                                const cacheCopy = networkResponse.clone();
+                                caches.open(CACHE_NAME).then(cache => cache.put(request, cacheCopy));
+                            }
+                            return networkResponse;
+                        })
+                        .catch(() => {
+                            // Resposta vazia segura para evitar Uncaught Promise Rejection em modo offline
+                            return new Response('', { status: 408, headers: { 'Content-Type': 'text/plain' } });
+                        });
                 })
             );
             return;
@@ -129,8 +175,8 @@ try {
                         return networkResponse;
                     }).catch(() => null);
 
-                    return cachedResponse || networkFetch;
-                }).catch(() => fetch(request))
+                    return cachedResponse || networkFetch || new Response('', { status: 404 });
+                }).catch(() => fetch(request).catch(() => new Response('', { status: 404 })))
             );
             return;
         }

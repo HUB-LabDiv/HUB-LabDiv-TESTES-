@@ -17,10 +17,10 @@ const puppeteer = require('puppeteer-core');
 const chromium = require('@sparticuz/chromium');
 const QRCode = require('qrcode');
 
-const CURRENT_ARTIFACTS_DIR = '/home/stangorlini/.gemini/antigravity-ide/brain/428e32c7-567d-45d8-b7ad-ab5fde490f1e';
-const PREV_ARTIFACTS_DIR = '/home/stangorlini/.gemini/antigravity-ide/brain/fd161ea1-fa7d-4972-bcde-115e845d6002';
-const ARTIFACTS_DIR = '/home/stangorlini/.gemini/antigravity-ide/brain/845ad2ca-78f5-436f-8f31-e658577a520f';
-const OLD_ARTIFACTS_DIR = '/home/stangorlini/.gemini/antigravity-ide/brain/19d9a201-ddf9-4656-af2f-404f1da3c2b9';
+const CURRENT_ARTIFACTS_DIR = '/home/stangorlini/.gemini/antigravity-ide/brain/ef105eb8-8947-49df-a0ed-0e1f33d248ed';
+const PREV_ARTIFACTS_DIR = '/home/stangorlini/.gemini/antigravity-ide/brain/428e32c7-567d-45d8-b7ad-ab5fde490f1e';
+const ARTIFACTS_DIR = '/home/stangorlini/.gemini/antigravity-ide/brain/fd161ea1-fa7d-4972-bcde-115e845d6002';
+const OLD_ARTIFACTS_DIR = '/home/stangorlini/.gemini/antigravity-ide/brain/845ad2ca-78f5-436f-8f31-e658577a520f';
 const PUBLIC_DIR = path.resolve(__dirname, '../public');
 const OUT_DIR = path.join(PUBLIC_DIR, 'divulgacao');
 
@@ -385,7 +385,9 @@ function buildPosterHtml({ qrWebSvg, qrPlaySvg }) {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 13px;
+      justify-content: space-between;
+      flex-grow: 1;
+      gap: 10px;
     }
     .axis-feature-item {
       display: flex;
@@ -644,7 +646,7 @@ function buildPosterHtml({ qrWebSvg, qrPlaySvg }) {
       <!-- Hero Callout -->
       <div class="hero-banner">
         <h1 class="hero-headline font-bukra">
-          O <span class="highlight">HUB</span> da Física
+          O <span class="highlight">HUB</span> do Universitário
         </h1>
         <p class="hero-subtext">
           Uma plataforma digital que reune diversas funções para facilitar a vida do universitário (discente ou docente) ajudando-os a se informar, planejar, acompanhar o curso e se conectar com outros do instituto e de fora dele, se tratando não de uma mera extensão da &ldquo;ciência&rdquo; feita na academia e sim um processo comunicativo.
@@ -663,19 +665,15 @@ function buildPosterHtml({ qrWebSvg, qrPlaySvg }) {
           <ul class="axis-features">
             <li class="axis-feature-item">
               <span class="axis-feature-dot"></span>
-              <div><strong>Fluxo:</strong> Feed com publicações focadas não em métricas de retenção e vaidade, mas sim em métricas pedagógicas, estimulando o pensar crítico sobre a ciência e seus efeitos na sociedade.</div>
+              <div><strong>Fluxo:</strong> Feed pedagógico estimulando o pensar crítico sobre a ciência e seus efeitos na sociedade, sem métricas de vaidade.</div>
             </li>
             <li class="axis-feature-item">
               <span class="axis-feature-dot"></span>
-              <div><strong>Logs:</strong> Desabafos e discussões do cotidiano que contextualizam os processos sociais, políticos e metodológicos da pesquisa, humanizando quem faz a ciência.</div>
+              <div><strong>Logs & Arte:</strong> Desabafos cotidianos e expressões artísticas que contextualizam os bastidores da pesquisa e humanizam quem faz a ciência.</div>
             </li>
             <li class="axis-feature-item">
               <span class="axis-feature-dot"></span>
-              <div><strong>Arte:</strong> Humanizar quem faz a ciência pela forma mais criativa de expressão humana: um ambiente para apreciar a individualidade de quem produz ciência.</div>
-            </li>
-            <li class="axis-feature-item">
-              <span class="axis-feature-dot"></span>
-              <div><strong>Central de Interações:</strong> Emaranhamento Quântico (mensagens diretas ou em grupo criptografadas) e o canal &ldquo;Pergunte a um Cientista&rdquo; para mentoria direta e colaboração.</div>
+              <div><strong>Central de Interações:</strong> Emaranhamento Quântico (mensagens criptografadas) e canal &ldquo;Pergunte a um Cientista&rdquo; para mentoria direta.</div>
             </li>
           </ul>
         </div>
@@ -690,27 +688,15 @@ function buildPosterHtml({ qrWebSvg, qrPlaySvg }) {
           <ul class="axis-features">
             <li class="axis-feature-item">
               <span class="axis-feature-dot"></span>
-              <div><strong>Wiki Central:</strong> Manuais de curso, PPPs, protocolos e editais simplificados.</div>
+              <div><strong>Wiki Central:</strong> As informações presentes em manuais do curso, PPPs, editais, Júpiter e portais reunidas e organizadas para você não se perder mais.</div>
             </li>
             <li class="axis-feature-item">
               <span class="axis-feature-dot"></span>
-              <div><strong>Oportunidades:</strong> Mural de bolsas PUB, Iniciação Científica (IC) e estágios.</div>
+              <div><strong>O Instituto:</strong> História, departamentos, mapa interativo, coletivos, iniciativas e divulgadores do instituto reunidos em um só lugar.</div>
             </li>
             <li class="axis-feature-item">
               <span class="axis-feature-dot"></span>
-              <div><strong>Espaços & Mapa:</strong> Localização de laboratórios, salas e pontos do instituto.</div>
-            </li>
-            <li class="axis-feature-item">
-              <span class="axis-feature-dot"></span>
-              <div><strong>Iniciativas & Influenciadores:</strong> Mapeamento de coletivos, grupos de extensão e divulgadores científicos do IF.</div>
-            </li>
-            <li class="axis-feature-item">
-              <span class="axis-feature-dot"></span>
-              <div><strong>Instituto:</strong> Acesso a informações dos departamentos, história e funcionamento do IFUSP.</div>
-            </li>
-            <li class="axis-feature-item">
-              <span class="axis-feature-dot"></span>
-              <div><strong>Interativo & FAQ:</strong> Testes interativos de perfil, quizzes temáticos e canal de dúvidas frequentes (SAC).</div>
+              <div><strong>Interativo:</strong> Testes de perfil, quizzes, canal de dúvidas (SAC) e mural de oportunidades de estágios, bolsas, eventos e cursos.</div>
             </li>
           </ul>
         </div>
@@ -725,19 +711,15 @@ function buildPosterHtml({ qrWebSvg, qrPlaySvg }) {
           <ul class="axis-features">
             <li class="axis-feature-item">
               <span class="axis-feature-dot"></span>
-              <div><strong>Grade Horária:</strong> Criação de blocos de estudo na metodologia de estudos:aulas 1h:1h, controle de faltas, grade com sincronização via Júpiter e opção de adicionar blocos personalizados.</div>
+              <div><strong>Grade & Trilhas:</strong> Ambiente para acompanhar e planejar o andamento do curso ou/e do semestre com sincronização via Júpiter, controle de faltas, evolução no curso e pré-requisitos.</div>
             </li>
             <li class="axis-feature-item">
               <span class="axis-feature-dot"></span>
-              <div><strong>Trilhas do Curso:</strong> Matérias concluídas, pré-requisitos, evolução e equivalências com sincronização via Júpiter.</div>
+              <div><strong>Match Acadêmico:</strong> Adoção de calouros por veteranos, conexão para Iniciação Científica (IC) e grupos de estudo por matéria.</div>
             </li>
             <li class="axis-feature-item">
               <span class="axis-feature-dot"></span>
-              <div><strong>Match Acadêmico:</strong> Adoção de bixos por veteranos, "Quero uma IC" unindo ajudantes com pesquisadores e os grupos de estudo que busca na plataforma usuarios que estão cursando a mesma disciplina que você.</div>
-            </li>
-            <li class="axis-feature-item">
-              <span class="axis-feature-dot"></span>
-              <div><strong>Central de Anotações:</strong> Uma seção para os alunos que estão ou já cursaram uma disciplina compartilharem suas anotações para aqueles que viram depois.</div>
+              <div><strong>Central de Anotações:</strong> Compartilhamento colaborativo de cadernos e anotações entre turmas e disciplinas.</div>
             </li>
           </ul>
         </div>
@@ -749,12 +731,12 @@ function buildPosterHtml({ qrWebSvg, qrPlaySvg }) {
           <div class="qr-cta-badge font-bukra">Acesso Imediato & Gratuito</div>
           <h2 class="qr-cta-title font-bukra">Experimente o HUB Agora</h2>
           <p class="qr-cta-desc">
-            Aponte a câmera do celular para os QR Codes ao lado. Acesse pelo navegador ou instale o aplicativo oficial para Android.
+            Teste essas e muitas outras funções agora: basta apontar a câmera do celular para os QR Codes ao lado para acessar pelo navegador ou instalar o aplicativo oficial (versão para IOS e PC ainda em desenvolvimento).
           </p>
           <div class="qr-institutos-callout">
             <span class="callout-sparkle">✦</span>
             <div class="callout-body">
-              <strong>Funções personalizadas para outros institutos chegarão EM BREVE.</strong> Até lá, qualquer um pode baixar e dizer o que quer ver nas próximas atualizações!
+              <strong>Funções personalizadas para outros institutos além do IFUSP estão em desenvolvimento.</strong> Até lá, qualquer um pode baixar e testar a plataforma (muitas funções não são focadas em um instituto).
             </div>
           </div>
           <div class="qr-cta-perks font-bukra">

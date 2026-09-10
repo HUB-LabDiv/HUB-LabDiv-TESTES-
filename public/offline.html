@@ -1,68 +1,299 @@
+<!--
+  Hub de Comunicação Científica Lab-Div V3.0
+  Copyright (C) 2026 João Paulo Stangorlini de Carvalho
+  Este programa é software livre: você pode redistribuí-lo e/ou modificá-lo
+  sob os termos da Licença Pública Geral Affero GNU (AGPLv3) conforme
+  publicada pela Free Software Foundation.
+-->
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sem Conexão - HUB LabDiv</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Modo Offline • HUB LabDiv</title>
+    <meta name="theme-color" content="#121212">
     <style>
-        body {
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Open Sans", Helvetica, Arial, sans-serif;
             background-color: #121212;
-            color: #ffffff;
+            color: #F8FAFC;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            padding: 1.5rem;
             text-align: center;
         }
-        .container {
-            padding: 2rem;
-            max-width: 400px;
+        .offline-card {
+            background-color: #1E1E1E;
+            border: 1px solid #2D3748;
+            border-radius: 1.5rem;
+            padding: 2.25rem 1.75rem;
+            max-width: 440px;
+            width: 100%;
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
         }
-        .icon {
-            font-size: 4rem;
+        .offline-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #0F4780 0%, #FFCC00 50%, #F14343 100%);
+        }
+        .logo-wrap {
+            width: 72px;
+            height: 72px;
+            border-radius: 1.25rem;
+            background: rgba(15, 71, 128, 0.15);
+            border: 1px solid rgba(15, 71, 128, 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+            position: relative;
+        }
+        .logo-img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+        }
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(241, 67, 67, 0.12);
+            color: #FCA5A5;
+            border: 1px solid rgba(241, 67, 67, 0.25);
+            padding: 0.35rem 0.85rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
             margin-bottom: 1rem;
-            color: #FFCC00;
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #F14343;
+            box-shadow: 0 0 8px #F14343;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.85); }
         }
         h1 {
             font-size: 1.5rem;
+            font-weight: 900;
+            color: #FFFFFF;
             margin-bottom: 0.5rem;
-            font-weight: 800;
+            line-height: 1.25;
+            letter-spacing: -0.02em;
+        }
+        h1 span {
+            color: #FFCC00;
         }
         p {
-            color: #a0a0a0;
-            font-size: 1rem;
-            line-height: 1.5;
-            margin-bottom: 2rem;
+            color: #94A3B8;
+            font-size: 0.925rem;
+            line-height: 1.55;
+            margin-bottom: 1.5rem;
         }
-        .btn {
-            background-color: #0F4780;
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 9999px;
-            font-size: 1rem;
-            font-weight: bold;
+        .offline-data-notice {
+            background: rgba(255, 204, 0, 0.08);
+            border: 1px solid rgba(255, 204, 0, 0.2);
+            border-radius: 0.75rem;
+            padding: 0.75rem 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.825rem;
+            color: #FDE047;
+            text-align: left;
+            width: 100%;
+            display: none;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .offline-data-notice.visible {
+            display: flex;
+        }
+        .actions-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            width: 100%;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #0F4780 0%, #175aa0 100%);
+            color: #FFFFFF;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.9rem 1.5rem;
+            border-radius: 0.875rem;
+            font-size: 0.95rem;
+            font-weight: 700;
             cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: background-color 0.2s;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 14px rgba(15, 71, 128, 0.4);
         }
-        .btn:active {
-            background-color: #0a3359;
+        .btn-primary:active {
             transform: scale(0.98);
+        }
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: #CBD5E1;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.85rem 1.5rem;
+            border-radius: 0.875rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #FFFFFF;
+        }
+        .footer-note {
+            margin-top: 1.75rem;
+            font-size: 0.7rem;
+            color: #64748B;
+            letter-spacing: 0.03em;
+        }
+        .reconnecting-state {
+            display: none;
+            color: #4ADE80;
+            font-weight: 600;
+            font-size: 0.875rem;
+            margin-top: 1rem;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="icon">📡</div>
-        <h1>Você está Offline</h1>
-        <p>Parece que o seu dispositivo perdeu a conexão com a internet. Verifique sua rede e tente novamente.</p>
-        <button class="btn" onclick="window.location.reload()">Tentar Novamente</button>
+    <div class="offline-card">
+        <div class="logo-wrap">
+            <img src="labdiv-logo.png" alt="HUB LabDiv" class="logo-img" onerror="this.style.display='none'; var f=document.getElementById('svgFallback'); if(f) f.style.display='block';">
+            <svg id="svgFallback" style="display:none" width="42" height="42" viewBox="0 0 48 48" fill="none">
+                <circle cx="24" cy="24" r="18" stroke="#FFCC00" stroke-width="2.5" stroke-dasharray="4 3" opacity="0.8"/>
+                <ellipse cx="24" cy="24" rx="20" ry="8" stroke="#0F4780" stroke-width="2.5" transform="rotate(-30 24 24)" opacity="0.9"/>
+                <ellipse cx="24" cy="24" rx="20" ry="8" stroke="#F14343" stroke-width="2.5" transform="rotate(30 24 24)" opacity="0.9"/>
+                <circle cx="24" cy="24" r="5" fill="#FFCC00"/>
+            </svg>
+        </div>
+
+        <div class="status-badge" id="statusBadge">
+            <span class="status-dot" id="statusDot"></span>
+            <span id="statusText">Sem Conexão</span>
+        </div>
+
+        <h1>HUB <span>LabDiv</span></h1>
+        <p>Você está desconectado da rede. O HUB utiliza armazenamento local para preservar suas ferramentas e dados enquanto estiver offline.</p>
+
+        <div class="offline-data-notice" id="offlineNotice">
+            <span>💾</span>
+            <div>
+                <strong>Dados locais detectados:</strong> Sua grade horária e anotações continuam salvas no dispositivo.
+            </div>
+        </div>
+
+        <div class="actions-wrap">
+            <button class="btn-primary" id="retryBtn" onclick="tentarReconectar()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="23 4 23 10 17 10"></polyline>
+                    <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                </svg>
+                Tentar Reconectar
+            </button>
+            <button type="button" class="btn-secondary" onclick="irParaInicio()">Voltar ao Início</button>
+        </div>
+
+        <div class="reconnecting-state" id="reconnectingMsg">
+            ⚡ Conexão restabelecida! Recarregando aplicação...
+        </div>
+
+        <div class="footer-note">
+            SOFTWARE LIVRE (LICENÇA AGPLv3) • LABDIV IFUSP
+        </div>
     </div>
+
+    <script>
+        // 1. Detecta se há dados salvos localmente
+        try {
+            var hasAcademic = localStorage.getItem('hub_offline_academic');
+            var hasEvents = localStorage.getItem('hub_offline_events');
+            var hasBlocks = localStorage.getItem('hub_offline_custom_blocks');
+            if (hasAcademic || hasEvents || hasBlocks) {
+                var notice = document.getElementById('offlineNotice');
+                if (notice) notice.classList.add('visible');
+            }
+        } catch(e) {}
+
+        // 2. Reconexão automática em tempo real
+        function tratarOnline() {
+            var badge = document.getElementById('statusBadge');
+            var dot = document.getElementById('statusDot');
+            var text = document.getElementById('statusText');
+            var msg = document.getElementById('reconnectingMsg');
+
+            if (badge && dot && text && msg) {
+                badge.style.background = 'rgba(74, 222, 128, 0.12)';
+                badge.style.borderColor = 'rgba(74, 222, 128, 0.3)';
+                badge.style.color = '#4ADE80';
+                dot.style.background = '#4ADE80';
+                dot.style.boxShadow = '0 0 8px #4ADE80';
+                text.textContent = 'Conectado';
+                msg.style.display = 'block';
+            }
+
+            setTimeout(function() {
+                window.location.reload();
+            }, 800);
+        }
+
+        window.addEventListener('online', tratarOnline);
+
+        function tentarReconectar() {
+            var btn = document.getElementById('retryBtn');
+            if (btn) {
+                btn.textContent = 'Verificando rede...';
+                btn.style.opacity = '0.7';
+            }
+            if (navigator.onLine) {
+                tratarOnline();
+            } else {
+                setTimeout(function() {
+                    window.location.reload();
+                }, 400);
+            }
+        }
+
+        function irParaInicio() {
+            if (window.location.protocol === 'file:') {
+                window.location.href = 'https://hub-lab-div.vercel.app/';
+            } else {
+                window.location.href = '/';
+            }
+        }
+    </script>
 </body>
 </html>

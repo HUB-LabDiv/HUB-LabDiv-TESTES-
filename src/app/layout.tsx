@@ -138,22 +138,6 @@ export default async function RootLayout({
             `,
           }}
         />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              if ('serviceWorker' in navigator) {
-                window.addEventListener('load', function() {
-                  const buildId = "${process.env.NEXT_PUBLIC_BUILD_ID || 'v3-golden'}";
-                  navigator.serviceWorker.register('/sw.js?id=' + buildId).then(function(registration) {
-                    // Registration successful
-                  }, function(err) {
-                    // Registration failed
-                  });
-                });
-              }
-            `,
-          }}
-        />
       </head>
       <body
         className={`${openSans.variable} ${bukraFallback.variable} ${materialSymbols.variable} font-open-sans selection:bg-brand-yellow selection:text-brand-blue bg-background-light dark:bg-background-dark text-gray-900 dark:text-gray-100 transition-colors duration-200 antialiased overflow-x-hidden`}
