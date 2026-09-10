@@ -7,7 +7,13 @@ const config: CapacitorConfig = {
   server: {
     url: 'https://hub-lab-div.vercel.app/',
     cleartext: true,
-    errorPath: 'offline.html'
+    errorPath: 'offline.html',
+    allowNavigation: [
+      'hub-lab-div.vercel.app',
+      '*.vercel.app',
+      'localhost',
+      '127.0.0.1'
+    ]
   },
   appendUserAgent: 'LabDiv-App',
   plugins: {

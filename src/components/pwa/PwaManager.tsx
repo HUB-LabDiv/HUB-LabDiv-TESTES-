@@ -16,6 +16,7 @@ import toast from 'react-hot-toast';
 import { usePushNotifications } from '@/hooks/usePushNotifications';
 import { App } from '@capacitor/app';
 import { flushOfflineQueueToSupabase } from '@/lib/offlineQueueManager';
+import { supabase } from '@/lib/supabase';
 
 export function PwaManager() {
     const [isOffline, setIsOffline] = useState(false);
@@ -96,53 +97,79 @@ export function PwaManager() {
                 else if (path === 'enviar') window.location.href = '/enviar';
                 else if (path === 'ferramentas') window.location.href = '/ferramentas';
                 else if (path === 'menu') window.location.href = '/';
-                else if (path === 'lab-pessoal') window.location.href = '/autor';
+                else if (path === 'lab-pessoal') window.location.href = '/lab';
                 else if (path === 'trilhas') window.location.href = '/ferramentas/trilhas';
                 else window.location.href = `/${path}`;
             }
         });
 
-        // --- INÍCIO: CACHE WARMER (Primeiro uso - Baixa Grade/Trilhas/Rascunho) ---
+        // --- INÍCIO: CACHE WARMER (Primeiro uso - Baixa Grade/Trilhas/Rascunho/GCIF) ---
         const warmerTimer = setTimeout(() => {
             if (process.env.NODE_ENV === 'development') return;
-            if (typeof window !== 'undefined' && 'caches' in window) {
-                const cacheMode = localStorage.getItem('hub_cache_mode') || 'full';
-                if (cacheMode !== 'full') {
-                    console.log(`⚡ [Cache Warmer] Modo de cache [${cacheMode}]: pré-carregamento suspenso.`);
-                    return;
-                }
+            if (typeof window !== 'undefined') {
+                // Sincroniza o perfil do usuário para consulta offline imediata
+                supabase.auth.getSession().then(({ data: { session } }) => {
+                    if (session?.user) {
+                        supabase.from('profiles').select('*').eq('id', session.user.id).maybeSingle().then(({ data }) => {
+                            if (data) {
+                                try {
+                                    const profRecord = data as Record<string, unknown>;
+                                    localStorage.setItem('hub_offline_profile', JSON.stringify({
+                                        id: data.id,
+                                        name: data.full_name || data.username || session.user.email,
+                                        full_name: data.full_name,
+                                        avatar_url: data.avatar_url,
+                                        user_category: data.user_category,
+                                        role: data.role,
+                                        bio: data.bio,
+                                        nusp: (profRecord.nusp as string) || (profRecord.usp_number as string) || '',
+                                        institute: data.institute,
+                                        course: data.course,
+                                        research_line: (profRecord.research_line as string) || '',
+                                        interests: data.interests || []
+                                    }));
+                                } catch {}
+                            }
+                        });
+                    }
+                }).catch(() => {});
 
-                const rotasCriticas = [
-                    '/ferramentas', 
-                    '/ferramentas/anotacoes',
-                    '/ferramentas/trilhas', 
-                    '/lab-pessoal', 
-                    '/arquivo-labdiv',
-                    '/interacao',
-                    '/offline'
-                ];
-                const rotasSecundarias = [
-                    '/',
-                    '/admin',
-                    '/admin/perguntas',
-                    '/admin/reports',
-                    '/admin/profiles',
-                    '/admin/drops',
-                    '/gcif',
-                    '/drops',
-                    '/perguntas'
-                ];
-                
-                console.log('🔥 [Cache Warmer] Pré-carregando rotas para uso offline...');
-                rotasCriticas.forEach(rota => {
-                    fetch(rota, { priority: 'low' }).catch(() => {}); 
-                });
+                if ('caches' in window) {
+                    const cacheMode = localStorage.getItem('hub_cache_mode') || 'full';
+                    if (cacheMode !== 'full') {
+                        console.log(`⚡ [Cache Warmer] Modo de cache [${cacheMode}]: pré-carregamento suspenso.`);
+                        return;
+                    }
 
-                setTimeout(() => {
-                    rotasSecundarias.forEach(rota => {
+                    const rotasCriticas = [
+                        '/gcif',
+                        '/ferramentas', 
+                        '/ferramentas/anotacoes',
+                        '/ferramentas/trilhas', 
+                        '/lab', 
+                        '/arquivo',
+                        '/offline'
+                    ];
+                    const rotasSecundarias = [
+                        '/',
+                        '/interacao',
+                        '/drops',
+                        '/perguntas'
+                    ];
+                    
+                    console.log('🔥 [Cache Warmer] Pré-carregando rotas para uso offline...');
+                    rotasCriticas.forEach(rota => {
                         fetch(rota, { priority: 'low' }).catch(() => {}); 
+                        fetch(`${rota}?_rsc=1`, { priority: 'low' }).catch(() => {}); 
                     });
-                }, 10000);
+
+                    setTimeout(() => {
+                        rotasSecundarias.forEach(rota => {
+                            fetch(rota, { priority: 'low' }).catch(() => {}); 
+                            fetch(`${rota}?_rsc=1`, { priority: 'low' }).catch(() => {}); 
+                        });
+                    }, 10000);
+                }
             }
         }, 3000);
 

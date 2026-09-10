@@ -8,7 +8,7 @@
 
 const BUILD_ID = 'self.__BUILD_ID__';
 /**
- * Hub de Comunicação Científica - V6.2
+ * Hub de Comunicação Científica - V6.4
  * Estratégia de Cache Otimizada: Network-First para Páginas & RSC, Cache-First para Assets
  * Resiliência Total Offline com Fallback Autônomo e Proteção contra Tela Preta
  */
@@ -30,10 +30,14 @@ const OFFLINE_URL = '/offline.html';
 const PRECACHE_ASSETS = [
     '/',
     '/offline.html',
+    '/icone-HUBLabDiv.svg',
     '/labdiv-logo.png',
     '/manifest.json',
     '/icons/icon-192.webp',
-    '/icons/icon-512.webp'
+    '/icons/icon-512.webp',
+    '/gcif',
+    '/ferramentas',
+    '/lab'
 ];
 
 try {
@@ -87,8 +91,10 @@ try {
         // 2. NETWORK-FIRST: Navegações HTML e Dados Dinâmicos do Next.js (RSC)
         const isNavigate = request.mode === 'navigate';
         const isRscData = url.searchParams.has('_rsc') || url.pathname.startsWith('/_next/data/');
+        const isPageFetch = (request.headers.get('accept') || '').includes('text/html') ||
+                            ['/gcif', '/ferramentas', '/lab', '/arquivo'].some(p => url.pathname.startsWith(p));
 
-        if (isNavigate || isRscData) {
+        if (isNavigate || isRscData || isPageFetch) {
             event.respondWith(
                 fetch(request)
                     .then((networkResponse) => {
@@ -104,20 +110,12 @@ try {
                         if (!cached) {
                             cached = await caches.match(request, { ignoreSearch: true });
                         }
+                        if (!cached && url.pathname) {
+                            cached = await caches.match(url.pathname);
+                        }
                         if (cached) return cached;
 
-                        // 2. Se for navegação de página (HTML)
-                        if (isNavigate) {
-                            // Tenta a página inicial se estiver em cache
-                            const homeCached = await caches.match('/');
-                            if (homeCached) return homeCached;
-
-                            // Fallback garantido para a página offline estática
-                            const offlineStatic = await caches.match(OFFLINE_URL);
-                            if (offlineStatic) return offlineStatic;
-                        }
-
-                        // 3. Se for dados de Server Component (_rsc) e não estiver no cache:
+                        // 2. Se for dados de Server Component (_rsc) e não estiver no cache:
                         // Retornamos status 503 para que o Next.js App Router realize um fallback suave
                         // de navegação via browser (window.location) em vez de crashar a árvore do React
                         if (isRscData) {
@@ -125,6 +123,16 @@ try {
                                 status: 503,
                                 statusText: 'Service Unavailable'
                             });
+                        }
+
+                        // 3. Se for navegação de página (HTML)
+                        if (isNavigate || isPageFetch) {
+                            // Tenta a página offline estática com Ferramentas, Lab Pessoal e GCIF
+                            const offlineStatic = await caches.match(OFFLINE_URL);
+                            if (offlineStatic) return offlineStatic;
+
+                            const homeCached = await caches.match('/');
+                            if (homeCached) return homeCached;
                         }
 
                         // Fallback geral

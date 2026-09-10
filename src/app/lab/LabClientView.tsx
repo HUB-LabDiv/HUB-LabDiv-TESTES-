@@ -110,6 +110,51 @@ export function LabClientView({
         setAdoptionStatus(initialAdoptionStatus);
     }, [initialViewedProfile, initialCurrentUserProfile, initialAdoptionStatus]);
 
+    // Persistência Offline: Salva dados do Lab Pessoal no localStorage para consulta sem internet
+    useEffect(() => {
+        const prof = initialCurrentUserProfile || initialViewedProfile;
+        if (prof && typeof window !== 'undefined') {
+            try {
+                localStorage.setItem('hub_offline_profile', JSON.stringify({
+                    id: prof.id,
+                    name: prof.full_name || prof.username || currentUser?.email,
+                    full_name: prof.full_name,
+                    avatar_url: prof.avatar_url,
+                    user_category: prof.user_category,
+                    role: prof.role,
+                    bio: prof.bio,
+                    nusp: (prof as any).nusp || (prof as any).usp_number || '',
+                    institute: prof.institute,
+                    course: prof.course,
+                    research_line: (prof as any).research_line || '',
+                    interests: prof.interests || []
+                }));
+
+                if (submissions && submissions.length > 0) {
+                    localStorage.setItem('hub_offline_lab_data', JSON.stringify({
+                        submissionsCount: submissions.length,
+                        savedPostsCount: savedPosts?.length || 0,
+                        academicData: academicData || null,
+                        lastSync: Date.now()
+                    }));
+                }
+            } catch (_) {}
+        }
+    }, [initialCurrentUserProfile, initialViewedProfile, submissions, savedPosts, academicData, currentUser]);
+
+    // Fallback Offline: Se perfil não carregou por falta de rede, carrega do armazenamento local
+    useEffect(() => {
+        if (!viewedProfile && typeof window !== 'undefined') {
+            try {
+                const cached = localStorage.getItem('hub_offline_profile');
+                if (cached) {
+                    const parsed = JSON.parse(cached);
+                    setViewedProfile(parsed);
+                }
+            } catch (_) {}
+        }
+    }, [viewedProfile]);
+
     const handleDeleteRequest = async (postId: string) => {
         if (!confirm('Deseja realmente solicitar a anonimização deste post? Ele será desvinculado do seu perfil mas continuará no HUB.')) return;
         
