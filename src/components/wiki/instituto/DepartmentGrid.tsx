@@ -20,10 +20,12 @@ import {
     Magnet, 
     Globe, 
     Layers, 
-    Cpu 
+    Cpu,
+    Flag
 } from 'lucide-react';
 import Link from 'next/link';
 import { useTelemetry } from '@/hooks/useTelemetry';
+import { useNavigationStore } from '@/store/useNavigationStore';
 
 const departments = [
     {
@@ -72,6 +74,7 @@ const departments = [
 
 export function DepartmentGrid() {
     const { trackEvent } = useTelemetry();
+    const { setReportModalOpen } = useNavigationStore();
     return (
         <section className="py-12">
             <div className="flex items-center gap-3 mb-8">
@@ -100,10 +103,21 @@ export function DepartmentGrid() {
                                         {dept.icon}
                                     </span>
                                 </div>
-                                <div>
+                                <div className="flex-1">
                                     <h3 className="text-lg font-bold text-gray-900 dark:text-white leading-tight underline-offset-4 group-hover:underline group-hover:text-brand-blue transition-all">{dept.name}</h3>
                                     <span className="text-[10px] font-black text-brand-blue/60 uppercase tracking-widest">{dept.id}</span>
                                 </div>
+                                <button
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        e.stopPropagation();
+                                        setReportModalOpen(true, 'outro', { id: dept.id, titulo: dept.name, local: 'Departamento' });
+                                    }}
+                                    title="Sugerir Alteração / Reportar Erro"
+                                    className="text-gray-500 hover:text-brand-red transition-colors p-2"
+                                >
+                                    <Flag size={14} />
+                                </button>
                             </div>
 
                             <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-6 h-12 overflow-hidden">

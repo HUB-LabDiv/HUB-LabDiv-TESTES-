@@ -26,6 +26,7 @@ import { ReportModal } from '../feedback/ReportModal';
 
 import { usePersonalizacaoStore } from '@/store/usePersonalizacaoStore';
 import { OnboardingBanner } from '../onboarding/OnboardingBanner';
+import { PullToRefreshWrapper } from '@/components/ui/PullToRefreshWrapper';
 
 interface MainLayoutWrapperProps {
     children: React.ReactNode;
@@ -115,13 +116,15 @@ export function MainLayoutWrapper({ children, focusMode = false, wide = true, fu
                         className={`flex-1 min-w-0 w-full pt-20 pb-28 xl:pb-12 transition-all duration-300 px-4 sm:px-6 ${leftPaddingClass} ${rightPaddingClass}`}
                         style={{ paddingBottom: 'calc(6.5rem + env(safe-area-inset-bottom, 0px))' }}
                     >
-                        <div className="w-full flex flex-col min-h-full">
-                            <OnboardingBanner />
-                            <div className="flex-1">
-                                {children}
+                        <PullToRefreshWrapper>
+                            <div className="w-full flex flex-col min-h-full">
+                                <OnboardingBanner />
+                                <div className="flex-1">
+                                    {children}
+                                </div>
+                                <Footer />
                             </div>
-                            <Footer />
-                        </div>
+                        </PullToRefreshWrapper>
                     </main>
                 </div>
             ) : (
@@ -129,8 +132,12 @@ export function MainLayoutWrapper({ children, focusMode = false, wide = true, fu
                     className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 pb-28 xl:pb-12"
                     style={{ paddingBottom: 'calc(6.5rem + env(safe-area-inset-bottom, 0px))' }}
                 >
-                    <OnboardingBanner />
-                    {children}
+                    <PullToRefreshWrapper>
+                        <div className="w-full flex flex-col min-h-full">
+                            <OnboardingBanner />
+                            {children}
+                        </div>
+                    </PullToRefreshWrapper>
                 </main>
             )}
 

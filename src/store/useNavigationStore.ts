@@ -25,6 +25,7 @@ interface NavigationState {
     isSuggestionsVisible: boolean;
     isReportModalOpen: boolean;
     reportType: string;
+    reportContext?: any;
     isContentReportModalOpen: boolean;
     reportSubmissionId: string | null;
     isBetaModalOpen: boolean;
@@ -35,7 +36,7 @@ interface NavigationState {
     setDrawerOpen: (open: boolean) => void;
     setProfileMenuOpen: (open: boolean) => void;
     setSuggestionsVisible: (visible: boolean) => void;
-    setReportModalOpen: (open: boolean, type?: string) => void;
+    setReportModalOpen: (open: boolean, type?: string, context?: any) => void;
     setBetaModalOpen: (open: boolean) => void;
     openContentReport: (id: string) => void;
     closeContentReport: () => void;
@@ -48,6 +49,7 @@ export const useNavigationStore = create<NavigationState>((set) => ({
     isSuggestionsVisible: false,
     isReportModalOpen: false,
     reportType: 'bug',
+    reportContext: null,
     isContentReportModalOpen: false,
     reportSubmissionId: null,
     isBetaModalOpen: false,
@@ -58,7 +60,11 @@ export const useNavigationStore = create<NavigationState>((set) => ({
     setDrawerOpen: (open) => set({ isDrawerOpen: open }),
     setProfileMenuOpen: (open) => set({ isProfileMenuOpen: open }),
     setSuggestionsVisible: (visible) => set({ isSuggestionsVisible: visible }),
-    setReportModalOpen: (open, type = 'bug') => set({ isReportModalOpen: open, reportType: type }),
+    setReportModalOpen: (open, type, context) => set({ 
+        isReportModalOpen: open, 
+        ...(type && { reportType: type }),
+        ...(context !== undefined && { reportContext: context })
+    }),
     setBetaModalOpen: (open) => set({ isBetaModalOpen: open }),
     openContentReport: (id) => set({ isContentReportModalOpen: true, reportSubmissionId: id }),
     closeContentReport: () => set({ isContentReportModalOpen: false, reportSubmissionId: null }),

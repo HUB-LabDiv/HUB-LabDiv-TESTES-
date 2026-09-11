@@ -23,9 +23,11 @@ import {
     ShieldCheck,
     Zap,
     Atom,
-    CheckCircle2
+    CheckCircle2,
+    Flag
 } from 'lucide-react';
 import { wikiCells } from '@/components/wiki/WikiView';
+import { useNavigationStore } from '@/store/useNavigationStore';
 
 const colorVariants: Record<string, {
     text: string;
@@ -82,6 +84,8 @@ const colorVariants: Record<string, {
 };
 
 export function GcifWikiView() {
+    const { setReportModalOpen } = useNavigationStore();
+
     return (
         <div className="w-full space-y-12 pb-16">
             {/* Header Hero */}
@@ -143,8 +147,21 @@ export function GcifWikiView() {
                                                 <div className={`w-14 h-14 rounded-2xl ${colors.bg} ${colors.text} flex items-center justify-center border ${colors.border} group-hover:scale-110 transition-transform`}>
                                                     {cell.icon}
                                                 </div>
-                                                <div className="w-10 h-1.5 rounded-full bg-white/10 overflow-hidden">
-                                                    <div className={`w-full h-full ${colors.progressBar}`} />
+                                                <div className="flex items-center gap-3">
+                                                    <button
+                                                        onClick={(e) => {
+                                                            e.preventDefault();
+                                                            e.stopPropagation();
+                                                            setReportModalOpen(true, 'outro', { id: cell.id, titulo: cell.title, local: 'Célula da Wiki' });
+                                                        }}
+                                                        title="Sugerir Alteração / Reportar Erro"
+                                                        className="text-gray-500 hover:text-brand-red transition-colors p-1"
+                                                    >
+                                                        <Flag size={14} />
+                                                    </button>
+                                                    <div className="w-10 h-1.5 rounded-full bg-white/10 overflow-hidden">
+                                                        <div className={`w-full h-full ${colors.progressBar}`} />
+                                                    </div>
                                                 </div>
                                             </div>
 

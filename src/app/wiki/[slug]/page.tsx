@@ -48,9 +48,11 @@ import {
     Download,
     ExternalLink,
     AlertCircle,
-    Info,
+    CheckCircle2,
+    Search,
     Landmark,
-    Search
+    Flag,
+    Info
 } from 'lucide-react';
 
 // --- TECHNICAL DATA SHARD ---
@@ -767,7 +769,7 @@ export default function WikiSubPage() {
                                     <div className={`size-20 rounded-[32px] bg-${content.color}/10 text-${content.color} flex items-center justify-center ring-1 ring-${content.color}/20 shadow-2xl shadow-${content.color}/10`}>
                                         {content.icon}
                                     </div>
-                                    <div>
+                                    <div className="flex-1">
                                         <h1 className="text-4xl md:text-5xl font-black text-gray-900 dark:text-white italic uppercase tracking-tighter mb-2">
                                             {renderContent(content.title)}
                                         </h1>
@@ -775,6 +777,13 @@ export default function WikiSubPage() {
                                             {renderContent(content.subtitle)}
                                         </p>
                                     </div>
+                                    <button
+                                        onClick={() => useNavigationStore.getState().setReportModalOpen(true, 'outro', { id: content.id, titulo: renderContent(content.title), local: 'Página da Wiki' })}
+                                        title="Sugerir Alteração / Reportar Erro"
+                                        className="hidden md:flex p-3 rounded-xl bg-gray-100 dark:bg-white/5 text-gray-500 hover:text-brand-red hover:bg-brand-red/10 transition-colors shrink-0"
+                                    >
+                                        <Flag size={20} />
+                                    </button>
                                 </div>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative">

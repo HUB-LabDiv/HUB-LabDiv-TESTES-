@@ -820,9 +820,18 @@ export const CGIF_WIKI_TOUR_STEPS: TourStepConfig[] = [
         }
     },
     {
+        element: '[title="Sugerir Alteração / Reportar Erro"]',
+        popover: {
+            title: '2. Curadoria Colaborativa (Reportar Erro)',
+            description: 'Notou alguma informação desatualizada? O HUB LabDiv é feito pela comunidade. Clique na <b class="text-brand-red">Bandeira de Reporte</b> presente em todas as células para sugerir correções e atualizações. Sua ajuda mantém o ecossistema saudável!',
+            side: 'bottom',
+            align: 'center',
+        }
+    },
+    {
         element: '[data-tour="gcif-wiki-sincrotron"]',
         popover: {
-            title: '2. Células de Conhecimento (O Síncrotron)',
+            title: '3. Células de Conhecimento (O Síncrotron)',
             description: '9 matrizes temáticas: Boas Práticas, Sobrevivência/Calouro, Bolsas PAPFE, Iniciação Científica, Matrículas no Júpiter e PPPs.',
             side: 'top',
             align: 'center',

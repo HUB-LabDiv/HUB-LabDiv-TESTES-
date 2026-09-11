@@ -154,7 +154,7 @@ export const SidebarRight = ({ tags: propTags, authors: propAuthors }: SidebarRi
     };
 
     return (
-        <div className="flex flex-col gap-6 mt-6">
+        <div className="flex-1 min-h-0 flex flex-col gap-6 mt-6">
 
             {/* ISÓTOPOS EM ÓRBITA */}
             <div className="bg-white dark:bg-card-dark rounded-3xl p-5 border border-gray-200 dark:border-gray-800 shadow-sm">
@@ -205,9 +205,8 @@ export const SidebarRight = ({ tags: propTags, authors: propAuthors }: SidebarRi
                 </button>
             </div>
 
-            {/* Usuários em Órbita Section */}
-            <div className="bg-white dark:bg-card-dark rounded-3xl pb-5 border border-gray-200 dark:border-gray-800 shadow-sm flex flex-col overflow-hidden">
-                <div className="flex border-b border-gray-100 dark:border-gray-800">
+            <div className="bg-white dark:bg-card-dark rounded-3xl pb-5 border border-gray-200 dark:border-gray-800 shadow-sm flex-1 min-h-0 flex flex-col overflow-hidden">
+                <div className="flex shrink-0 border-b border-gray-100 dark:border-gray-800">
                     <button
                         onClick={() => setActiveTab('trending')}
                         className={`flex-1 py-4 text-[10px] font-black uppercase tracking-widest transition-all ${activeTab === 'trending' ? 'text-brand-blue border-b-2 border-brand-blue bg-brand-blue/5' : 'text-gray-400 hover:text-gray-600'}`}
@@ -222,11 +221,11 @@ export const SidebarRight = ({ tags: propTags, authors: propAuthors }: SidebarRi
                     </button>
                 </div>
 
-                <div className="p-5">
-                    <h2 className="text-xs font-black uppercase tracking-widest text-gray-900 dark:text-white mb-4">Usuários em Órbita</h2>
+                <div className="p-5 flex-1 min-h-0 flex flex-col">
+                    <h2 className="text-xs font-black uppercase tracking-widest text-gray-900 dark:text-white mb-4 shrink-0">Usuários em Órbita</h2>
 
                     {activeTab === 'search' && (
-                        <div className="relative mb-4 animate-in fade-in slide-in-from-top-2 duration-300">
+                        <div className="relative mb-4 shrink-0 animate-in fade-in slide-in-from-top-2 duration-300">
                             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                             <input
                                 type="text"
@@ -243,7 +242,7 @@ export const SidebarRight = ({ tags: propTags, authors: propAuthors }: SidebarRi
                         </div>
                     )}
 
-                    <div className="flex flex-col gap-4">
+                    <div className="flex-1 min-h-0 overflow-y-auto hidden-scrollbar pr-1 flex flex-col gap-4">
                         {(activeTab === 'search' ? searchResults : initialAuthors).length > 0 ?
                             (activeTab === 'search' ? searchResults : initialAuthors).map((user) => {
                                 const isFollowing = followingIds.has(user.id);

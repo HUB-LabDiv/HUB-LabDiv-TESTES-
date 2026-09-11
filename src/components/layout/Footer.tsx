@@ -400,7 +400,7 @@ export function Footer() {
                     </div>
                     <div className="flex items-center gap-6">
                         <div className="flex items-center">
-                            <span className="text-[9px] font-bold text-white/50 border border-white/20 px-2 py-0.5 rounded font-bukra uppercase tracking-wider">v6.4.1 BETA</span>
+                            <span className="text-[9px] font-bold text-white/50 border border-white/20 px-2 py-0.5 rounded font-bukra uppercase tracking-wider">v6.4.3 BETA</span>
                         </div>
                         <div className="flex gap-4">
                             <div className="w-3 h-3 rounded-sm bg-brand-blue shadow-sm shadow-brand-blue/50"></div>

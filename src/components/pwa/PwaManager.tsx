@@ -17,9 +17,12 @@ import { usePushNotifications } from '@/hooks/usePushNotifications';
 import { App } from '@capacitor/app';
 import { flushOfflineQueueToSupabase } from '@/lib/offlineQueueManager';
 import { supabase } from '@/lib/supabase';
+import { useRouter } from 'next/navigation';
+import { Capacitor } from '@capacitor/core';
 
 export function PwaManager() {
     const [isOffline, setIsOffline] = useState(false);
+    const router = useRouter();
 
     // Inicializa os listeners de Push Notifications nativas via Capacitor
     usePushNotifications();
@@ -143,6 +146,9 @@ export function PwaManager() {
 
                     const rotasCriticas = [
                         '/gcif',
+                        '/gcif/wiki',
+                        '/gcif/instituto',
+                        '/gcif/interativo',
                         '/ferramentas', 
                         '/ferramentas/anotacoes',
                         '/ferramentas/trilhas', 
@@ -159,14 +165,13 @@ export function PwaManager() {
                     
                     console.log('🔥 [Cache Warmer] Pré-carregando rotas para uso offline...');
                     rotasCriticas.forEach(rota => {
-                        fetch(rota, { priority: 'low' }).catch(() => {}); 
-                        fetch(`${rota}?_rsc=1`, { priority: 'low' }).catch(() => {}); 
+                        // Prefetch via Next.js Router para garantir que o RSC payload seja baixado corretamente
+                        router.prefetch(rota);
                     });
 
                     setTimeout(() => {
                         rotasSecundarias.forEach(rota => {
-                            fetch(rota, { priority: 'low' }).catch(() => {}); 
-                            fetch(`${rota}?_rsc=1`, { priority: 'low' }).catch(() => {}); 
+                            router.prefetch(rota);
                         });
                     }, 10000);
                 }
@@ -183,11 +188,18 @@ export function PwaManager() {
         // Handle native online/offline events
         const handleOffline = () => {
             setIsOffline(true);
-            toast.error('Sem internet. Suas alterações serão salvas na fila offline (IndexedDB) e enviadas ao reconectar.', {
-                id: 'offline-status',
-                duration: Infinity,
-                icon: '📵'
-            });
+            const isNative = Capacitor.isNativePlatform();
+            
+            toast.error(
+                isNative 
+                    ? 'Você está offline. O CGIF e a Grade Horária (se sincronizada) estão disponíveis. Alterações serão salvas e enviadas ao reconectar.'
+                    : 'Sem internet. Suas alterações serão salvas na fila offline (IndexedDB) e enviadas ao reconectar.', 
+                {
+                    id: 'offline-status',
+                    duration: Infinity,
+                    icon: '📵'
+                }
+            );
         };
 
         const handleOnline = async () => {

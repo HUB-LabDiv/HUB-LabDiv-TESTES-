@@ -15,10 +15,10 @@
 import { createServerSupabase } from '@/lib/supabase/server';
 import { revalidatePath } from 'next/cache';
 
-export async function submitFeedback(data: { type: string; description: string; user_agent?: string; url?: string; email?: string }) {
+export async function submitFeedback(data: { type: string; description: string; user_agent?: string; url?: string; email?: string; context?: any }) {
     const supabase = await createServerSupabase();
 
-    const { type, description, user_agent, url, email } = data;
+    const { type, description, user_agent, url, email, context } = data;
     let screenshot_url = null;
 
     // Get current user if any
@@ -33,7 +33,8 @@ export async function submitFeedback(data: { type: string; description: string; 
             user_email: email || user?.email,
             user_agent: user_agent || '',
             url: url || '',
-            platform: 'web'
+            platform: 'web',
+            context: context || null
         }
     };
 

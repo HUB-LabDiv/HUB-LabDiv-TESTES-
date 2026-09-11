@@ -54,7 +54,6 @@ import { RouteFocusManager } from "@/components/shared/RouteFocusManager";
 import { VLibrasWidget } from "@/components/ui/VLibrasWidget";
 import { QueryProvider } from "@/providers/QueryProvider";
 import { BetaRegistrationModal } from "@/components/modals/BetaRegistrationModal";
-import { OfflineBanner } from "@/components/layout/OfflineBanner";
 
 /**
  * V4.0.0 Layout - Protocol Apocalypse Certified
@@ -162,7 +161,6 @@ export default async function RootLayout({
                     'aria-live': 'polite',
                   },
                 }} />
-                <OfflineBanner />
                 <ClientPwaManager />
                 <ReadingProgressBar />
                 <SkipLink />

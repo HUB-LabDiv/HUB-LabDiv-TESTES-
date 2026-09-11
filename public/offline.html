@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>HUB LabDiv • Carregando</title>
+    <title>HUB LabDiv • Primeiro Acesso Offline</title>
     <meta name="theme-color" content="#121212">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         body {
             background-color: #121212;
@@ -15,58 +15,161 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
-            text-align: center;
-            padding: 2rem;
+            padding: 1.5rem;
+            box-sizing: border-box;
         }
+
+        .logo-container {
+            margin-bottom: 2.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 90px;
+            height: 90px;
+            background: #1E1E1E;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            /* Gradiente de fundo sutil com as cores da marca para realçar a área da logo */
+            position: relative;
+        }
+
+        .logo-container::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 22px;
+            background: linear-gradient(45deg, rgba(255, 204, 0, 0.3), rgba(241, 67, 67, 0.3), rgba(15, 71, 128, 0.3));
+            z-index: -1;
+        }
+
+        .logo-container img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+        }
+
+        .card-container {
+            width: 100%;
+            max-width: 400px;
+            position: relative;
+            display: none; /* Initially hidden */
+        }
+
+        .card {
+            background: #1E1E1E;
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Borda Gradiente com as três cores da IDV */
+        .card::before {
+            content: "";
+            position: absolute;
+            inset: -2px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, #FFCC00, #F14343, #0F4780);
+            z-index: -1;
+        }
+
+        .title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin: 0 0 1rem 0;
+            letter-spacing: -0.02em;
+            color: #FFFFFF;
+        }
+
+        .description {
+            font-size: 0.95rem;
+            color: #94A3B8; /* gray-400 */
+            line-height: 1.5;
+            margin: 0 0 2rem 0;
+        }
+
+        .btn {
+            background-color: #0F4780; /* Azul de destaque solicitado */
+            color: #FFFFFF;
+            border: none;
+            padding: 0.875rem 2rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            font-size: 0.875rem;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            width: 100%;
+            transition: opacity 0.2s;
+            text-transform: uppercase;
+        }
+        
+        .btn:active {
+            opacity: 0.8;
+        }
+
+        .spinner-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
         .spinner {
-            width: 48px;
-            height: 48px;
-            border: 4px solid rgba(255, 204, 0, 0.2);
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255, 204, 0, 0.1);
             border-top-color: #FFCC00;
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin-bottom: 2rem;
         }
+
         @keyframes spin { 100% { transform: rotate(360deg); } }
-        .message {
-            max-width: 400px;
-            color: #94A3B8;
-            font-size: 0.9rem;
-            line-height: 1.5;
-            display: none; /* Inicialmente oculto */
-        }
-        .btn {
-            margin-top: 1.5rem;
-            background-color: #FFCC00;
-            color: #0F4780;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 9999px;
-            font-weight: 800;
+
+        .loading-text {
+            color: #FFCC00;
+            font-size: 0.875rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
             text-transform: uppercase;
-            font-size: 0.75rem;
-            letter-spacing: 0.1em;
-            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <div class="spinner" id="spinner"></div>
-    <div class="message" id="errorMsg">
-        <h2 style="color: #FFFFFF; margin-bottom: 1rem; font-size: 1.25rem;">Primeiro Acesso Offline</h2>
-        <p>O HUB requer conexão com a internet no primeiro acesso para salvar a interface do app no seu dispositivo.</p>
-        <button class="btn" onclick="retryConnection()">Tentar Novamente</button>
+
+    <!-- Logo no topo -->
+    <div class="logo-container">
+        <!-- Ícone genérico do app. Pode ser ajustado depois se quiserem a logo exata escrita -->
+        <img src="/icon-192x192.png" alt="LabDiv Logo" onerror="this.style.display='none'">
+    </div>
+
+    <!-- Spinner Inicial -->
+    <div class="spinner-container" id="spinner">
+        <div class="spinner"></div>
+        <div class="loading-text">Conectando...</div>
+    </div>
+
+    <!-- Card de Erro com Gradiente -->
+    <div class="card-container" id="errorMsg">
+        <div class="card">
+            <h2 class="title">Primeiro Acesso Offline</h2>
+            <p class="description">
+                O HUB requer conexão com a internet no primeiro acesso para sincronizar a interface do aplicativo no seu dispositivo.
+            </p>
+            <button class="btn" onclick="retryConnection()">Tentar Novamente</button>
+        </div>
     </div>
 
     <script>
         const VERCEL_URL = 'https://hub-lab-div.vercel.app/';
         
         function retryConnection() {
-            document.getElementById('spinner').style.display = 'block';
+            document.getElementById('spinner').style.display = 'flex';
             document.getElementById('errorMsg').style.display = 'none';
-            localStorage.removeItem('hub_offline_attempt'); // Reseta a trava
+            localStorage.removeItem('hub_offline_attempt');
             attemptBoot();
         }
 
@@ -74,13 +177,10 @@
             const lastAttempt = localStorage.getItem('hub_offline_attempt');
             const now = Date.now();
             
-            // Trava de 5 segundos para evitar loop infinito caso o Service Worker não intercepte.
             if (lastAttempt && (now - parseInt(lastAttempt, 10)) < 5000) {
                 showError();
             } else {
                 localStorage.setItem('hub_offline_attempt', now.toString());
-                
-                // Dispara o redirecionamento para a URL remota.
                 window.location.replace(VERCEL_URL);
             }
         }
@@ -90,8 +190,7 @@
             document.getElementById('errorMsg').style.display = 'block';
         }
 
-        // Iniciar
-        setTimeout(attemptBoot, 300); // Pequeno delay visual para UX
+        setTimeout(attemptBoot, 300);
     </script>
 </body>
 </html>

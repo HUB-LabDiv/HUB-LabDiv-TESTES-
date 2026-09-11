@@ -92,7 +92,7 @@ const TYPE_CONFIG: Record<ReportType, {
 };
 
 export function ReportModal({ isOpen, onClose }: ReportModalProps) {
-    const { reportType } = useNavigationStore();
+    const { reportType, reportContext } = useNavigationStore();
     const [step, setStep] = useState<'form' | 'success'>('form');
     const [description, setDescription] = useState('');
     const [type, setType] = useState<ReportType>('bug');
@@ -151,6 +151,7 @@ export function ReportModal({ isOpen, onClose }: ReportModalProps) {
             url: window.location.href,
             // Passa o email do usuário logado para o servidor identificar melhor
             email: currentUser?.email,
+            context: reportContext
         };
 
         setIsSubmitting(true);
