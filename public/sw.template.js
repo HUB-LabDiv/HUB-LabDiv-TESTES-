@@ -8,7 +8,7 @@
 
 const BUILD_ID = 'self.__BUILD_ID__';
 /**
- * Hub de Comunicação Científica - V6.4
+ * Hub de Comunicação Científica - V6.4.1
  * Estratégia de Cache Otimizada: Network-First para Páginas & RSC, Cache-First para Assets
  * Resiliência Total Offline com Fallback Autônomo e Proteção contra Tela Preta
  */
@@ -36,6 +36,9 @@ const PRECACHE_ASSETS = [
     '/icons/icon-192.webp',
     '/icons/icon-512.webp',
     '/gcif',
+    '/gcif/instituto',
+    '/gcif/wiki',
+    '/gcif/interativo',
     '/ferramentas',
     '/lab'
 ];
@@ -127,15 +130,18 @@ try {
 
                         // 3. Se for navegação de página (HTML)
                         if (isNavigate || isPageFetch) {
-                            // Tenta a página offline estática com Ferramentas, Lab Pessoal e GCIF
-                            const offlineStatic = await caches.match(OFFLINE_URL);
-                            if (offlineStatic) return offlineStatic;
-
+                            // Tenta entregar a App Shell do Next.js (raiz) para manter a navegação nativa offline
                             const homeCached = await caches.match('/');
                             if (homeCached) return homeCached;
+
+                            const offlineStatic = await caches.match(OFFLINE_URL);
+                            if (offlineStatic) return offlineStatic;
                         }
 
                         // Fallback geral
+                        const fallbackHome = await caches.match('/');
+                        if (fallbackHome) return fallbackHome;
+                        
                         const fallbackOffline = await caches.match(OFFLINE_URL);
                         if (fallbackOffline) return fallbackOffline;
 
@@ -170,8 +176,8 @@ try {
             return;
         }
 
-        // 4. STALE-WHILE-REVALIDATE: Imagens, Logos e Mídias Gerais
-        const isImage = IMAGE_EXTENSIONS.some(ext => url.pathname.endsWith(ext));
+        // 4. STALE-WHILE-REVALIDATE: Imagens, Logos e Mídias Gerais (Incluindo otimizadas do Next.js)
+        const isImage = IMAGE_EXTENSIONS.some(ext => url.pathname.endsWith(ext)) || url.pathname.startsWith('/_next/image');
         if (isImage) {
             event.respondWith(
                 caches.open(CACHE_NAME).then(async (cache) => {

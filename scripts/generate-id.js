@@ -34,13 +34,13 @@ try {
         let swContent = fs.readFileSync(swSourcePath, 'utf8');
         swContent = swContent.replace('self.__BUILD_ID__', buildId);
         fs.writeFileSync(swDestPath, swContent);
-        console.log(`✅ [V6.4] sw.js gerado a partir do template com ID: ${buildId}`);
+        console.log(`✅ [V6.4.1] sw.js gerado a partir do template com ID: ${buildId}`);
     }
 
     if (process.env.NODE_ENV !== 'production') {
-        console.log(`✅ [V6.4] BUILD_ID '${buildId}' injetado em .env.production.local.`);
+        console.log(`✅ [V6.4.1] BUILD_ID '${buildId}' injetado em .env.production.local.`);
     }
 } catch (err) {
-    console.error('❌ [V6.4] FALHA NO STEP-ZERO:', err.message);
+    console.error('❌ [V6.4.1] FALHA NO STEP-ZERO:', err.message);
     process.exit(1);
 }

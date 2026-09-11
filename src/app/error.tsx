@@ -27,6 +27,29 @@ export default function Error({
         console.error('🔴 Application Error:', error);
     }, [error]);
 
+    const isOfflineError = (typeof window !== 'undefined' && !navigator.onLine) || error.message.includes('503') || error.message.includes('fetch');
+
+    if (isOfflineError) {
+        return (
+            <div className="w-full max-w-4xl mx-auto p-4 sm:p-6 space-y-6 animate-pulse">
+                {/* Cabeçalho Skeleton */}
+                <div className="flex items-center space-x-4">
+                    <div className="w-16 h-16 bg-gray-300 dark:bg-gray-800 rounded-full"></div>
+                    <div className="space-y-2 flex-1">
+                        <div className="h-6 bg-gray-300 dark:bg-gray-800 rounded w-1/3"></div>
+                        <div className="h-4 bg-gray-300 dark:bg-gray-800 rounded w-1/4"></div>
+                    </div>
+                </div>
+                {/* Conteúdo Skeleton */}
+                <div className="space-y-4">
+                    <div className="h-32 bg-gray-300 dark:bg-gray-800 rounded-2xl w-full"></div>
+                    <div className="h-32 bg-gray-300 dark:bg-gray-800 rounded-2xl w-full"></div>
+                    <div className="h-32 bg-gray-300 dark:bg-gray-800 rounded-2xl w-full"></div>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="min-h-screen bg-background-light dark:bg-background-dark flex items-center justify-center p-6">
             <div className="max-w-md w-full text-center space-y-6">
