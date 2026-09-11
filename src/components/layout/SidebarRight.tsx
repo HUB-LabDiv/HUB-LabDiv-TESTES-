@@ -50,7 +50,7 @@ export const SidebarRight = ({ tags: propTags, authors: propAuthors }: SidebarRi
             getSidebarTags().then(data => setTags(data));
         }
         if (!propAuthors) {
-            getUsersInOrbit(5).then(data => setInitialAuthors(data));
+            getUsersInOrbit(0).then(data => setInitialAuthors(data));
         }
     }, [propTags, propAuthors]);
     const [page, setPage] = React.useState(0);

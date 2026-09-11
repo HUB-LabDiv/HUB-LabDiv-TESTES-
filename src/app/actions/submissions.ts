@@ -649,15 +649,20 @@ export const getSidebarTags = unstable_cache(
 export const getUsersInOrbit = unstable_cache(
     async (limit = 5) => {
         const supabaseServer = await createSupabaseStatic();
-        const { data: profiles } = await supabaseServer
+        let query = supabaseServer
             .from('profiles')
             .select('id, full_name, username, use_nickname, email, avatar_url, xp, level, is_labdiv')
             .eq('review_status', 'approved')
             .eq('is_visible', true)
             .not('email', 'ilike', 'bento.teste%') // Esconde o perfil de teste
             .order('is_labdiv', { ascending: false })
-            .order('created_at', { ascending: false })
-            .limit(limit);
+            .order('created_at', { ascending: false });
+
+        if (limit > 0) {
+            query = query.limit(limit);
+        }
+
+        const { data: profiles } = await query;
 
         return profiles?.map(p => ({
             id: p.id,
