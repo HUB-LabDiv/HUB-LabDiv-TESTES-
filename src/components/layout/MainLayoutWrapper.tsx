@@ -73,6 +73,7 @@ export function MainLayoutWrapper({ children, focusMode = false, wide = true, fu
         : '';
 
     return (
+        <PullToRefreshWrapper>
         <div className="min-h-screen bg-transparent font-sans text-gray-900 dark:text-gray-100 flex flex-col overflow-x-clip">
             {!hideHeader && <Header />}
 
@@ -116,15 +117,13 @@ export function MainLayoutWrapper({ children, focusMode = false, wide = true, fu
                         className={`flex-1 min-w-0 w-full pt-20 pb-28 xl:pb-12 transition-all duration-300 px-4 sm:px-6 ${leftPaddingClass} ${rightPaddingClass}`}
                         style={{ paddingBottom: 'calc(6.5rem + env(safe-area-inset-bottom, 0px))' }}
                     >
-                        <PullToRefreshWrapper>
-                            <div className="w-full flex flex-col min-h-full">
-                                <OnboardingBanner />
-                                <div className="flex-1">
-                                    {children}
-                                </div>
-                                <Footer />
+                        <div className="w-full flex flex-col min-h-full">
+                            <OnboardingBanner />
+                            <div className="flex-1">
+                                {children}
                             </div>
-                        </PullToRefreshWrapper>
+                            <Footer />
+                        </div>
                     </main>
                 </div>
             ) : (
@@ -132,12 +131,10 @@ export function MainLayoutWrapper({ children, focusMode = false, wide = true, fu
                     className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 pb-28 xl:pb-12"
                     style={{ paddingBottom: 'calc(6.5rem + env(safe-area-inset-bottom, 0px))' }}
                 >
-                    <PullToRefreshWrapper>
-                        <div className="w-full flex flex-col min-h-full">
-                            <OnboardingBanner />
-                            {children}
-                        </div>
-                    </PullToRefreshWrapper>
+                    <div className="w-full flex flex-col min-h-full">
+                        <OnboardingBanner />
+                        {children}
+                    </div>
                 </main>
             )}
 
@@ -163,5 +160,6 @@ export function MainLayoutWrapper({ children, focusMode = false, wide = true, fu
                 onClose={() => setReportModalOpen(false)} 
             />
         </div>
+        </PullToRefreshWrapper>
     );
 }

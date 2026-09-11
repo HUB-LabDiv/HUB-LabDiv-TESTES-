@@ -240,8 +240,21 @@ export function GcifWikiView() {
                                     <Zap className="w-10 h-10 text-brand-yellow" />
                                 </div>
                                 <div className="text-center md:text-left">
-                                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-yellow/15 border border-brand-yellow/30 text-brand-yellow text-[10px] font-black uppercase tracking-wider mb-2">
-                                        Sobrevivência & Vivência Acadêmica
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-yellow/15 border border-brand-yellow/30 text-brand-yellow text-[10px] font-black uppercase tracking-wider">
+                                            Sobrevivência & Vivência Acadêmica
+                                        </div>
+                                        <button
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                e.stopPropagation();
+                                                setReportModalOpen(true, 'outro', { id: 'veteranos', titulo: 'IFUSP 101', local: 'Guia Interativo' });
+                                            }}
+                                            title="Sugerir Alteração / Reportar Erro"
+                                            className="text-gray-500 hover:text-brand-red transition-colors p-1 bg-black/20 rounded-full"
+                                        >
+                                            <Flag size={14} />
+                                        </button>
                                     </div>
                                     <h3 className="text-2xl sm:text-3xl font-black text-white font-bukra italic uppercase tracking-tighter mb-2 group-hover:text-brand-yellow transition-colors">
                                         IFUSP 101 & Dicas de Veteranos
@@ -279,8 +292,21 @@ export function GcifWikiView() {
                                     <Search className="w-10 h-10 text-[#00A3FF]" />
                                 </div>
                                 <div className="text-center md:text-left">
-                                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-blue/15 border border-brand-blue/30 text-[#00A3FF] text-[10px] font-black uppercase tracking-wider mb-2">
-                                        Metodologia & Ferramentas de Busca
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-blue/15 border border-brand-blue/30 text-[#00A3FF] text-[10px] font-black uppercase tracking-wider">
+                                            Metodologia & Ferramentas de Busca
+                                        </div>
+                                        <button
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                e.stopPropagation();
+                                                setReportModalOpen(true, 'outro', { id: 'metodologia', titulo: 'Como Pesquisar', local: 'Guia Interativo' });
+                                            }}
+                                            title="Sugerir Alteração / Reportar Erro"
+                                            className="text-gray-500 hover:text-brand-red transition-colors p-1 bg-black/20 rounded-full"
+                                        >
+                                            <Flag size={14} />
+                                        </button>
                                     </div>
                                     <h3 className="text-2xl sm:text-3xl font-black text-white font-bukra italic uppercase tracking-tighter mb-2 group-hover:text-brand-blue transition-colors">
                                         Como Pesquisar & Metodologia Científica

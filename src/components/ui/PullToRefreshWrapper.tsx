@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, TouchEvent } from 'react';
-import { Atom } from 'lucide-react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 export function PullToRefreshWrapper({ children }: { children: React.ReactNode }) {
@@ -58,17 +58,22 @@ export function PullToRefreshWrapper({ children }: { children: React.ReactNode }
             onTouchEnd={onTouchEnd}
         >
             <div 
-                className={`fixed top-0 left-0 w-full flex justify-center pointer-events-none z-[100] ${!isRefreshing && pullDistance === 0 ? 'transition-transform duration-300' : ''}`}
+                className={`fixed top-0 left-0 w-full flex justify-center pointer-events-none z-[99999] ${!isRefreshing && pullDistance === 0 ? 'transition-transform duration-300' : ''}`}
                 style={{ 
                     transform: `translateY(${isRefreshing ? '24px' : (pullDistance > 0 ? pullDistance - 40 : '-60')}px)`,
                     opacity: isRefreshing ? 1 : pullProgress
                 }}
             >
-                <div 
-                    className="p-2.5 rounded-full bg-white dark:bg-zinc-800 shadow-xl border border-gray-100 dark:border-white/10 flex items-center justify-center"
-                    style={{ transform: `rotate(${isRefreshing ? 0 : pullProgress * 360}deg)` }}
-                >
-                    <Atom className={`w-6 h-6 text-zinc-700 dark:text-zinc-200 ${isRefreshing ? 'animate-spin-slow' : ''}`} />
+                <div className="relative w-12 h-12 flex items-center justify-center bg-white dark:bg-zinc-800 rounded-full shadow-xl border border-gray-100 dark:border-white/10">
+                    <img 
+                        src="/icone-HUBLabDiv-circular.svg" 
+                        alt="Recarregar" 
+                        className="w-6 h-6 object-contain z-10" 
+                    />
+                    <div 
+                        className={`absolute inset-0 border-4 border-zinc-200 dark:border-zinc-700 border-t-[#FFCC00] border-r-[#F14343] border-b-[#0F4780] rounded-full ${isRefreshing ? 'animate-spin' : ''}`}
+                        style={{ transform: isRefreshing ? undefined : `rotate(${pullProgress * 360}deg)` }}
+                    />
                 </div>
             </div>
 

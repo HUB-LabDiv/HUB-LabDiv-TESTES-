@@ -54,6 +54,7 @@ import { RouteFocusManager } from "@/components/shared/RouteFocusManager";
 import { VLibrasWidget } from "@/components/ui/VLibrasWidget";
 import { QueryProvider } from "@/providers/QueryProvider";
 import { BetaRegistrationModal } from "@/components/modals/BetaRegistrationModal";
+import { BootLoader } from "@/components/layout/BootLoader";
 
 /**
  * V4.0.0 Layout - Protocol Apocalypse Certified
@@ -162,6 +163,7 @@ export default async function RootLayout({
                   },
                 }} />
                 <ClientPwaManager />
+                <BootLoader />
                 <ReadingProgressBar />
                 <SkipLink />
                 <TelemetryManager />
