@@ -54,6 +54,7 @@ import { useSearch } from '@/providers/SearchProvider';
 import { CATEGORIES as CATEGORY_LIST, CATEGORY_STYLES, DEFAULT_STYLE, INSTITUTES, INSTITUTE_FILTER_OPTIONS } from '@/lib/constants';
 import { usePersonalizacaoStore } from '@/store/usePersonalizacaoStore';
 import { useTelemetry } from '@/hooks/useTelemetry';
+import { toast } from 'react-hot-toast';
 
 interface HomeClientViewProps {
     initialItems: MediaCardProps[];
@@ -101,6 +102,7 @@ export const HomeClientView = ({
     const [items, setItems] = useState<MediaCardProps[]>(initialItems);
     const [page, setPage] = useState(1);
     const [hasMore, setHasMore] = useState(initialHasMore);
+    const [feedScope, setFeedScope] = useState<'todos' | 'seguindo'>('todos');
     
     // Arte State
     const [arteItems, setArteItems] = useState<MediaCardProps[]>(initialArteItems);
@@ -274,7 +276,8 @@ export const HomeClientView = ({
                     institutes: selectedInstitutes.includes('Todos') ? undefined : selectedInstitutes,
                     mediaTypes: selectedMediaTypes,
                     years: selectedYears.includes('Todos') ? undefined : selectedYears.map(y => parseInt(y)),
-                    sort: 'recentes'
+                    sort: 'recentes',
+                    feedScope
                 });
                 setItems(res.items);
                 setHasMore(res.hasMore);
@@ -297,7 +300,8 @@ export const HomeClientView = ({
             selectedCategories.length === 1 && selectedCategories[0] === 'Todos' &&
             selectedInstitutes.length === 1 && selectedInstitutes[0] === 'Todos' &&
             selectedMediaTypes.length === 0 &&
-            selectedYears.length === 1 && selectedYears[0] === 'Todos'
+            selectedYears.length === 1 && selectedYears[0] === 'Todos' &&
+            feedScope === 'todos'
         ) {
             setItems(initialItems);
             setHasMore(initialHasMore);
@@ -305,7 +309,7 @@ export const HomeClientView = ({
         }
 
         fetchFiltered();
-    }, [debouncedQuery, selectedCategories, selectedInstitutes, selectedMediaTypes, selectedYears]);
+    }, [debouncedQuery, selectedCategories, selectedInstitutes, selectedMediaTypes, selectedYears, feedScope]);
 
     const loadItems = async (pageNumber: number, append = false, forceCategory = 'Todos') => {
         try {
@@ -317,7 +321,8 @@ export const HomeClientView = ({
                     limit: 12,
                     query: searchQuery,
                     sort: 'recentes',
-                    categories: ['Arte']
+                    categories: ['Arte'],
+                    feedScope
                 });
 
                 if (append) {
@@ -337,7 +342,8 @@ export const HomeClientView = ({
                     institutes: selectedInstitutes.includes('Todos') ? undefined : selectedInstitutes,
                     mediaTypes: selectedMediaTypes,
                     years: selectedYears.includes('Todos') ? undefined : selectedYears.map(y => parseInt(y)),
-                    excludeCategories: ['Arte']
+                    excludeCategories: ['Arte'],
+                    feedScope
                 });
 
                 if (append) {
@@ -947,6 +953,59 @@ export const HomeClientView = ({
                     </div>
                 </section>
             )}
+
+            {/* TOGGLE SEGUINDO VS TODOS */}
+            <div className="flex justify-center mb-6">
+                <div className="flex p-1 bg-white/50 dark:bg-card-dark/40 backdrop-blur-xl border border-gray-200 dark:border-white/10 rounded-full shadow-sm">
+                    <button
+                        onClick={() => {
+                            if (!user) {
+                                toast.error('Faça login para ver as publicações de quem você segue!');
+                                return;
+                            }
+                            setFeedScope('todos');
+                        }}
+                        className={`relative px-5 py-2 rounded-full text-[10px] sm:text-xs font-black font-bukra uppercase tracking-widest transition-all ${
+                            feedScope === 'todos' 
+                                ? 'text-white' 
+                                : 'text-gray-500 hover:text-gray-900 dark:hover:text-white'
+                        }`}
+                    >
+                        {feedScope === 'todos' && (
+                            <motion.div
+                                layoutId="feedScope"
+                                className={`absolute inset-0 rounded-full shadow-lg ${activeTab === 'fluxo' ? 'bg-brand-blue shadow-brand-blue/20' : 'bg-brand-yellow text-black shadow-brand-yellow/20'}`}
+                                transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
+                            />
+                        )}
+                        <span className={`relative z-10 ${feedScope === 'todos' && activeTab === 'arte' ? 'text-black' : ''}`}>Explorar Todos</span>
+                    </button>
+
+                    <button
+                        onClick={() => {
+                            if (!user) {
+                                toast.error('Faça login para ver as publicações de quem você segue!');
+                                return;
+                            }
+                            setFeedScope('seguindo');
+                        }}
+                        className={`relative px-5 py-2 rounded-full text-[10px] sm:text-xs font-black font-bukra uppercase tracking-widest transition-all ${
+                            feedScope === 'seguindo' 
+                                ? 'text-white' 
+                                : 'text-gray-500 hover:text-gray-900 dark:hover:text-white'
+                        }`}
+                    >
+                        {feedScope === 'seguindo' && (
+                            <motion.div
+                                layoutId="feedScope"
+                                className={`absolute inset-0 rounded-full shadow-lg ${activeTab === 'fluxo' ? 'bg-brand-blue shadow-brand-blue/20' : 'bg-brand-yellow text-black shadow-brand-yellow/20'}`}
+                                transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
+                            />
+                        )}
+                        <span className={`relative z-10 ${feedScope === 'seguindo' && activeTab === 'arte' ? 'text-black' : ''}`}>Seguindo</span>
+                    </button>
+                </div>
+            </div>
 
             {/* FEED PRINCIPAL */}
             <div data-tour="comunidade-feed-vertical" className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 min-h-[600px]">

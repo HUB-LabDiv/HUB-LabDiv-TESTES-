@@ -19,6 +19,7 @@ import { Search, ChevronRight, User } from 'lucide-react';
 import { Avatar } from "@/components/ui/Avatar";
 import { searchProfiles, followUser, unfollowUser, checkIsFollowing, getSidebarTags, getUsersInOrbit } from '@/app/actions/submissions';
 import { toast } from 'react-hot-toast';
+import { SkeletonProfile } from '@/components/ui/SkeletonProfile';
 
 interface SidebarTag {
     name: string;
@@ -64,6 +65,15 @@ export const SidebarRight = ({ tags: propTags, authors: propAuthors }: SidebarRi
     const totalPages = Math.ceil((tags.length || 1) / tagsPerPage);
 
     const currentTags = tags.slice(page * tagsPerPage, (page + 1) * tagsPerPage);
+
+    const usersPerPage = 5;
+    const [userPage, setUserPage] = React.useState(0);
+    const totalUserPages = Math.ceil((initialAuthors.length || 1) / usersPerPage);
+    const currentUserList = activeTab === 'search' ? searchResults : initialAuthors.slice(userPage * usersPerPage, (userPage + 1) * usersPerPage);
+
+    const handleNextUserPage = () => {
+        setUserPage((prev) => (prev + 1) % totalUserPages);
+    };
 
     // Unified check for following status
     React.useEffect(() => {
@@ -141,7 +151,10 @@ export const SidebarRight = ({ tags: propTags, authors: propAuthors }: SidebarRi
 
         const res = isCurrentlyFollowing ? await unfollowUser(id) : await followUser(id);
         if (!res.success) {
-            toast.error(res.error || "Erro na conexão");
+            const errorMessage = res.error === 'Não autorizado' 
+                ? "Faça login no HUB para seguir usuários!" 
+                : (res.error || "Erro na conexão");
+            toast.error(errorMessage);
             // Revert on error using the previous state (followingIds)
             setFollowingIds(followingIds);
         } else {
@@ -222,7 +235,16 @@ export const SidebarRight = ({ tags: propTags, authors: propAuthors }: SidebarRi
                 </div>
 
                 <div className="p-5 flex-1 min-h-0 flex flex-col">
-                    <h2 className="text-xs font-black uppercase tracking-widest text-gray-900 dark:text-white mb-4 shrink-0">Usuários em Órbita</h2>
+                    <div className="flex items-center justify-between mb-4 shrink-0">
+                        <h2 className="text-xs font-black uppercase tracking-widest text-gray-900 dark:text-white">Usuários em Órbita</h2>
+                        {activeTab === 'trending' && (
+                            <div className="flex gap-1">
+                                {Array.from({ length: totalUserPages }).map((_, i) => (
+                                    <div key={i} className={`w-1.5 h-1.5 rounded-full transition-all ${userPage === i ? 'bg-brand-red w-4 shadow-[0_0_8px_rgba(239,68,68,0.5)]' : 'bg-gray-300 dark:bg-gray-700'}`} />
+                                ))}
+                            </div>
+                        )}
+                    </div>
 
                     {activeTab === 'search' && (
                         <div className="relative mb-4 shrink-0 animate-in fade-in slide-in-from-top-2 duration-300">
@@ -243,8 +265,16 @@ export const SidebarRight = ({ tags: propTags, authors: propAuthors }: SidebarRi
                     )}
 
                     <div className="flex-1 min-h-0 overflow-y-auto hidden-scrollbar pr-1 flex flex-col gap-4">
-                        {(activeTab === 'search' ? searchResults : initialAuthors).length > 0 ?
-                            (activeTab === 'search' ? searchResults : initialAuthors).map((user) => {
+                        {initialAuthors.length === 0 && activeTab === 'trending' ? (
+                            <>
+                                <SkeletonProfile compact />
+                                <SkeletonProfile compact />
+                                <SkeletonProfile compact />
+                                <SkeletonProfile compact />
+                                <SkeletonProfile compact />
+                            </>
+                        ) : currentUserList.length > 0 ?
+                            currentUserList.map((user) => {
                                 const isFollowing = followingIds.has(user.id);
                                 return (
                                     <div key={`${activeTab}-${user.id}`} className="flex items-center justify-between gap-3 animate-in fade-in duration-300">
@@ -287,6 +317,16 @@ export const SidebarRight = ({ tags: propTags, authors: propAuthors }: SidebarRi
                             )
                         }
                     </div>
+
+                    {activeTab === 'trending' && totalUserPages > 1 && (
+                        <button
+                            onClick={handleNextUserPage}
+                            className="mt-4 text-xs font-bold text-brand-red hover:underline flex items-center gap-1 group"
+                        >
+                            Explorar mais usuários
+                            <ChevronRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                        </button>
+                    )}
                 </div>
             </div>
 

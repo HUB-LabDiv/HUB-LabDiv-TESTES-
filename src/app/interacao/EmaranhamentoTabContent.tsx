@@ -24,6 +24,7 @@ import { Avatar } from "@/components/ui/Avatar";
 import { User, Loader2, Search, X, Users, Plus, Send, ShieldCheck, MessageSquare, Star } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { toast } from 'react-hot-toast';
+import { SkeletonProfile } from '@/components/ui/SkeletonProfile';
 
 export function EmaranhamentoTabContent() {
     const searchParams = useSearchParams();
@@ -358,7 +359,7 @@ export function EmaranhamentoTabContent() {
                         </div>
                         {isGroupsLoading ? (
                              <div className="space-y-3">
-                                {[1,2,3].map(i => <div key={i} className="h-20 bg-white dark:bg-white/5 animate-pulse rounded-2xl" />)}
+                                {[1,2,3].map(i => <SkeletonProfile key={i} />)}
                              </div>
                         ) : myGroups.length > 0 ? (
                             <div className="grid grid-cols-1 gap-3">
@@ -390,7 +391,7 @@ export function EmaranhamentoTabContent() {
                         </div>
                         {isRecentLoading ? (
                             <div className="space-y-3">
-                                {[1,2,3].map(i => <div key={i} className="h-20 bg-white dark:bg-white/5 animate-pulse rounded-2xl" />)}
+                                {[1,2,3].map(i => <SkeletonProfile key={i} />)}
                             </div>
                         ) : recentConversations.length > 0 ? (
                             <div className="grid grid-cols-1 gap-3">

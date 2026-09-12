@@ -61,15 +61,36 @@ export interface FetchParams {
     is_golden_standard?: boolean;
     is_historical?: boolean;
     years?: number[];
+    feedScope?: 'todos' | 'seguindo';
 }
 
-export async function fetchSubmissions({ page, limit, query, categories, excludeCategories, institutes, mediaTypes, sort, author, is_featured: featured, years, is_golden_standard, is_historical }: FetchParams): Promise<{ items: { post: PostDTO }[], hasMore: boolean }> {
+export async function fetchSubmissions({ page, limit, query, categories, excludeCategories, institutes, mediaTypes, sort, author, is_featured: featured, years, is_golden_standard, is_historical, feedScope }: FetchParams): Promise<{ items: { post: PostDTO }[], hasMore: boolean }> {
     const supabaseServer = await createServerSupabase();
     let queryBuilder = supabaseServer
         .from('submissions')
         .select('*, profiles(avatar_url, xp, level, is_labdiv), energy_reactions, atomic_excitation', { count: 'exact' })
         .eq('status', 'aprovado')
         .neq('moderation_status', 'suspended');
+
+    if (feedScope === 'seguindo') {
+        const { data: { user } } = await supabaseServer.auth.getUser();
+        if (user) {
+            const { data: follows } = await supabaseServer
+                .from('follows')
+                .select('following_id')
+                .eq('follower_id', user.id);
+            if (follows && follows.length > 0) {
+                const followingIds = follows.map(f => f.following_id);
+                queryBuilder = queryBuilder.in('user_id', followingIds);
+            } else {
+                // Se não segue ninguém, retorna vazio
+                queryBuilder = queryBuilder.in('user_id', []);
+            }
+        } else {
+             // Se não estiver logado mas tentar acessar seguindo, retorna vazio
+             queryBuilder = queryBuilder.in('user_id', []);
+        }
+    }
 
     if (featured) queryBuilder = queryBuilder.eq('is_featured', true);
     if (is_golden_standard !== undefined) queryBuilder = queryBuilder.eq('is_golden_standard', is_golden_standard);
@@ -713,6 +734,17 @@ export async function followUser(followingId: string) {
         .insert([{ follower_id: user.id, following_id: followingId }]);
 
     if (error) return { success: false, error: error.message };
+    
+    // Notification
+    const userName = user.user_metadata?.full_name || 'Alguém';
+    sendAutomaticNotification({
+        userId: followingId,
+        type: 'social',
+        title: 'Novo Seguidor!',
+        message: `${userName} começou a te seguir.`,
+        link: `/lab?user=${user.id}`
+    }).catch(console.error);
+
     revalidatePath('/');
     return { success: true };
 }

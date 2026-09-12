@@ -7,7 +7,14 @@ export function BootLoader() {
     const [isVisible, setIsVisible] = useState(true);
 
     useEffect(() => {
-        const MIN_LOADING_TIME = 1500;
+        // Only show the bootloader once per session (upon entering the site)
+        const hasShown = sessionStorage.getItem('bootLoaderShown');
+        if (hasShown) {
+            setIsVisible(false);
+            return;
+        }
+
+        const MIN_LOADING_TIME = 1000; // reduced to 1s
         const startTime = Date.now();
 
         const handleLoad = () => {
@@ -16,6 +23,7 @@ export function BootLoader() {
 
             setTimeout(() => {
                 setIsVisible(false);
+                sessionStorage.setItem('bootLoaderShown', 'true');
             }, remainingTime);
         };
 

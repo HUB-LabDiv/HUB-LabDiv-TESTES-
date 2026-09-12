@@ -109,7 +109,23 @@ export function LabTabContent() {
         loadData();
     }, []);
 
-    if (isLoading) return <div className="flex justify-center py-20"><div className="w-10 h-10 border-4 border-brand-blue border-t-transparent rounded-full animate-spin"></div></div>;
+    if (isLoading) return (
+        <div className="w-full space-y-6 animate-in fade-in duration-500 py-8">
+            <div className="bg-white/40 dark:bg-[#1E1E1E]/40 backdrop-blur-xl rounded-[32px] p-8 border border-gray-100 dark:border-white/5 shadow-sm flex flex-col md:flex-row gap-8 items-center md:items-start animate-shimmer-glass relative overflow-hidden isolate">
+                <div className="w-32 h-32 md:w-36 md:h-36 rounded-full bg-gray-200/50 dark:bg-white/10 border border-white/10 shrink-0 relative z-10" />
+                <div className="flex-1 space-y-4 w-full relative z-10">
+                    <div className="h-8 w-1/2 bg-gray-200/50 dark:bg-white/10 rounded-lg mx-auto md:mx-0" />
+                    <div className="h-4 w-3/4 bg-gray-200/50 dark:bg-white/10 rounded mx-auto md:mx-0" />
+                    <div className="h-4 w-1/3 bg-gray-200/50 dark:bg-white/10 rounded mx-auto md:mx-0" />
+                    <div className="flex gap-4 pt-4 justify-center md:justify-start">
+                        <div className="h-10 w-24 bg-gray-200/50 dark:bg-white/10 rounded-xl" />
+                        <div className="h-10 w-24 bg-gray-200/50 dark:bg-white/10 rounded-xl" />
+                    </div>
+                </div>
+            </div>
+            <div className="bg-white/40 dark:bg-[#1E1E1E]/40 backdrop-blur-xl rounded-3xl h-96 border border-gray-100 dark:border-white/5 animate-shimmer-glass relative isolate" />
+        </div>
+    );
     if (!viewedProfile) return null;
 
     const handleShare = async () => {

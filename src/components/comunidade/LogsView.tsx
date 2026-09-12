@@ -19,6 +19,7 @@ import { FilePenLine, Send, Atom, Clock, Star, Hash, GitCommit, Loader2, Zap, Ar
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'react-hot-toast';
 import { fetchThreads, createDrop, reactToDrop } from '@/app/actions/drops';
+import { SkeletonLog } from '@/components/ui/SkeletonLog';
 
 export interface Drop {
     id: string;
@@ -49,6 +50,7 @@ export function LogsView() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [user, setUser] = useState<any>(null);
     const [isSyncing, setIsSyncingState] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const syncTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     const setIsSyncing = useCallback((val: boolean) => {
@@ -61,6 +63,8 @@ export function LogsView() {
             }, 4000);
         }
     }, []);
+
+    const [feedScope, setFeedScope] = useState<'todos' | 'seguindo'>('todos');
 
     useEffect(() => {
         fetchDrops();
@@ -76,10 +80,13 @@ export function LogsView() {
         return () => { supabase.removeChannel(channel); };
     }, []);
 
-    const fetchDrops = async () => {
+    const fetchDrops = async (scope: 'todos' | 'seguindo' = feedScope) => {
+        setIsLoading(true);
+        const { data: { session } } = await supabase.auth.getSession();
+        let followingIds: string[] = [];
         const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
         
-        const { data, error } = await supabase
+        let queryBuilder = supabase
             .from('micro_articles')
             .select(`
                 *,
@@ -98,7 +105,25 @@ export function LogsView() {
             .is('parent_id', null)
             .eq('status', 'approved')
             .neq('moderation_status', 'suspended')
-            .or(`is_featured.eq.true,created_at.gte.${twentyFourHoursAgo}`)
+            .or(`is_featured.eq.true,created_at.gte.${twentyFourHoursAgo}`);
+
+        if (scope === 'seguindo' && user) {
+            const { data: follows } = await supabase
+                .from('follows')
+                .select('following_id')
+                .eq('follower_id', user.id);
+            
+            if (follows && follows.length > 0) {
+                const followingIds = follows.map(f => f.following_id);
+                queryBuilder = queryBuilder.in('author_id', followingIds);
+            } else {
+                queryBuilder = queryBuilder.in('author_id', []);
+            }
+        } else if (scope === 'seguindo' && !user) {
+             queryBuilder = queryBuilder.in('author_id', []);
+        }
+
+        const { data, error } = await queryBuilder
             .order('is_featured', { ascending: false })
             .order('created_at', { ascending: false });
 
@@ -134,6 +159,7 @@ export function LogsView() {
         }));
 
         setDrops(dropsWithContext as Drop[]);
+        setIsLoading(false);
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -197,26 +223,91 @@ export function LogsView() {
                 </div>
             </form>
 
-            <div data-tour="logs-feed" className="space-y-12">
-                {featuredDrops.length > 0 && (
-                    <FeedSection title="Logs Destacados" icon={<Star className="w-4 h-4 fill-yellow-500" />} color="yellow">
-                        {featuredDrops.map(drop => <ThreadNode key={drop.id} drop={drop} level={0} onRefresh={fetchDrops} setIsSyncing={setIsSyncing} />)}
-                    </FeedSection>
-                )}
+            {/* TOGGLE SEGUINDO VS TODOS */}
+            <div className="flex justify-center mb-4 mt-8">
+                <div className="flex p-1 bg-white/50 dark:bg-card-dark/40 backdrop-blur-xl border border-gray-200 dark:border-white/10 rounded-full shadow-sm">
+                    <button
+                        onClick={() => {
+                            if (!user) {
+                                toast.error('Faça login para ver os logs de quem você segue!');
+                                return;
+                            }
+                            setFeedScope('todos');
+                            fetchDrops('todos');
+                        }}
+                        className={`relative px-5 py-2 rounded-full text-[10px] sm:text-xs font-black font-bukra uppercase tracking-widest transition-all ${
+                            feedScope === 'todos' 
+                                ? 'text-white' 
+                                : 'text-gray-500 hover:text-gray-900 dark:hover:text-white'
+                        }`}
+                    >
+                        {feedScope === 'todos' && (
+                            <motion.div
+                                layoutId="logsFeedScope"
+                                className="absolute inset-0 bg-brand-red rounded-full shadow-lg shadow-brand-red/20"
+                                transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
+                            />
+                        )}
+                        <span className="relative z-10">Explorar Todos</span>
+                    </button>
 
-                <FeedSection title="Logs Recentes (24h)" icon={<Clock className="w-4 h-4" />} color="red">
-                    {recentDrops.length > 0 ? (
-                        recentDrops.map(drop => <ThreadNode key={drop.id} drop={drop} level={0} onRefresh={fetchDrops} setIsSyncing={setIsSyncing} />)
-                    ) : (
-                        <div className="py-12 px-6 text-center bg-[#1E1E1E] border border-white/5 rounded-3xl space-y-3 shadow-xl my-4">
-                            <div className="w-12 h-12 rounded-full bg-brand-red/10 border border-brand-red/20 flex items-center justify-center mx-auto text-brand-red">
-                                <Radio className="w-5 h-5 animate-pulse" />
-                            </div>
-                            <p className="font-mono text-xs uppercase tracking-widest text-gray-300 font-bold">Nenhuma transmissão captada nas últimas 24h.</p>
-                            <p className="text-xs text-gray-400 max-w-sm mx-auto">Seja o primeiro a enviar uma descoberta ou notícia rápida no campo acima!</p>
-                        </div>
-                    )}
-                </FeedSection>
+                    <button
+                        onClick={() => {
+                            if (!user) {
+                                toast.error('Faça login para ver os logs de quem você segue!');
+                                return;
+                            }
+                            setFeedScope('seguindo');
+                            fetchDrops('seguindo');
+                        }}
+                        className={`relative px-5 py-2 rounded-full text-[10px] sm:text-xs font-black font-bukra uppercase tracking-widest transition-all ${
+                            feedScope === 'seguindo' 
+                                ? 'text-white' 
+                                : 'text-gray-500 hover:text-gray-900 dark:hover:text-white'
+                        }`}
+                    >
+                        {feedScope === 'seguindo' && (
+                            <motion.div
+                                layoutId="logsFeedScope"
+                                className="absolute inset-0 bg-brand-red rounded-full shadow-lg shadow-brand-red/20"
+                                transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
+                            />
+                        )}
+                        <span className="relative z-10">Seguindo</span>
+                    </button>
+                </div>
+            </div>
+
+            <div data-tour="logs-feed" className="space-y-12">
+                {isLoading ? (
+                    <FeedSection title="Interceptando Transmissões..." icon={<Loader2 className="w-4 h-4 animate-spin" />} color="red">
+                        <SkeletonLog />
+                        <SkeletonLog />
+                        <SkeletonLog />
+                    </FeedSection>
+                ) : (
+                    <>
+                        {featuredDrops.length > 0 && (
+                            <FeedSection title="Logs Destacados" icon={<Star className="w-4 h-4 fill-yellow-500" />} color="yellow">
+                                {featuredDrops.map(drop => <ThreadNode key={drop.id} drop={drop} level={0} onRefresh={fetchDrops} setIsSyncing={setIsSyncing} />)}
+                            </FeedSection>
+                        )}
+
+                        <FeedSection title="Logs Recentes (24h)" icon={<Clock className="w-4 h-4" />} color="red">
+                            {recentDrops.length > 0 ? (
+                                recentDrops.map(drop => <ThreadNode key={drop.id} drop={drop} level={0} onRefresh={fetchDrops} setIsSyncing={setIsSyncing} />)
+                            ) : (
+                                <div className="py-12 px-6 text-center bg-[#1E1E1E] border border-white/5 rounded-3xl space-y-3 shadow-xl my-4">
+                                    <div className="w-12 h-12 rounded-full bg-brand-red/10 border border-brand-red/20 flex items-center justify-center mx-auto text-brand-red">
+                                        <Radio className="w-5 h-5 animate-pulse" />
+                                    </div>
+                                    <p className="font-mono text-xs uppercase tracking-widest text-gray-300 font-bold">Nenhuma transmissão captada nas últimas 24h.</p>
+                                    <p className="text-xs text-gray-400 max-w-sm mx-auto">Seja o primeiro a enviar uma descoberta ou notícia rápida no campo acima!</p>
+                                </div>
+                            )}
+                        </FeedSection>
+                    </>
+                )}
             </div>
 
             <AnimatePresence>
