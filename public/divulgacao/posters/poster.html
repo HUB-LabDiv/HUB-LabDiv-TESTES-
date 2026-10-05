@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <title>HUB LabDiv - Cartaz Oficial A4 Modo Claro</title>
-  
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HUB LabDiv - Cartaz Oficial A4</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -13,44 +12,40 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
     }
-    @page {
-      size: 1240px 1754px;
-      margin: 0;
-    }
-    html, body {
-      width: 1240px;
-      height: 1754px;
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+    @font-face {
+      font-family: '29LT Bukra';
+      src: local('29LT Bukra Semi Wide Bold'), local('29LT Bukra Bold'), local('29LTBukra-Bold');
+      font-weight: 700 900;
+      font-display: swap;
     }
     .font-bukra {
-      font-family: 'Outfit', 'Segoe UI', -apple-system, sans-serif;
-      letter-spacing: -0.5px;
+      font-family: '29LT Bukra', 'Outfit', sans-serif;
     }
-    .poster-container {
-      position: relative;
-      width: 1240px;
-      height: 1754px;
-      padding: 0;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+    .font-open-sans {
+      font-family: 'Open Sans', sans-serif;
     }
-  </style>
 
-  <style>
     body {
       background-color: #F8FAFC;
       color: #0F172A;
+      width: 1240px;
+      height: 1754px;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
     }
     .poster-container {
+      width: 1240px;
+      height: 1754px;
+      position: relative;
       background-color: #F8FAFC;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
     }
     .bg-math-pattern {
       position: absolute;
@@ -74,391 +69,241 @@
       justify-content: space-between;
     }
 
-    /* MAIN BODY - SPACED HARMONIOUSLY BETWEEN TOP & FOOTER */
-    .main-body {
-      flex: 1;
-      padding: 24px 52px 14px 52px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      gap: 0;
+    /* TOP INSTALL CARD (FULL HORIZONTAL BANNER) */
+    .top-install-banner {
+      width: 100%;
+      background: #FFFFFF;
+      padding: 16px 28px 18px 24px;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+      position: relative;
+      z-index: 20;
+      box-sizing: border-box;
     }
-
-    /* CRISP LIGHT TYPOGRAPHY & SHADOWS */
-    .text-halo {
-      text-shadow: 0 1px 3px rgba(255, 255, 255, 0.95), 0 0 10px rgba(255, 255, 255, 0.9);
-    }
-    .title-halo {
-      text-shadow: 0 2px 10px rgba(15, 71, 128, 0.1), 0 0 2px rgba(255, 255, 255, 0.95);
-    }
-
-    /* HERO SECTION: PLAYSTORE APP SCREENSHOT + 1 APP (TOP ROW) / INÚMERAS VERSÕES (CENTERED BELOW) */
-    .hero-section {
-      display: flex;
-      flex-direction: column;
-      margin-top: 0;
-      margin-bottom: 0;
-    }
-    .hero-top-row {
+    .banner-header-row {
       display: flex;
       align-items: center;
-      justify-content: flex-start;
-      gap: 44px;
-    }
-    .app-identity-card {
-      width: 670px;
-      border-radius: 26px;
-      border: 2px solid rgba(15, 71, 128, 0.22);
-      box-shadow: 0 10px 28px -4px rgba(15, 71, 128, 0.16), 0 4px 10px -2px rgba(15, 71, 128, 0.08);
-      background: #FFFFFF;
-      padding: 16px 24px 20px 24px;
-      display: flex;
-      flex-direction: column;
-      flex-shrink: 0;
+      justify-content: space-between;
       position: relative;
-      overflow: hidden;
+      margin-bottom: 8px;
     }
-    .app-identity-card::before {
-      content: '';
+    .banner-brand-col {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .banner-arrow {
+      color: #0F172A;
+      stroke-width: 2.8;
+      width: 20px;
+      height: 20px;
+    }
+    .banner-brand-text {
+      font-size: 19px;
+      font-weight: 700;
+      color: #334155;
+      letter-spacing: -0.2px;
+    }
+    .banner-search-bar {
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 6px;
-      background: linear-gradient(90deg, #0F4780 0%, #F14343 50%, #FFCC00 100%);
-    }
-    .card-play-header {
+      left: 296px;
+      width: 740px;
       display: flex;
       align-items: center;
       gap: 12px;
-      margin-bottom: 12px;
-      padding-left: 2px;
+      background: #FFFFFF;
+      border: 1.5px solid #DADCE0;
+      border-radius: 9999px;
+      padding: 9px 24px;
+      box-shadow: 0 1px 4px rgba(60, 64, 67, 0.10);
+      box-sizing: border-box;
     }
-    .card-play-arrow {
-      color: #444746;
+    .banner-search-icon {
+      width: 19px;
+      height: 19px;
+      color: #5F6368;
       flex-shrink: 0;
     }
-    .card-play-brand {
-      font-size: 21px;
-      font-weight: 600;
-      color: #444746;
-      letter-spacing: -0.2px;
+    .banner-search-text {
+      font-size: 16.5px;
+      font-weight: 500;
+      color: #5F6368;
+      letter-spacing: 0.15px;
+      white-space: nowrap;
     }
-    .card-main-content {
+    .banner-search-text strong {
+      color: #202124;
+      font-weight: 700;
+    }
+    .banner-dots-btn {
       display: flex;
       align-items: center;
-      gap: 20px;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      color: #5F6368;
+      flex-shrink: 0;
+    }
+    .banner-main-row {
+      display: flex;
+      align-items: center;
+      gap: 24px;
       width: 100%;
     }
-    .app-identity-icon {
-      width: 96px;
-      height: 96px;
+    .banner-app-icon {
+      width: 140px;
+      height: 114px;
       flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
     }
-    .app-identity-icon svg {
+    .banner-app-icon svg {
       width: 100%;
       height: 100%;
-      display: block;
     }
-    .card-right-col {
+    .banner-text-col {
       display: flex;
       flex-direction: column;
       justify-content: center;
       flex: 1;
     }
-    .app-identity-title {
-      font-size: 44px;
+    .banner-app-title {
+      font-size: 40px;
       font-weight: 900;
       line-height: 1.1;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
       letter-spacing: -0.5px;
     }
-    .app-identity-title .hub-word {
+    .banner-app-title .hub-word {
       color: #0F172A;
     }
-    .app-identity-title .labdiv-word {
+    .banner-app-title .labdiv-word {
       background: linear-gradient(90deg, #0F4780 0%, #F14343 50%, #D97706 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    .app-identity-desc {
-      font-size: 18px;
-      line-height: 1.36;
+    .banner-app-desc {
+      font-size: 17px;
+      line-height: 1.34;
       color: #334155;
       font-weight: 600;
-      letter-spacing: 0.1px;
     }
-    .card-install-btn {
+    .banner-install-btn {
+      width: calc(100% - 150px);
+      margin-left: 150px;
+      margin-top: 10px;
+      height: 52px;
+      background: #0B57D0;
+      color: #FFFFFF;
+      border-radius: 9999px;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      background: #0b57d0;
-      color: #FFFFFF;
-      border-radius: 9999px;
-      padding: 13px 24px;
-      font-size: 19px;
+      gap: 12px;
+      font-size: 20px;
       font-weight: 700;
-      letter-spacing: 0.2px;
-      box-shadow: 0 4px 12px rgba(11, 87, 208, 0.30);
-      margin-top: 14px;
+      letter-spacing: 0.3px;
+      box-shadow: 0 4px 14px rgba(11, 87, 208, 0.32);
+    }
+
+    /* TOP GRADIENT DIVIDER UNDER BANNER */
+    .top-gradient-divider {
+      width: 100%;
+      height: 4.5px;
+      background: linear-gradient(90deg, #0F4780 0%, #F14343 50%, #FFCC00 100%);
+    }
+
+    /* MAIN BODY */
+    .main-body {
+      flex: 1;
+      padding: 16px 34px 10px 34px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    /* HEADER: VOCÊ CONHECE O HUB? */
+    .experimente-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 16px;
+      margin-bottom: 16px;
       width: 100%;
       box-sizing: border-box;
     }
-    .hero-side-col {
+    .experimente-header .title-row {
       display: flex;
       align-items: center;
-      justify-content: flex-start;
-      flex-grow: 1;
+      justify-content: center;
+      gap: 20px;
     }
-    .hero-1app {
-      font-size: 125px;
-      font-weight: 900;
-      font-style: italic;
-      text-transform: uppercase;
-      line-height: 0.95;
-      color: #0F4780;
-      letter-spacing: 2px;
+    .experimente-icon {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      transform: rotate(-6deg);
     }
-    .hero-versoes-wrap {
-      width: 100%;
-      text-align: center;
-      margin-top: 18px;
-      margin-bottom: 0;
-    }
-    .hero-versoes {
+    .experimente-title {
       font-size: 74px;
       font-weight: 900;
       font-style: italic;
-      text-transform: uppercase;
-      line-height: 1.0;
       color: #0F172A;
-      letter-spacing: 1.5px;
-      display: inline-block;
+      letter-spacing: 1.8px;
+      text-shadow: 0 3px 20px rgba(15, 71, 128, 0.16), 0 0 2px rgba(255, 255, 255, 0.95);
+      white-space: nowrap;
+      line-height: 1.05;
     }
-    .title-blue {
-      color: #0F4780;
-      text-shadow: 0 2px 14px rgba(15, 71, 128, 0.16), 0 0 2px rgba(255, 255, 255, 0.9);
-    }
-    .title-dark {
-      color: #0F172A;
-      text-shadow: 0 2px 14px rgba(15, 71, 128, 0.12), 0 0 2px rgba(255, 255, 255, 0.9);
-    }
-
-    /* 3 EIXOS SECTION - CARDS COMPACTOS E HARMONIOSOS (GAP 1 = 50px) */
-    .axes-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-      margin-top: 50px;
-    }
-    .axis-card {
-      background: #FFFFFF;
-      border-radius: 22px;
-      padding: 14px 18px 16px 18px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      box-shadow: 0 10px 26px -4px rgba(15, 71, 128, 0.14), 0 4px 10px -2px rgba(15, 71, 128, 0.06);
-      position: relative;
-      overflow: hidden;
-      min-height: 265px;
-    }
-    .axis-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 7px;
-    }
-    .axis-social {
-      border: 2px solid rgba(15, 71, 128, 0.28);
-      box-shadow: 0 10px 26px -4px rgba(15, 71, 128, 0.16), 0 4px 10px -2px rgba(15, 71, 128, 0.08);
-    }
-    .axis-social::before {
-      background: #0F4780;
-    }
-    .axis-informativo {
-      border: 2px solid rgba(241, 67, 67, 0.28);
-      box-shadow: 0 10px 26px -4px rgba(241, 67, 67, 0.16), 0 4px 10px -2px rgba(241, 67, 67, 0.08);
-    }
-    .axis-informativo::before {
-      background: #F14343;
-    }
-    .axis-ferramentas {
-      border: 2px solid rgba(245, 158, 11, 0.35);
-      box-shadow: 0 10px 26px -4px rgba(217, 119, 6, 0.18), 0 4px 10px -2px rgba(217, 119, 6, 0.08);
-    }
-    .axis-ferramentas::before {
-      background: #FFCC00;
-    }
-    .axis-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 14px;
-    }
-    .axis-number {
-      font-size: 17px;
-      font-weight: 900;
-      padding: 7px 16px;
-      border-radius: 12px;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-    }
-    .axis-social .axis-number {
-      background: rgba(15, 71, 128, 0.08);
-      color: #0F4780;
-    }
-    .axis-informativo .axis-number {
-      background: rgba(241, 67, 67, 0.08);
-      color: #DC2626;
-    }
-    .axis-ferramentas .axis-number {
-      background: rgba(255, 204, 0, 0.18);
-      color: #B45309;
-    }
-    .axis-icon-badge {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 50px;
-      height: 50px;
-      border-radius: 14px;
-    }
-    .axis-social .axis-icon-badge {
-      background: rgba(15, 71, 128, 0.08);
-      color: #0F4780;
-      border: 1.5px solid rgba(15, 71, 128, 0.2);
-    }
-    .axis-informativo .axis-icon-badge {
-      background: rgba(241, 67, 67, 0.08);
-      color: #DC2626;
-      border: 1.5px solid rgba(241, 67, 67, 0.2);
-    }
-    .axis-ferramentas .axis-icon-badge {
-      background: rgba(255, 204, 0, 0.16);
-      color: #B45309;
-      border: 1.5px solid rgba(245, 158, 11, 0.3);
-    }
-    .axis-title {
-      font-size: 38px;
-      font-weight: 900;
-      color: #0F172A;
-      margin-bottom: 4px;
-      letter-spacing: -0.5px;
-    }
-    .axis-subtitle {
-      font-size: 17px;
+    .experimente-subtitle {
+      font-size: 37px;
       font-weight: 700;
-      line-height: 1.3;
-      margin-bottom: 8px;
-      letter-spacing: 0.2px;
-      min-height: 44px;
-    }
-    .axis-social .axis-subtitle { color: #0284C7; }
-    .axis-informativo .axis-subtitle { color: #E11D48; }
-    .axis-ferramentas .axis-subtitle { color: #D97706; }
-
-    .axis-features {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-evenly;
-      flex-grow: 1;
-      gap: 10px;
-      margin-top: 4px;
-    }
-    .axis-feature-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 23px;
-      line-height: 1.25;
-      color: #1E293B;
-    }
-    .axis-feature-dot {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      margin-top: 0;
-      flex-shrink: 0;
-    }
-    .axis-social .axis-feature-dot { background: #0F4780; }
-    .axis-informativo .axis-feature-dot { background: #F14343; }
-    .axis-ferramentas .axis-feature-dot { background: #FFCC00; }
-    .axis-feature-item strong {
-      color: #0F172A;
-      font-weight: 800;
-      font-size: 23px;
-      letter-spacing: 0.2px;
-    }
-
-    /* SECTION: EXPERIMENTE O HUB AGORA (GAP 2 = 50px) */
-    .section-experimente {
-      margin-top: 50px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      flex-grow: 0;
-      justify-content: flex-start;
-    }
-    .hub-section-header {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-    .hub-section-header.justify-center {
-      justify-content: center;
-    }
-    .hub-section-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 46px;
-      height: 46px;
-      flex-shrink: 0;
-      color: #0F4780;
-    }
-    .hub-section-title {
-      font-size: 50px;
-      font-weight: 900;
-      font-style: italic;
-      text-transform: uppercase;
-      letter-spacing: -0.5px;
-      line-height: 1.1;
-      color: #0F172A;
-    }
-    .qr-cards-wrap {
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      margin-top: 50px;
-    }
-    .qr-card-item {
-      background: linear-gradient(#FFFFFF, #FFFFFF) padding-box, linear-gradient(135deg, #0F4780 0%, #38BDF8 32%, #F14343 68%, #FFCC00 100%) border-box;
-      border: 4px solid transparent;
-      border-radius: 36px;
-      padding: 22px 22px 24px 22px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      box-shadow: 0 12px 32px -4px rgba(15, 71, 128, 0.16), 0 4px 12px -2px rgba(15, 71, 128, 0.08);
-      width: 480px;
+      color: #475569;
+      letter-spacing: 0.5px;
+      margin: 8px 0 0 0;
+      line-height: 1.2;
       text-align: center;
     }
+    .experimente-subtitle .hub-highlight {
+      color: #0F4780;
+      font-weight: 800;
+    }
+
+    /* ROW OF 2 BIG QR CARDS */
+    .qr-cards-grid {
+      display: flex;
+      justify-content: center;
+      gap: 36px;
+      width: 100%;
+      max-width: 1140px;
+      margin: 0 auto;
+    }
+    .qr-card {
+      width: 535px;
+      min-height: 565px;
+      background: #FFFFFF;
+      border-radius: 32px;
+      border: 3.5px solid transparent;
+      background-image: linear-gradient(#FFFFFF, #FFFFFF), linear-gradient(135deg, #0F4780 0%, #0284C7 30%, #F14343 70%, #FFCC00 100%);
+      background-origin: border-box;
+      background-clip: padding-box, border-box;
+      box-shadow: 0 16px 44px -4px rgba(15, 71, 128, 0.16), 0 6px 14px -2px rgba(15, 71, 128, 0.08);
+      padding: 26px 20px 22px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      box-sizing: border-box;
+    }
     .qr-svg-holder {
-      width: 420px;
-      height: 420px;
+      width: 380px;
+      height: 380px;
       position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #FFFFFF;
+      margin-bottom: 16px;
     }
     .qr-svg-holder svg {
       width: 100%;
@@ -470,149 +315,236 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 98px;
-      height: 98px;
-      background: linear-gradient(#FFFFFF, #FFFFFF) padding-box, linear-gradient(135deg, #0F4780 0%, #F14343 50%, #FFCC00 100%) border-box;
-      border: 3.5px solid transparent;
-      border-radius: 22px;
-      box-shadow: 0 0 0 4px #FFFFFF, 0 4px 14px rgba(0, 0, 0, 0.14);
+      width: 104px;
+      height: 104px;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 8px;
       z-index: 10;
+      pointer-events: none;
     }
-    .qr-center-icon {
-      width: 78px;
-      height: 78px;
+    .qr-center-badge img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.22));
+    }
+    .qr-label-row {
       display: flex;
       align-items: center;
       justify-content: center;
-    }
-    .qr-card-label {
-      margin-top: 16px;
-      font-size: 30px;
+      gap: 12px;
+      font-size: 28px;
       font-weight: 900;
       color: #0F172A;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      display: flex;
+      margin-bottom: 6px;
+    }
+    .qr-label-icon {
+      flex-shrink: 0;
+      display: inline-flex;
       align-items: center;
-      gap: 8px;
-      white-space: nowrap;
+      justify-content: center;
     }
-    .qr-card-sub {
+    .qr-link-blue {
       font-size: 20px;
-      font-weight: 700;
-      color: #64748B;
-      margin-top: 4px;
-      white-space: nowrap;
+      font-weight: 800;
+      color: #0B57D0;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      letter-spacing: 0.2px;
+      display: inline-block;
+      cursor: pointer;
+      margin-top: 3px;
     }
-    .experimente-perks-bottom {
-      margin-top: 24px;
+    .qr-sub-text {
+      font-size: 19px;
+      font-weight: 600;
+      line-height: 1.28;
+      color: #475569;
+    }
+
+    /* ROW OF 3 CARDS IN INVERTED TRIANGLE */
+    .axes-triangle-row {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 24px;
+      width: 100%;
+      max-width: 880px;
+      margin: -8px auto 14px auto;
+    }
+    .axis-card {
+      width: 275px;
+      height: 310px;
+      box-sizing: border-box;
+      background: #FFFFFF;
+      border-radius: 24px;
+      box-shadow: 0 10px 28px -4px rgba(15, 71, 128, 0.14), 0 3px 8px -2px rgba(15, 71, 128, 0.08);
+      padding: 24px 14px 20px 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .axis-card.card-info {
+      margin-top: 42px;
+    }
+    .axis-top-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+    }
+    .axis-icon-badge {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 24px;
-      font-size: 22px;
-      font-weight: 800;
-      color: #0F4780;
-      letter-spacing: 0.4px;
+      margin-bottom: 12px;
     }
-    .perk-item {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .perk-check {
-      color: #0284C7;
+    .axis-title {
+      font-size: 30px;
       font-weight: 900;
+      margin-bottom: 8px;
+      line-height: 1.15;
     }
-    .perk-bullet {
-      color: #CBD5E1;
-      font-size: 22px;
+    .axis-desc {
+      font-size: 21px;
+      font-weight: 600;
+      color: #334155;
+      line-height: 1.30;
+      text-align: center;
     }
 
-    /* SLENDER MODERN FOOTER WITH HORIZONTAL DEGRADÊ LINE */
+    /* THEMATIC COLORS */
+    .card-social {
+      border: 2px solid rgba(15, 71, 128, 0.22);
+    }
+    .card-social .axis-top-bar {
+      background: #0F4780;
+    }
+    .card-social .axis-icon-badge {
+      background: #EEF4FA;
+      border: 1.5px solid rgba(15, 71, 128, 0.25);
+      color: #0F4780;
+    }
+    .card-social .axis-title {
+      color: #0F4780;
+    }
+
+    .card-info {
+      border: 2px solid rgba(241, 67, 67, 0.26);
+    }
+    .card-info .axis-top-bar {
+      background: #F14343;
+    }
+    .card-info .axis-icon-badge {
+      background: #FEF2F2;
+      border: 1.5px solid rgba(241, 67, 67, 0.26);
+      color: #F14343;
+    }
+    .card-info .axis-title {
+      color: #F14343;
+    }
+
+    .card-tools {
+      border: 2px solid rgba(255, 204, 0, 0.45);
+    }
+    .card-tools .axis-top-bar {
+      background: #FFCC00;
+    }
+    .card-tools .axis-icon-badge {
+      background: #FEF9C3;
+      border: 1.5px solid rgba(255, 204, 0, 0.4);
+      color: #854D0E;
+    }
+    .card-tools .axis-title {
+      color: #854D0E;
+    }
+
+    /* FOOTER BAR */
     .footer-bar {
       width: 100%;
-      background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
-      box-shadow: 0 -4px 20px rgba(15, 71, 128, 0.08);
-      display: flex;
-      flex-direction: column;
+      background: #F1F5F9;
+      border-top: 1px solid #E2E8F0;
       position: relative;
+      z-index: 20;
     }
     .footer-gradient-divider {
+      height: 4.5px;
       width: 100%;
-      height: 3.5px;
       background: linear-gradient(90deg, #0F4780 0%, #F14343 50%, #FFCC00 100%);
     }
     .footer-content-wrap {
-      padding: 18px 52px 12px 52px;
+      padding: 12px 52px 10px 52px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 8px;
     }
     .footer-main-row {
       display: flex;
-      align-items: center;
+      align-items: stretch;
       justify-content: space-between;
-      gap: 36px;
+      gap: 28px;
     }
     .footer-legal-col {
+      flex: none;
+      width: 730px;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 0;
+      box-shadow: none;
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      flex: 1;
+      justify-content: center;
+      gap: 6px;
     }
     .footer-legal-badge {
-      display: inline-flex;
+      display: flex;
       align-items: center;
       gap: 8px;
-      font-size: 16px;
-      font-weight: 900;
       color: #0F4780;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.6px;
     }
     .footer-legal-text {
-      font-size: 19px;
+      font-size: 22px;
+      line-height: 1.32;
       color: #334155;
-      line-height: 1.40;
-      font-weight: 600;
-      letter-spacing: 0.1px;
-    }
-    .footer-legal-text strong {
-      color: #0F172A;
-      font-weight: 800;
     }
     .footer-buttons-col {
+      flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      flex-shrink: 0;
+      justify-content: space-between;
+      gap: 8px;
     }
     .footer-action-card {
+      background: #FFFFFF;
+      border-radius: 12px;
+      padding: 8px 14px;
       display: flex;
       align-items: center;
-      gap: 14px;
-      background: #FFFFFF;
-      border-radius: 16px;
-      padding: 9px 18px;
-      box-shadow: 0 4px 14px rgba(15, 71, 128, 0.10), 0 1px 3px rgba(0, 0, 0, 0.04);
-      min-width: 420px;
-      box-sizing: border-box;
+      gap: 12px;
+      box-shadow: 0 4px 12px rgba(15, 71, 128, 0.06);
     }
     .footer-card-git {
-      border: 1.8px solid rgba(15, 71, 128, 0.28);
+      border: 1.5px solid rgba(15, 71, 128, 0.25);
     }
     .footer-card-email {
-      border: 1.8px solid rgba(241, 67, 67, 0.28);
+      border: 1.5px solid rgba(241, 67, 67, 0.25);
     }
     .footer-icon-holder {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -621,45 +553,40 @@
     .icon-holder-git {
       background: rgba(15, 71, 128, 0.10);
       color: #0F4780;
-      border: 1.5px solid rgba(15, 71, 128, 0.25);
     }
     .icon-holder-email {
       background: rgba(241, 67, 67, 0.10);
-      color: #DC2626;
-      border: 1.5px solid rgba(241, 67, 67, 0.25);
+      color: #F14343;
     }
     .footer-action-info {
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      line-height: 1.22;
     }
     .footer-action-tag {
-      font-size: 13px;
-      font-weight: 900;
+      font-size: 12.5px;
+      font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.6px;
-      line-height: 1.1;
+      letter-spacing: 0.5px;
     }
     .tag-git {
       color: #0F4780;
     }
     .tag-email {
-      color: #DC2626;
+      color: #F14343;
     }
     .footer-action-val {
-      font-size: 18.5px;
-      font-weight: 800;
+      font-size: 14.5px;
+      font-weight: 700;
       color: #0F172A;
-      letter-spacing: -0.2px;
-      margin-top: 2px;
     }
     .footer-bottom-line {
       font-size: 14px;
       color: #64748B;
       font-weight: 600;
       text-align: center;
-      padding-top: 8px;
-      border-top: 1px solid #E2E8F0;
+      padding-top: 4px;
+      border-top: none;
     }
   </style>
 </head>
@@ -667,245 +594,167 @@
   <div class="poster-container">
     <div class="bg-math-pattern"></div>
     <div class="content-layer">
-      <!-- Main body (Spaced evenly across poster) -->
-      <main class="main-body">
-        <!-- Hero Section: Playstore Screenshot + 1 APP (Row 1) / INÚMERAS VERSÕES (Row 2 Centralizado) -->
-        <div class="hero-section">
-          <div class="hero-top-row">
-            <!-- Card de texto e ícone estilo Google Play do HUB LabDiv -->
-            <div class="app-identity-card">
-              <div class="card-play-header">
-                <svg class="card-play-arrow" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#444746" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="19" y1="12" x2="5" y2="12"></line>
-                  <polyline points="12 19 5 12 12 5"></polyline>
-                </svg>
-                <span class="card-play-brand font-open-sans">Google Play</span>
-              </div>
-
-              <div class="card-main-content">
-                <div class="app-identity-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
-  
-  <defs>
-    
-    <linearGradient id="labdivBrandGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#0F4780" />
-      <stop offset="48%" stop-color="#F14343" />
-      <stop offset="100%" stop-color="#FFCC00" />
-    </linearGradient>
-
-    
-    <linearGradient id="capTopGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#0E4277" />
-      <stop offset="22%" stop-color="#0F4780" />
-      <stop offset="48%" stop-color="#F14343" />
-      <stop offset="78%" stop-color="#FFCC00" />
-      <stop offset="100%" stop-color="#FCE055" />
-    </linearGradient>
-
-    
-    <linearGradient id="capBaseGradient" x1="5%" y1="0%" x2="95%" y2="0%">
-      <stop offset="0%" stop-color="#0B3764" />
-      <stop offset="25%" stop-color="#0F4780" />
-      <stop offset="50%" stop-color="#F14343" />
-      <stop offset="80%" stop-color="#FFCC00" />
-      <stop offset="100%" stop-color="#E5B800" />
-    </linearGradient>
-
-    
-    <linearGradient id="waveGradient" x1="45" y1="0" x2="467" y2="0" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#0F4780" />
-      <stop offset="22%" stop-color="#0F4780" />
-      <stop offset="50%" stop-color="#F14343" />
-      <stop offset="78%" stop-color="#FFCC00" />
-      <stop offset="100%" stop-color="#FFCC00" />
-    </linearGradient>
-
-  </defs>
-
-  
-  
-  
-  <g stroke="url(#waveGradient)" stroke-width="26" stroke-linecap="round" fill="none" opacity="0.15">
-    
-    <path d="M 53 225 C 27 168 27 104 53 50" />
-    <path d="M 94 196 C 72 157 72 109 94 72" />
-    
-    <path d="M 138 183 C 120 153 120 118 138 88" />
-    <path d="M 178 165 C 164 145 164 125 178 105" />
-    
-    <path d="M 210 110 C 235 92 277 92 302 110" />
-    <path d="M 224 128 C 242 114 270 114 288 128" />
-    <path d="M 238 146 C 248 136 264 136 274 146" />
-    
-    <path d="M 334 165 C 348 145 348 125 334 105" />
-    <path d="M 374 183 C 392 153 392 118 374 88" />
-    
-    <path d="M 418 196 C 440 157 440 109 418 72" />
-    <path d="M 459 225 C 485 168 485 104 459 50" />
-  </g>
-
-  
-  <g stroke-linecap="round" fill="none">
-    
-    <g stroke="#000000" stroke-width="22">
-      
-      <path d="M 53 225 C 27 168 27 104 53 50" />
-      <path d="M 94 196 C 72 157 72 109 94 72" />
-      
-      <path d="M 138 183 C 120 153 120 118 138 88" />
-      <path d="M 178 165 C 164 145 164 125 178 105" />
-      
-      <path d="M 210 110 C 235 92 277 92 302 110" />
-      <path d="M 224 128 C 242 114 270 114 288 128" />
-      <path d="M 238 146 C 248 136 264 136 274 146" stroke-width="20" />
-      
-      <path d="M 334 165 C 348 145 348 125 334 105" />
-      <path d="M 374 183 C 392 153 392 118 374 88" />
-      
-      <path d="M 418 196 C 440 157 440 109 418 72" />
-      <path d="M 459 225 C 485 168 485 104 459 50" />
-    </g>
-
-    
-    <g stroke="url(#waveGradient)" stroke-width="12">
-      
-      <path d="M 53 225 C 27 168 27 104 53 50" />
-      <path d="M 94 196 C 72 157 72 109 94 72" />
-      
-      <path d="M 138 183 C 120 153 120 118 138 88" />
-      <path d="M 178 165 C 164 145 164 125 178 105" />
-      
-      <path d="M 210 110 C 235 92 277 92 302 110" />
-      <path d="M 224 128 C 242 114 270 114 288 128" />
-      <path d="M 238 146 C 248 136 264 136 274 146" stroke-width="10" />
-      
-      <path d="M 334 165 C 348 145 348 125 334 105" />
-      <path d="M 374 183 C 392 153 392 118 374 88" />
-      
-      <path d="M 418 196 C 440 157 440 109 418 72" />
-      <path d="M 459 225 C 485 168 485 104 459 50" />
-    </g>
-  </g>
-
-  
-  <g>
-    
-    <path d="M 120 300 L 120 355 C 120 430, 392 430, 392 355 L 392 300 Z" fill="url(#capBaseGradient)" />
-
-    
-    <path d="M 120 316 L 236 365 Q 256 375 276 365 L 392 316 L 392 334 L 276 375 Q 256 383 236 375 L 120 334 Z" fill="#000000" opacity="0.35" />
-
-    
-    <path d="M 120 300 L 120 355 C 120 430, 392 430, 392 355 L 392 300 Z" fill="none" stroke="#000000" stroke-width="10" stroke-linejoin="round" />
-  </g>
-
-  
-  <g>
-    
-    <path d="M 276 175 L 456 260 Q 476 270 456 280 L 276 365 Q 256 375 236 365 L 56 280 Q 36 270 56 260 L 236 175 Q 256 165 276 175 Z" fill="url(#capTopGradient)" stroke="#000000" stroke-width="10" stroke-linejoin="round" stroke-linecap="round" />
-
-  </g>
-
-  
-  <g stroke-linejoin="round" stroke-linecap="round">
-    
-    <polygon points="59,282 75,287 75,321 59,321" fill="#000000" opacity="0.4" />
-    
-    
-    <polygon points="57,270 73,277 73,321 57,321" fill="#0F4780" />
-    
-    
-    <line x1="57" y1="281" x2="57" y2="321" stroke="#000000" stroke-width="10" stroke-linecap="round" />
-    
-    
-    <line x1="73" y1="288" x2="73" y2="321" stroke="#000000" stroke-width="10" stroke-linecap="round" />
-
-    
-    <path d="M 49 346 L 39 408 Q 65 420 91 408 L 81 346 Z" fill="#0F4780" />
-    
-    
-    <line x1="49" y1="348" x2="39" y2="408" stroke="#000000" stroke-width="8" stroke-linecap="round" />
-    
-    
-    <path d="M 39 408 Q 65 420 91 408" fill="none" stroke="#000000" stroke-width="8" stroke-linecap="round" />
-    
-    
-    <line x1="81" y1="348" x2="91" y2="408" stroke="#000000" stroke-width="8" stroke-linecap="round" />
-
-    
-    <circle cx="65" cy="335" r="15" fill="#0F4780" stroke="#000000" stroke-width="8" />
-  </g>
-
-  
-  <path d="M 56 270 L 236 183 Q 256 173 276 183 L 456 270" fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" opacity="0.3" />
-</svg>
-                </div>
-                <div class="card-right-col">
-                  <div class="app-identity-title font-bukra">
-                    <span class="hub-word">HUB</span> <span class="labdiv-word">LabDiv</span>
-                  </div>
-                  <div class="app-identity-desc font-open-sans">
-                    O HUB de comunicação científica do Laboratório de expressão e divulgação do IFUSP
-                  </div>
-                </div>
-              </div>
-
-              <div class="card-install-btn font-open-sans">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                  <polyline points="7 10 12 15 17 10"></polyline>
-                  <line x1="12" y1="15" x2="12" y2="3"></line>
-                </svg>
-                <span>Instalar</span>
-              </div>
-            </div>
-
-            <!-- 1 APP ao lado -->
-            <div class="hero-side-col">
-              <div class="hero-1app font-bukra title-halo title-blue">1 APP</div>
-            </div>
+            <!-- 1. TOP INSTALL BANNER (FULL HORIZONTAL WIDTH) -->
+      <div class="top-install-banner">
+        <div class="banner-header-row">
+          <div class="banner-brand-col">
+            <svg class="banner-arrow" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            <span class="banner-brand-text font-open-sans">Google Play</span>
           </div>
 
-          <!-- INÚMERAS FUNÇÕES centralizado abaixo -->
-          <div class="hero-versoes-wrap">
-            <div class="hero-versoes font-bukra title-halo title-dark">INÚMERAS FUNÇÕES</div>
+          <div class="banner-search-bar font-open-sans">
+            <svg class="banner-search-icon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <span class="banner-search-text">É só buscar por &ldquo;<strong>LabDiv</strong>&rdquo; na playstore, que ele aparece...</span>
+          </div>
+
+          <div class="banner-dots-btn">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="#5F6368">
+              <circle cx="12" cy="5" r="2.5"></circle>
+              <circle cx="12" cy="12" r="2.5"></circle>
+              <circle cx="12" cy="19" r="2.5"></circle>
+            </svg>
           </div>
         </div>
 
-        <!-- Os 3 Eixos -->
-        <div class="axes-grid">
-          <!-- Eixo 1: Social -->
-          <div class="axis-card axis-social">
-            <div class="axis-header font-bukra">
-              <div class="axis-number">Eixo 1</div>
-              <div class="axis-icon-badge"><svg width="26" height="26" viewBox="0 -960 960 960" fill="currentColor">
-  <path d="M0-240v-63q0-43 44-70t116-27q13 0 25 .5t23 2.5q-14 21-21 44t-7 48v65H0Zm240 0v-65q0-32 17.5-58.5T307-410q32-20 76.5-30t96.5-10q53 0 97.5 10t76.5 30q32 20 49 46.5t17 58.5v65H240Zm540 0v-65q0-26-6.5-49T754-397q11-2 22.5-2.5t23.5-.5q72 0 116 26.5t44 70.5v63H780ZM160-440q-33 0-56.5-23.5T80-520q0-34 23.5-57t56.5-23q34 0 57 23t23 57q0 33-23 56.5T160-440Zm640 0q-33 0-56.5-23.5T720-520q0-34 23.5-57t56.5-23q34 0 57 23t23 57q0 33-23 56.5T800-440Zm-320-40q-50 0-85-35t-35-85q0-51 35-85.5t85-34.5q51 0 85.5 34.5T600-600q0 50-34.5 85T480-480Z"/>
-</svg></div>
+        <div class="banner-main-row">
+          <div class="banner-app-icon">
+            <svg width="100%" height="100%" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M100 20 L20 60 L100 100 L180 60 Z" fill="url(#gradCapelo)" stroke="#0F172A" stroke-width="4" stroke-linejoin="round"/>
+              <path d="M45 72.5 V115 C45 135 155 135 155 115 V72.5" fill="url(#gradCapelo)" stroke="#0F172A" stroke-width="4"/>
+              <path d="M180 60 V125" stroke="#0F4780" stroke-width="4" stroke-linecap="round"/>
+              <circle cx="180" cy="130" r="6" fill="#F14343"/>
+              <path d="M60 40 C40 20 20 20 5 35" stroke="#0F4780" stroke-width="4" stroke-linecap="round"/>
+              <path d="M140 40 C160 20 180 20 195 35" stroke="#FFCC00" stroke-width="4" stroke-linecap="round"/>
+              <defs>
+                <linearGradient id="gradCapelo" x1="20" y1="20" x2="180" y2="135" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#0F4780"/>
+                  <stop offset="50%" stop-color="#F14343"/>
+                  <stop offset="100%" stop-color="#FFCC00"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div class="banner-text-col">
+            <div class="banner-app-title font-bukra">
+              <span class="hub-word">HUB</span> <span class="labdiv-word">LabDiv</span>
             </div>
-            <h3 class="axis-title font-bukra">Social</h3>
-            <div class="axis-subtitle font-open-sans">Rede social comunicativa &amp; mensageiro</div>
-            <ul class="axis-features font-bukra">
-              <li class="axis-feature-item">
-                <span class="axis-feature-dot"></span>
-                <div><strong>Fluxo</strong></div>
-              </li>
-              <li class="axis-feature-item">
-                <span class="axis-feature-dot"></span>
-                <div><strong>Registros &amp; Galeria</strong></div>
-              </li>
-              <li class="axis-feature-item">
-                <span class="axis-feature-dot"></span>
-                <div><strong>Central de Interações</strong></div>
-              </li>
-            </ul>
+            <div class="banner-app-desc font-open-sans">
+              O HUB de comunicação científica do Laboratório de expressão e divulgação do IFUSP
+            </div>
+          </div>
+        </div>
+
+        <div class="banner-install-btn font-open-sans">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span>Instalar</span>
+        </div>
+      </div>
+
+      <!-- GRADIENT DIVIDER UNDER BANNER -->
+      <div class="top-gradient-divider"></div>
+
+      <!-- 2. MAIN BODY (INVERTED TRIANGLE HIERARCHY) -->
+      <main class="main-body">
+        <!-- HEADER: VOCÊ CONHECE O HUB? -->
+        <div class="experimente-header">
+          <div class="title-row">
+            <div class="experimente-icon">
+              <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#0F4780" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 4px rgba(15, 71, 128, 0.16));">
+                <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
+                <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+                <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/>
+                <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
+              </svg>
+            </div>
+            <h2 class="experimente-title font-bukra">
+              VOCÊ CONHECE O HUB?
+            </h2>
+          </div>
+          <p class="experimente-subtitle font-open-sans">
+            escaneie, baixe e descubra o <span class="hub-highlight">HUB</span> do universitário
+          </p>
+        </div>
+
+        <!-- ROW OF 2 LARGE QR CARDS -->
+        <div class="qr-cards-grid">
+          <!-- QR Card 1: Web -->
+          <div class="qr-card">
+            <div class="qr-svg-holder">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35 35" shape-rendering="crispEdges"><path fill="#ffffff" d="M0 0h35v35H0z"/><path stroke="#000000" d="M1 1.5h7m1 0h1m2 0h2m2 0h1m1 0h6m1 0h1m1 0h7M1 2.5h1m5 0h1m6 0h2m2 0h2m2 0h1m2 0h1m1 0h1m5 0h1M1 3.5h1m1 0h3m1 0h1m1 0h1m1 0h1m2 0h3m1 0h1m2 0h2m1 0h2m1 0h1m1 0h3m1 0h1M1 4.5h1m1 0h3m1 0h1m2 0h2m2 0h1m2 0h1m1 0h1m2 0h3m2 0h1m1 0h3m1 0h1M1 5.5h1m1 0h3m1 0h1m1 0h3m6 0h1m1 0h3m2 0h1m1 0h1m1 0h3m1 0h1M1 6.5h1m5 0h1m7 0h2m3 0h3m4 0h1m5 0h1M1 7.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M9 8.5h4m3 0h1m1 0h4m1 0h1m1 0h1M6 9.5h2m2 0h2m2 0h1m2 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1M2 10.5h2m1 0h2m2 0h2m3 0h2m2 0h2m1 0h4m1 0h1m1 0h2m2 0h1M1 11.5h2m2 0h5m1 0h1m2 0h1m1 0h6m1 0h1m1 0h4m1 0h3M6 12.5h1m2 0h1m2 0h2m1 0h2m2 0h1m1 0h2m1 0h3m1 0h1m1 0h2M1 13.5h1m2 0h1m2 0h2m2 0h3m1 0h2m1 0h1m3 0h1m1 0h2m1 0h1m4 0h1M4 14.5h2m2 0h3m2 0h2m1 0h5m1 0h1m1 0h1m2 0h2m1 0h1m2 0h1M3 15.5h1m1 0h1m1 0h2m1 0h1m2 0h1m1 0h2m3 0h2m1 0h1m2 0h1m1 0h1m3 0h1M1 16.5h2m1 0h2m3 0h2m1 0h2m3 0h1m2 0h1m4 0h1m3 0h3M2 17.5h1m1 0h4m1 0h1m1 0h4m1 0h2m1 0h3m4 0h1m2 0h1m2 0h2M1 18.5h1m1 0h1m2 0h1m4 0h4m4 0h1m1 0h2m1 0h2m1 0h2m4 0h1M1 19.5h2m2 0h1m1 0h2m1 0h1m2 0h1m1 0h1m1 0h2m1 0h3m1 0h1m1 0h3m1 0h4M1 20.5h1m1 0h1m4 0h1m1 0h1m1 0h3m4 0h2m2 0h3m2 0h4M1 21.5h2m1 0h1m1 0h2m1 0h4m1 0h1m2 0h1m3 0h1m1 0h1m1 0h1m2 0h3m1 0h2M1 22.5h2m3 0h1m4 0h2m1 0h1m1 0h1m1 0h2m1 0h1m1 0h1m3 0h1m1 0h3M1 23.5h1m1 0h1m1 0h3m8 0h1m1 0h1m3 0h4m2 0h5M1 24.5h1m1 0h1m5 0h1m2 0h1m3 0h1m1 0h4m1 0h2m5 0h2M1 25.5h2m2 0h1m1 0h1m2 0h1m1 0h1m1 0h1m1 0h2m3 0h1m3 0h6m2 0h1M9 26.5h2m1 0h5m1 0h1m5 0h2m3 0h3m1 0h1M1 27.5h7m5 0h4m1 0h5m1 0h2m1 0h1m1 0h1m2 0h1M1 28.5h1m5 0h1m1 0h2m1 0h1m1 0h1m1 0h1m2 0h3m2 0h2m3 0h1m1 0h2M1 29.5h1m1 0h3m1 0h1m3 0h2m9 0h1m2 0h5m2 0h2M1 30.5h1m1 0h3m1 0h1m3 0h2m1 0h6m2 0h5m1 0h2m1 0h2M1 31.5h1m1 0h3m1 0h1m5 0h1m6 0h4m1 0h1m3 0h1m1 0h3M1 32.5h1m5 0h1m2 0h2m1 0h1m4 0h1m7 0h2m2 0h2M1 33.5h7m4 0h3m1 0h3m3 0h1m1 0h2m4 0h1m1 0h1"/></svg>
+
+              <div class="qr-center-badge">
+                <img src="icons/qr-hub-logo-badge.png" alt="HUB LabDiv">
+              </div>
+            </div>
+            <div class="qr-label-row font-bukra">
+              <svg class="qr-label-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0F172A" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                <path d="M2 12h20"></path>
+              </svg>
+              <span>ACESSE NO SITE</span>
+            </div>
+            <div class="qr-sub-text font-open-sans">
+              Acesse de qualquer dispositivo com segurança.
+            </div>
+            <a class="qr-link-blue font-open-sans">
+              hub-lab-div.vercel.app
+            </a>
           </div>
 
-          <!-- Eixo 2: Informativo -->
-          <div class="axis-card axis-informativo">
-            <div class="axis-header font-bukra">
-              <div class="axis-number">Eixo 2</div>
-              <div class="axis-icon-badge"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <!-- QR Card 2: Google Play -->
+          <div class="qr-card">
+            <div class="qr-svg-holder">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 51 51" shape-rendering="crispEdges"><path fill="#ffffff" d="M0 0h51v51H0z"/><path stroke="#000000" d="M1 1.5h7m2 0h4m1 0h1m1 0h3m1 0h1m1 0h4m3 0h1m4 0h1m5 0h1m1 0h7M1 2.5h1m5 0h1m3 0h1m4 0h1m1 0h1m1 0h6m1 0h1m1 0h3m1 0h4m2 0h3m1 0h1m5 0h1M1 3.5h1m1 0h3m1 0h1m1 0h1m1 0h2m1 0h1m1 0h4m1 0h1m2 0h1m2 0h4m4 0h1m2 0h1m1 0h2m1 0h1m1 0h3m1 0h1M1 4.5h1m1 0h3m1 0h1m1 0h1m2 0h2m4 0h1m2 0h2m1 0h1m1 0h1m4 0h2m2 0h3m2 0h1m2 0h1m1 0h3m1 0h1M1 5.5h1m1 0h3m1 0h1m2 0h1m1 0h1m2 0h1m4 0h2m1 0h6m1 0h2m4 0h3m4 0h1m1 0h3m1 0h1M1 6.5h1m5 0h1m2 0h1m2 0h2m2 0h1m1 0h1m1 0h3m3 0h1m1 0h1m1 0h3m5 0h1m3 0h1m5 0h1M1 7.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M11 8.5h1m2 0h4m1 0h1m3 0h1m3 0h1m1 0h1m6 0h4M4 9.5h2m1 0h2m4 0h1m2 0h2m2 0h8m1 0h3m2 0h2m1 0h4m5 0h2M2 10.5h2m8 0h1m4 0h6m4 0h1m2 0h3m2 0h3m1 0h3m1 0h1m1 0h4M2 11.5h3m2 0h1m2 0h7m3 0h3m1 0h1m2 0h2m1 0h8m2 0h2m2 0h2m2 0h2M2 12.5h1m1 0h1m5 0h1m1 0h1m1 0h1m1 0h1m2 0h1m2 0h1m1 0h1m2 0h3m1 0h6m3 0h1m3 0h4M1 13.5h2m4 0h1m1 0h4m5 0h3m1 0h1m4 0h4m2 0h3m1 0h2m1 0h1m1 0h1m2 0h1m2 0h2M3 14.5h1m4 0h2m1 0h5m1 0h2m3 0h1m1 0h1m1 0h2m1 0h2m1 0h3m4 0h1m2 0h2m1 0h3M2 15.5h1m1 0h5m1 0h1m5 0h2m3 0h6m1 0h1m2 0h4m2 0h4m3 0h1m1 0h1m1 0h2M2 16.5h1m3 0h1m1 0h1m1 0h3m1 0h2m3 0h2m2 0h3m2 0h3m3 0h1m1 0h1m1 0h1m4 0h1m2 0h1M3 17.5h5m4 0h1m1 0h1m1 0h4m1 0h1m1 0h2m1 0h10m1 0h1m5 0h4m1 0h2M3 18.5h3m2 0h3m3 0h1m3 0h6m4 0h1m3 0h3m3 0h2m1 0h5m2 0h1M5 19.5h1m1 0h1m1 0h2m1 0h1m5 0h2m1 0h1m1 0h1m1 0h1m4 0h2m2 0h6m1 0h1m1 0h1m1 0h3m1 0h1M1 20.5h1m3 0h1m4 0h1m1 0h1m6 0h2m2 0h6m1 0h1m2 0h1m2 0h1m6 0h1m2 0h1m1 0h1M1 21.5h3m1 0h1m1 0h2m2 0h2m1 0h4m1 0h1m1 0h4m5 0h3m2 0h3m1 0h2m2 0h1m4 0h2M1 22.5h2m6 0h1m1 0h6m1 0h1m1 0h1m2 0h1m1 0h3m1 0h2m1 0h6m1 0h5m1 0h2M1 23.5h1m1 0h1m1 0h5m1 0h1m7 0h3m1 0h6m1 0h3m2 0h1m1 0h1m3 0h5m1 0h1m1 0h1M1 24.5h1m2 0h2m3 0h2m1 0h2m3 0h4m1 0h2m3 0h4m1 0h1m2 0h2m4 0h1m3 0h5M1 25.5h1m1 0h1m1 0h1m1 0h1m1 0h1m5 0h1m2 0h1m3 0h2m1 0h1m1 0h1m1 0h1m2 0h2m2 0h2m3 0h1m1 0h1m1 0h2m2 0h1M1 26.5h1m3 0h1m3 0h1m1 0h3m3 0h3m1 0h1m1 0h1m3 0h2m2 0h1m1 0h2m1 0h2m1 0h1m1 0h1m3 0h2m1 0h2M2 27.5h2m1 0h7m1 0h2m1 0h1m1 0h2m1 0h7m3 0h2m3 0h1m1 0h2m1 0h5m1 0h1m1 0h1M1 28.5h2m1 0h3m5 0h1m1 0h1m1 0h2m1 0h1m1 0h3m1 0h1m3 0h3m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1m1 0h2m1 0h3M1 29.5h1m1 0h2m2 0h2m1 0h3m1 0h3m2 0h1m3 0h1m2 0h3m1 0h3m4 0h2m1 0h1m4 0h5M3 30.5h1m1 0h1m3 0h1m3 0h1m1 0h4m1 0h1m4 0h2m3 0h1m2 0h6m1 0h7M1 31.5h2m4 0h1m1 0h1m3 0h1m3 0h2m1 0h1m1 0h1m3 0h2m2 0h2m2 0h1m1 0h3m1 0h1m2 0h2m4 0h1M2 32.5h2m4 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m5 0h1m3 0h8m1 0h1m2 0h2m4 0h1M2 33.5h4m1 0h2m1 0h3m2 0h3m1 0h4m2 0h2m2 0h3m1 0h2m1 0h1m1 0h4m1 0h4m1 0h2M1 34.5h2m2 0h1m3 0h3m5 0h5m1 0h3m2 0h2m4 0h2m2 0h2m1 0h1m1 0h1m1 0h1m1 0h2M3 35.5h1m1 0h3m8 0h1m3 0h2m3 0h1m3 0h1m2 0h1m1 0h2m2 0h1m1 0h1m2 0h1m1 0h1m1 0h1m1 0h1M1 36.5h3m4 0h1m2 0h1m1 0h5m1 0h2m2 0h1m1 0h2m1 0h4m4 0h1m1 0h4m4 0h4M7 37.5h2m5 0h1m2 0h1m1 0h4m4 0h1m1 0h1m2 0h2m1 0h1m1 0h4m3 0h1M1 38.5h1m2 0h1m9 0h1m2 0h6m2 0h2m5 0h1m1 0h1m1 0h2m1 0h1m1 0h3m1 0h1m2 0h1M2 39.5h1m3 0h2m4 0h2m2 0h1m1 0h1m1 0h2m1 0h2m1 0h1m1 0h1m8 0h4m1 0h2m3 0h3M2 40.5h3m3 0h1m3 0h2m1 0h1m2 0h3m5 0h2m1 0h1m5 0h2m2 0h3m5 0h2M1 41.5h3m3 0h1m1 0h10m1 0h2m1 0h7m1 0h3m3 0h9M9 42.5h3m2 0h2m1 0h1m3 0h3m3 0h1m1 0h1m2 0h1m2 0h1m1 0h1m2 0h2m3 0h4M1 43.5h7m1 0h2m1 0h3m1 0h3m1 0h1m2 0h1m1 0h1m1 0h1m1 0h1m1 0h2m2 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h3m1 0h1M1 44.5h1m5 0h1m4 0h1m1 0h1m3 0h2m1 0h3m3 0h2m2 0h2m2 0h1m5 0h1m3 0h2M1 45.5h1m1 0h3m1 0h1m1 0h2m2 0h2m2 0h1m5 0h8m4 0h3m1 0h7m2 0h1M1 46.5h1m1 0h3m1 0h1m1 0h1m1 0h1m6 0h1m3 0h3m1 0h1m1 0h2m1 0h3m1 0h1m1 0h3m1 0h1m4 0h1m2 0h1M1 47.5h1m1 0h3m1 0h1m3 0h2m1 0h1m2 0h1m2 0h1m2 0h2m2 0h1m2 0h2m2 0h2m1 0h2m2 0h5m1 0h1m1 0h1M1 48.5h1m5 0h1m3 0h2m10 0h2m1 0h2m3 0h1m1 0h4m1 0h2m3 0h7M1 49.5h7m4 0h7m2 0h3m3 0h1m3 0h1m1 0h3m1 0h1m8 0h1m2 0h1"/></svg>
+
+              <div class="qr-center-badge">
+                <img src="icons/qr-hub-logo-badge.png" alt="HUB LabDiv">
+              </div>
+            </div>
+            <div class="qr-label-row font-bukra">
+              <svg class="qr-label-icon" width="26" height="28" viewBox="0 0 24 24" fill="none" stroke="#0F172A" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4.5 2.6 L19.6 11.2 Q 20.8 12 19.6 12.8 L 4.5 21.4 Q 3.3 22.1 3.3 20.7 L 3.3 3.3 Q 3.3 1.9 4.5 2.6 Z" />
+                <path d="M3.6 3.6 L 15.2 15.2" />
+                <path d="M3.6 20.4 L 15.2 8.8" />
+              </svg>
+              <span>GOOGLE PLAY</span>
+            </div>
+            <div class="qr-sub-text font-open-sans">
+              Baixe o App e acesse o HUB<br>
+              mesmo sem internet.
+            </div>
+          </div>
+        </div>
+
+        <!-- ROW OF 3 COMPACT AXIS CARDS (INVERTED TRIANGLE V-SHAPE: SOCIAL & TOOLS HIGHER, INFORMATIVO DROPPED DOWN) -->
+        <div class="axes-triangle-row">
+          <!-- Card 1: Social -->
+          <div class="axis-card card-social">
+            <div class="axis-top-bar"></div>
+            <div class="axis-icon-badge">
+              <svg width="34" height="34" viewBox="0 -960 960 960" fill="currentColor">
+  <path d="M0-240v-63q0-43 44-70t116-27q13 0 25 .5t23 2.5q-14 21-21 44t-7 48v65H0Zm240 0v-65q0-32 17.5-58.5T307-410q32-20 76.5-30t96.5-10q53 0 97.5 10t76.5 30q32 20 49 46.5t17 58.5v65H240Zm540 0v-65q0-26-6.5-49T754-397q11-2 22.5-2.5t23.5-.5q72 0 116 26.5t44 70.5v63H780ZM160-440q-33 0-56.5-23.5T80-520q0-34 23.5-57t56.5-23q34 0 57 23t23 57q0 33-23 56.5T160-440Zm640 0q-33 0-56.5-23.5T720-520q0-34 23.5-57t56.5-23q34 0 57 23t23 57q0 33-23 56.5T800-440Zm-320-40q-50 0-85-35t-35-85q0-51 35-85.5t85-34.5q51 0 85.5 34.5T600-600q0 50-34.5 85T480-480Z"/>
+</svg>
+            </div>
+            <h3 class="axis-title font-bukra">Social</h3>
+            <p class="axis-desc font-open-sans">Rede comunicativa &amp; pedagógica</p>
+          </div>
+
+          <!-- Card 2: Informativo -->
+          <div class="axis-card card-info">
+            <div class="axis-top-bar"></div>
+            <div class="axis-icon-badge">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
   <path d="M12 2v4" />
   <path d="M12 18v4" />
   <path d="M2 12h4" />
@@ -918,428 +767,31 @@
   <circle cx="12" cy="12" r="4.2" stroke-width="1.6" />
   <path d="M12 9.5v5M9.5 12h5" stroke-width="2" />
   <circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none" />
-</svg></div>
+</svg>
             </div>
             <h3 class="axis-title font-bukra">Informativo</h3>
-            <div class="axis-subtitle font-open-sans">Central de informações e uma Wiki da USP</div>
-            <ul class="axis-features font-bukra">
-              <li class="axis-feature-item">
-                <span class="axis-feature-dot"></span>
-                <div><strong>Wiki Central</strong></div>
-              </li>
-              <li class="axis-feature-item">
-                <span class="axis-feature-dot"></span>
-                <div><strong>O Instituto</strong></div>
-              </li>
-              <li class="axis-feature-item">
-                <span class="axis-feature-dot"></span>
-                <div><strong>Interativo</strong></div>
-              </li>
-            </ul>
+            <p class="axis-desc font-open-sans">Enciclopédia acadêmica &amp; interativa</p>
           </div>
 
-          <!-- Eixo 3: Ferramentas -->
-          <div class="axis-card axis-ferramentas">
-            <div class="axis-header font-bukra">
-              <div class="axis-number">Eixo 3</div>
-              <div class="axis-icon-badge"><svg width="26" height="26" viewBox="0 -960 960 960" fill="currentColor">
+          <!-- Card 3: Ferramentas -->
+          <div class="axis-card card-tools">
+            <div class="axis-top-bar"></div>
+            <div class="axis-icon-badge">
+              <svg width="34" height="34" viewBox="0 -960 960 960" fill="currentColor">
   <path d="M756-120 537-339l84-84 219 219-84 84Zm-552 0-84-84 276-276-68-68-28 28-51-51v82l-28 28-121-121 28-28h82l-50-50 142-142q20-20 43-29t47-9q24 0 47 9t43 29l-92 92 50 50-28 28 68 68 90-90q-4-11-6.5-23t-2.5-24q0-59 40.5-99.5T701-841q15 0 28.5 3t27.5 9l-99 99 72 72 99-99q7 14 9.5 27.5T841-701q0 59-40.5 99.5T701-561q-12 0-24-2t-23-7L204-120Z"/>
-</svg></div>
+</svg>
             </div>
             <h3 class="axis-title font-bukra">Ferramentas</h3>
-            <div class="axis-subtitle font-open-sans">Acompanhamento/planejamento do curso &amp; semestre</div>
-            <ul class="axis-features font-bukra">
-              <li class="axis-feature-item">
-                <span class="axis-feature-dot"></span>
-                <div><strong>Grade &amp; Trilhas</strong></div>
-              </li>
-              <li class="axis-feature-item">
-                <span class="axis-feature-dot"></span>
-                <div><strong>Match Acadêmico</strong></div>
-              </li>
-              <li class="axis-feature-item">
-                <span class="axis-feature-dot"></span>
-                <div><strong>Central de Anotações</strong></div>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Section: Experimente o HUB Agora -->
-        <div class="section-experimente">
-          <div class="hub-section-header justify-center">
-            <div class="hub-section-icon">
-              <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#0F4780" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 3px rgba(15, 71, 128, 0.10));">
-                <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
-                <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
-                <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/>
-                <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
-              </svg>
-            </div>
-            <h2 class="hub-section-title font-bukra title-halo">
-              <span class="title-dark">EXPERIMENTE O HUB AGORA</span>
-            </h2>
-          </div>
-
-          <div class="qr-cards-wrap">
-            <!-- QR Web -->
-            <div class="qr-card-item">
-              <div class="qr-svg-holder">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35 35" shape-rendering="crispEdges"><path fill="#ffffff" d="M0 0h35v35H0z"/><path stroke="#000000" d="M1 1.5h7m1 0h1m2 0h2m2 0h1m1 0h6m1 0h1m1 0h7M1 2.5h1m5 0h1m6 0h2m2 0h2m2 0h1m2 0h1m1 0h1m5 0h1M1 3.5h1m1 0h3m1 0h1m1 0h1m1 0h1m2 0h3m1 0h1m2 0h2m1 0h2m1 0h1m1 0h3m1 0h1M1 4.5h1m1 0h3m1 0h1m2 0h2m2 0h1m2 0h1m1 0h1m2 0h3m2 0h1m1 0h3m1 0h1M1 5.5h1m1 0h3m1 0h1m1 0h3m6 0h1m1 0h3m2 0h1m1 0h1m1 0h3m1 0h1M1 6.5h1m5 0h1m7 0h2m3 0h3m4 0h1m5 0h1M1 7.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M9 8.5h4m3 0h1m1 0h4m1 0h1m1 0h1M6 9.5h2m2 0h2m2 0h1m2 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1M2 10.5h2m1 0h2m2 0h2m3 0h2m2 0h2m1 0h4m1 0h1m1 0h2m2 0h1M1 11.5h2m2 0h5m1 0h1m2 0h1m1 0h6m1 0h1m1 0h4m1 0h3M6 12.5h1m2 0h1m2 0h2m1 0h2m2 0h1m1 0h2m1 0h3m1 0h1m1 0h2M1 13.5h1m2 0h1m2 0h2m2 0h3m1 0h2m1 0h1m3 0h1m1 0h2m1 0h1m4 0h1M4 14.5h2m2 0h3m2 0h2m1 0h5m1 0h1m1 0h1m2 0h2m1 0h1m2 0h1M3 15.5h1m1 0h1m1 0h2m1 0h1m2 0h1m1 0h2m3 0h2m1 0h1m2 0h1m1 0h1m3 0h1M1 16.5h2m1 0h2m3 0h2m1 0h2m3 0h1m2 0h1m4 0h1m3 0h3M2 17.5h1m1 0h4m1 0h1m1 0h4m1 0h2m1 0h3m4 0h1m2 0h1m2 0h2M1 18.5h1m1 0h1m2 0h1m4 0h4m4 0h1m1 0h2m1 0h2m1 0h2m4 0h1M1 19.5h2m2 0h1m1 0h2m1 0h1m2 0h1m1 0h1m1 0h2m1 0h3m1 0h1m1 0h3m1 0h4M1 20.5h1m1 0h1m4 0h1m1 0h1m1 0h3m4 0h2m2 0h3m2 0h4M1 21.5h2m1 0h1m1 0h2m1 0h4m1 0h1m2 0h1m3 0h1m1 0h1m1 0h1m2 0h3m1 0h2M1 22.5h2m3 0h1m4 0h2m1 0h1m1 0h1m1 0h2m1 0h1m1 0h1m3 0h1m1 0h3M1 23.5h1m1 0h1m1 0h3m8 0h1m1 0h1m3 0h4m2 0h5M1 24.5h1m1 0h1m5 0h1m2 0h1m3 0h1m1 0h4m1 0h2m5 0h2M1 25.5h2m2 0h1m1 0h1m2 0h1m1 0h1m1 0h1m1 0h2m3 0h1m3 0h6m2 0h1M9 26.5h2m1 0h5m1 0h1m5 0h2m3 0h3m1 0h1M1 27.5h7m5 0h4m1 0h5m1 0h2m1 0h1m1 0h1m2 0h1M1 28.5h1m5 0h1m1 0h2m1 0h1m1 0h1m1 0h1m2 0h3m2 0h2m3 0h1m1 0h2M1 29.5h1m1 0h3m1 0h1m3 0h2m9 0h1m2 0h5m2 0h2M1 30.5h1m1 0h3m1 0h1m3 0h2m1 0h6m2 0h5m1 0h2m1 0h2M1 31.5h1m1 0h3m1 0h1m5 0h1m6 0h4m1 0h1m3 0h1m1 0h3M1 32.5h1m5 0h1m2 0h2m1 0h1m4 0h1m7 0h2m2 0h2M1 33.5h7m4 0h3m1 0h3m3 0h1m1 0h2m4 0h1m1 0h1"/></svg>
-
-                <div class="qr-center-badge">
-                  <div class="qr-center-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
-  
-  <defs>
-    
-    <linearGradient id="labdivBrandGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#0F4780" />
-      <stop offset="48%" stop-color="#F14343" />
-      <stop offset="100%" stop-color="#FFCC00" />
-    </linearGradient>
-
-    
-    <linearGradient id="capTopGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#0E4277" />
-      <stop offset="22%" stop-color="#0F4780" />
-      <stop offset="48%" stop-color="#F14343" />
-      <stop offset="78%" stop-color="#FFCC00" />
-      <stop offset="100%" stop-color="#FCE055" />
-    </linearGradient>
-
-    
-    <linearGradient id="capBaseGradient" x1="5%" y1="0%" x2="95%" y2="0%">
-      <stop offset="0%" stop-color="#0B3764" />
-      <stop offset="25%" stop-color="#0F4780" />
-      <stop offset="50%" stop-color="#F14343" />
-      <stop offset="80%" stop-color="#FFCC00" />
-      <stop offset="100%" stop-color="#E5B800" />
-    </linearGradient>
-
-    
-    <linearGradient id="waveGradient" x1="45" y1="0" x2="467" y2="0" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#0F4780" />
-      <stop offset="22%" stop-color="#0F4780" />
-      <stop offset="50%" stop-color="#F14343" />
-      <stop offset="78%" stop-color="#FFCC00" />
-      <stop offset="100%" stop-color="#FFCC00" />
-    </linearGradient>
-
-  </defs>
-
-  
-  
-  
-  <g stroke="url(#waveGradient)" stroke-width="26" stroke-linecap="round" fill="none" opacity="0.15">
-    
-    <path d="M 53 225 C 27 168 27 104 53 50" />
-    <path d="M 94 196 C 72 157 72 109 94 72" />
-    
-    <path d="M 138 183 C 120 153 120 118 138 88" />
-    <path d="M 178 165 C 164 145 164 125 178 105" />
-    
-    <path d="M 210 110 C 235 92 277 92 302 110" />
-    <path d="M 224 128 C 242 114 270 114 288 128" />
-    <path d="M 238 146 C 248 136 264 136 274 146" />
-    
-    <path d="M 334 165 C 348 145 348 125 334 105" />
-    <path d="M 374 183 C 392 153 392 118 374 88" />
-    
-    <path d="M 418 196 C 440 157 440 109 418 72" />
-    <path d="M 459 225 C 485 168 485 104 459 50" />
-  </g>
-
-  
-  <g stroke-linecap="round" fill="none">
-    
-    <g stroke="#000000" stroke-width="22">
-      
-      <path d="M 53 225 C 27 168 27 104 53 50" />
-      <path d="M 94 196 C 72 157 72 109 94 72" />
-      
-      <path d="M 138 183 C 120 153 120 118 138 88" />
-      <path d="M 178 165 C 164 145 164 125 178 105" />
-      
-      <path d="M 210 110 C 235 92 277 92 302 110" />
-      <path d="M 224 128 C 242 114 270 114 288 128" />
-      <path d="M 238 146 C 248 136 264 136 274 146" stroke-width="20" />
-      
-      <path d="M 334 165 C 348 145 348 125 334 105" />
-      <path d="M 374 183 C 392 153 392 118 374 88" />
-      
-      <path d="M 418 196 C 440 157 440 109 418 72" />
-      <path d="M 459 225 C 485 168 485 104 459 50" />
-    </g>
-
-    
-    <g stroke="url(#waveGradient)" stroke-width="12">
-      
-      <path d="M 53 225 C 27 168 27 104 53 50" />
-      <path d="M 94 196 C 72 157 72 109 94 72" />
-      
-      <path d="M 138 183 C 120 153 120 118 138 88" />
-      <path d="M 178 165 C 164 145 164 125 178 105" />
-      
-      <path d="M 210 110 C 235 92 277 92 302 110" />
-      <path d="M 224 128 C 242 114 270 114 288 128" />
-      <path d="M 238 146 C 248 136 264 136 274 146" stroke-width="10" />
-      
-      <path d="M 334 165 C 348 145 348 125 334 105" />
-      <path d="M 374 183 C 392 153 392 118 374 88" />
-      
-      <path d="M 418 196 C 440 157 440 109 418 72" />
-      <path d="M 459 225 C 485 168 485 104 459 50" />
-    </g>
-  </g>
-
-  
-  <g>
-    
-    <path d="M 120 300 L 120 355 C 120 430, 392 430, 392 355 L 392 300 Z" fill="url(#capBaseGradient)" />
-
-    
-    <path d="M 120 316 L 236 365 Q 256 375 276 365 L 392 316 L 392 334 L 276 375 Q 256 383 236 375 L 120 334 Z" fill="#000000" opacity="0.35" />
-
-    
-    <path d="M 120 300 L 120 355 C 120 430, 392 430, 392 355 L 392 300 Z" fill="none" stroke="#000000" stroke-width="10" stroke-linejoin="round" />
-  </g>
-
-  
-  <g>
-    
-    <path d="M 276 175 L 456 260 Q 476 270 456 280 L 276 365 Q 256 375 236 365 L 56 280 Q 36 270 56 260 L 236 175 Q 256 165 276 175 Z" fill="url(#capTopGradient)" stroke="#000000" stroke-width="10" stroke-linejoin="round" stroke-linecap="round" />
-
-  </g>
-
-  
-  <g stroke-linejoin="round" stroke-linecap="round">
-    
-    <polygon points="59,282 75,287 75,321 59,321" fill="#000000" opacity="0.4" />
-    
-    
-    <polygon points="57,270 73,277 73,321 57,321" fill="#0F4780" />
-    
-    
-    <line x1="57" y1="281" x2="57" y2="321" stroke="#000000" stroke-width="10" stroke-linecap="round" />
-    
-    
-    <line x1="73" y1="288" x2="73" y2="321" stroke="#000000" stroke-width="10" stroke-linecap="round" />
-
-    
-    <path d="M 49 346 L 39 408 Q 65 420 91 408 L 81 346 Z" fill="#0F4780" />
-    
-    
-    <line x1="49" y1="348" x2="39" y2="408" stroke="#000000" stroke-width="8" stroke-linecap="round" />
-    
-    
-    <path d="M 39 408 Q 65 420 91 408" fill="none" stroke="#000000" stroke-width="8" stroke-linecap="round" />
-    
-    
-    <line x1="81" y1="348" x2="91" y2="408" stroke="#000000" stroke-width="8" stroke-linecap="round" />
-
-    
-    <circle cx="65" cy="335" r="15" fill="#0F4780" stroke="#000000" stroke-width="8" />
-  </g>
-
-  
-  <path d="M 56 270 L 236 183 Q 256 173 276 183 L 456 270" fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" opacity="0.3" />
-</svg>
-                  </div>
-                </div>
-              </div>
-              <div class="qr-card-label font-bukra">🌐 Acesse no Site</div>
-              <div class="qr-card-sub font-open-sans">hub-lab-div.vercel.app</div>
-            </div>
-
-            <!-- QR PlayStore -->
-            <div class="qr-card-item">
-              <div class="qr-svg-holder">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 51 51" shape-rendering="crispEdges"><path fill="#ffffff" d="M0 0h51v51H0z"/><path stroke="#000000" d="M1 1.5h7m2 0h4m1 0h1m1 0h3m1 0h1m1 0h4m3 0h1m4 0h1m5 0h1m1 0h7M1 2.5h1m5 0h1m3 0h1m4 0h1m1 0h1m1 0h6m1 0h1m1 0h3m1 0h4m2 0h3m1 0h1m5 0h1M1 3.5h1m1 0h3m1 0h1m1 0h1m1 0h2m1 0h1m1 0h4m1 0h1m2 0h1m2 0h4m4 0h1m2 0h1m1 0h2m1 0h1m1 0h3m1 0h1M1 4.5h1m1 0h3m1 0h1m1 0h1m2 0h2m4 0h1m2 0h2m1 0h1m1 0h1m4 0h2m2 0h3m2 0h1m2 0h1m1 0h3m1 0h1M1 5.5h1m1 0h3m1 0h1m2 0h1m1 0h1m2 0h1m4 0h2m1 0h6m1 0h2m4 0h3m4 0h1m1 0h3m1 0h1M1 6.5h1m5 0h1m2 0h1m2 0h2m2 0h1m1 0h1m1 0h3m3 0h1m1 0h1m1 0h3m5 0h1m3 0h1m5 0h1M1 7.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M11 8.5h1m2 0h4m1 0h1m3 0h1m3 0h1m1 0h1m6 0h4M4 9.5h2m1 0h2m4 0h1m2 0h2m2 0h8m1 0h3m2 0h2m1 0h4m5 0h2M2 10.5h2m8 0h1m4 0h6m4 0h1m2 0h3m2 0h3m1 0h3m1 0h1m1 0h4M2 11.5h3m2 0h1m2 0h7m3 0h3m1 0h1m2 0h2m1 0h8m2 0h2m2 0h2m2 0h2M2 12.5h1m1 0h1m5 0h1m1 0h1m1 0h1m1 0h1m2 0h1m2 0h1m1 0h1m2 0h3m1 0h6m3 0h1m3 0h4M1 13.5h2m4 0h1m1 0h4m5 0h3m1 0h1m4 0h4m2 0h3m1 0h2m1 0h1m1 0h1m2 0h1m2 0h2M3 14.5h1m4 0h2m1 0h5m1 0h2m3 0h1m1 0h1m1 0h2m1 0h2m1 0h3m4 0h1m2 0h2m1 0h3M2 15.5h1m1 0h5m1 0h1m5 0h2m3 0h6m1 0h1m2 0h4m2 0h4m3 0h1m1 0h1m1 0h2M2 16.5h1m3 0h1m1 0h1m1 0h3m1 0h2m3 0h2m2 0h3m2 0h3m3 0h1m1 0h1m1 0h1m4 0h1m2 0h1M3 17.5h5m4 0h1m1 0h1m1 0h4m1 0h1m1 0h2m1 0h10m1 0h1m5 0h4m1 0h2M3 18.5h3m2 0h3m3 0h1m3 0h6m4 0h1m3 0h3m3 0h2m1 0h5m2 0h1M5 19.5h1m1 0h1m1 0h2m1 0h1m5 0h2m1 0h1m1 0h1m1 0h1m4 0h2m2 0h6m1 0h1m1 0h1m1 0h3m1 0h1M1 20.5h1m3 0h1m4 0h1m1 0h1m6 0h2m2 0h6m1 0h1m2 0h1m2 0h1m6 0h1m2 0h1m1 0h1M1 21.5h3m1 0h1m1 0h2m2 0h2m1 0h4m1 0h1m1 0h4m5 0h3m2 0h3m1 0h2m2 0h1m4 0h2M1 22.5h2m6 0h1m1 0h6m1 0h1m1 0h1m2 0h1m1 0h3m1 0h2m1 0h6m1 0h5m1 0h2M1 23.5h1m1 0h1m1 0h5m1 0h1m7 0h3m1 0h6m1 0h3m2 0h1m1 0h1m3 0h5m1 0h1m1 0h1M1 24.5h1m2 0h2m3 0h2m1 0h2m3 0h4m1 0h2m3 0h4m1 0h1m2 0h2m4 0h1m3 0h5M1 25.5h1m1 0h1m1 0h1m1 0h1m1 0h1m5 0h1m2 0h1m3 0h2m1 0h1m1 0h1m1 0h1m2 0h2m2 0h2m3 0h1m1 0h1m1 0h2m2 0h1M1 26.5h1m3 0h1m3 0h1m1 0h3m3 0h3m1 0h1m1 0h1m3 0h2m2 0h1m1 0h2m1 0h2m1 0h1m1 0h1m3 0h2m1 0h2M2 27.5h2m1 0h7m1 0h2m1 0h1m1 0h2m1 0h7m3 0h2m3 0h1m1 0h2m1 0h5m1 0h1m1 0h1M1 28.5h2m1 0h3m5 0h1m1 0h1m1 0h2m1 0h1m1 0h3m1 0h1m3 0h3m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1m1 0h2m1 0h3M1 29.5h1m1 0h2m2 0h2m1 0h3m1 0h3m2 0h1m3 0h1m2 0h3m1 0h3m4 0h2m1 0h1m4 0h5M3 30.5h1m1 0h1m3 0h1m3 0h1m1 0h4m1 0h1m4 0h2m3 0h1m2 0h6m1 0h7M1 31.5h2m4 0h1m1 0h1m3 0h1m3 0h2m1 0h1m1 0h1m3 0h2m2 0h2m2 0h1m1 0h3m1 0h1m2 0h2m4 0h1M2 32.5h2m4 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m5 0h1m3 0h8m1 0h1m2 0h2m4 0h1M2 33.5h4m1 0h2m1 0h3m2 0h3m1 0h4m2 0h2m2 0h3m1 0h2m1 0h1m1 0h4m1 0h4m1 0h2M1 34.5h2m2 0h1m3 0h3m5 0h5m1 0h3m2 0h2m4 0h2m2 0h2m1 0h1m1 0h1m1 0h1m1 0h2M3 35.5h1m1 0h3m8 0h1m3 0h2m3 0h1m3 0h1m2 0h1m1 0h2m2 0h1m1 0h1m2 0h1m1 0h1m1 0h1m1 0h1M1 36.5h3m4 0h1m2 0h1m1 0h5m1 0h2m2 0h1m1 0h2m1 0h4m4 0h1m1 0h4m4 0h4M7 37.5h2m5 0h1m2 0h1m1 0h4m4 0h1m1 0h1m2 0h2m1 0h1m1 0h4m3 0h1M1 38.5h1m2 0h1m9 0h1m2 0h6m2 0h2m5 0h1m1 0h1m1 0h2m1 0h1m1 0h3m1 0h1m2 0h1M2 39.5h1m3 0h2m4 0h2m2 0h1m1 0h1m1 0h2m1 0h2m1 0h1m1 0h1m8 0h4m1 0h2m3 0h3M2 40.5h3m3 0h1m3 0h2m1 0h1m2 0h3m5 0h2m1 0h1m5 0h2m2 0h3m5 0h2M1 41.5h3m3 0h1m1 0h10m1 0h2m1 0h7m1 0h3m3 0h9M9 42.5h3m2 0h2m1 0h1m3 0h3m3 0h1m1 0h1m2 0h1m2 0h1m1 0h1m2 0h2m3 0h4M1 43.5h7m1 0h2m1 0h3m1 0h3m1 0h1m2 0h1m1 0h1m1 0h1m1 0h1m1 0h2m2 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h3m1 0h1M1 44.5h1m5 0h1m4 0h1m1 0h1m3 0h2m1 0h3m3 0h2m2 0h2m2 0h1m5 0h1m3 0h2M1 45.5h1m1 0h3m1 0h1m1 0h2m2 0h2m2 0h1m5 0h8m4 0h3m1 0h7m2 0h1M1 46.5h1m1 0h3m1 0h1m1 0h1m1 0h1m6 0h1m3 0h3m1 0h1m1 0h2m1 0h3m1 0h1m1 0h3m1 0h1m4 0h1m2 0h1M1 47.5h1m1 0h3m1 0h1m3 0h2m1 0h1m2 0h1m2 0h1m2 0h2m2 0h1m2 0h2m2 0h2m1 0h2m2 0h5m1 0h1m1 0h1M1 48.5h1m5 0h1m3 0h2m10 0h2m1 0h2m3 0h1m1 0h4m1 0h2m3 0h7M1 49.5h7m4 0h7m2 0h3m3 0h1m3 0h1m1 0h3m1 0h1m8 0h1m2 0h1"/></svg>
-
-                <div class="qr-center-badge">
-                  <div class="qr-center-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
-  
-  <defs>
-    
-    <linearGradient id="labdivBrandGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#0F4780" />
-      <stop offset="48%" stop-color="#F14343" />
-      <stop offset="100%" stop-color="#FFCC00" />
-    </linearGradient>
-
-    
-    <linearGradient id="capTopGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#0E4277" />
-      <stop offset="22%" stop-color="#0F4780" />
-      <stop offset="48%" stop-color="#F14343" />
-      <stop offset="78%" stop-color="#FFCC00" />
-      <stop offset="100%" stop-color="#FCE055" />
-    </linearGradient>
-
-    
-    <linearGradient id="capBaseGradient" x1="5%" y1="0%" x2="95%" y2="0%">
-      <stop offset="0%" stop-color="#0B3764" />
-      <stop offset="25%" stop-color="#0F4780" />
-      <stop offset="50%" stop-color="#F14343" />
-      <stop offset="80%" stop-color="#FFCC00" />
-      <stop offset="100%" stop-color="#E5B800" />
-    </linearGradient>
-
-    
-    <linearGradient id="waveGradient" x1="45" y1="0" x2="467" y2="0" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#0F4780" />
-      <stop offset="22%" stop-color="#0F4780" />
-      <stop offset="50%" stop-color="#F14343" />
-      <stop offset="78%" stop-color="#FFCC00" />
-      <stop offset="100%" stop-color="#FFCC00" />
-    </linearGradient>
-
-  </defs>
-
-  
-  
-  
-  <g stroke="url(#waveGradient)" stroke-width="26" stroke-linecap="round" fill="none" opacity="0.15">
-    
-    <path d="M 53 225 C 27 168 27 104 53 50" />
-    <path d="M 94 196 C 72 157 72 109 94 72" />
-    
-    <path d="M 138 183 C 120 153 120 118 138 88" />
-    <path d="M 178 165 C 164 145 164 125 178 105" />
-    
-    <path d="M 210 110 C 235 92 277 92 302 110" />
-    <path d="M 224 128 C 242 114 270 114 288 128" />
-    <path d="M 238 146 C 248 136 264 136 274 146" />
-    
-    <path d="M 334 165 C 348 145 348 125 334 105" />
-    <path d="M 374 183 C 392 153 392 118 374 88" />
-    
-    <path d="M 418 196 C 440 157 440 109 418 72" />
-    <path d="M 459 225 C 485 168 485 104 459 50" />
-  </g>
-
-  
-  <g stroke-linecap="round" fill="none">
-    
-    <g stroke="#000000" stroke-width="22">
-      
-      <path d="M 53 225 C 27 168 27 104 53 50" />
-      <path d="M 94 196 C 72 157 72 109 94 72" />
-      
-      <path d="M 138 183 C 120 153 120 118 138 88" />
-      <path d="M 178 165 C 164 145 164 125 178 105" />
-      
-      <path d="M 210 110 C 235 92 277 92 302 110" />
-      <path d="M 224 128 C 242 114 270 114 288 128" />
-      <path d="M 238 146 C 248 136 264 136 274 146" stroke-width="20" />
-      
-      <path d="M 334 165 C 348 145 348 125 334 105" />
-      <path d="M 374 183 C 392 153 392 118 374 88" />
-      
-      <path d="M 418 196 C 440 157 440 109 418 72" />
-      <path d="M 459 225 C 485 168 485 104 459 50" />
-    </g>
-
-    
-    <g stroke="url(#waveGradient)" stroke-width="12">
-      
-      <path d="M 53 225 C 27 168 27 104 53 50" />
-      <path d="M 94 196 C 72 157 72 109 94 72" />
-      
-      <path d="M 138 183 C 120 153 120 118 138 88" />
-      <path d="M 178 165 C 164 145 164 125 178 105" />
-      
-      <path d="M 210 110 C 235 92 277 92 302 110" />
-      <path d="M 224 128 C 242 114 270 114 288 128" />
-      <path d="M 238 146 C 248 136 264 136 274 146" stroke-width="10" />
-      
-      <path d="M 334 165 C 348 145 348 125 334 105" />
-      <path d="M 374 183 C 392 153 392 118 374 88" />
-      
-      <path d="M 418 196 C 440 157 440 109 418 72" />
-      <path d="M 459 225 C 485 168 485 104 459 50" />
-    </g>
-  </g>
-
-  
-  <g>
-    
-    <path d="M 120 300 L 120 355 C 120 430, 392 430, 392 355 L 392 300 Z" fill="url(#capBaseGradient)" />
-
-    
-    <path d="M 120 316 L 236 365 Q 256 375 276 365 L 392 316 L 392 334 L 276 375 Q 256 383 236 375 L 120 334 Z" fill="#000000" opacity="0.35" />
-
-    
-    <path d="M 120 300 L 120 355 C 120 430, 392 430, 392 355 L 392 300 Z" fill="none" stroke="#000000" stroke-width="10" stroke-linejoin="round" />
-  </g>
-
-  
-  <g>
-    
-    <path d="M 276 175 L 456 260 Q 476 270 456 280 L 276 365 Q 256 375 236 365 L 56 280 Q 36 270 56 260 L 236 175 Q 256 165 276 175 Z" fill="url(#capTopGradient)" stroke="#000000" stroke-width="10" stroke-linejoin="round" stroke-linecap="round" />
-
-  </g>
-
-  
-  <g stroke-linejoin="round" stroke-linecap="round">
-    
-    <polygon points="59,282 75,287 75,321 59,321" fill="#000000" opacity="0.4" />
-    
-    
-    <polygon points="57,270 73,277 73,321 57,321" fill="#0F4780" />
-    
-    
-    <line x1="57" y1="281" x2="57" y2="321" stroke="#000000" stroke-width="10" stroke-linecap="round" />
-    
-    
-    <line x1="73" y1="288" x2="73" y2="321" stroke="#000000" stroke-width="10" stroke-linecap="round" />
-
-    
-    <path d="M 49 346 L 39 408 Q 65 420 91 408 L 81 346 Z" fill="#0F4780" />
-    
-    
-    <line x1="49" y1="348" x2="39" y2="408" stroke="#000000" stroke-width="8" stroke-linecap="round" />
-    
-    
-    <path d="M 39 408 Q 65 420 91 408" fill="none" stroke="#000000" stroke-width="8" stroke-linecap="round" />
-    
-    
-    <line x1="81" y1="348" x2="91" y2="408" stroke="#000000" stroke-width="8" stroke-linecap="round" />
-
-    
-    <circle cx="65" cy="335" r="15" fill="#0F4780" stroke="#000000" stroke-width="8" />
-  </g>
-
-  
-  <path d="M 56 270 L 236 183 Q 256 173 276 183 L 456 270" fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" opacity="0.3" />
-</svg>
-                  </div>
-                </div>
-              </div>
-              <div class="qr-card-label font-bukra">▶ Google Play</div>
-              <div class="qr-card-sub font-open-sans">App Oficial Android</div>
-            </div>
-          </div>
-
-          <!-- Perks BELOW QR codes -->
-          <div class="experimente-perks-bottom font-bukra text-halo">
-            <span class="perk-item"><span class="perk-check">✓</span> Sincronização em Nuvem</span>
-            <span class="perk-bullet">&bull;</span>
-            <span class="perk-item"><span class="perk-check">✓</span> Modo Offline</span>
-            <span class="perk-bullet">&bull;</span>
-            <span class="perk-item"><span class="perk-check">✓</span> 100% Gratuito</span>
+            <p class="axis-desc font-open-sans">Funções de auxílio ao universitário</p>
           </div>
         </div>
       </main>
 
-      <!-- Footer bar (Touches bottom, left, right edges) -->
+      <!-- 3. FOOTER BAR -->
       <footer class="footer-bar">
         <div class="footer-gradient-divider"></div>
         <div class="footer-content-wrap">
           <div class="footer-main-row">
-            <!-- Texto de Segurança & Conformidade Legal -->
             <div class="footer-legal-col">
               <div class="footer-legal-badge font-bukra">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -1349,13 +801,13 @@
                 <span>SEGURANÇA &amp; CONFORMIDADE LEGAL</span>
               </div>
               <p class="footer-legal-text font-open-sans">
-                O <strong>HUB LabDiv</strong> respeita as <strong>leis, normas e decisões judiciais do Brasil</strong>, além de ter todo o seu <strong>código aberto</strong> e um e-mail para <strong>suporte, sugestões e ideias da comunidade</strong>.
+                O <strong>HUB LabDiv</strong> respeita as <strong>leis, normas e decisões</strong><br>
+                <strong>judiciais do Brasil</strong>, além de ter todo o seu <strong>código aberto</strong> e um e-mail<br>
+                para <strong>suporte, sugestões e ideias da comunidade</strong>.
               </p>
             </div>
 
-            <!-- Botões ao lado: Git e Email -->
             <div class="footer-buttons-col">
-              <!-- Git / Software Livre -->
               <div class="footer-action-card footer-card-git">
                 <div class="footer-icon-holder icon-holder-git">
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
@@ -1368,7 +820,6 @@
                 </div>
               </div>
 
-              <!-- Email / Suporte e Sugestões -->
               <div class="footer-action-card footer-card-email">
                 <div class="footer-icon-holder icon-holder-email">
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">

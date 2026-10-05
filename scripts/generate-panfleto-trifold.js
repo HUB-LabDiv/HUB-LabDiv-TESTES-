@@ -264,11 +264,12 @@ function getCommonCss() {
     }
     .sheet-footer-cards {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      padding: 8px 42px 10px 42px;
-      gap: 48px;
+      grid-template-columns: calc(100% / 3) calc(100% / 3) calc(100% / 3);
+      padding: 8px 0 10px 0;
+      gap: 0;
     }
     .panel-footer-card {
+      margin: 0 34px;
       background: #FFFFFF;
       border-radius: 16px;
       padding: 8px 16px;
@@ -615,11 +616,11 @@ function getCommonCss() {
       z-index: 20;
       background: #FFFFFF;
       border-bottom: 2px solid #E2E8F0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 42px;
+      display: grid;
+      grid-template-columns: calc(100% / 3) calc(100% / 3) calc(100% / 3);
+      padding: 0;
       box-shadow: 0 4px 14px rgba(15, 71, 128, 0.08);
+      box-sizing: border-box;
     }
     .sheet-header-left {
       display: flex;
@@ -961,25 +962,33 @@ function buildFace2Html() {
     <div class="fold-guide fold-guide-1"></div>
     <div class="fold-guide fold-guide-2"></div>
 
-    <!-- Header Superior Unificado -->
+    <!-- Header Superior Unificado (Exatamente 3 Partes de 1/3 da Folha) -->
     <header class="sheet-header-bar font-bukra" style="border-bottom: 2.5px solid transparent; background: linear-gradient(white, white) padding-box, linear-gradient(90deg, #0F4780 0%, #F14343 50%, #FFCC00 100%) border-box;">
-      <div class="sheet-header-left" style="display: flex; align-items: center; gap: 14px;">
-        <div style="width: 40px; height: 40px; flex-shrink: 0;">${cleanedIconHub}</div>
+      <!-- Coluna 1 (0 a 1/3 da folha): Identidade HUB LabDiv -->
+      <div style="display: flex; align-items: center; gap: 12px; padding: 0 34px;">
+        <div style="width: 36px; height: 36px; flex-shrink: 0;">${cleanedIconHub}</div>
         <div style="display: flex; flex-direction: column; line-height: 1.05; text-align: left;">
-          <div style="display: flex; align-items: baseline; gap: 6px;">
-            <span style="font-size: 26px; font-weight: 900; color: #0F172A; text-transform: uppercase;">HUB</span>
-            <span class="text-gradient-brand" style="font-size: 26px; font-weight: 900;">LabDiv</span>
-            <span style="font-size: 11px; font-weight: 900; background: rgba(15, 71, 128, 0.10); color: #0F4780; padding: 2px 8px; border-radius: 4px; letter-spacing: 0.5px; text-transform: uppercase;">BETA</span>
+          <div style="display: flex; align-items: baseline; gap: 5px;">
+            <span style="font-size: 24px; font-weight: 900; color: #0F172A; text-transform: uppercase;">HUB</span>
+            <span class="text-gradient-brand" style="font-size: 24px; font-weight: 900;">LabDiv</span>
+            <span style="font-size: 10.5px; font-weight: 900; background: rgba(15, 71, 128, 0.10); color: #0F4780; padding: 2px 7px; border-radius: 4px; letter-spacing: 0.5px; text-transform: uppercase;">BETA</span>
           </div>
-          <span style="font-size: 10.5px; font-weight: 800; color: #94A3B8; letter-spacing: 1.5px; text-transform: uppercase; margin-top: 2px;">IFUSP</span>
+          <span style="font-size: 10px; font-weight: 800; color: #94A3B8; letter-spacing: 1.5px; text-transform: uppercase; margin-top: 1px;">IFUSP</span>
         </div>
-        <div style="width: 1.5px; height: 28px; background: #CBD5E1; margin: 0 6px;"></div>
-        <div class="sheet-header-sub font-open-sans text-shield" style="font-size: 16px; color: #475569; font-weight: 600;">
+      </div>
+
+      <!-- Coluna 2 (1/3 a 2/3 da folha): Descrição Institucional -->
+      <div style="display: flex; align-items: center; justify-content: center; padding: 0 34px; text-align: center;">
+        <div class="sheet-header-sub font-open-sans text-shield" style="font-size: 14.5px; color: #475569; font-weight: 600; line-height: 1.22;">
           O HUB de comunicação científica do Laboratório de Expressão e Divulgação do IFUSP
         </div>
       </div>
-      <div class="sheet-header-right font-bukra text-shield" style="font-size: 22px;">
-        1 APP &bull; INÚMERAS FUNÇÕES
+
+      <!-- Coluna 3 (2/3 a 3/3 da folha): Slogan das Funções -->
+      <div style="display: flex; align-items: center; justify-content: flex-end; padding: 0 34px;">
+        <div class="sheet-header-right font-bukra text-shield" style="font-size: 20px; font-weight: 900; color: #0F4780; font-style: italic;">
+          1 APP &bull; INÚMERAS FUNÇÕES
+        </div>
       </div>
     </header>
 

@@ -175,11 +175,12 @@
     }
     .sheet-footer-cards {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      padding: 8px 42px 10px 42px;
-      gap: 48px;
+      grid-template-columns: calc(100% / 3) calc(100% / 3) calc(100% / 3);
+      padding: 8px 0 10px 0;
+      gap: 0;
     }
     .panel-footer-card {
+      margin: 0 34px;
       background: #FFFFFF;
       border-radius: 16px;
       padding: 8px 16px;
@@ -526,11 +527,11 @@
       z-index: 20;
       background: #FFFFFF;
       border-bottom: 2px solid #E2E8F0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 42px;
+      display: grid;
+      grid-template-columns: calc(100% / 3) calc(100% / 3) calc(100% / 3);
+      padding: 0;
       box-shadow: 0 4px 14px rgba(15, 71, 128, 0.08);
+      box-sizing: border-box;
     }
     .sheet-header-left {
       display: flex;
