@@ -11,71 +11,137 @@
 
 import React from 'react';
 import { MainLayoutWrapper } from "@/components/layout/MainLayoutWrapper";
-import { ArrowRight, Zap, GraduationCap, Users } from 'lucide-react';
+import { ArrowRight, Clock, CalendarDays, GraduationCap } from 'lucide-react';
+import { Orbitron } from 'next/font/google';
+import { ShowCarousel } from './ShowCarousel';
+import { ShowDetailsAccordion } from './ShowDetailsAccordion';
 
 export const metadata = {
-    title: 'Show da Física | Iniciativas IFUSP',
+    title: 'Show de Fisica | Iniciativas IFUSP',
     description: 'Levando demonstrações de fenômenos físicos ao público em geral.',
 };
+
+const orbitron = Orbitron({ subsets: ['latin'], weight: ['400', '700', '900'] });
 
 export default function ShowDaFisicaPage() {
     return (
         <MainLayoutWrapper fullWidth={true}>
-            <div className="max-w-7xl mx-auto px-4 py-8 animate-in fade-in slide-in-from-bottom-5 duration-700">
-                
-                {/* Hero Section */}
-                <div className="text-center mb-16">
-                    <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-6">
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-red to-orange-500">Show da Física</span>
-                    </h1>
-                    <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed mb-8">
-                        O Show da Física visa levar demonstrações de fenômenos físicos ao público em geral, de maneira lúdica e interativa, despertando o interesse pela ciência.
-                    </p>
+            <div className={`min-h-screen bg-black text-white ${orbitron.className}`}>
+                <style dangerouslySetInnerHTML={{__html: `
+                    .neon-text-blue {
+                        text-shadow: 0 0 5px #002ffe, 0 0 10px #002ffe, 0 0 20px #002ffe, 0 0 40px #002ffe;
+                        color: #fff;
+                    }
+                    .neon-text-red {
+                        text-shadow: 0 0 5px #f60011, 0 0 10px #f60011, 0 0 20px #f60011, 0 0 40px #f60011;
+                        color: #fff;
+                    }
+                    .neon-text-green {
+                        text-shadow: 0 0 5px #01f300, 0 0 10px #01f300, 0 0 20px #01f300, 0 0 40px #01f300;
+                        color: #fff;
+                    }
+                    .neon-border-blue {
+                        border: 2px solid #002ffe;
+                        box-shadow: 0 0 10px #002ffe, inset 0 0 10px #002ffe;
+                    }
+                    .neon-border-red {
+                        border: 2px solid #f60011;
+                        box-shadow: 0 0 10px #f60011, inset 0 0 10px #f60011;
+                    }
+                    .neon-border-green {
+                        border: 2px solid #01f300;
+                        box-shadow: 0 0 10px #01f300, inset 0 0 10px #01f300;
+                    }
+                `}} />
+
+                <div className="max-w-7xl mx-auto px-4 py-16 animate-in fade-in slide-in-from-bottom-5 duration-700">
                     
-                    <a 
-                        href="https://portal.if.usp.br/showdefisica/pt-br" 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
-                        className="inline-flex items-center gap-2 px-8 py-4 bg-brand-red text-white rounded-3xl font-bold shadow-xl shadow-brand-red/20 hover:scale-105 transition-transform"
-                    >
-                        Acessar Portal Oficial
-                        <ArrowRight className="w-5 h-5" />
-                    </a>
+                    {/* Hero Section */}
+                    <div className="text-center mb-20">
+                        <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-widest mb-8 uppercase flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8">
+                            <span className="neon-text-red">Show</span>
+                            <span className="neon-text-blue">de</span>
+                            <span className="neon-text-green">Fisica</span>
+                        </h1>
+                        <p className="text-xl md:text-2xl max-w-4xl mx-auto leading-relaxed font-sans tracking-wide text-gray-300">
+                            O Show de Fisica é um espetáculo de demonstrações experimentais que abordam os mais variados temas. Contamos com uma performance lúdica, divertida, dinâmica, envolvente e interativa! A proposta é permitir que os visitantes contextualizem, ampliem e estimulem o seu perfil científico.
+                        </p>
+                    </div>
+
+                    {/* Detalhes expansíveis */}
+                    <div className="mb-24">
+                        <h2 className="text-3xl md:text-4xl font-bold mb-10 text-center uppercase neon-text-blue tracking-wider">
+                            Nossa Trajetória e Proposta
+                        </h2>
+                        <ShowDetailsAccordion />
+                    </div>
+
+                    {/* Vitrine de Experimentos (Carousel) */}
+                    <div className="mb-24">
+                        <h2 className="text-3xl md:text-4xl font-bold mb-10 text-center uppercase neon-text-green tracking-wider">
+                            Nossos Experimentos
+                        </h2>
+                        
+                        <ShowCarousel />
+                    </div>
+
+                    {/* Orientações para Escolas */}
+                    <div className="mb-16">
+                        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center uppercase neon-text-red tracking-wider">
+                            Orientações para Escolas
+                        </h2>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            <div className="bg-black p-8 neon-border-green flex flex-col items-center text-center group hover:-translate-y-2 transition-transform duration-300">
+                                <GraduationCap className="w-16 h-16 text-[#01f300] mb-6 drop-shadow-[0_0_10px_#01f300] group-hover:scale-110 transition-transform" />
+                                <h3 className="text-xl font-bold mb-4 uppercase text-[#01f300]">Público Alvo</h3>
+                                <div className="font-sans text-gray-300 space-y-2">
+                                    <p>Do 1º ano do E.F. ao 3º ano do E.M.</p>
+                                    <p className="pt-4 font-bold text-white">Dividido em Faixas:</p>
+                                    <ul className="text-sm">
+                                        <li>Faixa 1: 1º ao 4º ano (E.F.)</li>
+                                        <li>Faixa 2: 5º ao 7º ano (E.F.)</li>
+                                        <li>Faixa 3: 8º (E.F.) ao 3º ano (E.M.)</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div className="bg-black p-8 neon-border-blue flex flex-col items-center text-center group hover:-translate-y-2 transition-transform duration-300">
+                                <Clock className="w-16 h-16 text-[#002ffe] mb-6 drop-shadow-[0_0_10px_#002ffe] group-hover:scale-110 transition-transform" />
+                                <h3 className="text-xl font-bold mb-4 uppercase text-[#002ffe]">Duração</h3>
+                                <p className="font-sans text-gray-300 mt-4">
+                                    Cada apresentação tem aproximadamente<br/>
+                                    <span className="text-3xl font-bold text-white block mt-4 drop-shadow-[0_0_5px_rgba(255,255,255,0.5)]">2 HORAS</span>
+                                </p>
+                            </div>
+
+                            <div className="bg-black p-8 neon-border-red flex flex-col items-center text-center group hover:-translate-y-2 transition-transform duration-300">
+                                <CalendarDays className="w-16 h-16 text-[#f60011] mb-6 drop-shadow-[0_0_10px_#f60011] group-hover:scale-110 transition-transform" />
+                                <h3 className="text-xl font-bold mb-4 uppercase text-[#f60011]">Dias e Horários</h3>
+                                <p className="font-sans text-gray-300 mt-4">
+                                    Sessões realizadas às<br/>
+                                    <strong className="text-white">Terças, Quartas e Quintas-feiras</strong>
+                                </p>
+                                <div className="mt-4 flex gap-4 w-full justify-center">
+                                    <span className="px-3 py-1 border border-[#f60011] text-[#f60011]">10:00</span>
+                                    <span className="px-3 py-1 border border-[#f60011] text-[#f60011]">14:00</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div className="mt-20 text-center">
+                            <p className="text-lg font-sans text-gray-400 mb-6">Pronto para agendar a sua escola ou ver mais informações oficias?</p>
+                            <a 
+                                href="/iniciativas/show-da-fisica/monte-seu-show" 
+                                className="inline-flex items-center gap-3 px-10 py-5 bg-black neon-border-red text-[#f60011] font-bold uppercase tracking-widest hover:bg-[#f60011] hover:text-white hover:shadow-[0_0_20px_#f60011] transition-all duration-300 rounded-none"
+                            >
+                                Monte seu Show
+                                <ArrowRight className="w-6 h-6" />
+                            </a>
+                        </div>
+                    </div>
+
                 </div>
-
-                {/* Info Cards */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
-                    <div className="glass-card rounded-3xl p-8 hover:border-brand-red/20 transition-all flex flex-col items-center text-center">
-                        <div className="w-16 h-16 bg-brand-red/10 rounded-2xl flex items-center justify-center mb-6">
-                            <Zap className="w-8 h-8 text-brand-red" />
-                        </div>
-                        <h3 className="text-xl font-bold mb-4">Experimentos</h3>
-                        <p className="text-gray-600 dark:text-gray-400">
-                            Demonstrações práticas e visuais de conceitos de mecânica, eletromagnetismo, termodinâmica e ótica.
-                        </p>
-                    </div>
-
-                    <div className="glass-card rounded-3xl p-8 hover:border-brand-blue/20 transition-all flex flex-col items-center text-center">
-                        <div className="w-16 h-16 bg-brand-blue/10 rounded-2xl flex items-center justify-center mb-6">
-                            <GraduationCap className="w-8 h-8 text-brand-blue" />
-                        </div>
-                        <h3 className="text-xl font-bold mb-4">Escolas</h3>
-                        <p className="text-gray-600 dark:text-gray-400">
-                            Atendemos escolas públicas e privadas, oferecendo uma experiência educacional única para alunos do ensino básico.
-                        </p>
-                    </div>
-
-                    <div className="glass-card rounded-3xl p-8 hover:border-brand-yellow/20 transition-all flex flex-col items-center text-center">
-                        <div className="w-16 h-16 bg-brand-yellow/10 rounded-2xl flex items-center justify-center mb-6">
-                            <Users className="w-8 h-8 text-brand-yellow" />
-                        </div>
-                        <h3 className="text-xl font-bold mb-4">Público Geral</h3>
-                        <p className="text-gray-600 dark:text-gray-400">
-                            Eventos abertos à comunidade com o objetivo de popularizar a física e a ciência.
-                        </p>
-                    </div>
-                </div>
-
             </div>
         </MainLayoutWrapper>
     );
