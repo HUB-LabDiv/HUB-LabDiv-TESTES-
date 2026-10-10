@@ -22,6 +22,7 @@ import toast from 'react-hot-toast';
 
 interface Drop {
     id: string;
+    author_id: string;
     content: string;
     status: string;
     is_featured: boolean;
