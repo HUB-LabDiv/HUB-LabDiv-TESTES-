@@ -15,6 +15,7 @@
 
 import { z } from 'zod';
 import nodemailer from 'nodemailer';
+import { createClient } from '@supabase/supabase-js';
 import { EXPERIMENTS_CATALOG, SHOW_ACTS } from '../iniciativas/show-da-fisica/data/experiments';
 import { ShowBookingResult } from '@/types/show-da-fisica';
 
@@ -48,7 +49,7 @@ const transporter = (GMAIL_USER && GMAIL_APP_PASSWORD)
     })
     : null;
 
-function buildEmailHtml(data: z.infer<typeof bookingSchema>, bookingCode: string): string {
+function buildEmailHtml(data: z.infer<typeof bookingSchema>, bookingCode: string, teacherCode: string, studentCode: string): string {
     const getExperimentDetails = (ids: string[]) => {
         if (!ids || ids.length === 0) return '<p style="color: #888; font-style: italic; margin: 4px 0;">Nenhum experimento selecionado para este ato.</p>';
         return ids.map(id => {
@@ -75,7 +76,7 @@ function buildEmailHtml(data: z.infer<typeof bookingSchema>, bookingCode: string
             <h1 style="margin: 0; font-size: 32px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase;">
                 <span style="color: #f60011;">SHOW</span>
                 <span style="color: #002ffe; margin: 0 4px;">DE</span>
-                <span style="color: #01f300;">FISICA</span>
+                <span style="color: #01f300;">FÍSICA</span>
             </h1>
             <p style="color: #94a3b8; font-size: 13px; margin: 8px 0 0 0; text-transform: uppercase; letter-spacing: 1.5px;">
                 Instituto de Física da USP &bull; Solicitação de Agendamento
@@ -187,11 +188,27 @@ function buildEmailHtml(data: z.infer<typeof bookingSchema>, bookingCode: string
                 </ul>
             </div>
 
+            <!-- Códigos do Acompanhe seu Show -->
+            <div style="background-color: #0d131a; border: 1px solid #1e293b; padding: 20px; border-radius: 6px; margin-top: 24px; text-align: center;">
+                <h4 style="margin: 0 0 12px 0; color: #01f300; font-size: 16px; text-transform: uppercase;">🎮 Acompanhe seu Show</h4>
+                <p style="color: #94a3b8; font-size: 13px; margin: 0 0 16px 0;">Use estes códigos no portal para participar das dinâmicas pré e pós-show com a sua turma.</p>
+                <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                    <div style="background-color: #1a1a1a; padding: 12px 20px; border-radius: 4px; border: 1px dashed #475569;">
+                        <span style="display: block; font-size: 11px; color: #94a3b8; text-transform: uppercase; margin-bottom: 4px;">Código do Professor</span>
+                        <strong style="color: #f8fafc; font-size: 18px; letter-spacing: 2px;">${teacherCode}</strong>
+                    </div>
+                    <div style="background-color: #1a1a1a; padding: 12px 20px; border-radius: 4px; border: 1px dashed #475569;">
+                        <span style="display: block; font-size: 11px; color: #94a3b8; text-transform: uppercase; margin-bottom: 4px;">Código da Turma (Alunos)</span>
+                        <strong style="color: #f8fafc; font-size: 18px; letter-spacing: 2px;">${studentCode}</strong>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <!-- Footer -->
         <div style="background-color: #121212; padding: 20px 24px; text-align: center; border-top: 1px solid #222; font-size: 12px; color: #64748b;">
-            <p style="margin: 0 0 4px 0;">Show de Fisica &bull; HUB Lab-Div &bull; Instituto de Física | USP</p>
+            <p style="margin: 0 0 4px 0;">Show de Física &bull; HUB Lab-Div &bull; Instituto de Física | USP</p>
             <p style="margin: 0;">E-mail automático de agendamento &bull; Se tiver dúvidas, responda a esta mensagem ou contate o HUB.</p>
         </div>
 
@@ -214,7 +231,46 @@ export async function submitShowBooking(rawData: unknown): Promise<ShowBookingRe
         const data = parsed.data;
         const bookingCode = `SHOW-${Math.random().toString(36).substring(2, 8).toUpperCase()}`;
 
-        const emailHtml = buildEmailHtml(data, bookingCode);
+        let finalTeacherCode = 'S1-PROF-DEMO';
+        let finalStudentCode = 'S1-ALUNO-DEMO';
+
+        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+        const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+        if (supabaseUrl && supabaseKey) {
+            const supabase = createClient(supabaseUrl, supabaseKey);
+            const profPin = Math.random().toString(36).substring(2, 6).toUpperCase();
+            const alunoPin = Math.random().toString(36).substring(2, 6).toUpperCase();
+            
+            const { data: sessionData, error: sessionError } = await supabase
+                .from('show_sessions')
+                .insert({
+                    booking_code: bookingCode,
+                    school_name: data.schoolName,
+                    teacher_name: data.teacherName,
+                    teacher_email: data.email,
+                    teacher_code: `TEMP-PROF-${profPin}`,
+                    student_code: `TEMP-ALUNO-${alunoPin}`,
+                    selected_experiments: data.selectedExperiments,
+                    scheduled_date: data.preferredDate || null
+                })
+                .select('id, show_number')
+                .single();
+                
+            if (!sessionError && sessionData) {
+                finalTeacherCode = `S${sessionData.show_number}-PROF-${profPin}`;
+                finalStudentCode = `S${sessionData.show_number}-ALUNO-${alunoPin}`;
+                
+                await supabase.from('show_sessions').update({
+                    teacher_code: finalTeacherCode,
+                    student_code: finalStudentCode
+                }).eq('id', sessionData.id);
+            } else {
+                console.error('[ShowDeFisica] Falha na integração com Supabase. As tabelas já foram migradas?', sessionError);
+            }
+        }
+
+        const emailHtml = buildEmailHtml(data, bookingCode, finalTeacherCode, finalStudentCode);
 
         // Dispara e-mail com transporter do nodemailer
         if (transporter && GMAIL_USER) {
@@ -222,11 +278,11 @@ export async function submitShowBooking(rawData: unknown): Promise<ShowBookingRe
             
             // O usuário recebe a confirmação e o HUB fica em cópia (CC) para aparecer na caixa de entrada do Gmail
             const mailOptions: nodemailer.SendMailOptions = {
-                from: `"Show de Fisica | HUB Lab-Div" <${GMAIL_USER}>`,
+                from: `"Show de Física | HUB Lab-Div" <${GMAIL_USER}>`,
                 to: data.email,
                 cc: GMAIL_USER.toLowerCase() === hubEmail.toLowerCase() ? [GMAIL_USER] : [GMAIL_USER, hubEmail],
                 replyTo: GMAIL_USER,
-                subject: 'Agendamento - Showdefisica',
+                subject: 'Agendamento - Show de Física',
                 html: emailHtml,
             };
 
@@ -254,4 +310,128 @@ export async function submitShowBooking(rawData: unknown): Promise<ShowBookingRe
             error: err?.message || 'Falha de envio',
         };
     }
+}
+
+export async function validateShowPin(pin: string) {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    if (!supabaseUrl || !supabaseKey) {
+        // Simulador fallback caso não haja config real do BD
+        const upperPin = pin.trim().toUpperCase();
+        if (upperPin.includes('PROF-DEMO')) return { success: true, role: 'teacher', sessionId: 'demo-id', code: upperPin };
+        if (upperPin.includes('ALUNO-DEMO')) return { success: true, role: 'student', sessionId: 'demo-id', code: upperPin };
+        return { success: false, error: 'Código inválido (Modo fallback ativo)' };
+    }
+
+    const supabase = createClient(supabaseUrl, supabaseKey);
+    const code = pin.trim().toUpperCase();
+
+    // Check teacher code
+    const { data: teacherData } = await supabase.from('show_sessions').select('id').eq('teacher_code', code).maybeSingle();
+    if (teacherData) {
+        return { success: true, role: 'teacher', sessionId: teacherData.id, code };
+    }
+
+    // Check student code
+    const { data: studentData } = await supabase.from('show_sessions').select('id').eq('student_code', code).maybeSingle();
+    if (studentData) {
+        return { success: true, role: 'student', sessionId: studentData.id, code };
+    }
+
+    // Simulador fallback 2
+    if (code.includes('PROF-DEMO')) return { success: true, role: 'teacher', sessionId: 'demo-id', code };
+    if (code.includes('ALUNO-DEMO')) return { success: true, role: 'student', sessionId: 'demo-id', code };
+
+    return { success: false, error: 'Sessão não encontrada com este código.' };
+}
+
+// --- MODERAÇÃO (SPRINT 4) ---
+export async function getAvailabilityRules() {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    if (!supabaseUrl || !supabaseKey) return { success: false, data: [], error: 'Supabase configs missing' };
+    
+    const supabase = createClient(supabaseUrl, supabaseKey);
+    const { data, error } = await supabase.from('show_experiment_availability').select('*').order('created_at', { ascending: false });
+    
+    if (error) return { success: false, data: [], error: error.message };
+    return { success: true, data: data || [] };
+}
+
+export async function addAvailabilityRule(rule: { experiment_id: string, unavailable_date: string | null, unavailable_weekday: number | null, reason: string }) {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    if (!supabaseUrl || !supabaseKey) return { success: false, error: 'Supabase configs missing' };
+
+    const supabase = createClient(supabaseUrl, supabaseKey);
+    const { error, data } = await supabase.from('show_experiment_availability').insert([rule]).select().single();
+    
+    if (error) return { success: false, error: error.message };
+    return { success: true, data };
+}
+
+export async function deleteAvailabilityRule(id: string) {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    if (!supabaseUrl || !supabaseKey) return { success: false, error: 'Supabase configs missing' };
+
+    const supabase = createClient(supabaseUrl, supabaseKey);
+    const { error } = await supabase.from('show_experiment_availability').delete().eq('id', id);
+    
+    if (error) return { success: false, error: error.message };
+    return { success: true };
+}
+
+// --- INTERAÇÕES (SPRINT 4) ---
+export async function getSessionData(sessionId: string) {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    if (!supabaseUrl || !supabaseKey) return { success: false, data: null, error: 'Supabase configs missing' };
+
+    const supabase = createClient(supabaseUrl, supabaseKey);
+    const { data, error } = await supabase.from('show_sessions').select('*').eq('id', sessionId).single();
+    
+    if (error) return { success: false, data: null, error: error.message };
+    return { success: true, data };
+}
+
+export async function submitStudentResponse(payload: { session_id: string, experiment_id?: string, stage: string, free_text_answer?: string, selected_misconception_id?: string }) {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    if (!supabaseUrl || !supabaseKey) return { success: false, error: 'Supabase configs missing' };
+
+    const supabase = createClient(supabaseUrl, supabaseKey);
+    const { error } = await supabase.from('show_student_responses').insert([payload]);
+    
+    if (error) return { success: false, error: error.message };
+    return { success: true };
+}
+
+export async function getStudentResponses(sessionId: string) {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    if (!supabaseUrl || !supabaseKey) return { success: false, data: [], error: 'Supabase configs missing' };
+
+    const supabase = createClient(supabaseUrl, supabaseKey);
+    const { data, error } = await supabase.from('show_student_responses')
+        .select('*, show_experiment_misconceptions(misconception_text)')
+        .eq('session_id', sessionId)
+        .order('created_at', { ascending: false });
+    
+    if (error) return { success: false, data: [], error: error.message };
+    return { success: true, data: data || [] };
+}
+
+export async function getMisconceptions(experimentIds: string[]) {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    if (!supabaseUrl || !supabaseKey) return { success: false, data: [], error: 'Supabase configs missing' };
+
+    if (!experimentIds || experimentIds.length === 0) return { success: true, data: [] };
+
+    const supabase = createClient(supabaseUrl, supabaseKey);
+    const { data, error } = await supabase.from('show_experiment_misconceptions').select('*').in('experiment_id', experimentIds);
+    
+    if (error) return { success: false, data: [], error: error.message };
+    return { success: true, data: data || [] };
 }

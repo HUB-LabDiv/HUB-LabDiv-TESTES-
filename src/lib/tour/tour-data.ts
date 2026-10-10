@@ -444,7 +444,7 @@ export const EIXO_CGIF_TOUR_STEPS: TourStepConfig[] = [
         }
     },
     {
-        element: '[data-tour="gcif-tab-instituto"], [data-tour="gcif-instituto-card"]',
+        element: '[data-tour="gcif-tab-instituto"], [data-tour="gcif-instituto-departamentos"]',
         popover: {
             title: '3. Subaba Instituto: Espaços, Iniciativas & Mapa',
             description: 'História do IFUSP, projetos de extensão (LabDiv, Show da Física), laboratórios abertos (Hackerspace, CEFISMA) e o mapa geográfico do campus.',
@@ -859,10 +859,10 @@ export const CGIF_INSTITUTO_TOUR_STEPS: TourStepConfig[] = [
         }
     },
     {
-        element: '[data-tour="gcif-instituto-card"]',
+        element: '[data-tour="gcif-instituto-departamentos"]',
         popover: {
-            title: '2. O Instituto de Física (IFUSP)',
-            description: 'Estrutura institucional, história pioneira, governança, diretoria, conselhos e departamentos de pesquisa.',
+            title: '2. Departamentos & Estrutura',
+            description: 'Estrutura dos departamentos de pesquisa que lideram a física no Brasil e no mundo.',
             side: 'top',
             align: 'center',
         }
@@ -877,19 +877,19 @@ export const CGIF_INSTITUTO_TOUR_STEPS: TourStepConfig[] = [
         }
     },
     {
-        element: '[data-tour="gcif-instituto-espacos"]',
+        element: '[data-tour="gcif-instituto-influenciadores"]',
         popover: {
-            title: '4. Espaços de Convivência & Criação',
-            description: 'Locais abertos à comunidade: Hackerspace, DigitalLab, CEFISMA (Amélia Império), Lab Demo e Parque CienTec.',
+            title: '4. Canais de Divulgação & Criadores',
+            description: 'Canais no YouTube, perfis no Instagram e criadores de conteúdo que traduzem a física para a sociedade.',
             side: 'top',
             align: 'center',
         }
     },
     {
-        element: '[data-tour="gcif-instituto-influenciadores"]',
+        element: '[data-tour="gcif-instituto-espacos"]',
         popover: {
-            title: '5. Influenciadores & Divulgadores',
-            description: 'Canais no YouTube, perfis no Instagram e criadores de conteúdo que traduzem a física para a sociedade.',
+            title: '5. Espaços de Convivência & Criação',
+            description: 'Locais abertos à comunidade: Hackerspace, DigitalLab, CEFISMA (Amélia Império), Lab Demo e Parque CienTec.',
             side: 'top',
             align: 'center',
         }

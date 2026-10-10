@@ -1,0 +1,860 @@
+<!--
+ * Hub de Comunicação Científica Lab-Div V3.0
+ * Copyright (C) 2026 João Paulo Stangorlini de Carvalho
+ * Este programa é software livre: você pode redistribuí-lo e/ou modificá-lo
+ * sob os termos da Licença Pública Geral Affero GNU (AGPLv3).
+-->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HUB LabDiv - O poder de entender o ambiente acadêmico (Poster 4)</title>
+  <link rel="stylesheet" href="../../fonts/fonts.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    @font-face {
+      font-family: '29LT Bukra';
+      src: local('29LT Bukra Semi Wide Bold'), local('29LT Bukra Bold'), local('29LTBukra-Bold'),
+           url('../fonts/Outfit-Black.ttf') format('truetype');
+      font-weight: 700 900;
+      font-display: swap;
+    }
+    .font-bukra {
+      font-family: '29LT Bukra', 'Outfit', sans-serif;
+    }
+    .font-open-sans {
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    body {
+      background-color: #FFFFFF;
+      color: #0F172A;
+      width: 1240px;
+      height: 1754px;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+    }
+
+    .poster-container {
+      width: 1240px;
+      height: 1754px;
+      position: relative;
+      background-color: #FFFFFF;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* TEXTURA MATEMÁTICA / CIENTÍFICA EM MARCA D'ÁGUA */
+    .bg-math-pattern {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1240px;
+      height: 1754px;
+      background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjEyMDAiIGZpbGw9Im5vbmUiPgogIDwhLS0gRXF1YXRpb25zICYgRm9ybXVsYXMgLS0+CiAgPHRleHQgeD0iODAiIHk9IjYwIiBmaWxsPSIjMEY0NzgwIiBvcGFjaXR5PSIxIiBmb250LXNpemU9IjMyIiBmb250LWZhbWlseT0iR2VvcmdpYSwgc2VyaWYiIGZvbnQtd2VpZ2h0PSJib2xkIiB0cmFuc2Zvcm09InJvdGF0ZSgtMTIgODAgNjApIj5FID0gbWPCsjwvdGV4dD4KICA8dGV4dCB4PSI2NTAiIHk9IjEyMCIgZmlsbD0iI0YxNDM0MyIgb3BhY2l0eT0iMSIgZm9udC1zaXplPSIyNiIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsIHNlcmlmIiBmb250LXdlaWdodD0iYm9sZCIgdHJhbnNmb3JtPSJyb3RhdGUoOCA2NTAgMTIwKSI+4oiCz4gv4oiCdDwvdGV4dD4KICA8dGV4dCB4PSIxMDIwIiB5PSI4MCIgZmlsbD0iI0Q5NzcwNiIgb3BhY2l0eT0iMSIgZm9udC1zaXplPSIyMyIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsIHNlcmlmIiBmb250LXdlaWdodD0iYm9sZCIgdHJhbnNmb3JtPSJyb3RhdGUoLTUgMTAyMCA4MCkiPuKEjzwvdGV4dD4KICA8dGV4dCB4PSIzNTAiIHk9IjIwMCIgZmlsbD0iI0Q5NzcwNiIgb3BhY2l0eT0iMSIgZm9udC1zaXplPSIyOSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsIHNlcmlmIiBmb250LXdlaWdodD0iYm9sZCIgdHJhbnNmb3JtPSJyb3RhdGUoMTUgMzUwIDIwMCkiPuKIh8OXQjwvdGV4dD4KICA8dGV4dCB4PSI5MDAiIHk9IjI1MCIgZmlsbD0iIzBGNDc4MCIgb3BhY2l0eT0iMSIgZm9udC1zaXplPSIzNiIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsIHNlcmlmIiBmb250LXdlaWdodD0iYm9sZCIgdHJhbnNmb3JtPSJyb3RhdGUoLTggOTAwIDI1MCkiPuKIqzwvdGV4dD4KICA8dGV4dCB4PSIxNTAiIHk9IjM0MCIgZmlsbD0iI0YxNDM0MyIgb3BhY2l0eT0iMSIgZm9udC1zaXplPSIyMyIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsIHNlcmlmIiBmb250LXdlaWdodD0iYm9sZCIgdHJhbnNmb3JtPSJyb3RhdGUoNiAxNTAgMzQwKSI+zrsgPSBoL3A8L3RleHQ+CiAgPHRleHQgeD0iNTUwIiB5PSIzODAiIGZpbGw9IiMwRjQ3ODAiIG9wYWNpdHk9IjEiIGZvbnQtc2l6ZT0iMjYiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC13ZWlnaHQ9ImJvbGQiIHRyYW5zZm9ybT0icm90YXRlKC0xMCA1NTAgMzgwKSI+zqM8L3RleHQ+CiAgPHRleHQgeD0iMTA1MCIgeT0iNDAwIiBmaWxsPSIjRDk3NzA2IiBvcGFjaXR5PSIxIiBmb250LXNpemU9IjI5IiBmb250LWZhbWlseT0iR2VvcmdpYSwgc2VyaWYiIGZvbnQtd2VpZ2h0PSJib2xkIiB0cmFuc2Zvcm09InJvdGF0ZSgxMiAxMDUwIDQwMCkiPs6UeM6UcCDiiaUg4oSPLzI8L3RleHQ+CiAgPHRleHQgeD0iODAiIHk9IjUwMCIgZmlsbD0iI0Q5NzcwNiIgb3BhY2l0eT0iMSIgZm9udC1zaXplPSIyOSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsIHNlcmlmIiBmb250LXdlaWdodD0iYm9sZCIgdHJhbnNmb3JtPSJyb3RhdGUoLTYgODAgNTAwKSI+z4A8L3RleHQ+CiAgPHRleHQgeD0iNDAwIiB5PSI1NTAiIGZpbGw9IiNGMTQzNDMiIG9wYWNpdHk9IjEiIGZvbnQtc2l6ZT0iMjMiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC13ZWlnaHQ9ImJvbGQiIHRyYW5zZm9ybT0icm90YXRlKDkgNDAwIDU1MCkiPkYgPSBtYTwvdGV4dD4KICA8dGV4dCB4PSI3NTAiIHk9IjUyMCIgZmlsbD0iIzBGNDc4MCIgb3BhY2l0eT0iMSIgZm9udC1zaXplPSIzMiIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsIHNlcmlmIiBmb250LXdlaWdodD0iYm9sZCIgdHJhbnNmb3JtPSJyb3RhdGUoLTE1IDc1MCA1MjApIj7iiILCsnUv4oiCdMKyPC90ZXh0PgogIDx0ZXh0IHg9IjIwMCIgeT0iNjgwIiBmaWxsPSIjMEY0NzgwIiBvcGFjaXR5PSIxIiBmb250LXNpemU9IjI2IiBmb250LWZhbWlseT0iR2VvcmdpYSwgc2VyaWYiIGZvbnQtd2VpZ2h0PSJib2xkIiB0cmFuc2Zvcm09InJvdGF0ZSg0IDIwMCA2ODApIj7iiK4gRcK3ZGw8L3RleHQ+CiAgPHRleHQgeD0iNjAwIiB5PSI3MjAiIGZpbGw9IiNEOTc3MDYiIG9wYWNpdHk9IjEiIGZvbnQtc2l6ZT0iMjMiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC13ZWlnaHQ9ImJvbGQiIHRyYW5zZm9ybT0icm90YXRlKC03IDYwMCA3MjApIj7PiCh4LHQpPC90ZXh0PgogIDx0ZXh0IHg9IjEwMDAiIHk9IjY1MCIgZmlsbD0iI0YxNDM0MyIgb3BhY2l0eT0iMSIgZm9udC1zaXplPSIyOSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsIHNlcmlmIiBmb250LXdlaWdodD0iYm9sZCIgdHJhbnNmb3JtPSJyb3RhdGUoMTEgMTAwMCA2NTApIj7iiJ48L3RleHQ+CiAgPHRleHQgeD0iMTAwIiB5PSI4NTAiIGZpbGw9IiNGMTQzNDMiIG9wYWNpdHk9IjEiIGZvbnQtc2l6ZT0iMjkiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC13ZWlnaHQ9ImJvbGQiIHRyYW5zZm9ybT0icm90YXRlKC05IDEwMCA4NTApIj5p4oSP4oiCz4gv4oiCdCA9IMSkz4g8L3RleHQ+CiAgPHRleHQgeD0iNDgwIiB5PSI5MDAiIGZpbGw9IiMwRjQ3ODAiIG9wYWNpdHk9IjEiIGZvbnQtc2l6ZT0iMzIiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC13ZWlnaHQ9ImJvbGQiIHRyYW5zZm9ybT0icm90YXRlKDcgNDgwIDkwMCkiPs6pPC90ZXh0PgogIDx0ZXh0IHg9Ijg1MCIgeT0iODcwIiBmaWxsPSIjRDk3NzA2IiBvcGFjaXR5PSIxIiBmb250LXNpemU9IjIzIiBmb250LWZhbWlseT0iR2VvcmdpYSwgc2VyaWYiIGZvbnQtd2VpZ2h0PSJib2xkIiB0cmFuc2Zvcm09InJvdGF0ZSgtMTMgODUwIDg3MCkiPuKIh8Kyz4Y8L3RleHQ+CiAgPHRleHQgeD0iMzAwIiB5PSIxMDUwIiBmaWxsPSIjRDk3NzA2IiBvcGFjaXR5PSIxIiBmb250LXNpemU9IjI2IiBmb250LWZhbWlseT0iR2VvcmdpYSwgc2VyaWYiIGZvbnQtd2VpZ2h0PSJib2xkIiB0cmFuc2Zvcm09InJvdGF0ZSg1IDMwMCAxMDUwKSI+zrEgzrIgzrM8L3RleHQ+CiAgPHRleHQgeD0iNzAwIiB5PSIxMDgwIiBmaWxsPSIjRjE0MzQzIiBvcGFjaXR5PSIxIiBmb250LXNpemU9IjI5IiBmb250LWZhbWlseT0iR2VvcmdpYSwgc2VyaWYiIGZvbnQtd2VpZ2h0PSJib2xkIiB0cmFuc2Zvcm09InJvdGF0ZSgtOCA3MDAgMTA4MCkiPlMgPSBrIGxuIFc8L3RleHQ+CiAgPHRleHQgeD0iMTA4MCIgeT0iMTAwMCIgZmlsbD0iIzBGNDc4MCIgb3BhY2l0eT0iMSIgZm9udC1zaXplPSIyOSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsIHNlcmlmIiBmb250LXdlaWdodD0iYm9sZCIgdHJhbnNmb3JtPSJyb3RhdGUoMTAgMTA4MCAxMDAwKSI+4oiCL+KIgng8L3RleHQ+CiAgPHRleHQgeD0iNTAiIHk9IjExNTAiIGZpbGw9IiMwRjQ3ODAiIG9wYWNpdHk9IjEiIGZvbnQtc2l6ZT0iMjMiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC13ZWlnaHQ9ImJvbGQiIHRyYW5zZm9ybT0icm90YXRlKC00IDUwIDExNTApIj7OvOKCgM614oKAPC90ZXh0PgogIDx0ZXh0IHg9IjU1MCIgeT0iMTE1MCIgZmlsbD0iI0YxNDM0MyIgb3BhY2l0eT0iMSIgZm9udC1zaXplPSIyNiIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsIHNlcmlmIiBmb250LXdlaWdodD0iYm9sZCIgdHJhbnNmb3JtPSJyb3RhdGUoMTQgNTUwIDExNTApIj7PgTwvdGV4dD4KICA8dGV4dCB4PSI5NTAiIHk9IjExNTAiIGZpbGw9IiNEOTc3MDYiIG9wYWNpdHk9IjEiIGZvbnQtc2l6ZT0iMzIiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC13ZWlnaHQ9ImJvbGQiIHRyYW5zZm9ybT0icm90YXRlKC0xMSA5NTAgMTE1MCkiPs6UPC90ZXh0PgoKICA8IS0tIFRpbnkgcGFydGljbGVzIC8gZG90cyAtLT4KICA8Y2lyY2xlIGN4PSIxMjAiIGN5PSIxMzAiIHI9IjMuNSIgZmlsbD0iIzBGNDc4MCIgb3BhY2l0eT0iMSIvPgogIDxjaXJjbGUgY3g9IjQ1MCIgY3k9IjkwIiByPSIyLjUiIGZpbGw9IiNGMTQzNDMiIG9wYWNpdHk9IjEiLz4KICA8Y2lyY2xlIGN4PSI3ODAiIGN5PSIxNzAiIHI9IjQiIGZpbGw9IiNEOTc3MDYiIG9wYWNpdHk9IjEiLz4KICA8Y2lyY2xlIGN4PSIzMDAiIGN5PSIzMDAiIHI9IjIuNSIgZmlsbD0iI0Q5NzcwNiIgb3BhY2l0eT0iMSIvPgogIDxjaXJjbGUgY3g9Ijk1MCIgY3k9IjMzMCIgcj0iMy41IiBmaWxsPSIjMEY0NzgwIiBvcGFjaXR5PSIxIi8+CiAgPGNpcmNsZSBjeD0iNjAwIiBjeT0iNDUwIiByPSIyLjUiIGZpbGw9IiNGMTQzNDMiIG9wYWNpdHk9IjEiLz4KICA8Y2lyY2xlIGN4PSIxNjAiIGN5PSI2MDAiIHI9IjQiIGZpbGw9IiMwRjQ3ODAiIG9wYWNpdHk9IjEiLz4KICA8Y2lyY2xlIGN4PSI1MDAiIGN5PSI2NTAiIHI9IjIuNSIgZmlsbD0iI0Q5NzcwNiIgb3BhY2l0eT0iMSIvPgogIDxjaXJjbGUgY3g9Ijg1MCIgY3k9IjU4MCIgcj0iMy41IiBmaWxsPSIjRjE0MzQzIiBvcGFjaXR5PSIxIi8+CiAgPGNpcmNsZSBjeD0iMTEwMCIgY3k9IjU1MCIgcj0iMi41IiBmaWxsPSIjMEY0NzgwIiBvcGFjaXR5PSIxIi8+CiAgPGNpcmNsZSBjeD0iMzMwIiBjeT0iNzgwIiByPSI0IiBmaWxsPSIjRDk3NzA2IiBvcGFjaXR5PSIxIi8+CiAgPGNpcmNsZSBjeD0iNzAwIiBjeT0iODAwIiByPSIyLjUiIGZpbGw9IiMwRjQ3ODAiIG9wYWNpdHk9IjEiLz4KICA8Y2lyY2xlIGN4PSIxMDUwIiBjeT0iNzgwIiByPSIzLjUiIGZpbGw9IiNGMTQzNDMiIG9wYWNpdHk9IjEiLz4KICA8Y2lyY2xlIGN4PSI4MCIgY3k9Ijk1MCIgcj0iMi41IiBmaWxsPSIjRjE0MzQzIiBvcGFjaXR5PSIxIi8+CiAgPGNpcmNsZSBjeD0iNDIwIiBjeT0iMTAwMCIgcj0iNCIgZmlsbD0iIzBGNDc4MCIgb3BhY2l0eT0iMSIvPgogIDxjaXJjbGUgY3g9Ijc1MCIgY3k9Ijk3MCIgcj0iMi41IiBmaWxsPSIjRDk3NzA2IiBvcGFjaXR5PSIxIi8+CiAgPGNpcmNsZSBjeD0iMTEwMCIgY3k9IjkwMCIgcj0iMy41IiBmaWxsPSIjRDk3NzA2IiBvcGFjaXR5PSIxIi8+CiAgPGNpcmNsZSBjeD0iMjAwIiBjeT0iMTEwMCIgcj0iMi41IiBmaWxsPSIjMEY0NzgwIiBvcGFjaXR5PSIxIi8+CiAgPGNpcmNsZSBjeD0iNjUwIiBjeT0iMTEzMCIgcj0iNCIgZmlsbD0iI0YxNDM0MyIgb3BhY2l0eT0iMSIvPgogIDxjaXJjbGUgY3g9IjEwMDAiIGN5PSIxMTAwIiByPSIyLjUiIGZpbGw9IiNEOTc3MDYiIG9wYWNpdHk9IjEiLz4KPC9zdmc+');
+      background-repeat: repeat;
+      background-size: 820px 820px;
+      opacity: 0.38;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* LINHAS GRADIENTE DE TOPO E BASE */
+    .brand-gradient-line-top {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(90deg, #0F4780 0%, #0284C7 35%, #F14343 70%, #FFCC00 100%);
+      z-index: 50;
+    }
+    .brand-gradient-line-bottom {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(90deg, #0F4780 0%, #0284C7 35%, #F14343 70%, #FFCC00 100%);
+      z-index: 50;
+    }
+
+    /* 1. SEÇÃO DO HEADER (TÍTULO MOVIDO MAIS PARA BAIXO E AMPLIADO) */
+    .header-section {
+      position: relative;
+      z-index: 30;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: 100%;
+      padding-top: 80px;
+      padding-left: 48px;
+      padding-right: 48px;
+    }
+
+    /* TÍTULO AMPLIFICADO EM BUKRA */
+    h1.hero-title {
+      font-size: 84px;
+      font-weight: 900;
+      line-height: 1.12;
+      color: #0F172A;
+      letter-spacing: -1.8px;
+      text-align: center;
+      max-width: 1180px;
+      margin: 0 auto 16px auto;
+    }
+
+    .palma-highlight {
+      color: #D97706;
+      font-weight: 900;
+      display: inline-block;
+      text-shadow: 0 2px 14px rgba(217, 119, 6, 0.28);
+    }
+
+    p.hero-subtitle {
+      font-size: 25px;
+      font-weight: 600;
+      color: #475569;
+      max-width: 1040px;
+      line-height: 1.35;
+      text-align: center;
+      margin: 0 auto;
+    }
+
+    /* 2. CAMADA SVG DOS ESPIRROS DE TINTA */
+    .splatters-svg-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1240px;
+      height: 1754px;
+      pointer-events: none;
+      z-index: 10;
+      overflow: hidden;
+    }
+
+    /* 3. ÍCONE CENTRAL: ESTILO APP DE TELA INICIAL DE CELULAR (SQUIRCLE) */
+    .center-app-icon-container {
+      position: absolute;
+      top: 855px;
+      left: 620px;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 25;
+    }
+
+    .app-icon-squircle {
+      width: 250px;
+      height: 250px;
+      border-radius: 56px;
+      background: #FFFFFF;
+      overflow: hidden;
+      box-shadow: 
+        0 24px 60px rgba(0, 0, 0, 0.24), 
+        0 8px 20px rgba(0, 0, 0, 0.12),
+        0 0 0 8px rgba(255, 255, 255, 0.85);
+      border: 3px solid rgba(0, 0, 0, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .app-icon-squircle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .app-icon-name {
+      font-size: 26px;
+      font-weight: 800;
+      color: #0F172A;
+      letter-spacing: -0.4px;
+      margin-top: 14px;
+      text-shadow: 0 1px 4px rgba(255, 255, 255, 0.95);
+    }
+
+    /* 4. CARDS DOS TRÊS EIXOS (EM CIMA DOS ESPIRROS DE TINTA) */
+    .axis-splat-card {
+      position: absolute;
+      background: #FFFFFF;
+      border-radius: 24px;
+      padding: 20px 22px;
+      box-shadow: 0 16px 36px -4px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.05);
+      z-index: 20;
+      width: 360px;
+      height: 196px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-sizing: border-box;
+    }
+    .axis-top-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .axis-icon-badge {
+      width: 54px;
+      height: 54px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .axis-card-title {
+      font-size: 26px;
+      font-weight: 900;
+      line-height: 1.1;
+    }
+    .axis-card-desc {
+      font-size: 16px;
+      font-weight: 600;
+      color: #334155;
+      line-height: 1.30;
+      margin-top: 8px;
+      margin-bottom: 8px;
+    }
+    .axis-tags-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .axis-tag {
+      font-size: 12.5px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 9999px;
+    }
+
+    /* CARD SOCIAL (AZUL - SUPERIOR ESQUERDO) */
+    .card-social-splat {
+      top: 560px;
+      left: 50px;
+      border: 2.5px solid rgba(15, 71, 128, 0.25);
+      border-top: 5px solid #0F4780;
+    }
+    .card-social-splat .axis-icon-badge {
+      background: #EEF4FA;
+      color: #0F4780;
+      border: 1.5px solid rgba(15, 71, 128, 0.25);
+    }
+    .card-social-splat .axis-card-title { color: #0F4780; }
+    .card-social-splat .axis-tag {
+      background: #EEF4FA;
+      color: #0F4780;
+    }
+
+    /* CARD INFORMATIVO (VERMELHO - SUPERIOR DIREITO) */
+    .card-info-splat {
+      top: 560px;
+      right: 50px;
+      border: 2.5px solid rgba(241, 67, 67, 0.25);
+      border-top: 5px solid #F14343;
+    }
+    .card-info-splat .axis-icon-badge {
+      background: #FEF2F2;
+      color: #F14343;
+      border: 1.5px solid rgba(241, 67, 67, 0.25);
+    }
+    .card-info-splat .axis-card-title { color: #F14343; }
+    .card-info-splat .axis-tag {
+      background: #FEF2F2;
+      color: #F14343;
+    }
+
+    /* CARD FERRAMENTAS (AMARELO - INFERIOR ESQUERDO) */
+    .card-tools-splat {
+      top: 1140px;
+      left: 50px;
+      border: 2.5px solid rgba(255, 204, 0, 0.45);
+      border-top: 5px solid #FFCC00;
+    }
+    .card-tools-splat .axis-icon-badge {
+      background: #FEF9C3;
+      color: #854D0E;
+      border: 1.5px solid rgba(255, 204, 0, 0.45);
+    }
+    .card-tools-splat .axis-card-title { color: #854D0E; }
+    .card-tools-splat .axis-tag {
+      background: #FEF9C3;
+      color: #854D0E;
+    }
+
+    /* 5. QR CODE ÚNICO SLIM (CANTO INFERIOR DIREITO) */
+    .bottom-right-qr-clean {
+      position: absolute;
+      bottom: 50px;
+      right: 50px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      z-index: 30;
+    }
+    .qr-code-box {
+      width: 250px;
+      height: 250px;
+      background: #FFFFFF;
+      padding: 12px;
+      border-radius: 24px;
+      border: 2.5px solid rgba(15, 71, 128, 0.20);
+      box-shadow: 0 16px 36px -4px rgba(15, 71, 128, 0.16), 0 4px 12px rgba(0, 0, 0, 0.06);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+    }
+    .qr-code-box svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .qr-center-badge-img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 68px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+    .qr-center-badge-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .qr-clean-link {
+      font-size: 21px;
+      font-weight: 800;
+      color: #0F4780;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      letter-spacing: -0.2px;
+    }
+
+    /* 6. NOTÍCIA INSTITUCIONAL NO CANTO INFERIOR ESQUERDO */
+    .bottom-left-footer-box {
+      position: absolute;
+      bottom: 50px;
+      left: 50px;
+      width: 600px;
+      height: 250px;
+      background: #F8FAFC;
+      border-radius: 24px;
+      border: 1.5px solid #E2E8F0;
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      z-index: 20;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+    }
+    .footer-badge-line {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #0F4780;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+    .footer-desc-text {
+      font-size: 16.5px;
+      line-height: 1.34;
+      color: #334155;
+    }
+    .footer-actions-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .footer-tag-chip {
+      background: #FFFFFF;
+      border: 1.5px solid #CBD5E1;
+      padding: 6px 14px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #0F172A;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .footer-legal-copy {
+      font-size: 12.5px;
+      color: #64748B;
+      font-weight: 600;
+      border-top: 1px solid #E2E8F0;
+      padding-top: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="poster-container">
+    <div class="brand-gradient-line-top"></div>
+    <div class="brand-gradient-line-bottom"></div>
+    <div class="bg-math-pattern"></div>
+
+    <!-- 1. HEADER SECTION (SEM LOGO NO TOPO, TÍTULO DESCIDO E AMPLIADO) -->
+    <header class="header-section">
+      <h1 class="hero-title font-bukra">
+        Entender a universidade está <span class="palma-highlight">à um clique de distância</span>
+      </h1>
+
+      <p class="hero-subtitle font-open-sans">
+        A plataforma de comunicação científica e apoio da graduação do Instituto de Física da USP.
+      </p>
+    </header>
+
+    <!-- 2. CAMADA SVG DOS ESPIRROS DE TINTA (SAINDO DE TRÁS DO ÍCONE CENTRAL) -->
+    <svg class="splatters-svg-layer" viewBox="0 0 1240 1754" xmlns="http://www.w3.org/2000/svg">
+      
+    <!-- Puddle blend center -->
+    <g opacity="0.95">
+      <!-- Blue burst lobe -->
+      <path d="M 620 840 C 540 740 440 780 430 830 C 420 900 520 930 620 840 Z" fill="#0F4780" opacity="0.3" />
+      <!-- Red burst lobe -->
+      <path d="M 620 840 C 700 740 800 780 810 830 C 820 900 720 930 620 840 Z" fill="#F14343" opacity="0.3" />
+      <!-- Yellow burst lobe -->
+      <path d="M 620 840 C 550 930 500 1020 580 1060 C 680 1060 700 960 620 840 Z" fill="#FFCC00" opacity="0.35" />
+    </g>
+    
+<path d="M 530.8 845.1 C 441.7 820.8 312.4 731.4 201.5 710.1 A 80.0 80.0 0 0 1 278.5 569.9 C 389.4 591.1 480.1 750.7 569.2 774.9 Z" fill="#0F4780" />
+<path d="M 235.2 649.9 Q 193.4 617.2 162.4 602.0 Q 193.4 617.2 244.8 630.1 Z" fill="#0F4780" />
+<path d="M 238.0 657.6 Q 204.1 636.0 180.2 633.3 Q 204.1 636.0 242.0 622.4 Z" fill="#0F4780" />
+<path d="M 239.1 648.9 Q 175.5 633.6 132.6 629.3 Q 175.5 633.6 240.9 631.1 Z" fill="#0F4780" />
+<path d="M 238.6 658.7 Q 212.3 638.0 193.9 636.7 Q 212.3 638.0 241.4 621.3 Z" fill="#0F4780" />
+<path d="M 236.1 651.9 Q 198.3 626.4 170.6 617.4 Q 198.3 626.4 243.9 628.1 Z" fill="#0F4780" />
+<circle cx="235.5" cy="687.3" r="8.6" fill="#0F4780" opacity="0.86" />
+<circle cx="469.5" cy="744.6" r="7.9" fill="#0F4780" opacity="0.94" />
+<circle cx="274.1" cy="591.8" r="7.9" fill="#0F4780" opacity="0.88" />
+<circle cx="325.8" cy="736.7" r="7.0" fill="#0F4780" opacity="0.80" />
+<circle cx="294.3" cy="739.3" r="3.1" fill="#0F4780" opacity="0.94" />
+<circle cx="495.7" cy="790.0" r="6.4" fill="#0F4780" opacity="0.83" />
+<circle cx="493.4" cy="771.2" r="3.9" fill="#0F4780" opacity="0.94" />
+<circle cx="234.6" cy="605.5" r="7.7" fill="#0F4780" opacity="0.93" />
+<circle cx="252.1" cy="806.2" r="4.9" fill="#0F4780" opacity="0.97" />
+<circle cx="236.5" cy="636.2" r="11.9" fill="#0F4780" opacity="0.80" />
+<circle cx="491.1" cy="729.9" r="8.7" fill="#0F4780" opacity="0.98" />
+<circle cx="186.4" cy="592.0" r="4.5" fill="#0F4780" opacity="0.94" />
+<circle cx="229.8" cy="571.7" r="4.8" fill="#0F4780" opacity="0.84" />
+<circle cx="127.8" cy="741.1" r="12.6" fill="#0F4780" opacity="0.98" />
+<circle cx="344.0" cy="664.9" r="8.7" fill="#0F4780" opacity="0.98" />
+<circle cx="362.5" cy="731.4" r="3.4" fill="#0F4780" opacity="0.91" />
+<circle cx="228.6" cy="652.4" r="6.6" fill="#0F4780" opacity="0.96" />
+<circle cx="474.6" cy="753.8" r="8.6" fill="#0F4780" opacity="0.85" />
+<circle cx="479.2" cy="640.9" r="8.4" fill="#0F4780" opacity="0.86" />
+<circle cx="507.8" cy="688.8" r="6.9" fill="#0F4780" opacity="0.98" />
+<circle cx="471.8" cy="831.1" r="5.8" fill="#0F4780" opacity="0.91" />
+<circle cx="130.7" cy="725.1" r="6.1" fill="#0F4780" opacity="0.85" />
+<circle cx="203.1" cy="725.2" r="7.3" fill="#0F4780" opacity="0.99" />
+<circle cx="380.7" cy="743.6" r="7.1" fill="#0F4780" opacity="0.98" />
+<circle cx="368.7" cy="661.8" r="3.4" fill="#0F4780" opacity="0.83" />
+<circle cx="462.3" cy="748.9" r="5.1" fill="#0F4780" opacity="0.87" />
+<circle cx="305.6" cy="734.3" r="7.1" fill="#0F4780" opacity="0.87" />
+<circle cx="197.5" cy="733.3" r="10.1" fill="#0F4780" opacity="0.83" />
+<circle cx="270.2" cy="708.2" r="12.6" fill="#0F4780" opacity="0.85" />
+<circle cx="378.3" cy="612.8" r="5.7" fill="#0F4780" opacity="0.86" />
+<circle cx="551.1" cy="660.4" r="7.4" fill="#0F4780" opacity="0.89" />
+<circle cx="281.9" cy="575.9" r="6.5" fill="#0F4780" opacity="0.94" />
+<circle cx="142.5" cy="568.9" r="15.8" fill="#0F4780" opacity="0.98" />
+<circle cx="457.0" cy="815.8" r="5.5" fill="#0F4780" opacity="0.89" />
+<circle cx="385.9" cy="747.0" r="7.5" fill="#0F4780" opacity="0.97" />
+<path d="M 554.8 795.9 C 458.4 718.5 349.1 642.8 295.4 586.1 A 50.0 50.0 0 0 1 364.6 513.9 C 418.3 570.6 488.9 686.7 585.2 764.1 Z" fill="#0284C7" />
+<path d="M 316.8 560.1 Q 305.5 518.2 289.2 497.0 Q 305.5 518.2 343.2 539.9 Z" fill="#0284C7" />
+<path d="M 318.3 560.1 Q 313.1 530.5 301.8 517.5 Q 313.1 530.5 341.7 539.9 Z" fill="#0284C7" />
+<path d="M 313.7 562.1 Q 302.7 513.2 284.4 488.7 Q 302.7 513.2 346.3 537.9 Z" fill="#0284C7" />
+<path d="M 320.1 555.1 Q 311.7 514.6 299.5 491.0 Q 311.7 514.6 339.9 544.9 Z" fill="#0284C7" />
+<path d="M 325.7 567.1 Q 273.7 536.0 236.1 526.7 Q 273.7 536.0 334.3 532.9 Z" fill="#0284C7" />
+<circle cx="293.3" cy="630.8" r="5.9" fill="#0284C7" opacity="0.91" />
+<circle cx="505.0" cy="688.5" r="6.7" fill="#0284C7" opacity="0.93" />
+<circle cx="333.5" cy="552.2" r="7.3" fill="#0284C7" opacity="0.94" />
+<circle cx="402.4" cy="576.6" r="7.5" fill="#0284C7" opacity="0.89" />
+<circle cx="436.9" cy="607.5" r="4.2" fill="#0284C7" opacity="0.92" />
+<circle cx="326.8" cy="582.5" r="8.6" fill="#0284C7" opacity="0.91" />
+<circle cx="354.6" cy="668.1" r="8.0" fill="#0284C7" opacity="0.93" />
+<circle cx="306.7" cy="700.4" r="8.7" fill="#0284C7" opacity="0.89" />
+<circle cx="401.0" cy="508.5" r="8.1" fill="#0284C7" opacity="0.95" />
+<circle cx="295.6" cy="633.7" r="14.9" fill="#0284C7" opacity="0.92" />
+<circle cx="433.9" cy="529.5" r="8.2" fill="#0284C7" opacity="0.99" />
+<circle cx="237.7" cy="487.7" r="5.2" fill="#0284C7" opacity="0.81" />
+<circle cx="322.0" cy="451.4" r="6.3" fill="#0284C7" opacity="0.94" />
+<circle cx="208.6" cy="520.4" r="5.8" fill="#0284C7" opacity="0.89" />
+<circle cx="345.5" cy="544.2" r="4.9" fill="#0284C7" opacity="0.90" />
+<circle cx="503.5" cy="639.2" r="3.5" fill="#0284C7" opacity="0.88" />
+<circle cx="503.5" cy="687.1" r="5.5" fill="#0284C7" opacity="0.86" />
+<circle cx="337.7" cy="512.9" r="8.4" fill="#0284C7" opacity="0.85" />
+<circle cx="460.2" cy="709.6" r="4.2" fill="#0284C7" opacity="0.89" />
+<circle cx="387.1" cy="414.4" r="13.8" fill="#0284C7" opacity="0.89" />
+<circle cx="253.5" cy="532.1" r="4.2" fill="#0284C7" opacity="0.83" />
+<circle cx="263.6" cy="553.2" r="8.1" fill="#0284C7" opacity="0.97" />
+<path d="M 524.0 857.0 C 428.9 822.1 262.9 770.9 146.1 749.6 A 42.0 42.0 0 0 1 173.9 670.4 C 290.7 691.6 440.8 788.1 536.0 823.0 Z" fill="#0F4780" />
+<path d="M 161.0 726.4 Q 132.8 711.7 114.6 712.8 Q 132.8 711.7 159.0 693.6 Z" fill="#0F4780" />
+<path d="M 163.9 730.1 Q 120.7 717.6 94.5 722.7 Q 120.7 717.6 156.1 689.9 Z" fill="#0F4780" />
+<path d="M 153.1 716.0 Q 141.1 688.1 128.4 673.4 Q 141.1 688.1 166.9 704.0 Z" fill="#0F4780" />
+<path d="M 160.4 718.3 Q 101.3 713.0 62.2 715.0 Q 101.3 713.0 159.6 701.7 Z" fill="#0F4780" />
+<path d="M 160.5 719.8 Q 131.5 711.3 112.5 712.2 Q 131.5 711.3 159.5 700.2 Z" fill="#0F4780" />
+<circle cx="242.3" cy="707.4" r="12.5" fill="#0F4780" opacity="0.94" />
+<circle cx="302.8" cy="695.5" r="7.7" fill="#0F4780" opacity="0.91" />
+<circle cx="92.2" cy="685.6" r="10.5" fill="#0F4780" opacity="0.99" />
+<circle cx="212.9" cy="650.7" r="9.2" fill="#0F4780" opacity="0.85" />
+<circle cx="356.3" cy="740.8" r="8.3" fill="#0F4780" opacity="0.98" />
+<circle cx="297.9" cy="541.5" r="12.2" fill="#0F4780" opacity="0.86" />
+<circle cx="266.3" cy="700.9" r="4.5" fill="#0F4780" opacity="0.82" />
+<circle cx="74.9" cy="598.2" r="4.3" fill="#0F4780" opacity="0.96" />
+<circle cx="177.1" cy="632.4" r="15.9" fill="#0F4780" opacity="1.00" />
+<circle cx="229.0" cy="686.2" r="13.0" fill="#0F4780" opacity="0.94" />
+<circle cx="314.8" cy="843.4" r="5.4" fill="#0F4780" opacity="0.96" />
+<circle cx="259.8" cy="774.5" r="7.5" fill="#0F4780" opacity="0.81" />
+<circle cx="299.4" cy="660.8" r="8.2" fill="#0F4780" opacity="0.91" />
+<circle cx="222.7" cy="701.0" r="11.1" fill="#0F4780" opacity="0.85" />
+<circle cx="269.1" cy="833.8" r="5.3" fill="#0F4780" opacity="0.90" />
+<circle cx="307.9" cy="805.6" r="6.3" fill="#0F4780" opacity="0.94" />
+<circle cx="307.5" cy="811.1" r="6.2" fill="#0F4780" opacity="1.00" />
+<circle cx="296.4" cy="869.8" r="8.5" fill="#0F4780" opacity="0.84" />
+<path d="M 670.8 774.9 C 743.0 708.6 849.4 605.6 961.5 569.9 A 80.0 80.0 0 0 1 1038.5 710.1 C 926.4 745.9 781.4 778.8 709.2 845.1 Z" fill="#F14343" />
+<path d="M 997.9 625.6 Q 1052.6 632.2 1087.6 627.0 Q 1052.6 632.2 1002.1 654.4 Z" fill="#F14343" />
+<path d="M 997.1 620.1 Q 1042.5 633.7 1070.8 629.6 Q 1042.5 633.7 1002.9 659.9 Z" fill="#F14343" />
+<path d="M 994.6 625.0 Q 1028.1 629.8 1046.8 623.0 Q 1028.1 629.8 1005.4 655.0 Z" fill="#F14343" />
+<path d="M 994.4 630.5 Q 1040.0 616.3 1066.7 600.5 Q 1040.0 616.3 1005.6 649.5 Z" fill="#F14343" />
+<path d="M 997.2 628.1 Q 1031.1 632.8 1051.8 628.0 Q 1031.1 632.8 1002.8 651.9 Z" fill="#F14343" />
+<circle cx="827.6" cy="730.3" r="7.5" fill="#F14343" opacity="0.93" />
+<circle cx="761.4" cy="802.0" r="6.5" fill="#F14343" opacity="0.82" />
+<circle cx="946.9" cy="576.7" r="12.9" fill="#F14343" opacity="0.96" />
+<circle cx="1027.4" cy="687.5" r="6.8" fill="#F14343" opacity="0.82" />
+<circle cx="888.6" cy="525.4" r="14.5" fill="#F14343" opacity="0.84" />
+<circle cx="881.6" cy="671.2" r="7.3" fill="#F14343" opacity="0.88" />
+<circle cx="1158.5" cy="666.0" r="14.0" fill="#F14343" opacity="0.99" />
+<circle cx="935.4" cy="682.4" r="4.5" fill="#F14343" opacity="0.92" />
+<circle cx="851.4" cy="701.0" r="4.2" fill="#F14343" opacity="0.92" />
+<circle cx="1000.0" cy="556.1" r="9.4" fill="#F14343" opacity="0.92" />
+<circle cx="953.7" cy="656.3" r="7.8" fill="#F14343" opacity="0.97" />
+<circle cx="934.2" cy="674.7" r="7.7" fill="#F14343" opacity="0.99" />
+<circle cx="747.6" cy="770.4" r="3.0" fill="#F14343" opacity="0.84" />
+<circle cx="889.3" cy="609.7" r="5.8" fill="#F14343" opacity="0.97" />
+<circle cx="881.3" cy="722.1" r="8.7" fill="#F14343" opacity="1.00" />
+<circle cx="774.7" cy="705.5" r="7.9" fill="#F14343" opacity="0.82" />
+<circle cx="889.9" cy="755.9" r="3.1" fill="#F14343" opacity="0.80" />
+<circle cx="1086.1" cy="514.9" r="14.2" fill="#F14343" opacity="0.99" />
+<circle cx="853.4" cy="684.5" r="3.3" fill="#F14343" opacity="0.92" />
+<circle cx="830.8" cy="815.1" r="4.1" fill="#F14343" opacity="0.95" />
+<circle cx="868.0" cy="805.7" r="6.6" fill="#F14343" opacity="0.93" />
+<circle cx="826.5" cy="728.7" r="8.7" fill="#F14343" opacity="0.81" />
+<circle cx="1028.9" cy="483.5" r="10.1" fill="#F14343" opacity="0.88" />
+<circle cx="794.1" cy="736.7" r="5.1" fill="#F14343" opacity="0.93" />
+<circle cx="869.6" cy="741.0" r="3.2" fill="#F14343" opacity="0.82" />
+<circle cx="1001.3" cy="489.0" r="10.0" fill="#F14343" opacity="0.83" />
+<circle cx="890.2" cy="578.4" r="9.2" fill="#F14343" opacity="0.99" />
+<circle cx="732.4" cy="763.4" r="8.3" fill="#F14343" opacity="0.94" />
+<circle cx="896.0" cy="729.2" r="7.2" fill="#F14343" opacity="0.93" />
+<circle cx="953.3" cy="692.9" r="4.1" fill="#F14343" opacity="0.82" />
+<circle cx="946.6" cy="720.6" r="3.2" fill="#F14343" opacity="0.85" />
+<circle cx="968.7" cy="700.6" r="13.5" fill="#F14343" opacity="0.80" />
+<circle cx="842.8" cy="703.1" r="5.4" fill="#F14343" opacity="0.80" />
+<circle cx="825.1" cy="772.6" r="4.6" fill="#F14343" opacity="0.97" />
+<circle cx="834.5" cy="689.0" r="7.2" fill="#F14343" opacity="0.89" />
+<path d="M 654.8 764.1 C 745.0 705.6 798.4 565.5 875.4 513.9 A 50.0 50.0 0 0 1 944.6 586.1 C 867.6 637.7 775.5 737.3 685.2 795.9 Z" fill="#DC2626" />
+<path d="M 903.1 537.8 Q 966.3 518.0 1003.8 496.7 Q 966.3 518.0 916.9 562.2 Z" fill="#DC2626" />
+<path d="M 905.9 535.2 Q 934.6 543.1 951.0 538.5 Q 934.6 543.1 914.1 564.8 Z" fill="#DC2626" />
+<path d="M 894.7 543.7 Q 927.0 508.6 938.3 481.0 Q 927.0 508.6 925.3 556.3 Z" fill="#DC2626" />
+<path d="M 904.7 530.5 Q 954.3 537.9 983.9 529.9 Q 954.3 537.9 915.3 569.5 Z" fill="#DC2626" />
+<path d="M 897.7 542.2 Q 925.7 525.2 936.2 508.6 Q 925.7 525.2 922.3 557.8 Z" fill="#DC2626" />
+<circle cx="916.5" cy="535.6" r="6.2" fill="#DC2626" opacity="0.85" />
+<circle cx="835.0" cy="596.9" r="8.2" fill="#DC2626" opacity="0.85" />
+<circle cx="769.4" cy="784.1" r="7.6" fill="#DC2626" opacity="0.81" />
+<circle cx="737.2" cy="621.4" r="4.1" fill="#DC2626" opacity="0.98" />
+<circle cx="760.0" cy="726.9" r="7.7" fill="#DC2626" opacity="0.84" />
+<circle cx="1035.1" cy="498.3" r="7.0" fill="#DC2626" opacity="0.93" />
+<circle cx="744.5" cy="670.5" r="9.0" fill="#DC2626" opacity="0.85" />
+<circle cx="893.0" cy="730.7" r="3.3" fill="#DC2626" opacity="0.84" />
+<circle cx="764.5" cy="576.0" r="5.1" fill="#DC2626" opacity="0.83" />
+<circle cx="864.0" cy="576.6" r="7.5" fill="#DC2626" opacity="0.87" />
+<circle cx="988.0" cy="455.3" r="15.4" fill="#DC2626" opacity="0.99" />
+<circle cx="819.0" cy="629.2" r="8.9" fill="#DC2626" opacity="0.82" />
+<circle cx="1044.6" cy="547.1" r="11.8" fill="#DC2626" opacity="0.99" />
+<circle cx="867.6" cy="732.6" r="6.9" fill="#DC2626" opacity="0.99" />
+<circle cx="761.8" cy="726.4" r="3.8" fill="#DC2626" opacity="0.81" />
+<circle cx="745.2" cy="777.1" r="5.1" fill="#DC2626" opacity="0.93" />
+<circle cx="837.1" cy="602.6" r="3.6" fill="#DC2626" opacity="0.91" />
+<circle cx="748.1" cy="695.3" r="3.1" fill="#DC2626" opacity="0.81" />
+<circle cx="963.1" cy="622.3" r="3.1" fill="#DC2626" opacity="0.84" />
+<circle cx="894.2" cy="532.8" r="13.3" fill="#DC2626" opacity="0.84" />
+<circle cx="903.4" cy="670.8" r="7.5" fill="#DC2626" opacity="0.90" />
+<circle cx="958.3" cy="537.2" r="6.0" fill="#DC2626" opacity="0.93" />
+<path d="M 704.0 823.0 C 801.5 816.3 957.7 687.7 1066.1 670.4 A 42.0 42.0 0 0 1 1093.9 749.6 C 985.6 766.9 813.4 850.3 716.0 857.0 Z" fill="#F14343" />
+<path d="M 1081.1 690.4 Q 1128.9 712.6 1161.5 714.4 Q 1128.9 712.6 1078.9 729.6 Z" fill="#F14343" />
+<path d="M 1076.6 691.5 Q 1133.5 700.2 1169.1 693.6 Q 1133.5 700.2 1083.4 728.5 Z" fill="#F14343" />
+<path d="M 1069.1 692.5 Q 1103.8 695.2 1119.7 685.3 Q 1103.8 695.2 1090.9 727.5 Z" fill="#F14343" />
+<path d="M 1063.2 696.0 Q 1110.4 673.7 1130.7 649.5 Q 1110.4 673.7 1096.8 724.0 Z" fill="#F14343" />
+<path d="M 1073.1 698.6 Q 1109.9 691.8 1129.8 679.7 Q 1109.9 691.8 1086.9 721.4 Z" fill="#F14343" />
+<circle cx="859.0" cy="787.6" r="3.4" fill="#F14343" opacity="0.92" />
+<circle cx="869.7" cy="733.7" r="4.1" fill="#F14343" opacity="0.80" />
+<circle cx="1124.8" cy="602.5" r="9.2" fill="#F14343" opacity="0.97" />
+<circle cx="810.8" cy="850.0" r="6.8" fill="#F14343" opacity="0.97" />
+<circle cx="880.1" cy="729.6" r="4.9" fill="#F14343" opacity="0.99" />
+<circle cx="877.9" cy="802.2" r="7.4" fill="#F14343" opacity="0.81" />
+<circle cx="1170.8" cy="818.4" r="3.9" fill="#F14343" opacity="0.84" />
+<circle cx="903.5" cy="823.3" r="4.7" fill="#F14343" opacity="0.96" />
+<circle cx="1013.0" cy="778.8" r="5.5" fill="#F14343" opacity="0.94" />
+<circle cx="1066.5" cy="729.6" r="9.2" fill="#F14343" opacity="0.96" />
+<circle cx="1295.5" cy="929.6" r="15.0" fill="#F14343" opacity="1.00" />
+<circle cx="1070.6" cy="629.5" r="12.0" fill="#F14343" opacity="0.92" />
+<circle cx="957.2" cy="787.6" r="8.4" fill="#F14343" opacity="0.89" />
+<circle cx="763.8" cy="782.9" r="8.1" fill="#F14343" opacity="0.90" />
+<circle cx="777.9" cy="849.0" r="8.3" fill="#F14343" opacity="0.89" />
+<circle cx="815.6" cy="715.1" r="4.3" fill="#F14343" opacity="0.91" />
+<circle cx="1057.9" cy="659.2" r="4.9" fill="#F14343" opacity="0.99" />
+<circle cx="1218.5" cy="634.2" r="15.2" fill="#F14343" opacity="0.90" />
+<path d="M 611.1 918.3 C 528.6 997.1 433.3 1180.4 342.9 1277.2 A 85.0 85.0 0 0 1 217.1 1162.8 C 307.5 1066.0 466.4 940.6 548.9 861.7 Z" fill="#FFCC00" />
+<path d="M 290.8 1224.2 Q 261.3 1268.6 248.8 1301.0 Q 261.3 1268.6 269.2 1215.8 Z" fill="#FFCC00" />
+<path d="M 283.7 1241.1 Q 246.3 1225.9 223.8 1229.8 Q 246.3 1225.9 276.3 1198.9 Z" fill="#FFCC00" />
+<path d="M 295.5 1222.7 Q 272.7 1262.1 267.9 1290.2 Q 272.7 1262.1 264.5 1217.3 Z" fill="#FFCC00" />
+<path d="M 282.5 1232.1 Q 221.7 1231.9 182.9 1239.9 Q 221.7 1231.9 277.5 1207.9 Z" fill="#FFCC00" />
+<path d="M 286.3 1228.3 Q 232.1 1256.2 200.1 1280.3 Q 232.1 1256.2 273.7 1211.7 Z" fill="#FFCC00" />
+<circle cx="164.4" cy="1218.6" r="5.9" fill="#FFCC00" opacity="0.95" />
+<circle cx="482.6" cy="1236.6" r="8.7" fill="#FFCC00" opacity="0.95" />
+<circle cx="473.3" cy="896.6" r="4.7" fill="#FFCC00" opacity="0.99" />
+<circle cx="498.7" cy="1029.3" r="8.6" fill="#FFCC00" opacity="0.92" />
+<circle cx="515.7" cy="939.9" r="3.4" fill="#FFCC00" opacity="0.83" />
+<circle cx="530.3" cy="1000.8" r="5.7" fill="#FFCC00" opacity="0.86" />
+<circle cx="214.9" cy="1340.8" r="3.1" fill="#FFCC00" opacity="0.94" />
+<circle cx="483.3" cy="973.9" r="8.7" fill="#FFCC00" opacity="0.95" />
+<circle cx="361.5" cy="1210.1" r="14.7" fill="#FFCC00" opacity="0.86" />
+<circle cx="493.8" cy="1011.2" r="6.5" fill="#FFCC00" opacity="0.97" />
+<circle cx="209.8" cy="1374.2" r="9.0" fill="#FFCC00" opacity="0.82" />
+<circle cx="282.0" cy="1160.8" r="5.8" fill="#FFCC00" opacity="0.86" />
+<circle cx="156.2" cy="1188.9" r="6.7" fill="#FFCC00" opacity="0.99" />
+<circle cx="338.2" cy="1209.4" r="10.2" fill="#FFCC00" opacity="0.88" />
+<circle cx="242.2" cy="1295.8" r="7.7" fill="#FFCC00" opacity="0.86" />
+<circle cx="453.4" cy="989.0" r="3.8" fill="#FFCC00" opacity="0.94" />
+<circle cx="404.8" cy="1004.0" r="8.0" fill="#FFCC00" opacity="0.93" />
+<circle cx="549.3" cy="996.9" r="7.8" fill="#FFCC00" opacity="0.81" />
+<circle cx="347.6" cy="1081.4" r="8.5" fill="#FFCC00" opacity="0.90" />
+<circle cx="312.9" cy="1320.0" r="8.2" fill="#FFCC00" opacity="0.87" />
+<circle cx="349.1" cy="1250.8" r="13.3" fill="#FFCC00" opacity="0.88" />
+<circle cx="173.7" cy="1320.6" r="9.7" fill="#FFCC00" opacity="0.88" />
+<circle cx="245.8" cy="1395.1" r="10.9" fill="#FFCC00" opacity="0.90" />
+<circle cx="528.1" cy="960.6" r="4.4" fill="#FFCC00" opacity="0.86" />
+<circle cx="361.5" cy="1243.6" r="7.5" fill="#FFCC00" opacity="0.96" />
+<circle cx="388.8" cy="1075.5" r="4.1" fill="#FFCC00" opacity="0.84" />
+<circle cx="262.5" cy="1286.1" r="4.7" fill="#FFCC00" opacity="0.81" />
+<circle cx="117.7" cy="1281.1" r="3.4" fill="#FFCC00" opacity="0.85" />
+<circle cx="456.4" cy="1044.4" r="3.3" fill="#FFCC00" opacity="0.99" />
+<circle cx="255.1" cy="1046.1" r="5.9" fill="#FFCC00" opacity="0.90" />
+<circle cx="164.6" cy="1267.3" r="5.4" fill="#FFCC00" opacity="0.94" />
+<circle cx="410.9" cy="996.8" r="8.2" fill="#FFCC00" opacity="0.91" />
+<circle cx="72.4" cy="1263.8" r="3.2" fill="#FFCC00" opacity="0.87" />
+<circle cx="324.9" cy="1255.4" r="10.0" fill="#FFCC00" opacity="0.92" />
+<circle cx="448.2" cy="969.7" r="7.2" fill="#FFCC00" opacity="0.80" />
+<circle cx="191.9" cy="1221.9" r="7.0" fill="#FFCC00" opacity="0.87" />
+<circle cx="347.9" cy="1200.4" r="11.5" fill="#FFCC00" opacity="0.97" />
+<circle cx="430.4" cy="1088.5" r="8.6" fill="#FFCC00" opacity="0.96" />
+<path d="M 640.4 932.6 C 528.8 1047.5 495.2 1222.9 426.8 1338.8 A 55.0 55.0 0 0 1 333.2 1281.2 C 401.5 1165.2 487.9 1022.4 599.6 907.4 Z" fill="#D97706" />
+<path d="M 393.5 1311.6 Q 377.0 1335.4 375.1 1352.3 Q 377.0 1335.4 366.5 1308.4 Z" fill="#D97706" />
+<path d="M 390.8 1316.7 Q 350.1 1358.0 330.2 1390.0 Q 350.1 1358.0 369.2 1303.3 Z" fill="#D97706" />
+<path d="M 386.1 1326.1 Q 353.1 1320.2 335.2 1326.9 Q 353.1 1320.2 373.9 1293.9 Z" fill="#D97706" />
+<path d="M 389.7 1308.9 Q 383.6 1343.0 386.0 1365.1 Q 383.6 1343.0 370.3 1311.1 Z" fill="#D97706" />
+<path d="M 385.4 1324.8 Q 330.7 1328.0 297.8 1340.0 Q 330.7 1328.0 374.6 1295.2 Z" fill="#D97706" />
+<circle cx="253.8" cy="1354.9" r="14.2" fill="#D97706" opacity="0.86" />
+<circle cx="392.7" cy="1333.9" r="13.8" fill="#D97706" opacity="0.88" />
+<circle cx="390.8" cy="1300.6" r="12.9" fill="#D97706" opacity="0.84" />
+<circle cx="518.2" cy="1132.8" r="4.4" fill="#D97706" opacity="0.86" />
+<circle cx="446.4" cy="1527.9" r="4.8" fill="#D97706" opacity="0.85" />
+<circle cx="551.6" cy="966.4" r="5.8" fill="#D97706" opacity="0.99" />
+<circle cx="434.9" cy="1236.3" r="3.8" fill="#D97706" opacity="0.84" />
+<circle cx="345.8" cy="1472.2" r="12.1" fill="#D97706" opacity="0.99" />
+<circle cx="354.7" cy="1358.3" r="11.0" fill="#D97706" opacity="0.83" />
+<circle cx="400.6" cy="1191.0" r="6.2" fill="#D97706" opacity="0.85" />
+<circle cx="118.6" cy="1344.8" r="3.5" fill="#D97706" opacity="0.99" />
+<circle cx="415.9" cy="1150.9" r="3.9" fill="#D97706" opacity="0.92" />
+<circle cx="434.4" cy="1362.4" r="11.7" fill="#D97706" opacity="0.85" />
+<circle cx="455.5" cy="1109.4" r="7.2" fill="#D97706" opacity="0.89" />
+<circle cx="448.2" cy="1455.8" r="10.1" fill="#D97706" opacity="0.85" />
+<circle cx="446.2" cy="1138.6" r="6.3" fill="#D97706" opacity="0.89" />
+<circle cx="421.7" cy="1352.1" r="6.2" fill="#D97706" opacity="0.97" />
+<circle cx="418.2" cy="1491.1" r="7.7" fill="#D97706" opacity="0.98" />
+<circle cx="443.9" cy="1212.5" r="7.1" fill="#D97706" opacity="0.94" />
+<circle cx="362.3" cy="1285.2" r="8.5" fill="#D97706" opacity="0.82" />
+<circle cx="621.2" cy="1003.6" r="8.7" fill="#D97706" opacity="0.96" />
+<circle cx="480.8" cy="1283.0" r="15.7" fill="#D97706" opacity="0.80" />
+<circle cx="392.9" cy="1490.4" r="11.0" fill="#D97706" opacity="0.87" />
+<circle cx="438.6" cy="1227.1" r="8.3" fill="#D97706" opacity="0.94" />
+<path d="M 562.1 885.9 C 479.3 932.6 333.5 1071.1 207.8 1186.7 A 46.0 46.0 0 0 1 152.2 1113.3 C 278.0 997.8 455.2 900.7 537.9 854.1 Z" fill="#FFCC00" />
+<path d="M 180.3 1165.2 Q 145.1 1150.8 121.9 1151.3 Q 145.1 1150.8 179.7 1134.8 Z" fill="#FFCC00" />
+<path d="M 193.5 1163.4 Q 151.0 1179.3 131.7 1198.8 Q 151.0 1179.3 166.5 1136.6 Z" fill="#FFCC00" />
+<path d="M 182.9 1165.3 Q 145.8 1156.5 123.1 1160.9 Q 145.8 1156.5 177.1 1134.7 Z" fill="#FFCC00" />
+<path d="M 183.7 1159.0 Q 134.7 1168.5 104.5 1180.8 Q 134.7 1168.5 176.3 1141.0 Z" fill="#FFCC00" />
+<path d="M 195.0 1164.6 Q 148.9 1182.1 128.1 1203.5 Q 148.9 1182.1 165.0 1135.4 Z" fill="#FFCC00" />
+<circle cx="133.7" cy="1225.7" r="15.2" fill="#FFCC00" opacity="0.85" />
+<circle cx="364.7" cy="1065.2" r="3.9" fill="#FFCC00" opacity="0.92" />
+<circle cx="155.7" cy="1229.0" r="12.1" fill="#FFCC00" opacity="0.93" />
+<circle cx="438.5" cy="1079.7" r="8.8" fill="#FFCC00" opacity="1.00" />
+<circle cx="51.9" cy="1031.3" r="14.4" fill="#FFCC00" opacity="0.95" />
+<circle cx="121.1" cy="1198.9" r="12.0" fill="#FFCC00" opacity="0.83" />
+<circle cx="153.5" cy="1266.1" r="14.7" fill="#FFCC00" opacity="0.90" />
+<circle cx="329.9" cy="954.4" r="6.3" fill="#FFCC00" opacity="0.98" />
+<circle cx="-11.6" cy="1051.4" r="13.5" fill="#FFCC00" opacity="0.90" />
+<circle cx="412.7" cy="979.4" r="8.6" fill="#FFCC00" opacity="0.81" />
+<circle cx="83.5" cy="1279.1" r="5.2" fill="#FFCC00" opacity="0.94" />
+<circle cx="476.6" cy="957.9" r="5.6" fill="#FFCC00" opacity="0.82" />
+<circle cx="432.5" cy="959.7" r="3.2" fill="#FFCC00" opacity="0.97" />
+<circle cx="135.3" cy="1043.1" r="6.4" fill="#FFCC00" opacity="0.94" />
+<circle cx="466.0" cy="935.0" r="8.1" fill="#FFCC00" opacity="0.94" />
+<circle cx="444.7" cy="884.4" r="8.8" fill="#FFCC00" opacity="0.83" />
+<circle cx="419.8" cy="990.6" r="5.5" fill="#FFCC00" opacity="0.84" />
+<circle cx="293.4" cy="1079.3" r="5.1" fill="#FFCC00" opacity="0.88" />
+<circle cx="390.6" cy="1101.5" r="5.5" fill="#FFCC00" opacity="0.91" />
+<circle cx="350.8" cy="1007.2" r="5.4" fill="#FFCC00" opacity="0.82" />
+    </svg>
+
+    <!-- 3. ÍCONE CENTRAL NO ESTILO DE APP NA TELA INICIAL DO CELULAR -->
+    <div class="center-app-icon-container">
+      <div class="app-icon-squircle">
+        <img src="icons/icone-HUBLabDiv-white.png" alt="HUB LabDiv App" />
+      </div>
+      <span class="app-icon-name font-open-sans">HUB LabDiv</span>
+    </div>
+
+    <!-- 4. EIXO SOCIAL (EM CIMA DO ESPIRRO AZUL) -->
+    <div class="axis-splat-card card-social-splat">
+      <div>
+        <div class="axis-top-header">
+          <div class="axis-icon-badge">
+            <svg width="30" height="30" viewBox="0 -960 960 960" fill="currentColor">
+              <path d="M0-240v-63q0-43 44-70t116-27q13 0 25 .5t23 2.5q-14 21-21 44t-7 48v65H0Zm240 0v-65q0-32 17.5-58.5T307-410q32-20 76.5-30t96.5-10q53 0 97.5 10t76.5 30q32 20 49 46.5t17 58.5v65H240Zm540 0v-65q0-26-6.5-49T754-397q11-2 22.5-2.5t23.5-.5q72 0 116 26.5t44 70.5v63H780ZM160-440q-33 0-56.5-23.5T80-520q0-34 23.5-57t56.5-23q34 0 57 23t23 57q0 33-23 56.5T160-440Zm640 0q-33 0-56.5-23.5T720-520q0-34 23.5-57t56.5-23q34 0 57 23t23 57q0 33-23 56.5T800-440Zm-320-40q-50 0-85-35t-35-85q0-51 35-85.5t85-34.5q51 0 85.5 34.5T600-600q0 50-34.5 85T480-480Z"/>
+            </svg>
+          </div>
+          <h2 class="axis-card-title font-bukra">Social</h2>
+        </div>
+        <p class="axis-card-desc font-open-sans">Rede comunicativa e pedagógica para conectar estudantes e pesquisadores.</p>
+      </div>
+      <div class="axis-tags-row font-bukra">
+        <span class="axis-tag">#Comunidades</span>
+        <span class="axis-tag">#GruposDeEstudo</span>
+        <span class="axis-tag">#Feed</span>
+      </div>
+    </div>
+
+    <!-- 4. EIXO INFORMATIVO (EM CIMA DO ESPIRRO VERMELHO) -->
+    <div class="axis-splat-card card-info-splat">
+      <div>
+        <div class="axis-top-header">
+          <div class="axis-icon-badge">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2v4" />
+              <path d="M12 18v4" />
+              <path d="M2 12h4" />
+              <path d="M18 12h4" />
+              <path d="M4.93 4.93l2.83 2.83" />
+              <path d="M16.24 16.24l2.83 2.83" />
+              <path d="M4.93 19.07l2.83-2.83" />
+              <path d="M16.24 7.76l2.83-2.83" />
+              <circle cx="12" cy="12" r="9.5" stroke-dasharray="2 2" stroke-width="1.5" />
+              <circle cx="12" cy="12" r="4.2" stroke-width="1.6" />
+              <path d="M12 9.5v5M9.5 12h5" stroke-width="2" />
+              <circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none" />
+            </svg>
+          </div>
+          <h2 class="axis-card-title font-bukra">Informativo</h2>
+        </div>
+        <p class="axis-card-desc font-open-sans">Enciclopédia acadêmica interativa e acervo de matérias da graduação.</p>
+      </div>
+      <div class="axis-tags-row font-bukra">
+        <span class="axis-tag">#Artigos</span>
+        <span class="axis-tag">#WikiIFUSP</span>
+        <span class="axis-tag">#HistóriaDaCiência</span>
+      </div>
+    </div>
+
+    <!-- 4. EIXO FERRAMENTAS (EM CIMA DO ESPIRRO AMARELO) -->
+    <div class="axis-splat-card card-tools-splat">
+      <div>
+        <div class="axis-top-header">
+          <div class="axis-icon-badge">
+            <svg width="30" height="30" viewBox="0 -960 960 960" fill="currentColor">
+              <path d="M756-120 537-339l84-84 219 219-84 84Zm-552 0-84-84 276-276-68-68-28 28-51-51v82l-28 28-121-121 28-28h82l-50-50 142-142q20-20 43-29t47-9q24 0 47 9t43 29l-92 92 50 50-28 28 68 68 90-90q-4-11-6.5-23t-2.5-24q0-59 40.5-99.5T701-841q15 0 28.5 3t27.5 9l-99 99 72 72 99-99q7 14 9.5 27.5T841-701q0 59-40.5 99.5T701-561q-12 0-24-2t-23-7L204-120Z"/>
+            </svg>
+          </div>
+          <h2 class="axis-card-title font-bukra">Ferramentas</h2>
+        </div>
+        <p class="axis-card-desc font-open-sans">Utilidades para a rotina universitária: simuladores, notas e cronogramas.</p>
+      </div>
+      <div class="axis-tags-row font-bukra">
+        <span class="axis-tag">#Simuladores</span>
+        <span class="axis-tag">#Calculadoras</span>
+        <span class="axis-tag">#ApoioEstudantil</span>
+      </div>
+    </div>
+
+    <!-- 5. O QR CODE ÚNICO NO CANTO INFERIOR DIREITO (SLIM & DIRETO) -->
+    <div class="bottom-right-qr-clean">
+      <div class="qr-code-box">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 39 39" shape-rendering="crispEdges"><path fill="#ffffff" d="M0 0h39v39H0z"/><path stroke="#000000" d="M1 1.5h7m1 0h1m2 0h6m1 0h2m2 0h1m7 0h7M1 2.5h1m5 0h1m1 0h1m4 0h1m2 0h2m1 0h3m1 0h1m1 0h3m2 0h1m5 0h1M1 3.5h1m1 0h3m1 0h1m1 0h3m2 0h1m1 0h1m1 0h1m2 0h2m1 0h1m4 0h1m1 0h1m1 0h3m1 0h1M1 4.5h1m1 0h3m1 0h1m2 0h2m1 0h2m1 0h2m2 0h2m2 0h1m1 0h3m2 0h1m1 0h3m1 0h1M1 5.5h1m1 0h3m1 0h1m2 0h1m2 0h1m3 0h1m1 0h1m2 0h2m2 0h2m3 0h1m1 0h3m1 0h1M1 6.5h1m5 0h1m1 0h1m1 0h1m7 0h1m2 0h2m2 0h4m1 0h1m5 0h1M1 7.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M9 8.5h1m1 0h9m1 0h2m1 0h1m1 0h1m2 0h1M3 9.5h3m1 0h1m1 0h2m1 0h1m3 0h1m2 0h1m3 0h2m2 0h1m1 0h4m2 0h3M2 10.5h2m5 0h3m3 0h1m2 0h5m1 0h3m1 0h1m2 0h4M1 11.5h1m1 0h1m3 0h1m4 0h2m1 0h2m3 0h2m1 0h2m1 0h4m1 0h1m1 0h1m1 0h1m1 0h1M2 12.5h2m1 0h2m4 0h1m1 0h1m1 0h2m1 0h1m1 0h3m1 0h1m2 0h2m2 0h3m2 0h2M3 13.5h3m1 0h2m1 0h2m1 0h1m2 0h3m2 0h1m1 0h2m1 0h6m1 0h4M10 14.5h1m1 0h1m1 0h1m8 0h2m1 0h1m2 0h2m3 0h2M2 15.5h1m1 0h1m1 0h3m1 0h1m2 0h2m1 0h1m1 0h2m2 0h8m1 0h1m1 0h2m2 0h1M4 16.5h2m2 0h6m1 0h2m2 0h1m1 0h2m5 0h1M1 17.5h1m2 0h1m1 0h3m1 0h3m1 0h1m2 0h1m2 0h1m5 0h2m1 0h3m1 0h1m1 0h1m1 0h1M2 18.5h1m7 0h1m2 0h1m1 0h1m2 0h3m1 0h1m2 0h1m3 0h1m2 0h1m2 0h1M1 19.5h3m3 0h5m1 0h1m1 0h2m3 0h2m3 0h1m1 0h4m1 0h1m1 0h4M1 20.5h2m1 0h2m4 0h1m2 0h2m1 0h1m1 0h4m1 0h3m1 0h2m1 0h1m6 0h1M7 21.5h3m2 0h2m1 0h1m2 0h2m5 0h3m2 0h8M3 22.5h1m1 0h2m2 0h2m1 0h1m1 0h1m5 0h6m6 0h1m2 0h1M1 23.5h3m1 0h1m1 0h1m1 0h1m3 0h4m1 0h1m1 0h3m1 0h2m2 0h1m2 0h1m2 0h4M1 24.5h2m1 0h2m5 0h1m5 0h2m3 0h1m4 0h1m2 0h3m3 0h2M1 25.5h2m2 0h3m4 0h1m1 0h4m1 0h1m2 0h2m7 0h1m2 0h2m1 0h1M1 26.5h1m1 0h3m3 0h2m3 0h1m1 0h1m1 0h3m1 0h1m2 0h7m2 0h1M1 27.5h1m1 0h2m2 0h1m1 0h4m1 0h1m3 0h1m1 0h1m10 0h3m2 0h2M1 28.5h1m1 0h1m1 0h2m2 0h3m7 0h4m2 0h1m3 0h2m1 0h2m2 0h1M1 29.5h1m1 0h1m1 0h1m1 0h3m1 0h1m2 0h2m1 0h2m6 0h3m1 0h8M9 30.5h1m1 0h1m1 0h6m1 0h3m1 0h1m2 0h3m3 0h1M1 31.5h7m2 0h2m1 0h3m1 0h3m3 0h1m2 0h1m2 0h1m1 0h1m1 0h2m1 0h2M1 32.5h1m5 0h1m3 0h1m1 0h1m1 0h1m2 0h1m4 0h2m2 0h1m1 0h1m3 0h1m2 0h2M1 33.5h1m1 0h3m1 0h1m1 0h2m2 0h2m1 0h2m1 0h5m1 0h9m1 0h3M1 34.5h1m1 0h3m1 0h1m1 0h1m1 0h1m2 0h1m2 0h3m2 0h2m2 0h1m1 0h1m2 0h3m1 0h1M1 35.5h1m1 0h3m1 0h1m1 0h1m1 0h1m3 0h2m2 0h2m3 0h2m1 0h1m2 0h1m1 0h1m1 0h1m2 0h1M1 36.5h1m5 0h1m5 0h1m1 0h4m3 0h1m1 0h1m3 0h4m1 0h1m3 0h1M1 37.5h7m3 0h3m1 0h1m4 0h1m3 0h4m3 0h1m2 0h4"/></svg>
+
+        <div class="qr-center-badge-img">
+          <img src="icons/qr-hub-logo-badge.png" alt="HUB Badge" />
+        </div>
+      </div>
+      <a class="qr-clean-link font-bukra" href="https://hub.labdiv.com.br/divulgacao">hub.labdiv.com.br/divulgacao</a>
+    </div>
+
+    <!-- 6. NOTÍCIA INSTITUCIONAL NO CANTO INFERIOR ESQUERDO -->
+    <div class="bottom-left-footer-box">
+      <div>
+        <div class="footer-badge-line font-bukra">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="m9 12 2 2 4-4"/>
+          </svg>
+          <span>SEGURANÇA &amp; CÓDIGO ABERTO (AGPLv3)</span>
+        </div>
+        <p class="footer-desc-text font-open-sans">
+          O <strong>HUB LabDiv</strong> é uma iniciativa pública de software livre desenvolvida pelo <strong>Laboratório de Expressão e Divulgação Científica do IFUSP</strong> para a comunidade acadêmica.
+        </p>
+      </div>
+
+      <div class="footer-actions-row font-bukra">
+        <div class="footer-tag-chip">
+          <span>GitHub: github.com/HUB-LabDiv</span>
+        </div>
+        <div class="footer-tag-chip">
+          <span>E-mail: hublabdiv@gmail.com</span>
+        </div>
+      </div>
+
+      <div class="footer-legal-copy font-bukra">
+        <span>Licença AGPLv3 &bull; HUB LabDiv &bull; Instituto de Física da Universidade de São Paulo</span>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

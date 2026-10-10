@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Adesivos QR Code HUB</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@700;900&display=swap');
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #ffffff; /* White background */
+            width: 2480px;
+            height: 3508px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .a4-sheet {
+            width: 100%;
+            height: 100%;
+            background: white;
+            padding: 150px; /* equivalent to 10mm */
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 150px;
+        }
+
+        .sticker {
+            border: 15px solid #000;
+            border-radius: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 100px;
+            position: relative;
+            background: #ffffff; /* Fundo branco */
+            color: #000000; /* Texto preto */
+        }
+
+        .sticker::before {
+            content: "✂️ Corte aqui";
+            position: absolute;
+            top: -70px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 40px;
+            color: #000;
+            font-family: sans-serif;
+            font-weight: bold;
+        }
+
+        .title {
+            font-size: 140px;
+            font-weight: 900;
+            text-align: center;
+            line-height: 1.1;
+            margin-bottom: 100px;
+            text-transform: uppercase;
+        }
+
+        .title span {
+            color: #000000; /* Preto em vez de azul */
+        }
+
+        .qr-wrapper {
+            background: white;
+            padding: 40px;
+            border-radius: 60px;
+            margin-bottom: 80px;
+            border: 15px solid #000;
+        }
+
+        .qr-code {
+            width: 600px;
+            height: 600px;
+            display: block;
+        }
+
+        .footer {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .footer img {
+            height: 120px;
+            width: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="a4-sheet">
+        <!-- Sticker 1 -->
+        <div class="sticker">
+            <div class="title">
+                Já testou <br><span>o HUB?</span>
+            </div>
+            <div class="qr-wrapper">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=600x600&data=https://hub.labdiv.com.br/divulgacao&color=000000&bgcolor=ffffff" alt="QR Code para Divulgação" class="qr-code">
+            </div>
+            <div class="footer">
+                <img src="../../icone-HUBLabDiv.svg" alt="Logo HUB LabDiv">
+            </div>
+        </div>
+
+        <!-- Sticker 2 -->
+        <div class="sticker">
+            <div class="title">
+                Já testou <br><span>o HUB?</span>
+            </div>
+            <div class="qr-wrapper">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=600x600&data=https://hub.labdiv.com.br/divulgacao&color=000000&bgcolor=ffffff" alt="QR Code para Divulgação" class="qr-code">
+            </div>
+            <div class="footer">
+                <img src="../../icone-HUBLabDiv.svg" alt="Logo HUB LabDiv">
+            </div>
+        </div>
+
+        <!-- Sticker 3 -->
+        <div class="sticker">
+            <div class="title">
+                Já testou <br><span>o HUB?</span>
+            </div>
+            <div class="qr-wrapper">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=600x600&data=https://hub.labdiv.com.br/divulgacao&color=121212&bgcolor=ffffff" alt="QR Code para Divulgação" class="qr-code">
+            </div>
+            <div class="footer">
+                <img src="../../icone-HUBLabDiv-circular.svg" alt="Logo HUB LabDiv">
+                HUB LABDIV
+            </div>
+        </div>
+
+        <!-- Sticker 4 -->
+        <div class="sticker">
+            <div class="title">
+                Já testou <br><span>o HUB?</span>
+            </div>
+            <div class="qr-wrapper">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=600x600&data=https://hub.labdiv.com.br/divulgacao&color=121212&bgcolor=ffffff" alt="QR Code para Divulgação" class="qr-code">
+            </div>
+            <div class="footer">
+                <img src="../../icone-HUBLabDiv-circular.svg" alt="Logo HUB LabDiv">
+                HUB LABDIV
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

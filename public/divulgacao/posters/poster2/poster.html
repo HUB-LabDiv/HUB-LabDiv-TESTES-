@@ -1,0 +1,528 @@
+<!--
+ * Hub de Comunicação Científica Lab-Div V3.0
+ * Copyright (C) 2026 João Paulo Stangorlini de Carvalho
+ * Este programa é software livre: você pode redistribuí-lo e/ou modificá-lo
+ * sob os termos da Licença Pública Geral Affero GNU (AGPLv3).
+-->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HUB LabDiv - A Universidade na Palma da Sua Mão (Poster 2)</title>
+  <link rel="stylesheet" href="../../fonts/fonts.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    @font-face {
+      font-family: '29LT Bukra';
+      src: local('29LT Bukra Semi Wide Bold'), local('29LT Bukra Bold'), local('29LTBukra-Bold'),
+           url('../fonts/Outfit-Black.ttf') format('truetype');
+      font-weight: 700 900;
+      font-display: swap;
+    }
+    .font-bukra {
+      font-family: '29LT Bukra', 'Outfit', sans-serif;
+    }
+    .font-open-sans {
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    body {
+      background-color: #FFFFFF;
+      color: #0F172A;
+      width: 1240px;
+      height: 1754px;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+    }
+
+    .poster-container {
+      width: 1240px;
+      height: 1754px;
+      position: relative;
+      background-color: #FFFFFF;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      overflow: hidden;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* LINHA DEGRADE COMPLETA (SEM METADE/METADE) */
+    .brand-gradient-line-top {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(90deg, #0F4780 0%, #0284C7 35%, #F14343 70%, #FFCC00 100%);
+      z-index: 50;
+    }
+    .brand-gradient-line-bottom {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(90deg, #0F4780 0%, #0284C7 35%, #F14343 70%, #FFCC00 100%);
+      z-index: 50;
+    }
+
+    /* 1. SEÇÃO DO HEADER */
+    .header-section {
+      position: relative;
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: 100%;
+      padding-top: 40px;
+      padding-left: 48px;
+      padding-right: 48px;
+    }
+
+    /* Logo HUB LabDiv ampliada substancialmente */
+    .top-logo-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+      margin-bottom: 34px;
+    }
+    .logo-icon {
+      height: 98px;
+      width: 98px;
+      object-fit: contain;
+      filter: drop-shadow(0 6px 14px rgba(15, 71, 128, 0.16));
+    }
+    .logo-brand {
+      font-size: 76px;
+      font-weight: 900;
+      letter-spacing: -1.2px;
+      line-height: 1;
+    }
+    .logo-brand .hub-name {
+      color: #0F172A;
+    }
+    .logo-brand .labdiv-name {
+      background: linear-gradient(90deg, #0F4780 0%, #F14343 50%, #D97706 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Título movido mais para baixo */
+    h1.central-title {
+      font-size: 64px;
+      font-weight: 900;
+      line-height: 1.12;
+      color: #0F172A;
+      letter-spacing: -1px;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .palma-text {
+      color: #D97706; /* Âmbar nítido de alto contraste */
+      font-weight: 900;
+      display: inline-block;
+      text-shadow: 0 2px 10px rgba(217, 119, 6, 0.22);
+    }
+
+    /* 2. OS TRÊS EIXOS (ABAIXO DO TÍTULO SEM TEXTO INTERMEDIÁRIO) */
+    .axes-section {
+      position: relative;
+      z-index: 20;
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto 10px auto;
+      padding-left: 48px;
+      padding-right: 48px;
+    }
+    .axis-card {
+      flex: 1;
+      height: 136px;
+      background: #FFFFFF;
+      border-radius: 18px;
+      box-shadow: 0 8px 24px -2px rgba(15, 71, 128, 0.08), 0 2px 6px -1px rgba(0, 0, 0, 0.04);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      position: relative;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+    .axis-card-social {
+      border: 2px solid rgba(15, 71, 128, 0.20);
+      border-top: 4.5px solid #0F4780;
+    }
+    .axis-card-info {
+      border: 2px solid rgba(241, 67, 67, 0.22);
+      border-top: 4.5px solid #F14343;
+    }
+    .axis-card-tools {
+      border: 2px solid rgba(255, 204, 0, 0.38);
+      border-top: 4.5px solid #FFCC00;
+    }
+
+    .axis-badge {
+      width: 58px;
+      height: 58px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .badge-social {
+      background: #EEF4FA;
+      color: #0F4780;
+      border: 1.5px solid rgba(15, 71, 128, 0.22);
+    }
+    .badge-info {
+      background: #FEF2F2;
+      color: #F14343;
+      border: 1.5px solid rgba(241, 67, 67, 0.22);
+    }
+    .badge-tools {
+      background: #FEF9C3;
+      color: #854D0E;
+      border: 1.5px solid rgba(255, 204, 0, 0.40);
+    }
+
+    .axis-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .axis-title {
+      font-size: 23px;
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 4px;
+    }
+    .title-social { color: #0F4780; }
+    .title-info { color: #F14343; }
+    .title-tools { color: #854D0E; }
+
+    .axis-desc {
+      font-size: 15px;
+      font-weight: 600;
+      color: #475569;
+      line-height: 1.25;
+    }
+
+    /* 3. ILUSTRAÇÃO DA MÃO VINDO DE FORA DA PÁGINA COM CELULAR EXPANDIDO */
+    .illustration-wrap {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 1240px;
+      height: 1220px;
+      z-index: 10;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .illustration-wrap svg.hand-phone-svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* UI DA TELA DO SMARTPHONE EXPANDIDA */
+    .phone-screen-ui {
+      background: #FFFFFF;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 22px 20px 22px;
+      box-sizing: border-box;
+      border-radius: 20px;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .screen-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 4px;
+    }
+    .screen-logo-icon {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+    }
+    .screen-logo-text {
+      font-size: 22px;
+      font-weight: 900;
+      line-height: 1;
+    }
+    .screen-logo-text .hub-part { color: #0F172A; }
+    .screen-logo-text .labdiv-part {
+      background: linear-gradient(90deg, #0F4780 0%, #F14343 50%, #D97706 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .screen-qr-holder {
+      width: 270px;
+      height: 270px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #FFFFFF;
+      border-radius: 16px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+      padding: 6px;
+      box-sizing: border-box;
+    }
+    .screen-qr-holder svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .screen-qr-badge {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 72px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+    .screen-qr-badge img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.28));
+    }
+
+    .screen-cta-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 4px;
+      margin-bottom: 4px;
+    }
+    .screen-cta-title {
+      font-size: 20px;
+      font-weight: 900;
+      color: #0F172A;
+      letter-spacing: 0.3px;
+    }
+    .screen-cta-url {
+      font-size: 16px;
+      font-weight: 800;
+      color: #0B57D0;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .screen-cta-pill {
+      margin-top: 8px;
+      background: #0B57D0;
+      color: #FFFFFF;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 7px 20px;
+      border-radius: 9999px;
+      box-shadow: 0 4px 12px rgba(11, 87, 208, 0.30);
+      letter-spacing: 0.2px;
+    }
+
+    /* FOOTER DISCRETO NO CANTO INFERIOR ESQUERDO */
+    .footer-stamp {
+      position: absolute;
+      bottom: 16px;
+      left: 48px;
+      z-index: 40;
+      font-size: 14px;
+      font-weight: 700;
+      color: #64748B;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="poster-container">
+    <div class="brand-gradient-line-top"></div>
+    <div class="brand-gradient-line-bottom"></div>
+
+    <!-- 1. HEADER SECTION (LOGO GRANDE + TÍTULO MAIS PARA BAIXO) -->
+    <header class="header-section">
+      <div class="top-logo-row">
+        <img src="../poster3/icons/qr-hub-logo-badge.png" alt="HUB LabDiv" class="logo-icon">
+        <div class="logo-brand font-bukra">
+          <span class="hub-name">HUB</span> <span class="labdiv-name">LabDiv</span>
+        </div>
+      </div>
+
+      <h1 class="central-title font-bukra">
+        A Universidade na <span class="palma-text">palma da sua mão</span>
+      </h1>
+    </header>
+
+    <!-- 2. OS TRÊS EIXOS (DIRETAMENTE ABAIXO DO TÍTULO) -->
+    <div class="axes-section">
+      <!-- Card 1: Social -->
+      <div class="axis-card axis-card-social">
+        <div class="axis-badge badge-social">
+          <svg width="30" height="30" viewBox="0 -960 960 960" fill="currentColor">
+            <path d="M0-240v-63q0-43 44-70t116-27q13 0 25 .5t23 2.5q-14 21-21 44t-7 48v65H0Zm240 0v-65q0-32 17.5-58.5T307-410q32-20 76.5-30t96.5-10q53 0 97.5 10t76.5 30q32 20 49 46.5t17 58.5v65H240Zm540 0v-65q0-26-6.5-49T754-397q11-2 22.5-2.5t23.5-.5q72 0 116 26.5t44 70.5v63H780ZM160-440q-33 0-56.5-23.5T80-520q0-34 23.5-57t56.5-23q34 0 57 23t23 57q0 33-23 56.5T160-440Zm640 0q-33 0-56.5-23.5T720-520q0-34 23.5-57t56.5-23q34 0 57 23t23 57q0 33-23 56.5T800-440Zm-320-40q-50 0-85-35t-35-85q0-51 35-85.5t85-34.5q51 0 85.5 34.5T600-600q0 50-34.5 85T480-480Z"/>
+          </svg>
+        </div>
+        <div class="axis-content">
+          <h3 class="axis-title title-social font-bukra">Social</h3>
+          <p class="axis-desc font-open-sans">Rede comunicativa &amp; pedagógica</p>
+        </div>
+      </div>
+
+      <!-- Card 2: Informativo -->
+      <div class="axis-card axis-card-info">
+        <div class="axis-badge badge-info">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v4" />
+            <path d="M12 18v4" />
+            <path d="M2 12h4" />
+            <path d="M18 12h4" />
+            <path d="M4.93 4.93l2.83 2.83" />
+            <path d="M16.24 16.24l2.83 2.83" />
+            <path d="M4.93 19.07l2.83-2.83" />
+            <path d="M16.24 7.76l2.83-2.83" />
+            <circle cx="12" cy="12" r="9.5" stroke-dasharray="2 2" stroke-width="1.5" />
+            <circle cx="12" cy="12" r="4.2" stroke-width="1.6" />
+            <path d="M12 9.5v5M9.5 12h5" stroke-width="2" />
+            <circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none" />
+          </svg>
+        </div>
+        <div class="axis-content">
+          <h3 class="axis-title title-info font-bukra">Informativo</h3>
+          <p class="axis-desc font-open-sans">Enciclopédia acadêmica interativa</p>
+        </div>
+      </div>
+
+      <!-- Card 3: Ferramentas -->
+      <div class="axis-card axis-card-tools">
+        <div class="axis-badge badge-tools">
+          <svg width="30" height="30" viewBox="0 -960 960 960" fill="currentColor">
+            <path d="M756-120 537-339l84-84 219 219-84 84Zm-552 0-84-84 276-276-68-68-28 28-51-51v82l-28 28-121-121 28-28h82l-50-50 142-142q20-20 43-29t47-9q24 0 47 9t43 29l-92 92 50 50-28 28 68 68 90-90q-4-11-6.5-23t-2.5-24q0-59 40.5-99.5T701-841q15 0 28.5 3t27.5 9l-99 99 72 72 99-99q7 14 9.5 27.5T841-701q0 59-40.5 99.5T701-561q-12 0-24-2t-23-7L204-120Z"/>
+          </svg>
+        </div>
+        <div class="axis-content">
+          <h3 class="axis-title title-tools font-bukra">Ferramentas</h3>
+          <p class="axis-desc font-open-sans">Funções de auxílio ao estudante</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. ILUSTRAÇÃO DA MÃO VINDO DE FORA DA PÁGINA (BLEEDING NO CANTO INFERIOR DIREITO) -->
+    <div class="illustration-wrap">
+      <svg class="hand-phone-svg" viewBox="240 100 1100 1260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <filter id="phone-drop-shadow" x="-10%" y="-10%" width="130%" height="130%">
+            <feDropShadow dx="-10" dy="24" stdDeviation="18" flood-color="rgba(15,71,128,0.18)" />
+          </filter>
+        </defs>
+
+        <!-- Camada 1: Manga Vermelha que se estende completamente para FORA da página -->
+        <path d="M 910 673 L 920 685 L 945 720 L 970 760 L 1005 815 L 1040 870 L 1090 940 L 1150 1020 L 1220 1100 L 1320 1200 L 1420 1300 L 1500 1380 L 1550 1420 L 880 1420 L 840 1260 L 800 1120 L 760 980 L 735 880 L 728 800 L 723 763 L 742 759 L 909 674 Z" fill="#E51B27" />
+        
+        <!-- Dobras e sombras sutis na manga para profundidade -->
+        <path d="M 880 1420 L 1550 1420 L 1420 1300 L 1040 1100 Z" fill="#C4131E" opacity="0.35" />
+
+        <!-- Camada 2: Palma e Punho (Atrás do celular) -->
+        <path d="M 741.0 311.0 L 756.0 312.0 L 767.0 320.0 L 815.0 419.0 L 827.0 451.0 L 835.0 480.0 L 842.0 513.0 L 850.0 571.0 L 859.0 609.0 L 876.0 653.0 L 879.0 656.0 L 879.0 659.0 L 891.0 681.0 L 732.0 763.0 L 732.0 761.0 L 723.0 755.0 L 480.0 703.0 L 441.0 675.0 L 430.0 665.0 L 733.0 664.0 L 745.0 659.0 L 746.0 660.0 L 757.0 646.0 L 759.0 641.0 L 760.0 463.0 L 737.0 423.0 L 717.0 383.0 L 714.0 375.0 L 712.0 360.0 L 713.0 344.0 L 720.0 325.0 L 730.0 315.0 L 734.0 314.0 L 735.0 312.0 L 740.0 312.0 Z" fill="#EFBA8E" />
+
+        <!-- Camada 3: TODOS OS 4 DEDOS NA ESQUERDA (ESTENDENDO SOB O CELULAR COM PONTAS NÍTIDAS) -->
+        <!-- Dedo 1 (Indicador) -->
+        <path d="M 400 304 L 279 304 L 277 306 L 273 308 L 270 310 L 269 312 L 267 314 L 265 316 L 263 318 L 262 320 L 262 322 L 261 324 L 261 326 L 260 328 L 260 330 L 261 332 L 260 334 L 260 336 L 260 338 L 260 340 L 261 342 L 262 344 L 263 346 L 263 348 L 264 350 L 265 352 L 267 354 L 269 356 L 271 358 L 272 360 L 278 362 L 282 364 L 284 366 L 289 368 L 292 370 L 296 372 L 300 374 L 400 374 Z" fill="#EFBA8E" stroke="#D99966" stroke-width="2.5" stroke-linejoin="round" />
+        
+        <!-- Dedo 2 (Médio) -->
+        <path d="M 400 375 L 302 375 L 306 377 L 288 379 L 278 381 L 274 383 L 271 385 L 269 387 L 269 389 L 267 391 L 264 393 L 263 395 L 264 397 L 263 399 L 262 401 L 261 403 L 261 405 L 261 407 L 261 409 L 261 411 L 261 413 L 262 415 L 262 417 L 263 419 L 264 421 L 264 423 L 266 425 L 267 427 L 268 429 L 271 431 L 273 433 L 274 435 L 280 437 L 281 439 L 286 441 L 290 443 L 293 445 L 296 447 L 301 449 L 305 451 L 308 452 L 400 452 Z" fill="#EFBA8E" stroke="#D99966" stroke-width="2.5" stroke-linejoin="round" />
+        
+        <!-- Dedo 3 (Anelar) -->
+        <path d="M 400 453 L 309 453 L 312 455 L 290 457 L 284 459 L 281 461 L 280 463 L 276 465 L 276 467 L 273 469 L 272 471 L 272 473 L 270 475 L 271 477 L 269 479 L 269 481 L 269 483 L 269 485 L 269 487 L 269 489 L 269 491 L 270 493 L 271 495 L 272 497 L 272 499 L 272 501 L 274 503 L 275 505 L 277 507 L 278 509 L 280 511 L 284 513 L 287 515 L 292 517 L 296 519 L 298 521 L 302 523 L 306 525 L 309 527 L 314 529 L 319 531 L 400 531 Z" fill="#EFBA8E" stroke="#D99966" stroke-width="2.5" stroke-linejoin="round" />
+        
+        <!-- Dedo 4 (Mínimo) -->
+        <path d="M 400 532 L 297 532 L 294 534 L 288 536 L 287 538 L 285 540 L 283 542 L 280 544 L 280 546 L 280 548 L 279 550 L 277 552 L 277 554 L 276 556 L 276 558 L 276 560 L 276 562 L 276 564 L 276 566 L 277 568 L 277 570 L 277 572 L 278 574 L 279 576 L 281 578 L 283 580 L 283 582 L 285 584 L 288 586 L 292 588 L 293 590 L 298 592 L 301 594 L 305 596 L 309 598 L 312 600 L 317 602 L 322 604 L 324 606 L 330 608 L 332 610 L 336 612 L 339 613 L 400 613 Z" fill="#EFBA8E" stroke="#D99966" stroke-width="2.5" stroke-linejoin="round" />
+
+        <!-- Camada 4: Corpo do Smartphone EXPANDIDO (Mais largo e mais alto) -->
+        <g filter="url(#phone-drop-shadow)">
+          <!-- Chassi do aparelho -->
+          <rect x="339" y="118" width="419" height="628" rx="34" fill="#1E1E20" stroke="#101012" stroke-width="4.5" />
+          
+          <!-- Alto-falante / Notch -->
+          <rect x="508" y="130" width="80" height="7" rx="3.5" fill="#4B5563" />
+
+          <!-- Tela Branca Nítida Ampliada -->
+          <rect x="357" y="148" width="383" height="568" rx="22" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2" />
+        </g>
+
+        <!-- Camada 5: Conteúdo da Tela do Celular com QR Code e CTA Ampliados -->
+        <foreignObject x="357" y="148" width="383" height="568">
+          <div xmlns="http://www.w3.org/1999/xhtml" class="phone-screen-ui">
+            <!-- Header do App na tela -->
+            <div class="screen-header-row">
+              <img src="../poster3/icons/qr-hub-logo-badge.png" alt="HUB" class="screen-logo-icon" />
+              <div class="screen-logo-text font-bukra">
+                <span class="hub-part">HUB</span> <span class="labdiv-part">LabDiv</span>
+              </div>
+            </div>
+
+            <!-- QR Code com Logo Central Ampliado -->
+            <div class="screen-qr-holder">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 39 39" shape-rendering="crispEdges">
+                <path fill="#ffffff" d="M0 0h39v39H0z"/>
+                <path stroke="#000000" d="M1 1.5h7m3 0h1m2 0h1m1 0h1m2 0h1m1 0h2m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M1 2.5h1m5 0h1m3 0h2m1 0h2m2 0h1m1 0h1m1 0h1m1 0h2m1 0h1m3 0h1m1 0h1m5 0h1M1 3.5h1m1 0h3m1 0h1m2 0h2m1 0h3m1 0h3m2 0h1m2 0h3m2 0h1m1 0h1m1 0h3m1 0h1M1 4.5h1m1 0h3m1 0h1m1 0h1m2 0h1m2 0h1m4 0h1m1 0h1m1 0h1m2 0h1m1 0h2m1 0h1m1 0h3m1 0h1M1 5.5h1m1 0h3m1 0h1m1 0h1m1 0h2m2 0h1m2 0h1m1 0h1m1 0h1m1 0h1m1 0h3m1 0h1m2 0h1m1 0h3m1 0h1M1 6.5h1m5 0h1m1 0h1m1 0h1m1 0h1m1 0h3m2 0h1m1 0h1m1 0h1m1 0h2m2 0h1m2 0h1m5 0h1M1 7.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M9 8.5h1m1 0h1m2 0h3m3 0h1m1 0h1m1 0h1m2 0h2m1 0h1m2 0h2m2 0h1m1 0h1M1 9.5h1m2 0h1m1 0h1m2 0h1m1 0h1m2 0h1m1 0h1m3 0h1m3 0h2m1 0h1m2 0h2m2 0h1m1 0h2m1 0h1M3 10.5h1m1 0h1m1 0h3m1 0h1m1 0h2m1 0h1m1 0h2m1 0h2m3 0h1m1 0h1m1 0h2m1 0h1m2 0h1m1 0h1m1 0h1M1 11.5h1m2 0h2m1 0h1m2 0h1m2 0h1m2 0h1m1 0h3m1 0h1m3 0h1m2 0h1m1 0h2m2 0h2m1 0h1M1 12.5h1m2 0h1m1 0h1m2 0h1m1 0h1m1 0h1m2 0h1m1 0h1m2 0h2m1 0h2m1 0h1m1 0h1m1 0h3m2 0h3m1 0h1M2 13.5h1m1 0h1m1 0h1m2 0h2m1 0h1m1 0h2m1 0h2m2 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h3m3 0h1m2 0h1M4 14.5h2m1 0h1m1 0h1m1 0h2m3 0h1m1 0h2m4 0h1m3 0h1m3 0h1m3 0h2M1 15.5h2m1 0h1m1 0h3m1 0h1m2 0h1m1 0h1m1 0h1m1 0h1m3 0h1m3 0h1m2 0h1m1 0h1m1 0h1m1 0h1m1 0h2M1 16.5h1m1 0h3m1 0h1m1 0h1m2 0h1m3 0h1m2 0h1m1 0h1m2 0h1m1 0h3m1 0h1m1 0h2m1 0h3M1 17.5h1m2 0h1m1 0h3m1 0h1m1 0h2m1 0h2m2 0h1m2 0h1m1 0h1m2 0h1m1 0h2m1 0h3m1 0h1m1 0h1M2 18.5h1m2 0h1m3 0h2m1 0h1m1 0h1m1 0h2m1 0h1m3 0h2m1 0h3m2 0h2m1 0h1m1 0h2M3 19.5h1m1 0h1m2 0h3m1 0h3m1 0h2m1 0h1m1 0h3m1 0h1m1 0h1m1 0h1m1 0h1m2 0h1m1 0h1m1 0h2M1 20.5h1m1 0h2m3 0h1m1 0h2m1 0h2m1 0h1m1 0h1m1 0h1m1 0h1m2 0h2m1 0h1m1 0h1m1 0h1m2 0h1m2 0h1M1 21.5h1m1 0h1m1 0h2m1 0h1m1 0h1m2 0h1m1 0h2m3 0h1m2 0h1m1 0h1m1 0h1m2 0h2m1 0h1m1 0h1m1 0h1M2 22.5h1m1 0h1m2 0h1m1 0h3m1 0h1m1 0h2m2 0h1m2 0h2m1 0h1m1 0h1m1 0h2m1 0h1m1 0h2m2 0h1M1 23.5h1m1 0h3m1 0h3m1 0h1m2 0h1m2 0h1m3 0h1m1 0h2m1 0h1m1 0h2m1 0h1m2 0h1m1 0h2M3 24.5h2m1 0h1m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1m2 0h2m2 0h1m1 0h1m1 0h2m1 0h1m1 0h1m2 0h1m2 0h1M2 25.5h2m1 0h1m1 0h1m1 0h2m1 0h1m2 0h1m1 0h2m1 0h1m1 0h3m2 0h1m1 0h2m1 0h2m2 0h1m1 0h1M1 26.5h2m3 0h1m1 0h1m3 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m2 0h1m1 0h2m2 0h1m2 0h1M1 27.5h1m2 0h1m2 0h2m1 0h1m1 0h1m1 0h3m2 0h1m1 0h1m1 0h1m1 0h1m1 0h1m2 0h1m2 0h1m2 0h1m2 0h1M1 28.5h2m1 0h1m1 0h1m1 0h2m1 0h1m2 0h1m1 0h2m1 0h2m2 0h1m1 0h1m3 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1M2 29.5h3m3 0h1m1 0h2m1 0h1m1 0h1m2 0h1m1 0h1m3 0h1m1 0h1m1 0h1m1 0h3m1 0h2m2 0h1m1 0h1M1 30.5h1m2 0h1m2 0h1m1 0h1m1 0h1m2 0h2m1 0h1m1 0h1m1 0h2m1 0h1m1 0h3m1 0h1m1 0h1m1 0h1m1 0h1m2 0h1M9 31.5h1m3 0h1m3 0h1m1 0h2m2 0h2m1 0h1m1 0h1m2 0h3m1 0h2m2 0h1m1 0h1M1 32.5h7m1 0h2m2 0h1m1 0h1m1 0h1m2 0h1m2 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m2 0h1m1 0h1M1 33.5h1m5 0h1m1 0h1m1 0h1m3 0h1m1 0h1m3 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1m1 0h1M1 34.5h1m1 0h3m1 0h1m1 0h2m1 0h2m1 0h1m1 0h1m1 0h1m2 0h1m1 0h2m1 0h1m1 0h1m1 0h1m1 0h1m2 0h1m1 0h2M1 35.5h1m1 0h3m1 0h1m1 0h1m2 0h2m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1M1 36.5h1m1 0h3m1 0h1m1 0h2m1 0h1m1 0h1m1 0h1m1 0h1m1 0h2m1 0h1m1 0h1m1 0h1m1 0h2m2 0h2m1 0h1m1 0h1M1 37.5h1m5 0h1m1 0h1m1 0h3m1 0h2m1 0h1m1 0h1m1 0h1m1 0h2m1 0h2m1 0h1m1 0h1m2 0h1m2 0h1M1 38.5h7m1 0h1m1 0h1m2 0h1m1 0h2m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h3m1 0h2m1 0h1m1 0h1"/>
+              </svg>
+              <div class="screen-qr-badge">
+                <img src="../poster3/icons/qr-hub-logo-badge.png" alt="HUB Badge" />
+              </div>
+            </div>
+
+            <!-- Chamada para Ação no Smartphone -->
+            <div class="screen-cta-box">
+              <span class="screen-cta-title font-bukra">ESCANEIE E BAIXE</span>
+              <span class="screen-cta-url font-open-sans">hub.labdiv.com.br/divulgacao</span>
+              <div class="screen-cta-pill font-bukra">Versão Web &amp; Mobile PWA</div>
+            </div>
+          </div>
+        </foreignObject>
+
+        <!-- Camada 6: Polegar (Apoiado com naturalidade sobre a lateral direita do celular) -->
+        <path d="M 741.0 311.0 L 752.0 311.0 L 758.0 313.0 L 767.0 320.0 L 774.0 332.0 L 779.0 345.0 L 807.0 400.0 L 812.0 415.0 L 817.0 424.0 L 819.0 430.0 L 819.0 464.0 L 759.0 464.0 L 759.0 460.0 L 737.0 423.0 L 714.0 375.0 L 712.0 352.0 L 715.0 336.0 L 720.0 325.0 L 730.0 315.0 L 734.0 314.0 L 735.0 312.0 L 740.0 312.0 Z" fill="#EFBA8E" stroke="#D99966" stroke-width="2.5" stroke-linejoin="round" />
+      </svg>
+    </div>
+
+    <!-- 4. FOOTER DISCRETO NO CANTO INFERIOR ESQUERDO -->
+    <div class="footer-stamp font-bukra">
+      <span>Licença AGPLv3 &bull; HUB LabDiv &bull; Instituto de Física da USP</span>
+    </div>
+  </div>
+
+</body>
+</html>

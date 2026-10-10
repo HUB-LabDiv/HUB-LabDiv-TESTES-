@@ -151,6 +151,23 @@ export const wikiCells = [
         cta: 'Explorar Pesquisa e Labs'
     },
     {
+        id: 'metodologia',
+        title: 'Como Pesquisar & Metodologia',
+        subtitle: 'Metodologia Científica e Busca de Artigos.',
+        category: 'formacao-pesquisa',
+        icon: <Search className="w-8 h-8" />,
+        color: 'brand-red',
+        href: '/wiki/metodologia',
+        description: 'Dicas práticas de como formular buscas eficientes, usar operadores booleanos, acessar Sci-Hub, Google Scholar e bases da USP.',
+        details: [
+            'Bases de Dados: Google Scholar, Sci-Hub e arXiv',
+            'Operadores Booleanos e Sintaxe de Busca Avançada',
+            'Gestão Bibliográfica e Metodologia Científica'
+        ],
+        keywords: ['metodologia', 'pesquisa', 'busca', 'artigos', 'scholar', 'sci-hub', 'base de dados', 'periódicos', 'arxiv'],
+        cta: 'Aprender a Pesquisar'
+    },
+    {
         id: 'carreira',
         title: 'Carreira & Mercado de Trabalho',
         subtitle: 'Pós-Graduação, Indústria e Docência.',
@@ -277,16 +294,6 @@ const ferramentasAcademicasCell = {
     cta: 'Acessar Ferramentas'
 };
 
-const metodologiaCell = {
-    id: 'metodologia',
-    title: 'Metodologia Científica',
-    subtitle: 'Como Pesquisar e Encontrar Informações',
-    icon: <Search className="w-8 h-8" />,
-    color: 'brand-red',
-    href: '/wiki/metodologia',
-    description: 'Dicas práticas de como formular buscas eficientes, usar operadores booleanos e navegar pelas bases de dados da USP.',
-    cta: 'Aprender a Pesquisar'
-};
 
 
 const renderIFUSP = (text: string) => {

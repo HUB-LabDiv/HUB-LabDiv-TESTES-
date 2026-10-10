@@ -11,10 +11,12 @@
 
 import React from 'react';
 import { MainLayoutWrapper } from "@/components/layout/MainLayoutWrapper";
-import { ArrowRight, Clock, CalendarDays, GraduationCap } from 'lucide-react';
+import { ArrowRight, Clock, CalendarDays, GraduationCap, Terminal } from 'lucide-react';
 import { Orbitron } from 'next/font/google';
 import { ShowCarousel } from './ShowCarousel';
 import { ShowDetailsAccordion } from './ShowDetailsAccordion';
+import { Breadcrumbs } from '@/components/wiki/WikiComponents';
+import { ShowActionButtons } from './ShowActionButtons';
 
 export const metadata = {
     title: 'Show de Fisica | Iniciativas IFUSP',
@@ -54,7 +56,13 @@ export default function ShowDaFisicaPage() {
                     }
                 `}} />
 
-                <div className="max-w-7xl mx-auto px-4 py-16 animate-in fade-in slide-in-from-bottom-5 duration-700">
+                <div className="max-w-7xl mx-auto px-4 pt-6 pb-16 animate-in fade-in slide-in-from-bottom-5 duration-700">
+                    <Breadcrumbs 
+                        title="Show de Física" 
+                        section="Iniciativas de Impacto" 
+                        sectionHref="/gcif/instituto" 
+                        backHref="/gcif/instituto" 
+                    />
                     
                     {/* Hero Section */}
                     <div className="text-center mb-20">
@@ -129,16 +137,7 @@ export default function ShowDaFisicaPage() {
                             </div>
                         </div>
                         
-                        <div className="mt-20 text-center">
-                            <p className="text-lg font-sans text-gray-400 mb-6">Pronto para agendar a sua escola ou ver mais informações oficias?</p>
-                            <a 
-                                href="/iniciativas/show-da-fisica/monte-seu-show" 
-                                className="inline-flex items-center gap-3 px-10 py-5 bg-black neon-border-red text-[#f60011] font-bold uppercase tracking-widest hover:bg-[#f60011] hover:text-white hover:shadow-[0_0_20px_#f60011] transition-all duration-300 rounded-none"
-                            >
-                                Monte seu Show
-                                <ArrowRight className="w-6 h-6" />
-                            </a>
-                        </div>
+                        <ShowActionButtons />
                     </div>
 
                 </div>

@@ -13,7 +13,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Shield, MessageSquare, BookOpen, ArrowRight, Briefcase, Headset } from 'lucide-react';
+import { Shield, MessageSquare, BookOpen, ArrowRight, Briefcase, Headset, Calendar } from 'lucide-react';
 
 export default function AdminCGIFHubPage() {
     return (
@@ -105,6 +105,23 @@ export default function AdminCGIFHubPage() {
                         <h2 className="text-xl font-bold uppercase tracking-widest text-gray-900 dark:text-white mb-2">Tópicos da Wiki</h2>
                         <p className="text-sm text-gray-500 mb-8 flex-grow">Avalie, aprove ou responda sugestões de novos tópicos, complementos e ramificações enviadas por estudantes.</p>
                         <div className="flex items-center gap-2 text-brand-blue font-bold text-xs uppercase tracking-widest">
+                            Acessar Painel <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        </div>
+                    </div>
+                </Link>
+
+                {/* Show da Física - Moderação de Agenda */}
+                <Link href="/admin/cgif/show-da-fisica" className="group p-8 rounded-3xl bg-white dark:bg-card-dark border border-gray-100 dark:border-white/5 hover:border-brand-red transition-all shadow-sm hover:shadow-xl relative overflow-hidden">
+                    <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 group-hover:scale-110 transition-all">
+                        <Calendar className="w-32 h-32 text-brand-red" />
+                    </div>
+                    <div className="flex flex-col h-full relative z-10">
+                        <div className="p-4 bg-brand-red/10 rounded-2xl w-max mb-6">
+                            <Calendar className="w-8 h-8 text-brand-red" />
+                        </div>
+                        <h2 className="text-xl font-bold uppercase tracking-widest text-gray-900 dark:text-white mb-2">Show da Física</h2>
+                        <p className="text-sm text-gray-500 mb-8 flex-grow">Gerencie a disponibilidade de atrações, bloqueie dias da semana e configure horários para evitar combinações impossíveis.</p>
+                        <div className="flex items-center gap-2 text-brand-red font-bold text-xs uppercase tracking-widest">
                             Acessar Painel <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                         </div>
                     </div>

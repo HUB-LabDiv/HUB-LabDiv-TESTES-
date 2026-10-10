@@ -18,6 +18,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import {
     BookOpen,
+    ChevronLeft,
     ChevronRight,
     Search,
     ShieldCheck,
@@ -99,6 +100,25 @@ export function GcifWikiView() {
     const [targetTopicId, setTargetTopicId] = React.useState<string | undefined>();
     const [targetTopicTitle, setTargetTopicTitle] = React.useState<string | undefined>();
 
+    const scrollContainerRef = React.useRef<HTMLDivElement>(null);
+
+    const scroll = (direction: 'left' | 'right') => {
+        if (scrollContainerRef.current) {
+            const container = scrollContainerRef.current;
+            const scrollAmount = container.clientWidth * 0.8;
+            container.scrollBy({
+                left: direction === 'left' ? -scrollAmount : scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+    };
+
+    React.useEffect(() => {
+        if (scrollContainerRef.current) {
+            scrollContainerRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+        }
+    }, [selectedCategory]);
+
     const filteredCells = React.useMemo(() => {
         if (selectedCategory === 'all') return wikiCells;
         return wikiCells.filter((c: any) => c.category === selectedCategory);
@@ -138,12 +158,28 @@ export function GcifWikiView() {
                         </p>
                     </div>
                     <div className="flex items-center gap-3 shrink-0">
-                        <span className="md:hidden text-[10px] text-gray-400 font-bold flex items-center gap-1">
-                            Deslize para o lado &rarr;
-                        </span>
                         <span className="text-xs text-gray-400 font-bold shrink-0">
                             {filteredCells.length} de {wikiCells.length} tópicos
                         </span>
+                        {/* Navigation Arrows */}
+                        <div className="flex items-center gap-2">
+                            <button
+                                onClick={() => scroll('left')}
+                                className="p-2 rounded-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-gray-200 dark:hover:bg-white/10 hover:scale-105 active:scale-95 transition-all text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white shadow-sm"
+                                aria-label="Rolar para esquerda"
+                                title="Rolar para esquerda"
+                            >
+                                <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+                            </button>
+                            <button
+                                onClick={() => scroll('right')}
+                                className="p-2 rounded-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-gray-200 dark:hover:bg-white/10 hover:scale-105 active:scale-95 transition-all text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white shadow-sm"
+                                aria-label="Rolar para direita"
+                                title="Rolar para direita"
+                            >
+                                <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -185,7 +221,10 @@ export function GcifWikiView() {
                     })}
                 </div>
 
-                <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 overflow-x-auto md:overflow-visible pb-4 md:pb-0 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 snap-x snap-mandatory no-scrollbar">
+                <div 
+                    ref={scrollContainerRef}
+                    className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 overflow-x-auto md:overflow-visible pb-4 md:pb-0 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 snap-x snap-mandatory scroll-smooth no-scrollbar"
+                >
                     <AnimatePresence mode="popLayout">
                         {filteredCells.map((cell: any, idx: number) => {
                             const colors = colorVariants[cell.color] || colorVariants['brand-blue'];
@@ -193,11 +232,12 @@ export function GcifWikiView() {
                                 <motion.div
                                     key={cell.id}
                                     layout
+                                    data-tour={cell.id === 'metodologia' ? 'gcif-wiki-guias' : undefined}
                                     initial={{ opacity: 0, scale: 0.95, y: 15 }}
                                     animate={{ opacity: 1, scale: 1, y: 0 }}
                                     exit={{ opacity: 0, scale: 0.95, y: 15 }}
                                     transition={{ duration: 0.3, delay: idx * 0.03 }}
-                                    className="snap-center shrink-0 w-[84vw] max-w-[340px] md:w-auto md:shrink flex flex-col"
+                                    className="snap-start shrink-0 w-[280px] xs:w-[290px] sm:w-[320px] md:w-auto md:shrink flex flex-col"
                                 >
                                     <Link
                                         href={cell.href}
@@ -358,73 +398,6 @@ export function GcifWikiView() {
                         </div>
                     </Link>
                 </motion.div>
-            </div>
-
-            {/* Banner em Destaque: Como Pesquisar & Metodologia Científica */}
-            <div data-tour="gcif-wiki-guias" className="space-y-6 pt-6 border-t border-white/10">
-                <div>
-                    <h2 className="text-xl sm:text-2xl font-black text-white font-bukra flex items-center gap-2">
-                        <Sparkles className="w-6 h-6 text-brand-blue" />
-                        Guia Metodológico em Destaque
-                    </h2>
-                    <p className="text-xs sm:text-sm text-gray-400 font-open-sans mt-1">
-                        Técnicas de pesquisa científica e ferramentas avançadas de busca bibliográfica.
-                    </p>
-                </div>
-
-                <div className="grid grid-cols-1 gap-6">
-                    {/* 2. Card Grande: Como Pesquisar & Metodologia Científica */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.5, delay: 0.1 }}
-                        className="relative group w-full"
-                    >
-                        <div className="absolute -inset-0.5 bg-brand-blue/20 rounded-[32px] blur opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                        <Link
-                            href="/wiki/metodologia"
-                            className="relative flex flex-col md:flex-row items-center justify-between w-full p-8 md:p-10 rounded-[32px] bg-[#1E1E1E] border border-white/10 hover:border-brand-blue/60 transition-all overflow-hidden text-left shadow-2xl group"
-                        >
-                            <div className="absolute top-0 right-0 w-80 h-80 bg-brand-blue/5 rounded-full blur-[100px] pointer-events-none" />
-                            <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8 relative z-10">
-                                <div className="size-20 bg-brand-blue/10 text-brand-blue flex items-center justify-center rounded-[28px] ring-1 ring-brand-blue/30 group-hover:scale-110 transition-transform shadow-2xl shrink-0">
-                                    <Search className="w-10 h-10 text-[#00A3FF]" />
-                                </div>
-                                <div className="text-center md:text-left">
-                                    <div className="flex items-center gap-2 mb-2">
-                                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-blue/15 border border-brand-blue/30 text-[#00A3FF] text-[10px] font-black uppercase tracking-wider">
-                                            Metodologia & Ferramentas de Busca
-                                        </div>
-                                        <button
-                                            onClick={(e) => {
-                                                e.preventDefault();
-                                                e.stopPropagation();
-                                                setReportModalOpen(true, 'outro', { id: 'metodologia', titulo: 'Como Pesquisar', local: 'Guia Interativo' });
-                                            }}
-                                            title="Sugerir Alteração / Reportar Erro"
-                                            className="text-gray-500 hover:text-brand-red transition-colors p-1 bg-black/20 rounded-full"
-                                        >
-                                            <Flag size={14} />
-                                        </button>
-                                    </div>
-                                    <h3 className="text-2xl sm:text-3xl font-black text-white font-bukra italic uppercase tracking-tighter mb-2 group-hover:text-brand-blue transition-colors">
-                                        Como Pesquisar & Metodologia Científica
-                                    </h3>
-                                    <p className="text-xs sm:text-sm text-gray-400 font-open-sans max-w-2xl leading-relaxed">
-                                        Dicas práticas de como formular buscas eficientes, usar operadores booleanos, acessar Sci-Hub, Google Scholar e navegar pelas bases de dados da USP.
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="mt-6 md:mt-0 relative z-10 shrink-0">
-                                <div className="px-8 py-4 bg-brand-blue text-white font-black rounded-2xl group-hover:scale-105 active:scale-95 transition-all text-xs uppercase tracking-widest flex items-center gap-3 shadow-xl shadow-brand-blue/30">
-                                    <span>Aprender a Pesquisar</span>
-                                    <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                                </div>
-                            </div>
-                        </Link>
-                    </motion.div>
-                </div>
             </div>
         </div>
     );

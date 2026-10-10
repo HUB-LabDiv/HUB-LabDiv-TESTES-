@@ -25,13 +25,26 @@ import {
 
 // --- ELITE COMPONENTS ---
 
-export const Breadcrumbs = ({ title }: { slug?: string, title: React.ReactNode }) => (
-    <nav className="flex items-center gap-2 text-xs font-bold font-bukra uppercase tracking-[0.2em] mb-8 text-gray-400 dark:text-gray-500 flex-wrap">
-        <Link href="/gcif" className="flex items-center gap-2 hover:text-white transition-colors bg-white/5 border border-white/10 px-4 py-2 rounded-full mr-4 text-brand-blue hover:bg-brand-blue/10">
+export interface BreadcrumbsProps {
+    slug?: string;
+    title: React.ReactNode;
+    section?: React.ReactNode;
+    sectionHref?: string;
+    backHref?: string;
+}
+
+export const Breadcrumbs = ({ 
+    title, 
+    section = 'Wiki Hub', 
+    sectionHref = '/gcif#wiki-hub-section', 
+    backHref = '/gcif' 
+}: BreadcrumbsProps) => (
+    <nav className="flex items-center gap-2 text-xs font-bold font-bukra uppercase tracking-[0.2em] mb-8 text-gray-400 dark:text-gray-400 flex-wrap">
+        <Link href={backHref} className="flex items-center gap-2 hover:text-white transition-colors bg-white/5 border border-white/10 px-4 py-2 rounded-full mr-4 text-brand-blue hover:bg-brand-blue/10">
             <ArrowLeft className="w-3 h-3" />
             <span>Voltar ao GCIF</span>
         </Link>
-        <Link href="/gcif#wiki-hub-section" className="hover:text-brand-blue transition-colors">Wiki Hub</Link>
+        <Link href={sectionHref} className="hover:text-brand-blue transition-colors">{section}</Link>
         <ChevronRight className="w-3 h-3 text-black/20 dark:text-white/20" />
         <span className="text-brand-blue italic">{title}</span>
     </nav>

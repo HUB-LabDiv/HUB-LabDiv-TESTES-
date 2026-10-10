@@ -13,7 +13,7 @@
  * ou ADEQUAÇÃO A UM DETERMINADO FIM.
  */
 
-import React, { useState, useTransition } from 'react';
+import React, { useState, useTransition, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { 
@@ -38,7 +38,15 @@ import toast from 'react-hot-toast';
 import confetti from 'canvas-confetti';
 import { EXPERIMENTS_CATALOG, SHOW_ACTS } from '../data/experiments';
 import { ShowActType, ShowSelectedExperiments } from '@/types/show-da-fisica';
-import { submitShowBooking } from '@/app/actions/show-da-fisica';
+import { submitShowBooking, getAvailabilityRules } from '@/app/actions/show-da-fisica';
+
+type AvailabilityRule = {
+    id: string;
+    experiment_id: string;
+    unavailable_date: string | null;
+    unavailable_weekday: number | null;
+    reason: string;
+};
 
 const ACT_KEYS: Record<ShowActType, keyof ShowSelectedExperiments> = {
     'pre-show': 'preShow',
@@ -88,6 +96,55 @@ export function MonteSeuShowClient({ orbitronClassName = '' }: MonteSeuShowClien
         bookingId: string;
         email: string;
     } | null>(null);
+
+    // Regras de bloqueio da Moderação
+    const [availabilityRules, setAvailabilityRules] = useState<AvailabilityRule[]>([]);
+
+    // Carregar cache e regras
+    useEffect(() => {
+        try {
+            const savedForm = localStorage.getItem('hub_show_form_cache');
+            const savedSelection = localStorage.getItem('hub_show_selection_cache');
+            if (savedForm) setFormData(JSON.parse(savedForm));
+            if (savedSelection) setSelected(JSON.parse(savedSelection));
+        } catch (e) {
+            console.error('Falha ao ler cache', e);
+        }
+
+        // Buscar bloqueios no Supabase
+        const fetchRules = async () => {
+            const res = await getAvailabilityRules();
+            if (res.success && res.data) {
+                setAvailabilityRules(res.data);
+            }
+        };
+        fetchRules();
+    }, []);
+
+    // Salvar cache sempre que mudar
+    useEffect(() => {
+        localStorage.setItem('hub_show_form_cache', JSON.stringify(formData));
+    }, [formData]);
+
+    useEffect(() => {
+        localStorage.setItem('hub_show_selection_cache', JSON.stringify(selected));
+    }, [selected]);
+
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (bookingSuccess) return;
+            if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+
+            if (e.key === 'ArrowRight') {
+                setCurrentStep(prev => prev < 4 ? prev + 1 : prev);
+            } else if (e.key === 'ArrowLeft') {
+                setCurrentStep(prev => prev > 0 ? prev - 1 : prev);
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [bookingSuccess]);
 
     const toggleExperiment = (act: ShowActType, id: string) => {
         const key = ACT_KEYS[act];
@@ -227,21 +284,21 @@ export function MonteSeuShowClient({ orbitronClassName = '' }: MonteSeuShowClien
 
             {/* Standalone Header */}
             <header className="sticky top-0 z-50 bg-black/90 backdrop-blur-md border-b border-white/10 px-4 py-3 md:py-4">
-                <div className="max-w-7xl mx-auto flex items-center justify-between">
+                <div className="w-full max-w-none px-4 md:px-8 xl:px-12 mx-auto flex items-center justify-between">
                     <div className="flex items-center gap-3">
                         <Link 
-                            href="/" 
-                            className="p-2 -ml-2 text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors flex items-center gap-1.5 text-xs font-sans uppercase tracking-wider"
-                            title="Voltar ao HUB Lab-Div"
+                            href="/iniciativas/show-da-fisica" 
+                            className="p-2 -ml-2 text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors flex items-center gap-1.5 text-xs font-open-sans uppercase tracking-wider"
+                            title="Voltar ao Show da Física"
                         >
                             <ArrowLeft className="w-4 h-4" />
-                            <span>Voltar ao HUB</span>
+                            <span>Voltar</span>
                         </Link>
                         <div className="h-5 w-[1px] bg-white/20 hidden sm:block" />
                         <h1 className="text-xl md:text-2xl font-black uppercase tracking-wider flex items-center gap-1.5">
                             <span className="neon-text-red">Show</span>
                             <span className="neon-text-blue">de</span>
-                            <span className="neon-text-green">Fisica</span>
+                            <span className="neon-text-green">Física</span>
                             <span className="text-xs md:text-sm font-light text-gray-400 ml-2 font-sans lowercase hidden md:inline">
                                 / monte seu show
                             </span>
@@ -252,7 +309,7 @@ export function MonteSeuShowClient({ orbitronClassName = '' }: MonteSeuShowClien
 
             {/* Navegador de Passos (Stepper) */}
             <nav className="bg-[#0e0e12] border-b border-white/5 px-2 md:px-4 py-3 overflow-x-auto no-scrollbar">
-                <div className="max-w-7xl mx-auto flex items-center justify-between min-w-[550px] gap-2">
+                <div className="w-full max-w-none px-4 md:px-8 xl:px-12 mx-auto flex items-center justify-between min-w-[550px] gap-2">
                     {SHOW_ACTS.map((act, index) => {
                         const isCurrent = currentStep === index;
                         const isPast = currentStep > index;
@@ -323,7 +380,7 @@ export function MonteSeuShowClient({ orbitronClassName = '' }: MonteSeuShowClien
             </nav>
 
             {/* Conteúdo Principal */}
-            <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-8 pb-32">
+            <main className="flex-1 w-full max-w-none mx-auto px-4 md:px-8 xl:px-12 py-8 pb-32">
                 {bookingSuccess ? (
                     /* Tela de Confirmação de Agendamento */
                     <div className="max-w-2xl mx-auto my-8 p-8 md:p-12 bg-black neon-border-green rounded-2xl text-center animate-in zoom-in-95 duration-500">
@@ -494,16 +551,21 @@ export function MonteSeuShowClient({ orbitronClassName = '' }: MonteSeuShowClien
                                                 fill
                                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                                 className={`object-cover transition-transform duration-500 group-hover:scale-105 ${
-                                                    isSelected ? 'opacity-90' : 'opacity-70 group-hover:opacity-85'
+                                                    isSelected ? 'opacity-100' : 'opacity-90 group-hover:opacity-100'
                                                 }`}
                                             />
                                             <div className="absolute inset-0 bg-gradient-to-t from-[#101014] via-black/30 to-transparent" />
                                             
                                             {/* Badge do Conceito */}
-                                            <div className="absolute top-3 left-3 z-10">
+                                            <div className="absolute top-3 left-3 z-10 flex flex-col gap-2">
                                                 <span className="px-2.5 py-1 bg-black/80 backdrop-blur-md border border-white/20 rounded-md text-[10px] font-sans font-semibold text-gray-200 tracking-wide uppercase">
                                                     {exp.concept}
                                                 </span>
+                                                {availabilityRules.some(r => r.experiment_id === exp.id) && (
+                                                    <span className="px-2.5 py-1 bg-[#f60011]/90 backdrop-blur-md border border-white/20 rounded-md text-[10px] font-sans font-bold text-white tracking-wide uppercase flex items-center gap-1 shadow-lg shadow-red-500/20">
+                                                        <AlertCircle className="w-3 h-3" /> Agenda Restrita
+                                                    </span>
+                                                )}
                                             </div>
 
                                             {/* Badge Indicador de Seleção */}
@@ -706,15 +768,16 @@ export function MonteSeuShowClient({ orbitronClassName = '' }: MonteSeuShowClien
 
                                 <div>
                                     <label className="block text-xs uppercase font-bold tracking-wider text-gray-300 mb-1.5">
-                                        Previsão de Data ou Período
+                                        Previsão de Data Exata *
                                     </label>
                                     <div className="relative">
                                         <Calendar className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                                         <input
-                                            type="text"
+                                            type="date"
+                                            required
                                             value={formData.preferredDate}
                                             onChange={(e) => setFormData(prev => ({ ...prev, preferredDate: e.target.value }))}
-                                            placeholder="Ex: Segunda quinzena de maio / Terça-feira"
+                                            min={new Date().toISOString().split('T')[0]}
                                             className="w-full bg-[#16161b] border border-white/15 focus:border-white/40 rounded-lg pl-10 pr-4 py-3 text-white text-sm outline-none transition-colors"
                                         />
                                     </div>
@@ -734,27 +797,65 @@ export function MonteSeuShowClient({ orbitronClassName = '' }: MonteSeuShowClien
                                     />
                                 </div>
 
-                                <button
-                                    type="submit"
-                                    disabled={isPending}
-                                    className={`w-full py-4 px-6 rounded-xl font-bold uppercase tracking-wider text-sm transition-all duration-300 flex items-center justify-center gap-2 ${
-                                        isPending 
-                                            ? 'bg-gray-800 text-gray-500 cursor-not-allowed'
-                                            : 'bg-[#f60011] text-white hover:bg-[#ff1a2b] shadow-[0_0_20px_#f60011] hover:shadow-[0_0_30px_#f60011]'
-                                    }`}
-                                >
-                                    {isPending ? (
-                                        <>
-                                            <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                                            <span>Enviando Agendamento...</span>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <Send className="w-4 h-4" />
-                                            <span>Agendar o Show</span>
-                                        </>
-                                    )}
-                                </button>
+                                {/* Validação Dinâmica de Agenda */}
+                                {(() => {
+                                    let conflictMessage = null;
+                                    if (formData.preferredDate) {
+                                        const dateObj = new Date(formData.preferredDate);
+                                        const tzOffset = dateObj.getTimezoneOffset() * 60000;
+                                        const localDate = new Date(dateObj.getTime() + tzOffset);
+                                        const weekday = localDate.getDay();
+                                        
+                                        const allSelectedIds = [
+                                            ...selected.preShow, 
+                                            ...selected.abertura, 
+                                            ...selected.principal, 
+                                            ...selected.encerramento
+                                        ];
+
+                                        for (const id of allSelectedIds) {
+                                            const rule = availabilityRules.find(r => r.experiment_id === id && (r.unavailable_date === formData.preferredDate || r.unavailable_weekday === weekday));
+                                            if (rule) {
+                                                const expName = EXPERIMENTS_CATALOG.find(e => e.id === id)?.title;
+                                                conflictMessage = `Conflito! O experimento "${expName}" está bloqueado nesta data. Motivo: ${rule.reason}. Altere o dia ou remova o experimento.`;
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    if (conflictMessage) {
+                                        return (
+                                            <div className="bg-[#f60011]/20 border border-[#f60011] text-white p-4 rounded-xl flex items-start gap-3">
+                                                <AlertCircle className="w-6 h-6 text-[#f60011] shrink-0" />
+                                                <p className="font-sans text-sm font-bold">{conflictMessage}</p>
+                                            </div>
+                                        );
+                                    }
+
+                                    return (
+                                        <button
+                                            type="submit"
+                                            disabled={isPending}
+                                            className={`w-full py-4 px-6 rounded-xl font-bold uppercase tracking-wider text-sm transition-all duration-300 flex items-center justify-center gap-2 ${
+                                                isPending 
+                                                    ? 'bg-gray-800 text-gray-500 cursor-not-allowed'
+                                                    : 'bg-[#f60011] text-white hover:bg-[#ff1a2b] shadow-[0_0_20px_#f60011] hover:shadow-[0_0_30px_#f60011]'
+                                            }`}
+                                        >
+                                            {isPending ? (
+                                                <>
+                                                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                                    <span>Enviando Agendamento...</span>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <Send className="w-4 h-4" />
+                                                    <span>Agendar o Show</span>
+                                                </>
+                                            )}
+                                        </button>
+                                    );
+                                })()}
                             </form>
                         </div>
 
@@ -834,18 +935,18 @@ export function MonteSeuShowClient({ orbitronClassName = '' }: MonteSeuShowClien
             {/* Barra Flutuante Inferior de Navegação (Dock) */}
             {!bookingSuccess && (
                 <div className="fixed bottom-0 left-0 right-0 z-40 bg-black/95 backdrop-blur-lg border-t border-white/15 px-4 py-3">
-                    <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
+                    <div className="w-full max-w-none px-4 md:px-8 xl:px-12 mx-auto flex items-center justify-between gap-4">
                         <button
                             type="button"
                             onClick={() => setCurrentStep(prev => Math.max(0, prev - 1))}
                             disabled={currentStep === 0}
-                            className={`px-4 py-2.5 rounded-lg text-xs font-sans font-bold uppercase tracking-wider flex items-center gap-2 transition-colors ${
+                            className={`px-6 py-3.5 rounded-lg text-sm font-sans font-bold uppercase tracking-wider flex items-center gap-2 transition-colors ${
                                 currentStep === 0 
                                     ? 'opacity-30 cursor-not-allowed text-gray-500' 
                                     : 'text-gray-300 hover:text-white hover:bg-white/10'
                             }`}
                         >
-                            <ArrowLeft className="w-4 h-4" />
+                            <ArrowLeft className="w-5 h-5" />
                             Ato Anterior
                         </button>
 
@@ -858,10 +959,10 @@ export function MonteSeuShowClient({ orbitronClassName = '' }: MonteSeuShowClien
                             <button
                                 type="button"
                                 onClick={() => setCurrentStep(prev => prev + 1)}
-                                className="px-6 py-2.5 bg-white text-black hover:bg-gray-200 rounded-lg text-xs font-sans font-bold uppercase tracking-wider flex items-center gap-2 transition-all shadow-[0_0_15px_rgba(255,255,255,0.3)]"
+                                className="px-8 py-3.5 bg-white text-black hover:bg-gray-200 rounded-lg text-sm font-sans font-bold uppercase tracking-wider flex items-center gap-2 transition-all shadow-[0_0_15px_rgba(255,255,255,0.3)]"
                             >
                                 <span>{currentStep === 3 ? 'Avançar para Agendamento' : 'Próximo Ato'}</span>
-                                <ArrowRight className="w-4 h-4" />
+                                <ArrowRight className="w-5 h-5" />
                             </button>
                         ) : (
                             <button

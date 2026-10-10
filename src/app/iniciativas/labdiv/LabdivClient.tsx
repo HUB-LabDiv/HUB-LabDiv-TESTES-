@@ -14,6 +14,7 @@ import { MainLayoutWrapper } from "@/components/layout/MainLayoutWrapper";
 import { ArrowRight } from 'lucide-react';
 import { PostDTO } from '@/dtos/media';
 import { MediaCard } from '@/components/media/MediaCard';
+import { Breadcrumbs } from '@/components/wiki/WikiComponents';
 
 interface LabdivClientProps {
     posts: PostDTO[];
@@ -23,6 +24,13 @@ export function LabdivClient({ posts }: LabdivClientProps) {
     return (
         <MainLayoutWrapper fullWidth={true}>
             <div className="max-w-7xl mx-auto px-4 py-8 animate-in fade-in slide-in-from-bottom-5 duration-700">
+                <Breadcrumbs 
+                    title="Lab-Div" 
+                    section="Iniciativas de Impacto" 
+                    sectionHref="/gcif/instituto" 
+                    backHref="/gcif/instituto" 
+                />
+
                 {/* Hero Lab-Div */}
                 <section className="relative overflow-hidden py-16 bg-gradient-to-br from-brand-blue/10 via-white to-brand-red/5 dark:from-brand-blue/20 dark:via-background-dark dark:to-brand-red/10 border border-gray-200 dark:border-gray-800 rounded-3xl mb-12 text-left">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col md:flex-row items-center gap-8">

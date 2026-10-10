@@ -1,0 +1,820 @@
+<!--
+ * Hub de Comunicação Científica Lab-Div V3.0
+ * Copyright (C) 2026 João Paulo Stangorlini de Carvalho
+ * Este programa é software livre: você pode redistribuí-lo e/ou modificá-lo
+ * sob os termos da Licença Pública Geral Affero GNU (AGPLv3).
+-->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HUB LabDiv - Cartaz Oficial A4 (Poster 3)</title>
+  <link rel="stylesheet" href="../../fonts/fonts.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    @font-face {
+      font-family: '29LT Bukra';
+      src: local('29LT Bukra Semi Wide Bold'), local('29LT Bukra Bold'), local('29LTBukra-Bold'),
+           url('../fonts/Outfit-Black.ttf') format('truetype');
+      font-weight: 700 900;
+      font-display: swap;
+    }
+    .font-bukra {
+      font-family: '29LT Bukra', 'Outfit', sans-serif;
+    }
+    .font-open-sans {
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    body {
+      background-color: #F8FAFC;
+      color: #0F172A;
+      width: 1240px;
+      height: 1754px;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+    }
+    .poster-container {
+      width: 1240px;
+      height: 1754px;
+      position: relative;
+      background-color: #F8FAFC;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+    .bg-math-pattern {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1240px;
+      height: 1754px;
+      background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjEyMDAiIGZpbGw9Im5vbmUiPgogIDwhLS0gRXF1YXRpb25zICYgRm9ybXVsYXMgLS0+CiAgPHRleHQgeD0iODAiIHk9IjYwIiBmaWxsPSIjMEY0NzgwIiBvcGFjaXR5PSIxIiBmb250LXNpemU9IjMyIiBmb250LWZhbWlseT0iR2VvcmdpYSwgc2VyaWYiIGZvbnQtd2VpZ2h0PSJib2xkIiB0cmFuc2Zvcm09InJvdGF0ZSgtMTIgODAgNjApIj5FID0gbWPCsjwvdGV4dD4KICA8dGV4dCB4PSI2NTAiIHk9IjEyMCIgZmlsbD0iI0YxNDM0MyIgb3BhY2l0eT0iMSIgZm9udC1zaXplPSIyNiIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsIHNlcmlmIiBmb250LXdlaWdodD0iYm9sZCIgdHJhbnNmb3JtPSJyb3RhdGUoOCA2NTAgMTIwKSI+4oiCz4gv4oiCdDwvdGV4dD4KICA8dGV4dCB4PSIxMDIwIiB5PSI4MCIgZmlsbD0iI0Q5NzcwNiIgb3BhY2l0eT0iMSIgZm9udC1zaXplPSIyMyIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsIHNlcmlmIiBmb250LXdlaWdodD0iYm9sZCIgdHJhbnNmb3JtPSJyb3RhdGUoLTUgMTAyMCA4MCkiPuKEjzwvdGV4dD4KICA8dGV4dCB4PSIzNTAiIHk9IjIwMCIgZmlsbD0iI0Q5NzcwNiIgb3BhY2l0eT0iMSIgZm9udC1zaXplPSIyOSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsIHNlcmlmIiBmb250LXdlaWdodD0iYm9sZCIgdHJhbnNmb3JtPSJyb3RhdGUoMTUgMzUwIDIwMCkiPuKIh8OXQjwvdGV4dD4KICA8dGV4dCB4PSI5MDAiIHk9IjI1MCIgZmlsbD0iIzBGNDc4MCIgb3BhY2l0eT0iMSIgZm9udC1zaXplPSIzNiIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsIHNlcmlmIiBmb250LXdlaWdodD0iYm9sZCIgdHJhbnNmb3JtPSJyb3RhdGUoLTggOTAwIDI1MCkiPuKIqzwvdGV4dD4KICA8dGV4dCB4PSIxNTAiIHk9IjM0MCIgZmlsbD0iI0YxNDM0MyIgb3BhY2l0eT0iMSIgZm9udC1zaXplPSIyMyIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsIHNlcmlmIiBmb250LXdlaWdodD0iYm9sZCIgdHJhbnNmb3JtPSJyb3RhdGUoNiAxNTAgMzQwKSI+zrsgPSBoL3A8L3RleHQ+CiAgPHRleHQgeD0iNTUwIiB5PSIzODAiIGZpbGw9IiMwRjQ3ODAiIG9wYWNpdHk9IjEiIGZvbnQtc2l6ZT0iMjYiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC13ZWlnaHQ9ImJvbGQiIHRyYW5zZm9ybT0icm90YXRlKC0xMCA1NTAgMzgwKSI+zqM8L3RleHQ+CiAgPHRleHQgeD0iMTA1MCIgeT0iNDAwIiBmaWxsPSIjRDk3NzA2IiBvcGFjaXR5PSIxIiBmb250LXNpemU9IjI5IiBmb250LWZhbWlseT0iR2VvcmdpYSwgc2VyaWYiIGZvbnQtd2VpZ2h0PSJib2xkIiB0cmFuc2Zvcm09InJvdGF0ZSgxMiAxMDUwIDQwMCkiPs6UeM6UcCDiiaUg4oSPLzI8L3RleHQ+CiAgPHRleHQgeD0iODAiIHk9IjUwMCIgZmlsbD0iI0Q5NzcwNiIgb3BhY2l0eT0iMSIgZm9udC1zaXplPSIyOSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsIHNlcmlmIiBmb250LXdlaWdodD0iYm9sZCIgdHJhbnNmb3JtPSJyb3RhdGUoLTYgODAgNTAwKSI+z4A8L3RleHQ+CiAgPHRleHQgeD0iNDAwIiB5PSI1NTAiIGZpbGw9IiNGMTQzNDMiIG9wYWNpdHk9IjEiIGZvbnQtc2l6ZT0iMjMiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC13ZWlnaHQ9ImJvbGQiIHRyYW5zZm9ybT0icm90YXRlKDkgNDAwIDU1MCkiPkYgPSBtYTwvdGV4dD4KICA8dGV4dCB4PSI3NTAiIHk9IjUyMCIgZmlsbD0iIzBGNDc4MCIgb3BhY2l0eT0iMSIgZm9udC1zaXplPSIzMiIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsIHNlcmlmIiBmb250LXdlaWdodD0iYm9sZCIgdHJhbnNmb3JtPSJyb3RhdGUoLTE1IDc1MCA1MjApIj7iiILCsnUv4oiCdMKyPC90ZXh0PgogIDx0ZXh0IHg9IjIwMCIgeT0iNjgwIiBmaWxsPSIjMEY0NzgwIiBvcGFjaXR5PSIxIiBmb250LXNpemU9IjI2IiBmb250LWZhbWlseT0iR2VvcmdpYSwgc2VyaWYiIGZvbnQtd2VpZ2h0PSJib2xkIiB0cmFuc2Zvcm09InJvdGF0ZSg0IDIwMCA2ODApIj7iiK4gRcK3ZGw8L3RleHQ+CiAgPHRleHQgeD0iNjAwIiB5PSI3MjAiIGZpbGw9IiNEOTc3MDYiIG9wYWNpdHk9IjEiIGZvbnQtc2l6ZT0iMjMiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC13ZWlnaHQ9ImJvbGQiIHRyYW5zZm9ybT0icm90YXRlKC03IDYwMCA3MjApIj7PiCh4LHQpPC90ZXh0PgogIDx0ZXh0IHg9IjEwMDAiIHk9IjY1MCIgZmlsbD0iI0YxNDM0MyIgb3BhY2l0eT0iMSIgZm9udC1zaXplPSIyOSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsIHNlcmlmIiBmb250LXdlaWdodD0iYm9sZCIgdHJhbnNmb3JtPSJyb3RhdGUoMTEgMTAwMCA2NTApIj7iiJ48L3RleHQ+CiAgPHRleHQgeD0iMTAwIiB5PSI4NTAiIGZpbGw9IiNGMTQzNDMiIG9wYWNpdHk9IjEiIGZvbnQtc2l6ZT0iMjkiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC13ZWlnaHQ9ImJvbGQiIHRyYW5zZm9ybT0icm90YXRlKC05IDEwMCA4NTApIj5p4oSP4oiCz4gv4oiCdCA9IMSkz4g8L3RleHQ+CiAgPHRleHQgeD0iNDgwIiB5PSI5MDAiIGZpbGw9IiMwRjQ3ODAiIG9wYWNpdHk9IjEiIGZvbnQtc2l6ZT0iMzIiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC13ZWlnaHQ9ImJvbGQiIHRyYW5zZm9ybT0icm90YXRlKDcgNDgwIDkwMCkiPs6pPC90ZXh0PgogIDx0ZXh0IHg9Ijg1MCIgeT0iODcwIiBmaWxsPSIjRDk3NzA2IiBvcGFjaXR5PSIxIiBmb250LXNpemU9IjIzIiBmb250LWZhbWlseT0iR2VvcmdpYSwgc2VyaWYiIGZvbnQtd2VpZ2h0PSJib2xkIiB0cmFuc2Zvcm09InJvdGF0ZSgtMTMgODUwIDg3MCkiPuKIh8Kyz4Y8L3RleHQ+CiAgPHRleHQgeD0iMzAwIiB5PSIxMDUwIiBmaWxsPSIjRDk3NzA2IiBvcGFjaXR5PSIxIiBmb250LXNpemU9IjI2IiBmb250LWZhbWlseT0iR2VvcmdpYSwgc2VyaWYiIGZvbnQtd2VpZ2h0PSJib2xkIiB0cmFuc2Zvcm09InJvdGF0ZSg1IDMwMCAxMDUwKSI+zrEgzrIgzrM8L3RleHQ+CiAgPHRleHQgeD0iNzAwIiB5PSIxMDgwIiBmaWxsPSIjRjE0MzQzIiBvcGFjaXR5PSIxIiBmb250LXNpemU9IjI5IiBmb250LWZhbWlseT0iR2VvcmdpYSwgc2VyaWYiIGZvbnQtd2VpZ2h0PSJib2xkIiB0cmFuc2Zvcm09InJvdGF0ZSgtOCA3MDAgMTA4MCkiPlMgPSBrIGxuIFc8L3RleHQ+CiAgPHRleHQgeD0iMTA4MCIgeT0iMTAwMCIgZmlsbD0iIzBGNDc4MCIgb3BhY2l0eT0iMSIgZm9udC1zaXplPSIyOSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsIHNlcmlmIiBmb250LXdlaWdodD0iYm9sZCIgdHJhbnNmb3JtPSJyb3RhdGUoMTAgMTA4MCAxMDAwKSI+4oiCL+KIgng8L3RleHQ+CiAgPHRleHQgeD0iNTAiIHk9IjExNTAiIGZpbGw9IiMwRjQ3ODAiIG9wYWNpdHk9IjEiIGZvbnQtc2l6ZT0iMjMiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC13ZWlnaHQ9ImJvbGQiIHRyYW5zZm9ybT0icm90YXRlKC00IDUwIDExNTApIj7OvOKCgM614oKAPC90ZXh0PgogIDx0ZXh0IHg9IjU1MCIgeT0iMTE1MCIgZmlsbD0iI0YxNDM0MyIgb3BhY2l0eT0iMSIgZm9udC1zaXplPSIyNiIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsIHNlcmlmIiBmb250LXdlaWdodD0iYm9sZCIgdHJhbnNmb3JtPSJyb3RhdGUoMTQgNTUwIDExNTApIj7PgTwvdGV4dD4KICA8dGV4dCB4PSI5NTAiIHk9IjExNTAiIGZpbGw9IiNEOTc3MDYiIG9wYWNpdHk9IjEiIGZvbnQtc2l6ZT0iMzIiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC13ZWlnaHQ9ImJvbGQiIHRyYW5zZm9ybT0icm90YXRlKC0xMSA5NTAgMTE1MCkiPs6UPC90ZXh0PgoKICA8IS0tIFRpbnkgcGFydGljbGVzIC8gZG90cyAtLT4KICA8Y2lyY2xlIGN4PSIxMjAiIGN5PSIxMzAiIHI9IjMuNSIgZmlsbD0iIzBGNDc4MCIgb3BhY2l0eT0iMSIvPgogIDxjaXJjbGUgY3g9IjQ1MCIgY3k9IjkwIiByPSIyLjUiIGZpbGw9IiNGMTQzNDMiIG9wYWNpdHk9IjEiLz4KICA8Y2lyY2xlIGN4PSI3ODAiIGN5PSIxNzAiIHI9IjQiIGZpbGw9IiNEOTc3MDYiIG9wYWNpdHk9IjEiLz4KICA8Y2lyY2xlIGN4PSIzMDAiIGN5PSIzMDAiIHI9IjIuNSIgZmlsbD0iI0Q5NzcwNiIgb3BhY2l0eT0iMSIvPgogIDxjaXJjbGUgY3g9Ijk1MCIgY3k9IjMzMCIgcj0iMy41IiBmaWxsPSIjMEY0NzgwIiBvcGFjaXR5PSIxIi8+CiAgPGNpcmNsZSBjeD0iNjAwIiBjeT0iNDUwIiByPSIyLjUiIGZpbGw9IiNGMTQzNDMiIG9wYWNpdHk9IjEiLz4KICA8Y2lyY2xlIGN4PSIxNjAiIGN5PSI2MDAiIHI9IjQiIGZpbGw9IiMwRjQ3ODAiIG9wYWNpdHk9IjEiLz4KICA8Y2lyY2xlIGN4PSI1MDAiIGN5PSI2NTAiIHI9IjIuNSIgZmlsbD0iI0Q5NzcwNiIgb3BhY2l0eT0iMSIvPgogIDxjaXJjbGUgY3g9Ijg1MCIgY3k9IjU4MCIgcj0iMy41IiBmaWxsPSIjRjE0MzQzIiBvcGFjaXR5PSIxIi8+CiAgPGNpcmNsZSBjeD0iMTEwMCIgY3k9IjU1MCIgcj0iMi41IiBmaWxsPSIjMEY0NzgwIiBvcGFjaXR5PSIxIi8+CiAgPGNpcmNsZSBjeD0iMzMwIiBjeT0iNzgwIiByPSI0IiBmaWxsPSIjRDk3NzA2IiBvcGFjaXR5PSIxIi8+CiAgPGNpcmNsZSBjeD0iNzAwIiBjeT0iODAwIiByPSIyLjUiIGZpbGw9IiMwRjQ3ODAiIG9wYWNpdHk9IjEiLz4KICA8Y2lyY2xlIGN4PSIxMDUwIiBjeT0iNzgwIiByPSIzLjUiIGZpbGw9IiNGMTQzNDMiIG9wYWNpdHk9IjEiLz4KICA8Y2lyY2xlIGN4PSI4MCIgY3k9Ijk1MCIgcj0iMi41IiBmaWxsPSIjRjE0MzQzIiBvcGFjaXR5PSIxIi8+CiAgPGNpcmNsZSBjeD0iNDIwIiBjeT0iMTAwMCIgcj0iNCIgZmlsbD0iIzBGNDc4MCIgb3BhY2l0eT0iMSIvPgogIDxjaXJjbGUgY3g9Ijc1MCIgY3k9Ijk3MCIgcj0iMi41IiBmaWxsPSIjRDk3NzA2IiBvcGFjaXR5PSIxIi8+CiAgPGNpcmNsZSBjeD0iMTEwMCIgY3k9IjkwMCIgcj0iMy41IiBmaWxsPSIjRDk3NzA2IiBvcGFjaXR5PSIxIi8+CiAgPGNpcmNsZSBjeD0iMjAwIiBjeT0iMTEwMCIgcj0iMi41IiBmaWxsPSIjMEY0NzgwIiBvcGFjaXR5PSIxIi8+CiAgPGNpcmNsZSBjeD0iNjUwIiBjeT0iMTEzMCIgcj0iNCIgZmlsbD0iI0YxNDM0MyIgb3BhY2l0eT0iMSIvPgogIDxjaXJjbGUgY3g9IjEwMDAiIGN5PSIxMTAwIiByPSIyLjUiIGZpbGw9IiNEOTc3MDYiIG9wYWNpdHk9IjEiLz4KCiAgPCEtLSBUaW55IGF0b20tbGlrZSBzaGFwZXMgKHN0YXRpYykgLS0+CiAgPGVsbGlwc2UgY3g9IjI1MCIgY3k9IjQ1MCIgcng9IjI0IiByeT0iOCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMEY0NzgwIiBzdHJva2Utd2lkdGg9IjIuMiIgb3BhY2l0eT0iMSIgdHJhbnNmb3JtPSJyb3RhdGUoMzAgMjUwIDQ1MCkiLz4KICA8ZWxsaXBzZSBjeD0iMjUwIiBjeT0iNDUwIiByeD0iMjQiIHJ5PSI4IiBmaWxsPSJub25lIiBzdHJva2U9IiNGMTQzNDMiIHN0cm9rZS13aWR0aD0iMi4yIiBvcGFjaXR5PSIxIiB0cmFuc2Zvcm09InJvdGF0ZSgtMzAgMjUwIDQ1MCkiLz4KICA8ZWxsaXBzZSBjeD0iMjUwIiBjeT0iNDUwIiByeD0iMjQiIHJ5PSI4IiBmaWxsPSJub25lIiBzdHJva2U9IiNEOTc3MDYiIHN0cm9rZS13aWR0aD0iMi4yIiBvcGFjaXR5PSIxIiB0cmFuc2Zvcm09InJvdGF0ZSg5MCAyNTAgNDUwKSIvPgogIDxjaXJjbGUgY3g9IjI1MCIgY3k9IjQ1MCIgcj0iNCIgZmlsbD0iI0Q5NzcwNiIgb3BhY2l0eT0iMSIvPgoKICA8ZWxsaXBzZSBjeD0iODUwIiBjeT0iNzUwIiByeD0iMjAiIHJ5PSI3IiBmaWxsPSJub25lIiBzdHJva2U9IiNEOTc3MDYiIHN0cm9rZS13aWR0aD0iMi4yIiBvcGFjaXR5PSIxIiB0cmFuc2Zvcm09InJvdGF0ZSgyMCA4NTAgNzUwKSIvPgogIDxlbGxpcHNlIGN4PSI4NTAiIGN5PSI3NTAiIHJ4PSIyMCIgcnk9IjciIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzBGNDc4MCIgc3Ryb2tlLXdpZHRoPSIyLjIiIG9wYWNpdHk9IjEiIHRyYW5zZm9ybT0icm90YXRlKC00MCA4NTAgNzUwKSIvPgogIDxlbGxpcHNlIGN4PSI4NTAiIGN5PSI3NTAiIHJ4PSIyMCIgcnk9IjciIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0YxNDM0MyIgc3Ryb2tlLXdpZHRoPSIyLjIiIG9wYWNpdHk9IjEiIHRyYW5zZm9ybT0icm90YXRlKDgwIDg1MCA3NTApIi8+CiAgPGNpcmNsZSBjeD0iODUwIiBjeT0iNzUwIiByPSIzLjUiIGZpbGw9IiNGMTQzNDMiIG9wYWNpdHk9IjEiLz4KCiAgPGVsbGlwc2UgY3g9IjEwODAiIGN5PSIyMDAiIHJ4PSIxOCIgcnk9IjYiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0YxNDM0MyIgc3Ryb2tlLXdpZHRoPSIyLjIiIG9wYWNpdHk9IjEiIHRyYW5zZm9ybT0icm90YXRlKDQ1IDEwODAgMjAwKSIvPgogIDxlbGxpcHNlIGN4PSIxMDgwIiBjeT0iMjAwIiByeD0iMTgiIHJ5PSI2IiBmaWxsPSJub25lIiBzdHJva2U9IiNEOTc3MDYiIHN0cm9rZS13aWR0aD0iMi4yIiBvcGFjaXR5PSIxIiB0cmFuc2Zvcm09InJvdGF0ZSgtMTUgMTA4MCAyMDApIi8+CiAgPGVsbGlwc2UgY3g9IjEwODAiIGN5PSIyMDAiIHJ4PSIxOCIgcnk9IjYiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzBGNDc4MCIgc3Ryb2tlLXdpZHRoPSIyLjIiIG9wYWNpdHk9IjEiIHRyYW5zZm9ybT0icm90YXRlKDc1IDEwODAgMjAwKSIvPgogIDxjaXJjbGUgY3g9IjEwODAiIGN5PSIyMDAiIHI9IjMuNSIgZmlsbD0iIzBGNDc4MCIgb3BhY2l0eT0iMSIvPgo8L3N2Zz4K');
+      background-repeat: repeat;
+      background-size: 820px 820px;
+      opacity: 0.55;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .content-layer {
+      position: relative;
+      z-index: 10;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* TOP INSTALL CARD (FULL HORIZONTAL BANNER) - 100% IDENTICAL TO ORIGINAL POSTER */
+    .top-install-banner {
+      width: 100%;
+      background: #FFFFFF;
+      padding: 16px 28px 18px 24px;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+      position: relative;
+      z-index: 20;
+      box-sizing: border-box;
+    }
+    .banner-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      margin-bottom: 8px;
+    }
+    .banner-brand-col {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .banner-arrow {
+      color: #0F172A;
+      stroke-width: 2.8;
+      width: 20px;
+      height: 20px;
+    }
+    .banner-brand-text {
+      font-size: 19px;
+      font-weight: 700;
+      color: #334155;
+      letter-spacing: -0.2px;
+    }
+    .banner-search-bar {
+      position: absolute;
+      left: 296px;
+      width: 740px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #FFFFFF;
+      border: 1.5px solid #DADCE0;
+      border-radius: 9999px;
+      padding: 9px 24px;
+      box-shadow: 0 1px 4px rgba(60, 64, 67, 0.10);
+      box-sizing: border-box;
+    }
+    .banner-search-icon {
+      width: 19px;
+      height: 19px;
+      color: #5F6368;
+      flex-shrink: 0;
+    }
+    .banner-search-text {
+      font-size: 16.5px;
+      font-weight: 500;
+      color: #5F6368;
+      letter-spacing: 0.15px;
+      white-space: nowrap;
+    }
+    .banner-search-text strong {
+      color: #202124;
+      font-weight: 700;
+    }
+    .banner-dots-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      color: #5F6368;
+      flex-shrink: 0;
+    }
+    .banner-main-row {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      width: 100%;
+    }
+    .banner-app-icon {
+      width: 140px;
+      height: 114px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .banner-app-icon svg {
+      width: 100%;
+      height: 100%;
+    }
+    .banner-text-col {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      flex: 1;
+    }
+    .banner-app-title {
+      font-size: 40px;
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 4px;
+      letter-spacing: -0.5px;
+    }
+    .banner-app-title .hub-word {
+      color: #0F172A;
+    }
+    .banner-app-title .labdiv-word {
+      background: linear-gradient(90deg, #0F4780 0%, #F14343 50%, #D97706 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .banner-app-desc {
+      font-size: 17px;
+      line-height: 1.34;
+      color: #334155;
+      font-weight: 600;
+    }
+    .banner-install-btn {
+      width: calc(100% - 150px);
+      margin-left: 150px;
+      margin-top: 10px;
+      height: 52px;
+      background: #0B57D0;
+      color: #FFFFFF;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      box-shadow: 0 4px 14px rgba(11, 87, 208, 0.32);
+    }
+
+    /* TOP GRADIENT DIVIDER UNDER BANNER */
+    .top-gradient-divider {
+      width: 100%;
+      height: 4.5px;
+      background: linear-gradient(90deg, #0F4780 0%, #F14343 50%, #FFCC00 100%);
+    }
+
+    /* MAIN BODY (INVERTED ORDER: TITLE -> 3 AXES -> SINGLE BIG QR CODE) */
+    .main-body {
+      flex: 1;
+      padding: 14px 34px 12px 34px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* HEADER: VOCÊ CONHECE O HUB? */
+    .experimente-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 10px;
+      margin-bottom: 12px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .experimente-header .title-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+    .experimente-icon {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      transform: rotate(-6deg);
+    }
+    .experimente-title {
+      font-size: 74px;
+      font-weight: 900;
+      font-style: italic;
+      color: #0F172A;
+      letter-spacing: 1.8px;
+      text-shadow: 0 3px 20px rgba(15, 71, 128, 0.16), 0 0 2px rgba(255, 255, 255, 0.95);
+      white-space: nowrap;
+      line-height: 1.05;
+    }
+    .experimente-subtitle {
+      font-size: 37px;
+      font-weight: 700;
+      color: #475569;
+      letter-spacing: 0.5px;
+      margin: 8px 0 0 0;
+      line-height: 1.2;
+      text-align: center;
+    }
+    .experimente-subtitle .hub-highlight {
+      color: #0F4780;
+      font-weight: 800;
+    }
+
+    /* 1. OS TRÊS EIXOS: COLOCADOS DIRETAMENTE ABAIXO DO SUBTÍTULO */
+    .axes-row {
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      gap: 30px;
+      width: 100%;
+      max-width: 980px;
+      margin: 4px auto 16px auto;
+    }
+    .axis-card {
+      flex: 1;
+      height: 290px;
+      box-sizing: border-box;
+      background: #FFFFFF;
+      border-radius: 24px;
+      box-shadow: 0 10px 28px -4px rgba(15, 71, 128, 0.14), 0 3px 8px -2px rgba(15, 71, 128, 0.08);
+      padding: 24px 16px 20px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .axis-top-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+    }
+    .axis-icon-badge {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+    }
+    .axis-title {
+      font-size: 30px;
+      font-weight: 900;
+      margin-bottom: 8px;
+      line-height: 1.15;
+    }
+    .axis-desc {
+      font-size: 20px;
+      font-weight: 600;
+      color: #334155;
+      line-height: 1.30;
+      text-align: center;
+    }
+
+    /* CORES TEMÁTICAS DOS EIXOS */
+    .card-social {
+      border: 2px solid rgba(15, 71, 128, 0.22);
+    }
+    .card-social .axis-top-bar {
+      background: #0F4780;
+    }
+    .card-social .axis-icon-badge {
+      background: #EEF4FA;
+      border: 1.5px solid rgba(15, 71, 128, 0.25);
+      color: #0F4780;
+    }
+    .card-social .axis-title {
+      color: #0F4780;
+    }
+
+    .card-info {
+      border: 2px solid rgba(241, 67, 67, 0.26);
+    }
+    .card-info .axis-top-bar {
+      background: #F14343;
+    }
+    .card-info .axis-icon-badge {
+      background: #FEF2F2;
+      border: 1.5px solid rgba(241, 67, 67, 0.26);
+      color: #F14343;
+    }
+    .card-info .axis-title {
+      color: #F14343;
+    }
+
+    .card-tools {
+      border: 2px solid rgba(255, 204, 0, 0.45);
+    }
+    .card-tools .axis-top-bar {
+      background: #FFCC00;
+    }
+    .card-tools .axis-icon-badge {
+      background: #FEF9C3;
+      border: 1.5px solid rgba(255, 204, 0, 0.4);
+      color: #854D0E;
+    }
+    .card-tools .axis-title {
+      color: #854D0E;
+    }
+
+    /* 2. CARD DO QR CODE UNITÁRIO (ABAIXO DOS 3 EIXOS) */
+    .single-qr-card {
+      width: 590px;
+      min-height: 590px;
+      background: #FFFFFF;
+      border-radius: 36px;
+      border: 3.5px solid transparent;
+      background-image: linear-gradient(#FFFFFF, #FFFFFF), linear-gradient(135deg, #0F4780 0%, #0284C7 30%, #F14343 70%, #FFCC00 100%);
+      background-origin: border-box;
+      background-clip: padding-box, border-box;
+      box-shadow: 0 18px 48px -4px rgba(15, 71, 128, 0.16), 0 6px 16px -2px rgba(15, 71, 128, 0.08);
+      padding: 26px 26px 24px 26px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      box-sizing: border-box;
+      margin-bottom: 8px;
+    }
+    .qr-svg-holder {
+      width: 390px;
+      height: 390px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    .qr-svg-holder svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .qr-center-badge {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 106px;
+      height: 106px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      pointer-events: none;
+    }
+    .qr-center-badge img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.22));
+    }
+    .qr-label-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      font-size: 29px;
+      font-weight: 900;
+      color: #0F172A;
+      margin-bottom: 6px;
+    }
+    .qr-label-icon {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .qr-link-blue {
+      font-size: 21px;
+      font-weight: 800;
+      color: #0B57D0;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      letter-spacing: 0.2px;
+      display: inline-block;
+      cursor: pointer;
+      margin-top: 4px;
+    }
+    .qr-sub-text {
+      font-size: 19px;
+      font-weight: 600;
+      line-height: 1.30;
+      color: #475569;
+    }
+
+    /* FOOTER BAR - 100% IDENTICAL TO ORIGINAL POSTER */
+    .footer-bar {
+      width: 100%;
+      background: #F1F5F9;
+      border-top: 1px solid #E2E8F0;
+      position: relative;
+      z-index: 20;
+    }
+    .footer-gradient-divider {
+      height: 4.5px;
+      width: 100%;
+      background: linear-gradient(90deg, #0F4780 0%, #F14343 50%, #FFCC00 100%);
+    }
+    .footer-content-wrap {
+      padding: 12px 52px 10px 52px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .footer-main-row {
+      display: flex;
+      align-items: stretch;
+      justify-content: space-between;
+      gap: 28px;
+    }
+    .footer-legal-col {
+      flex: none;
+      width: 730px;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 0;
+      box-shadow: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+    }
+    .footer-legal-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #0F4780;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.6px;
+    }
+    .footer-legal-text {
+      font-size: 22px;
+      line-height: 1.32;
+      color: #334155;
+    }
+    .footer-buttons-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .footer-action-card {
+      background: #FFFFFF;
+      border-radius: 12px;
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 4px 12px rgba(15, 71, 128, 0.06);
+    }
+    .footer-card-git {
+      border: 1.5px solid rgba(15, 71, 128, 0.25);
+    }
+    .footer-card-email {
+      border: 1.5px solid rgba(241, 67, 67, 0.25);
+    }
+    .footer-icon-holder {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .icon-holder-git {
+      background: rgba(15, 71, 128, 0.10);
+      color: #0F4780;
+    }
+    .icon-holder-email {
+      background: rgba(241, 67, 67, 0.10);
+      color: #F14343;
+    }
+    .footer-action-info {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.22;
+    }
+    .footer-action-tag {
+      font-size: 12.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .tag-git {
+      color: #0F4780;
+    }
+    .tag-email {
+      color: #F14343;
+    }
+    .footer-action-val {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #0F172A;
+    }
+    .footer-bottom-line {
+      font-size: 14px;
+      color: #64748B;
+      font-weight: 600;
+      text-align: center;
+      padding-top: 4px;
+      border-top: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="poster-container">
+    <div class="bg-math-pattern"></div>
+    <div class="content-layer">
+      <!-- 1. TOP INSTALL BANNER (FULL HORIZONTAL WIDTH) -->
+      <div class="top-install-banner">
+        <div class="banner-header-row">
+          <div class="banner-brand-col">
+            <svg class="banner-arrow" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            <span class="banner-brand-text font-open-sans">Google Play</span>
+          </div>
+
+          <div class="banner-search-bar font-open-sans">
+            <svg class="banner-search-icon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <span class="banner-search-text">É só buscar por &ldquo;<strong>LabDiv</strong>&rdquo; na playstore, que ele aparece...</span>
+          </div>
+
+          <div class="banner-dots-btn">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="#5F6368">
+              <circle cx="12" cy="5" r="2.5"></circle>
+              <circle cx="12" cy="12" r="2.5"></circle>
+              <circle cx="12" cy="19" r="2.5"></circle>
+            </svg>
+          </div>
+        </div>
+
+        <div class="banner-main-row">
+          <div class="banner-app-icon">
+            <svg width="100%" height="100%" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M100 20 L20 60 L100 100 L180 60 Z" fill="url(#gradCapelo)" stroke="#0F172A" stroke-width="4" stroke-linejoin="round"/>
+              <path d="M45 72.5 V115 C45 135 155 135 155 115 V72.5" fill="url(#gradCapelo)" stroke="#0F172A" stroke-width="4"/>
+              <path d="M180 60 V125" stroke="#0F4780" stroke-width="4" stroke-linecap="round"/>
+              <circle cx="180" cy="130" r="6" fill="#F14343"/>
+              <path d="M60 40 C40 20 20 20 5 35" stroke="#0F4780" stroke-width="4" stroke-linecap="round"/>
+              <path d="M140 40 C160 20 180 20 195 35" stroke="#FFCC00" stroke-width="4" stroke-linecap="round"/>
+              <defs>
+                <linearGradient id="gradCapelo" x1="20" y1="20" x2="180" y2="135" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#0F4780"/>
+                  <stop offset="50%" stop-color="#F14343"/>
+                  <stop offset="100%" stop-color="#FFCC00"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div class="banner-text-col">
+            <div class="banner-app-title font-bukra">
+              <span class="hub-word">HUB</span> <span class="labdiv-word">LabDiv</span>
+            </div>
+            <div class="banner-app-desc font-open-sans">
+              O HUB de comunicação científica do Laboratório de expressão e divulgação do IFUSP
+            </div>
+          </div>
+        </div>
+
+        <div class="banner-install-btn font-open-sans">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span>Instalar</span>
+        </div>
+      </div>
+
+      <!-- GRADIENT DIVIDER UNDER BANNER -->
+      <div class="top-gradient-divider"></div>
+
+      <!-- 2. MAIN BODY (INVERTED ORDER: TITLE -> 3 AXES -> SINGLE QR CODE) -->
+      <main class="main-body">
+        <!-- HEADER: VOCÊ CONHECE O HUB? -->
+        <div class="experimente-header">
+          <div class="title-row">
+            <div class="experimente-icon">
+              <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#0F4780" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 4px rgba(15, 71, 128, 0.16));">
+                <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
+                <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+                <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/>
+                <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
+              </svg>
+            </div>
+            <h2 class="experimente-title font-bukra">
+              VOCÊ CONHECE O HUB?
+            </h2>
+          </div>
+          <p class="experimente-subtitle font-open-sans">
+            escaneie, baixe e descubra o <span class="hub-highlight">HUB</span> do universitário
+          </p>
+        </div>
+
+        <!-- 1. OS TRÊS EIXOS: COLOCADOS DIRETAMENTE ABAIXO DO SUBTÍTULO -->
+        <div class="axes-row">
+          <!-- Card 1: Social -->
+          <div class="axis-card card-social">
+            <div class="axis-top-bar"></div>
+            <div class="axis-icon-badge">
+              <svg width="34" height="34" viewBox="0 -960 960 960" fill="currentColor">
+                <path d="M0-240v-63q0-43 44-70t116-27q13 0 25 .5t23 2.5q-14 21-21 44t-7 48v65H0Zm240 0v-65q0-32 17.5-58.5T307-410q32-20 76.5-30t96.5-10q53 0 97.5 10t76.5 30q32 20 49 46.5t17 58.5v65H240Zm540 0v-65q0-26-6.5-49T754-397q11-2 22.5-2.5t23.5-.5q72 0 116 26.5t44 70.5v63H780ZM160-440q-33 0-56.5-23.5T80-520q0-34 23.5-57t56.5-23q34 0 57 23t23 57q0 33-23 56.5T160-440Zm640 0q-33 0-56.5-23.5T720-520q0-34 23.5-57t56.5-23q34 0 57 23t23 57q0 33-23 56.5T800-440Zm-320-40q-50 0-85-35t-35-85q0-51 35-85.5t85-34.5q51 0 85.5 34.5T600-600q0 50-34.5 85T480-480Z"/>
+              </svg>
+            </div>
+            <h3 class="axis-title font-bukra">Social</h3>
+            <p class="axis-desc font-open-sans">Rede comunicativa &amp; pedagógica</p>
+          </div>
+
+          <!-- Card 2: Informativo -->
+          <div class="axis-card card-info">
+            <div class="axis-top-bar"></div>
+            <div class="axis-icon-badge">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2v4" />
+                <path d="M12 18v4" />
+                <path d="M2 12h4" />
+                <path d="M18 12h4" />
+                <path d="M4.93 4.93l2.83 2.83" />
+                <path d="M16.24 16.24l2.83 2.83" />
+                <path d="M4.93 19.07l2.83-2.83" />
+                <path d="M16.24 7.76l2.83-2.83" />
+                <circle cx="12" cy="12" r="9.5" stroke-dasharray="2 2" stroke-width="1.5" />
+                <circle cx="12" cy="12" r="4.2" stroke-width="1.6" />
+                <path d="M12 9.5v5M9.5 12h5" stroke-width="2" />
+                <circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none" />
+              </svg>
+            </div>
+            <h3 class="axis-title font-bukra">Informativo</h3>
+            <p class="axis-desc font-open-sans">Enciclopédia acadêmica &amp; interativa</p>
+          </div>
+
+          <!-- Card 3: Ferramentas -->
+          <div class="axis-card card-tools">
+            <div class="axis-top-bar"></div>
+            <div class="axis-icon-badge">
+              <svg width="34" height="34" viewBox="0 -960 960 960" fill="currentColor">
+                <path d="M756-120 537-339l84-84 219 219-84 84Zm-552 0-84-84 276-276-68-68-28 28-51-51v82l-28 28-121-121 28-28h82l-50-50 142-142q20-20 43-29t47-9q24 0 47 9t43 29l-92 92 50 50-28 28 68 68 90-90q-4-11-6.5-23t-2.5-24q0-59 40.5-99.5T701-841q15 0 28.5 3t27.5 9l-99 99 72 72 99-99q7 14 9.5 27.5T841-701q0 59-40.5 99.5T701-561q-12 0-24-2t-23-7L204-120Z"/>
+              </svg>
+            </div>
+            <h3 class="axis-title font-bukra">Ferramentas</h3>
+            <p class="axis-desc font-open-sans">Funções de auxílio ao universitário</p>
+          </div>
+        </div>
+
+        <!-- 2. CARD DO QR CODE UNITÁRIO (ABAIXO DOS 3 EIXOS) -->
+        <div class="single-qr-card">
+          <div class="qr-svg-holder">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 39 39" shape-rendering="crispEdges">
+              <path fill="#ffffff" d="M0 0h39v39H0z"/>
+              <path stroke="#000000" d="M1 1.5h7m3 0h1m2 0h1m1 0h1m2 0h1m1 0h2m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M1 2.5h1m5 0h1m3 0h2m1 0h2m2 0h1m1 0h1m1 0h1m1 0h2m1 0h1m3 0h1m1 0h1m5 0h1M1 3.5h1m1 0h3m1 0h1m2 0h2m1 0h3m1 0h3m2 0h1m2 0h3m2 0h1m1 0h1m1 0h3m1 0h1M1 4.5h1m1 0h3m1 0h1m1 0h1m2 0h1m2 0h1m4 0h1m1 0h1m1 0h1m2 0h1m1 0h2m1 0h1m1 0h3m1 0h1M1 5.5h1m1 0h3m1 0h1m1 0h1m1 0h2m2 0h1m2 0h1m1 0h1m1 0h1m1 0h1m1 0h3m1 0h1m2 0h1m1 0h3m1 0h1M1 6.5h1m5 0h1m1 0h1m1 0h1m1 0h1m1 0h3m2 0h1m1 0h1m1 0h1m1 0h2m2 0h1m2 0h1m5 0h1M1 7.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M9 8.5h1m1 0h1m2 0h3m3 0h1m1 0h1m1 0h1m2 0h2m1 0h1m2 0h2m2 0h1m1 0h1M1 9.5h1m2 0h1m1 0h1m2 0h1m1 0h1m2 0h1m1 0h1m3 0h1m3 0h2m1 0h1m2 0h2m2 0h1m1 0h2m1 0h1M3 10.5h1m1 0h1m1 0h3m1 0h1m1 0h2m1 0h1m1 0h2m1 0h2m3 0h1m1 0h1m1 0h2m1 0h1m2 0h1m1 0h1m1 0h1M1 11.5h1m2 0h2m1 0h1m2 0h1m2 0h1m2 0h1m1 0h3m1 0h1m3 0h1m2 0h1m1 0h2m2 0h2m1 0h1M1 12.5h1m2 0h1m1 0h1m2 0h1m1 0h1m1 0h1m2 0h1m1 0h1m2 0h2m1 0h2m1 0h1m1 0h1m1 0h3m2 0h3m1 0h1M2 13.5h1m1 0h1m1 0h1m2 0h2m1 0h1m1 0h2m1 0h2m2 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h3m3 0h1m2 0h1M4 14.5h2m1 0h1m1 0h1m1 0h2m3 0h1m1 0h2m4 0h1m3 0h1m3 0h1m3 0h2M1 15.5h2m1 0h1m1 0h3m1 0h1m2 0h1m1 0h1m1 0h1m1 0h1m3 0h1m3 0h1m2 0h1m1 0h1m1 0h1m1 0h1m1 0h2M1 16.5h1m1 0h3m1 0h1m1 0h1m2 0h1m3 0h1m2 0h1m1 0h1m2 0h1m1 0h3m1 0h1m1 0h2m1 0h3M1 17.5h1m2 0h1m1 0h3m1 0h1m1 0h2m1 0h2m2 0h1m2 0h1m1 0h1m2 0h1m1 0h2m1 0h3m1 0h1m1 0h1M2 18.5h1m2 0h1m3 0h2m1 0h1m1 0h1m1 0h2m1 0h1m3 0h2m1 0h3m2 0h2m1 0h1m1 0h2M3 19.5h1m1 0h1m2 0h3m1 0h3m1 0h2m1 0h1m1 0h3m1 0h1m1 0h1m1 0h1m1 0h1m2 0h1m1 0h1m1 0h2M1 20.5h1m1 0h2m3 0h1m1 0h2m1 0h2m1 0h1m1 0h1m1 0h1m1 0h1m2 0h2m1 0h1m1 0h1m1 0h1m2 0h1m2 0h1M1 21.5h1m1 0h1m1 0h2m1 0h1m1 0h1m2 0h1m1 0h2m3 0h1m2 0h1m1 0h1m1 0h1m2 0h2m1 0h1m1 0h1m1 0h1M2 22.5h1m1 0h1m2 0h1m1 0h3m1 0h1m1 0h2m2 0h1m2 0h2m1 0h1m1 0h1m1 0h2m1 0h1m1 0h2m2 0h1M1 23.5h1m1 0h3m1 0h3m1 0h1m2 0h1m2 0h1m3 0h1m1 0h2m1 0h1m1 0h2m1 0h1m2 0h1m1 0h2M3 24.5h2m1 0h1m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1m2 0h2m2 0h1m1 0h1m1 0h2m1 0h1m1 0h1m2 0h1m2 0h1M2 25.5h2m1 0h1m1 0h1m1 0h2m1 0h1m2 0h1m1 0h2m1 0h1m1 0h3m2 0h1m1 0h2m1 0h2m2 0h1m1 0h1M1 26.5h2m3 0h1m1 0h1m3 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m2 0h1m1 0h2m2 0h1m2 0h1M1 27.5h1m2 0h1m2 0h2m1 0h1m1 0h1m1 0h3m2 0h1m1 0h1m1 0h1m1 0h1m1 0h1m2 0h1m2 0h1m2 0h1m2 0h1M1 28.5h2m1 0h1m1 0h1m1 0h2m1 0h1m2 0h1m1 0h2m1 0h2m2 0h1m1 0h1m3 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1M2 29.5h3m3 0h1m1 0h2m1 0h1m1 0h1m2 0h1m1 0h1m3 0h1m1 0h1m1 0h1m1 0h3m1 0h2m2 0h1m1 0h1M1 30.5h1m2 0h1m2 0h1m1 0h1m1 0h1m2 0h2m1 0h1m1 0h1m1 0h2m1 0h1m1 0h3m1 0h1m1 0h1m1 0h1m1 0h1m2 0h1M9 31.5h1m3 0h1m3 0h1m1 0h2m2 0h2m1 0h1m1 0h1m2 0h3m1 0h2m2 0h1m1 0h1M1 32.5h7m1 0h2m2 0h1m1 0h1m1 0h1m2 0h1m2 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m2 0h1m1 0h1M1 33.5h1m5 0h1m1 0h1m1 0h1m3 0h1m1 0h1m3 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1m1 0h1M1 34.5h1m1 0h3m1 0h1m1 0h2m1 0h2m1 0h1m1 0h1m1 0h1m2 0h1m1 0h2m1 0h1m1 0h1m1 0h1m1 0h1m2 0h1m1 0h2M1 35.5h1m1 0h3m1 0h1m1 0h1m2 0h2m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1M1 36.5h1m1 0h3m1 0h1m1 0h2m1 0h1m1 0h1m1 0h1m1 0h1m1 0h2m1 0h1m1 0h1m1 0h1m1 0h2m2 0h2m1 0h1m1 0h1M1 37.5h1m5 0h1m1 0h1m1 0h3m1 0h2m1 0h1m1 0h1m1 0h1m1 0h2m1 0h2m1 0h1m1 0h1m2 0h1m2 0h1M1 38.5h7m1 0h1m1 0h1m2 0h1m1 0h2m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h3m1 0h2m1 0h1m1 0h1"/>
+            </svg>
+            <div class="qr-center-badge">
+              <img src="icons/qr-hub-logo-badge.png" alt="HUB LabDiv">
+            </div>
+          </div>
+          <div class="qr-label-row font-bukra">
+            <svg class="qr-label-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0F172A" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+              <path d="M2 12h20"></path>
+            </svg>
+            <span>ESCANEIE E BAIXE</span>
+          </div>
+          <div class="qr-sub-text font-open-sans">
+            Acesse pelo navegador ou baixe o App PWA diretamente no seu celular.
+          </div>
+          <a class="qr-link-blue font-open-sans">
+            hub.labdiv.com.br/divulgacao
+          </a>
+        </div>
+      </main>
+
+      <!-- 3. FOOTER BAR -->
+      <footer class="footer-bar">
+        <div class="footer-gradient-divider"></div>
+        <div class="footer-content-wrap">
+          <div class="footer-main-row">
+            <div class="footer-legal-col">
+              <div class="footer-legal-badge font-bukra">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  <path d="m9 12 2 2 4-4"/>
+                </svg>
+                <span>SEGURANÇA &amp; CONFORMIDADE LEGAL</span>
+              </div>
+              <p class="footer-legal-text font-open-sans">
+                O <strong>HUB LabDiv</strong> respeita as <strong>leis, normas e decisões</strong><br>
+                <strong>judiciais do Brasil</strong>, além de ter todo o seu <strong>código aberto</strong> e um e-mail<br>
+                para <strong>suporte, sugestões e ideias da comunidade</strong>.
+              </p>
+            </div>
+
+            <div class="footer-buttons-col">
+              <div class="footer-action-card footer-card-git">
+                <div class="footer-icon-holder icon-holder-git">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+                  </svg>
+                </div>
+                <div class="footer-action-info font-bukra">
+                  <span class="footer-action-tag tag-git">Código Aberto &bull; AGPLv3</span>
+                  <span class="footer-action-val">github.com/HUB-LabDiv/HUB-LabDiv</span>
+                </div>
+              </div>
+
+              <div class="footer-action-card footer-card-email">
+                <div class="footer-icon-holder icon-holder-email">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="20" height="16" x="2" y="4" rx="3"/>
+                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                  </svg>
+                </div>
+                <div class="footer-action-info font-bukra">
+                  <span class="footer-action-tag tag-email">Suporte, Sugestões &amp; Ideias</span>
+                  <span class="footer-action-val">hublabdiv@gmail.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="footer-bottom-line font-bukra">
+            <span>Licença AGPLv3 &bull; LabDiv &bull; Instituto de Física da Universidade de São Paulo (IFUSP)</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+</body>
+</html>

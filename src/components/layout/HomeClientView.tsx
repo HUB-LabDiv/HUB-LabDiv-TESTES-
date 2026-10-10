@@ -27,6 +27,7 @@ import {
     ChevronRight,
     SearchX,
     ChevronDown,
+    ChevronUp,
     Zap,
     Image as ImageIcon,
     Video,
@@ -138,6 +139,7 @@ export const HomeClientView = ({
     const [activePageIndex, setActivePageIndex] = useState(0);
     const [showAllCategories, setShowAllCategories] = useState(false);
     const [showAllYears, setShowAllYears] = useState(false);
+    const [isOrbitCollapsed, setIsOrbitCollapsed] = useState(false);
     const swipeStartX = useRef<number | null>(null);
     const swipeStartY = useRef<number | null>(null);
     const wheelAccumulator = useRef<number>(0);
@@ -905,71 +907,113 @@ export const HomeClientView = ({
 
             {/* EM ÓRBITA NO [INSTITUTO] (Trending Horizontal dinâmico) */}
             {activeTab === 'fluxo' && !debouncedQuery && selectedCategories.includes('Todos') && selectedInstitutes.includes('Todos') && orbitItems.length > 0 && (
-                <section data-tour="comunidade-em-orbita" className="w-full py-8 bg-white dark:bg-card-dark rounded-[40px] border border-gray-100 dark:border-gray-800/50 shadow-sm mb-12">
-                    <div className="px-8">
-                        <div className="flex items-center justify-between mb-8">
-                            <div className="flex flex-col">
-                                <h2 className="text-xl font-black uppercase tracking-widest text-gray-900 dark:text-white flex items-center gap-2">
-                                    <Satellite className="w-5 h-5 text-brand-blue" />
-                                    Em Órbita no <span className="text-brand-blue">{currentInstitutionInfo.name}</span>
-                                </h2>
-                                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-tighter mt-1">Contribuições em destaque na comunidade do {currentInstitutionInfo.name}</p>
-                            </div>
-
-                            <div className="flex items-center gap-4">
-                                {/* PONTO DE NAVEGAÇÃO COLORIDO */}
-                                <div className="flex gap-2 px-3 py-1.5 rounded-full bg-white/50 dark:bg-card-dark/50 backdrop-blur-md border border-gray-100 dark:border-gray-800/50">
-                                    {[0, 1, 2].map((i) => {
-                                        const isActive = activePageIndex === i;
-                                        const colors = ['bg-brand-yellow', 'bg-brand-blue', 'bg-brand-red'];
-                                        return (
-                                            <button
-                                                key={i}
-                                                type="button"
-                                                onClick={() => scrollToPageIndex(i)}
-                                                aria-label={`Ir para página ${i + 1} de Em Órbita`}
-                                                className={`w-2.5 h-2.5 rounded-full transition-all duration-500 cursor-pointer ${isActive ? `${colors[i]} scale-125 shadow-lg brightness-110` : 'bg-gray-300 dark:bg-gray-600 opacity-40 scale-90 hover:opacity-75'}`}
-                                            />
-                                        );
-                                    })}
-                                </div>
-
-                                <div className="flex gap-2">
-                                    <button
-                                        onClick={() => scrollTrending('left')}
-                                        className="p-2 rounded-full bg-gray-50 dark:bg-gray-800 hover:bg-brand-blue hover:text-white transition-all disabled:opacity-20 cursor-pointer"
-                                        disabled={!canScrollLeft}
-                                        aria-label="Rolar Em Órbita para a esquerda"
-                                    >
-                                        <ChevronLeft className="w-4 h-4" />
-                                    </button>
-                                    <button
-                                        onClick={() => scrollTrending('right')}
-                                        className="p-2 rounded-full bg-gray-50 dark:bg-gray-800 hover:bg-brand-blue hover:text-white transition-all disabled:opacity-20 cursor-pointer"
-                                        disabled={!canScrollRight}
-                                        aria-label="Rolar Em Órbita para a direita"
-                                    >
-                                        <ChevronRight className="w-4 h-4" />
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div
-                            ref={trendingScrollRef}
-                            className="flex gap-4 overflow-x-auto pb-4 no-scrollbar snap-x snap-proximity scroll-smooth"
+                isOrbitCollapsed ? (
+                    <div className="w-full flex items-center justify-start mb-6">
+                        <button
+                            type="button"
+                            onClick={() => setIsOrbitCollapsed(false)}
+                            className="group inline-flex items-center gap-3 px-5 py-2.5 rounded-2xl bg-white dark:bg-card-dark border border-gray-200 dark:border-gray-800/80 hover:border-brand-blue/50 shadow-sm hover:shadow-md transition-all text-xs font-black uppercase tracking-wider text-gray-700 dark:text-gray-200 cursor-pointer"
+                            title="Expandir Em Órbita"
                         >
-                            {orbitItems.map((item, index) => (
-                                <div
-                                    key={`orbit-${item.post.id}`}
-                                    className="min-w-[280px] md:min-w-[320px] snap-start"
-                                >
-                                    <MediaCard post={item.post} priority={false} isLikedByUser={likedIds.has(item.post.id)} isSavedByUser={savedIds.has(item.post.id)} highlightQuery={searchQuery} setIsSyncing={setIsSyncing} />
-                                </div>
-                            ))}
-                        </div>
+                            <div className="p-1 rounded-lg bg-brand-blue/10 text-brand-blue group-hover:scale-110 transition-transform">
+                                <Satellite className="w-4 h-4" />
+                            </div>
+                            <span>
+                                Em Órbita no <span className="text-brand-blue">{currentInstitutionInfo.name}</span>
+                            </span>
+                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-gray-100 dark:bg-white/5 text-gray-400">
+                                {orbitItems.length}
+                            </span>
+                            <ChevronDown className="w-4 h-4 text-gray-400 group-hover:text-brand-blue group-hover:translate-y-0.5 transition-transform ml-1" />
+                        </button>
                     </div>
-                </section>
+                ) : (
+                    <section data-tour="comunidade-em-orbita" className="w-full py-8 bg-white dark:bg-card-dark rounded-[40px] border border-gray-100 dark:border-gray-800/50 shadow-sm mb-12">
+                        <div className="px-8">
+                            <div className="flex items-center justify-between mb-8">
+                                <div className="flex flex-col">
+                                    <div className="flex items-center gap-2">
+                                        <h2 className="text-xl font-black uppercase tracking-widest text-gray-900 dark:text-white flex items-center gap-2">
+                                            <Satellite className="w-5 h-5 text-brand-blue" />
+                                            Em Órbita no <span className="text-brand-blue">{currentInstitutionInfo.name}</span>
+                                        </h2>
+                                        <button
+                                            type="button"
+                                            onClick={() => setIsOrbitCollapsed(true)}
+                                            className="p-1.5 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-400 hover:text-brand-blue transition-all cursor-pointer"
+                                            title="Encolher Em Órbita"
+                                            aria-label="Encolher Em Órbita"
+                                        >
+                                            <ChevronUp className="w-4 h-4" />
+                                        </button>
+                                    </div>
+                                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-tighter mt-1">Contribuições em destaque na comunidade do {currentInstitutionInfo.name}</p>
+                                </div>
+
+                                <div className="flex items-center gap-4">
+                                    {/* PONTO DE NAVEGAÇÃO COLORIDO */}
+                                    <div className="flex gap-2 px-3 py-1.5 rounded-full bg-white/50 dark:bg-card-dark/50 backdrop-blur-md border border-gray-100 dark:border-gray-800/50">
+                                        {[0, 1, 2].map((i) => {
+                                            const isActive = activePageIndex === i;
+                                            const colors = ['bg-brand-yellow', 'bg-brand-blue', 'bg-brand-red'];
+                                            return (
+                                                <button
+                                                    key={i}
+                                                    type="button"
+                                                    onClick={() => scrollToPageIndex(i)}
+                                                    aria-label={`Ir para página ${i + 1} de Em Órbita`}
+                                                    className={`w-2.5 h-2.5 rounded-full transition-all duration-500 cursor-pointer ${isActive ? `${colors[i]} scale-125 shadow-lg brightness-110` : 'bg-gray-300 dark:bg-gray-600 opacity-40 scale-90 hover:opacity-75'}`}
+                                                />
+                                            );
+                                        })}
+                                    </div>
+
+                                    <div className="flex gap-2">
+                                        <button
+                                            onClick={() => scrollTrending('left')}
+                                            className="p-2 rounded-full bg-gray-50 dark:bg-gray-800 hover:bg-brand-blue hover:text-white transition-all disabled:opacity-20 cursor-pointer"
+                                            disabled={!canScrollLeft}
+                                            aria-label="Rolar Em Órbita para a esquerda"
+                                        >
+                                            <ChevronLeft className="w-4 h-4" />
+                                        </button>
+                                        <button
+                                            onClick={() => scrollTrending('right')}
+                                            className="p-2 rounded-full bg-gray-50 dark:bg-gray-800 hover:bg-brand-blue hover:text-white transition-all disabled:opacity-20 cursor-pointer"
+                                            disabled={!canScrollRight}
+                                            aria-label="Rolar Em Órbita para a direita"
+                                        >
+                                            <ChevronRight className="w-4 h-4" />
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={() => setIsOrbitCollapsed(true)}
+                                            className="p-2 rounded-full bg-gray-50 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-400 hover:text-brand-blue transition-all cursor-pointer ml-1"
+                                            title="Encolher Em Órbita"
+                                            aria-label="Encolher Em Órbita"
+                                        >
+                                            <ChevronUp className="w-4 h-4" />
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div
+                                ref={trendingScrollRef}
+                                className="flex gap-4 overflow-x-auto pb-4 no-scrollbar snap-x snap-proximity scroll-smooth"
+                            >
+                                {orbitItems.map((item, index) => (
+                                    <div
+                                        key={`orbit-${item.post.id}`}
+                                        className="min-w-[280px] md:min-w-[320px] snap-start"
+                                    >
+                                        <MediaCard post={item.post} priority={false} isLikedByUser={likedIds.has(item.post.id)} isSavedByUser={savedIds.has(item.post.id)} highlightQuery={searchQuery} setIsSyncing={setIsSyncing} />
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+                )
             )}
 
             {/* TOGGLE SEGUINDO VS TODOS */}

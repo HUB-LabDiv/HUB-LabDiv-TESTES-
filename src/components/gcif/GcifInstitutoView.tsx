@@ -25,11 +25,15 @@ import {
     ChevronRight,
     MapPin,
     Building2,
-    Users
+    Users,
+    Clock
 } from 'lucide-react';
 import { NetflixFeed } from '@/components/shared/NetflixFeed';
 import { ColisorIcon } from '@/components/icons/ColisorIcon';
 import dynamic from 'next/dynamic';
+import { DepartmentGrid } from '@/components/wiki/instituto/DepartmentGrid';
+import { InstitutoTimeline } from '@/components/wiki/instituto/InstitutoTimeline';
+import { HistoricalPosts } from '@/components/wiki/instituto/HistoricalPosts';
 
 const CampusMap = dynamic(() => import('@/components/map/CampusMap').then(mod => mod.CampusMap), {
     ssr: false,
@@ -127,43 +131,13 @@ export function GcifInstitutoView({ mapItems }: GcifInstitutoViewProps) {
                 </div>
             </div>
 
-            {/* 1. Card / Hub do Instituto de Física */}
-            <motion.div
-                data-tour="gcif-instituto-card"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="relative group w-full"
-            >
-                <div className="absolute -inset-0.5 bg-brand-blue-ifusp/30 rounded-[32px] blur opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <Link
-                    href="/wiki/instituto"
-                    className="relative flex flex-col md:flex-row items-center justify-between w-full p-8 md:p-12 rounded-[32px] bg-[#1E1E1E] border border-white/10 hover:border-brand-blue-ifusp/40 transition-all overflow-hidden text-left shadow-xl"
-                >
-                    <div className="flex flex-col md:flex-row items-center gap-8 relative z-10">
-                        <div className="size-20 bg-brand-blue-ifusp/15 text-brand-blue-ifusp rounded-[28px] flex items-center justify-center ring-1 ring-brand-blue-ifusp/30 group-hover:scale-110 transition-transform shadow-2xl">
-                            <Landmark className="w-10 h-10 text-blue-400" />
-                        </div>
-                        <div className="text-center md:text-left">
-                            <h3 className="text-2xl sm:text-4xl font-black text-white font-bukra italic uppercase tracking-tighter mb-2">
-                                O Instituto de Física (IFUSP)
-                            </h3>
-                            <p className="text-xs sm:text-sm text-gray-400 font-open-sans max-w-xl leading-relaxed">
-                                Estrutura, história pioneira, governança, conselhos, diretoria e os departamentos que lideram a pesquisa em física no Brasil e no mundo.
-                            </p>
-                        </div>
-                    </div>
-                    <div className="mt-8 md:mt-0 relative z-10 shrink-0">
-                        <div className="px-8 py-4 bg-brand-blue-ifusp text-white font-black rounded-2xl group-hover:scale-105 active:scale-95 transition-all text-xs uppercase tracking-widest flex items-center gap-3 shadow-xl">
-                            <span>Conhecer o IFUSP</span>
-                            <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                        </div>
-                    </div>
-                </Link>
-            </motion.div>
+            {/* 1. Departamentos */}
+            <div id="estrutura-departamentos" data-tour="gcif-instituto-departamentos" className="scroll-mt-24">
+                <DepartmentGrid />
+            </div>
 
             {/* 2. Iniciativas de Impacto */}
-            <div data-tour="gcif-instituto-iniciativas" className="space-y-6">
+            <div id="iniciativas-impacto" data-tour="gcif-instituto-iniciativas" className="space-y-6">
                 <NetflixFeed 
                     title="Iniciativas de Impacto" 
                     icon={<div className="p-2 bg-brand-blue/10 rounded-xl text-brand-blue"><ColisorIcon size={20} animate={false} /></div>}
@@ -180,17 +154,25 @@ export function GcifInstitutoView({ mapItems }: GcifInstitutoViewProps) {
                         <Link href="/iniciativas/labdiv" className="mt-auto px-6 py-3 bg-brand-blue text-white rounded-xl font-black uppercase tracking-widest text-[10px] text-center group-hover:scale-105 transition-transform">Explorar Acervo</Link>
                     </div>
 
-
-                    {/* Show da Física Card */}
-                    <div className="snap-center shrink-0 w-[300px] md:w-[400px] bg-[#1E1E1E] rounded-[40px] p-8 border border-brand-red/20 shadow-xl relative overflow-hidden group flex flex-col justify-between">
-                        <div>
-                            <div className="size-16 bg-brand-red/10 rounded-2xl p-3 flex items-center justify-center text-brand-red mb-6">
-                                <span className="material-symbols-outlined text-4xl">experiment</span>
+                    {/* Show da Física Card (Neon Edition) */}
+                    <div className="snap-center shrink-0 w-[300px] md:w-[400px] bg-[#0a0a0c] rounded-[40px] p-8 border border-[#002ffe] shadow-[0_0_20px_rgba(0,47,254,0.25)] relative overflow-hidden group flex flex-col justify-between transition-all hover:shadow-[0_0_30px_rgba(1,243,0,0.3)] hover:border-[#01f300]">
+                        {/* Brilho interno de fundo */}
+                        <div className="absolute top-0 right-0 w-48 h-48 bg-[#f60011]/10 rounded-full blur-3xl group-hover:bg-[#01f300]/10 transition-colors pointer-events-none" />
+                        
+                        <div className="relative z-10">
+                            <div className="size-16 bg-black border border-white/10 rounded-2xl p-3 flex items-center justify-center text-white mb-6 group-hover:rotate-6 transition-transform shadow-[inset_0_0_15px_rgba(246,0,17,0.3)]">
+                                <span className="material-symbols-outlined text-4xl drop-shadow-[0_0_8px_#f60011]">experiment</span>
                             </div>
-                            <h3 className="text-xl font-black italic uppercase mb-2 text-brand-red font-bukra">Show da Física</h3>
-                            <p className="text-xs text-gray-400 font-open-sans leading-relaxed mb-6">Demonstrações de fenômenos físicos de maneira lúdica e interativa para todos.</p>
+                            <h3 className="text-[22px] font-black uppercase mb-2 font-bukra tracking-wider">
+                                <span className="text-white" style={{ textShadow: '0 0 10px #f60011' }}>Show</span>{' '}
+                                <span className="text-white" style={{ textShadow: '0 0 10px #002ffe' }}>de</span>{' '}
+                                <span className="text-white" style={{ textShadow: '0 0 10px #01f300' }}>Física</span>
+                            </h3>
+                            <p className="text-xs text-gray-300 font-open-sans leading-relaxed mb-6">Demonstrações de fenômenos físicos de maneira lúdica e interativa. Monte seu show ou participe das interações ao vivo.</p>
                         </div>
-                        <Link href="/iniciativas/show-da-fisica" className="mt-auto px-6 py-3 bg-brand-red text-white rounded-xl font-black uppercase tracking-widest text-[10px] text-center group-hover:scale-105 transition-transform">Conhecer o Show</Link>
+                        <Link href="/iniciativas/show-da-fisica" className="relative z-10 mt-auto px-6 py-3 bg-black text-white rounded-xl font-black uppercase tracking-widest text-[10px] text-center transition-all border border-[#01f300] hover:bg-[#01f300] hover:text-black shadow-[0_0_15px_rgba(1,243,0,0.4)] group-hover:scale-105">
+                            Conhecer o Show
+                        </Link>
                     </div>
 
                     {/* Boletim Supernova */}
@@ -231,8 +213,38 @@ export function GcifInstitutoView({ mapItems }: GcifInstitutoViewProps) {
                 </NetflixFeed>
             </div>
 
+            {/* Canais de Divulgação (Influenciadores e Criadores do IF) */}
+            <div id="canais-divulgacao" data-tour="gcif-instituto-influenciadores" className="space-y-6">
+                <NetflixFeed 
+                    title="Canais de Divulgação" 
+                    icon={<div className="p-2 bg-brand-red/10 rounded-xl text-brand-red"><Sparkles className="w-5 h-5" /></div>}
+                >
+                    {influencers.map((influencer, index) => (
+                        <div key={index} className="flex flex-col items-center text-center group snap-center shrink-0 w-[280px] p-8 bg-[#1E1E1E] rounded-[40px] border border-white/10 shadow-xl hover:border-brand-yellow/30 transition-all">
+                            <div className={`relative w-20 h-20 rounded-full mb-4 flex items-center justify-center text-xl font-bold text-white bg-${influencer.color} ring-4 ring-black/20 group-hover:scale-105 transition-transform`}>
+                                {influencer.imagePlaceholder}
+                            </div>
+                            <h3 className="text-base font-black uppercase tracking-tight mb-1 text-white font-bukra">{influencer.name}</h3>
+                            <p className={`text-[10px] font-black uppercase tracking-wider text-${influencer.color} mb-3`}>{influencer.role}</p>
+                            <p className="text-xs text-gray-400 leading-relaxed font-open-sans line-clamp-3 mb-6">{influencer.bio}</p>
+                            <div className="mt-auto w-full pt-2">
+                                <a 
+                                    href={influencer.link} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer" 
+                                    className="w-full py-2.5 px-4 rounded-2xl bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white border border-white/10 hover:border-brand-yellow/30 transition-all text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 group-hover:bg-white/10"
+                                >
+                                    {getPlatformIcon(influencer.platform)}
+                                    <span className="font-open-sans font-bold text-xs tracking-wider">Conhecer</span>
+                                </a>
+                            </div>
+                        </div>
+                    ))}
+                </NetflixFeed>
+            </div>
+
             {/* 3. Espaços do IF */}
-            <div data-tour="gcif-instituto-espacos" className="space-y-6">
+            <div id="espacos-convivencia" data-tour="gcif-instituto-espacos" className="space-y-6">
                 <NetflixFeed 
                     title="Espaços de Convivência & Criação" 
                     icon={<div className="p-2 bg-brand-blue/10 rounded-xl text-brand-blue"><Info className="w-5 h-5" /></div>}
@@ -301,32 +313,8 @@ export function GcifInstitutoView({ mapItems }: GcifInstitutoViewProps) {
                 </NetflixFeed>
             </div>
 
-            {/* 4. Influenciadores do IF */}
-            <div data-tour="gcif-instituto-influenciadores" className="space-y-6">
-                <NetflixFeed 
-                    title="Canais de Divulgação" 
-                    icon={<div className="p-2 bg-brand-red/10 rounded-xl text-brand-red"><Sparkles className="w-5 h-5" /></div>}
-                >
-                    {influencers.map((influencer, index) => (
-                        <div key={index} className="flex flex-col items-center text-center group snap-center shrink-0 w-[280px] p-8 bg-[#1E1E1E] rounded-[40px] border border-white/10 shadow-xl hover:border-brand-yellow/30 transition-all">
-                            <div className={`relative w-20 h-20 rounded-full mb-4 flex items-center justify-center text-xl font-bold text-white bg-${influencer.color} ring-4 ring-black/20 group-hover:scale-105 transition-transform`}>
-                                {influencer.imagePlaceholder}
-                            </div>
-                            <h3 className="text-base font-black uppercase tracking-tight mb-1 text-white font-bukra">{influencer.name}</h3>
-                            <p className={`text-[10px] font-black uppercase tracking-wider text-${influencer.color} mb-3`}>{influencer.role}</p>
-                            <p className="text-xs text-gray-400 leading-relaxed font-open-sans line-clamp-3 mb-6">{influencer.bio}</p>
-                            <div className="mt-auto">
-                                <a href={influencer.link} target="_blank" rel="noopener noreferrer" className="size-10 rounded-full bg-white/5 flex items-center justify-center text-gray-300 hover:text-white hover:bg-white/15 transition-all">
-                                    {getPlatformIcon(influencer.platform)}
-                                </a>
-                            </div>
-                        </div>
-                    ))}
-                </NetflixFeed>
-            </div>
-
-            {/* 5. Campus Interativo & Mapa */}
-            <div data-tour="gcif-instituto-mapa" className="space-y-6">
+            {/* 4. Campus Interativo & Mapa */}
+            <div id="mapa-campus" data-tour="gcif-instituto-mapa" className="space-y-6">
                 <div className="flex items-center gap-4">
                     <div className="p-3 bg-brand-blue/10 rounded-2xl text-brand-blue">
                         <MapPin className="w-6 h-6" />
@@ -343,6 +331,43 @@ export function GcifInstitutoView({ mapItems }: GcifInstitutoViewProps) {
 
                 <div className="w-full max-w-4xl mx-auto aspect-square rounded-3xl overflow-hidden relative shadow-2xl border border-white/10 bg-[#1B2B1B]/40">
                     <CampusMap items={mapItems} />
+                </div>
+            </div>
+
+            {/* 5. Linha do Tempo & Marcos Históricos (Último lugar da página com aviso de Em Desenvolvimento) */}
+            <div id="historico-instituto" className="space-y-12 border-t border-white/10 pt-16">
+                {/* Banner / Aviso de Em Desenvolvimento */}
+                <div className="relative overflow-hidden rounded-3xl bg-[#1E1E1E] border border-brand-yellow/30 p-6 sm:p-8 shadow-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                    <div className="absolute top-0 right-0 w-72 h-72 bg-brand-yellow/5 rounded-full blur-3xl pointer-events-none" />
+                    <div className="flex items-start sm:items-center gap-4 relative z-10">
+                        <div className="size-14 rounded-2xl bg-brand-yellow/10 border border-brand-yellow/30 flex items-center justify-center shrink-0 text-brand-yellow">
+                            <Clock className="w-7 h-7" />
+                        </div>
+                        <div>
+                            <div className="flex items-center gap-2 mb-1.5">
+                                <span className="px-2.5 py-0.5 rounded-full bg-brand-yellow/20 border border-brand-yellow/40 text-brand-yellow text-[10px] font-black uppercase tracking-wider font-bukra">
+                                    Em Desenvolvimento
+                                </span>
+                                <span className="text-xs text-gray-400 font-open-sans">Acervo em Curadoria</span>
+                            </div>
+                            <h3 className="text-xl sm:text-2xl font-black text-white font-bukra italic uppercase tracking-tight">
+                                Linha do Tempo & Marcos Históricos
+                            </h3>
+                            <p className="text-xs sm:text-sm text-gray-400 font-open-sans mt-1 max-w-2xl leading-relaxed">
+                                A reconstrução cronológica e os registros históricos do IFUSP estão em fase de validação e catalogação pelo Lab-Div. Novos marcos, documentos e depoimentos serão integrados em breve.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Linha do Tempo */}
+                <div id="timeline-instituto" className="scroll-mt-24">
+                    <InstitutoTimeline />
+                </div>
+
+                {/* Marcos Históricos */}
+                <div id="marcos-historicos" className="scroll-mt-24">
+                    <HistoricalPosts />
                 </div>
             </div>
         </div>

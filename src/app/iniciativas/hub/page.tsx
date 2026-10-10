@@ -13,6 +13,7 @@ import React from 'react';
 import { MainLayoutWrapper } from "@/components/layout/MainLayoutWrapper";
 import { ArrowRight, BookOpen } from 'lucide-react';
 import Link from 'next/link';
+import { Breadcrumbs } from '@/components/wiki/WikiComponents';
 
 export const metadata = {
     title: 'O que é o HUB? | Iniciativas IFUSP',
@@ -23,6 +24,12 @@ export default function HubPage() {
     return (
         <MainLayoutWrapper fullWidth={true}>
             <div className="max-w-7xl mx-auto px-4 py-8 animate-in fade-in slide-in-from-bottom-5 duration-700">
+                <Breadcrumbs 
+                    title="Sobre o HUB" 
+                    section="Iniciativas de Impacto" 
+                    sectionHref="/gcif/instituto" 
+                    backHref="/gcif/instituto" 
+                />
                 
                 {/* Hero Section */}
                 <div className="text-center mb-20">

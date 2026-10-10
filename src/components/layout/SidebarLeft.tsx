@@ -109,16 +109,18 @@ export const SidebarLeft = ({ userId }: { userId?: string }) => {
 
     return (
         <div className={`w-full h-full flex flex-col gap-2 py-6 ${isSidebarCollapsed ? 'px-2' : 'px-4'} overflow-x-hidden relative transition-all duration-300`}>
-            {/* Collapse Toggle Button - Repositioned to Top (between Header/Logo and Nav) */}
-            <div className={`flex items-center ${isSidebarCollapsed ? 'justify-center' : 'justify-end'} mb-4 px-2`}>
-                <button
-                    onClick={() => setSidebarCollapsed(!isSidebarCollapsed)}
-                    className="p-1.5 bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg text-gray-400 hover:text-brand-blue transition-all shadow-sm group"
-                    title={isSidebarCollapsed ? "Expandir menu" : "Recolher menu"}
-                >
-                    {isSidebarCollapsed ? <ChevronRight size={16} className="group-hover:scale-110 transition-transform" /> : <ChevronLeft size={16} className="group-hover:scale-110 transition-transform" />}
-                </button>
-            </div>
+            {/* When collapsed, show expand button at top of rail */}
+            {isSidebarCollapsed && (
+                <div className="flex items-center justify-center mb-2 px-2">
+                    <button
+                        onClick={() => setSidebarCollapsed(false)}
+                        className="p-1.5 bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg text-gray-400 hover:text-brand-blue hover:bg-gray-100 dark:hover:bg-white/10 transition-all shadow-sm group"
+                        title="Expandir menu"
+                    >
+                        <ChevronRight size={16} className="group-hover:scale-110 transition-transform" />
+                    </button>
+                </div>
+            )}
 
             {/* Primary Navigation */}
             <nav className={`flex flex-col gap-1 ${isSidebarCollapsed ? 'items-center' : ''}`}>
@@ -126,6 +128,42 @@ export const SidebarLeft = ({ userId }: { userId?: string }) => {
                 {mainLinks.map((link) => {
                     const isActive = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href));
                     const c = colorMap[link.color] || colorMap['brand-blue'];
+
+                    if (link.name === 'Social' && !isSidebarCollapsed) {
+                        return (
+                            <div key={link.href} className="relative flex items-center w-full">
+                                <Link
+                                    href={link.href}
+                                    data-tour={link.dataTour}
+                                    onClick={() => trackEvent('TAB_CHANGE', { tab: link.name, href: link.href })}
+                                    className={`flex items-center flex-1 gap-4 px-6 pr-12 py-3 transition-all group border-l-[3px] rounded-r-xl ${isActive
+                                        ? `${c.bg} ${c.text} ${c.border}`
+                                        : `border-l-transparent ${c.hoverBorder} text-gray-500 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white`
+                                        }`}
+                                >
+                                    <span className={`transition-transform group-hover:scale-110 ${isActive ? c.text : ''}`}>
+                                        {link.icon}
+                                    </span>
+                                    <span className={`font-bold text-base ${isActive ? 'text-gray-900 dark:text-white' : ''}`}>
+                                        {link.name}
+                                    </span>
+                                </Link>
+                                <button
+                                    type="button"
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        e.stopPropagation();
+                                        setSidebarCollapsed(true);
+                                    }}
+                                    className="absolute right-2 p-1.5 bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg text-gray-400 hover:text-brand-blue hover:bg-gray-100 dark:hover:bg-white/10 transition-all shadow-sm group z-10"
+                                    title="Recolher menu"
+                                >
+                                    <ChevronLeft size={16} className="group-hover:scale-110 transition-transform" />
+                                </button>
+                            </div>
+                        );
+                    }
+
                     return (
                         <Link
                             key={link.href}
