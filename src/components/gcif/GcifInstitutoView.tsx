@@ -16,6 +16,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import toast from 'react-hot-toast';
 import {
     Landmark,
     Workflow,
@@ -114,10 +115,10 @@ export function GcifInstitutoView({ mapItems }: GcifInstitutoViewProps) {
     return (
         <div className="w-full space-y-16 pb-16">
             {/* Header Hero */}
-            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#1E1E1E] via-[#161616] to-[#0f0f0f] border border-white/10 p-6 sm:p-10 shadow-2xl">
+            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#1E1E1E] via-[#161616] to-[#0f0f0f] border border-white/10 p-6 sm:p-10 shadow-2xl flex flex-col xl:flex-row justify-between items-start gap-8">
                 <div className="absolute top-0 right-0 w-80 h-80 bg-brand-blue-ifusp/15 rounded-full blur-3xl pointer-events-none" />
 
-                <div className="relative z-10 max-w-3xl">
+                <div className="relative z-10 max-w-2xl">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-blue-ifusp/20 border border-brand-blue-ifusp/40 text-blue-300 text-xs font-black uppercase tracking-wider mb-3">
                         <Landmark className="w-3.5 h-3.5" />
                         Instituto de Física da Universidade de São Paulo
@@ -128,6 +129,36 @@ export function GcifInstitutoView({ mapItems }: GcifInstitutoViewProps) {
                     <p className="text-xs sm:text-sm text-gray-300 font-open-sans mt-3 leading-relaxed">
                         Conheça a estrutura, história, departamentos, laboratórios, entidades estudantis e a comunidade de divulgadores que constroem a ciência no IFUSP.
                     </p>
+                </div>
+
+                <div className="relative z-10 w-full xl:w-auto">
+                    <div className="bg-[#111] border border-white/10 rounded-2xl p-4 flex flex-col gap-4 shadow-xl w-full xl:min-w-[340px]">
+                        <div className="flex items-center gap-4">
+                            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-brand-blue-ifusp to-brand-blue-ifusp/20 flex items-center justify-center border border-white/10 shadow-[0_0_15px_rgba(31,159,207,0.3)] shrink-0">
+                                <Landmark className="text-white w-5 h-5" />
+                            </div>
+                            <div>
+                                <div className="text-[9px] font-mono font-black uppercase text-brand-blue-ifusp tracking-widest flex items-center gap-1.5 mb-0.5">
+                                    Instituto_Identificado
+                                    <span className="px-1.5 py-0.5 bg-brand-blue-ifusp/10 text-brand-blue-ifusp border border-brand-blue-ifusp/30 rounded text-[7px] font-black uppercase tracking-widest">PADRÃO DO HUB</span>
+                                </div>
+                                <div className="text-sm font-bold text-gray-200 font-bukra uppercase">
+                                    IFUSP
+                                </div>
+                            </div>
+                        </div>
+                        <div className="pt-3 border-t border-white/5 flex flex-col gap-2.5">
+                            <div className="flex items-start gap-2">
+                                <Info className="w-3.5 h-3.5 text-brand-yellow shrink-0 mt-0.5" />
+                                <p className="text-[10px] font-open-sans text-gray-400 leading-snug">
+                                    Não é do IF? As informações de outros institutos estão em construção.
+                                </p>
+                            </div>
+                            <button onClick={() => toast.success('Recurso em desenvolvimento! Em breve você poderá favoritar outros institutos.', { icon: '🚧' })} className="w-full bg-white/5 hover:bg-white/10 text-white border border-white/10 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all flex items-center justify-center gap-1.5 hover:border-white/30">
+                                Explorar Outro Instituto
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -143,15 +174,39 @@ export function GcifInstitutoView({ mapItems }: GcifInstitutoViewProps) {
                     icon={<div className="p-2 bg-brand-blue/10 rounded-xl text-brand-blue"><ColisorIcon size={20} animate={false} /></div>}
                 >
                     {/* Lab-Div Card */}
-                    <div className="snap-center shrink-0 w-[300px] md:w-[400px] bg-[#1E1E1E] rounded-[40px] p-8 border border-white/10 shadow-xl relative overflow-hidden group flex flex-col justify-between">
-                        <div>
-                            <div className="size-16 bg-white rounded-2xl p-3 mb-6">
-                                <img src="/labdiv-logo.png" alt="Lab-Div" className="w-full h-full object-contain" />
+                    <div className="snap-center shrink-0 w-[300px] md:w-[400px] bg-[#0F4780] rounded-[40px] p-8 shadow-[0_10px_30px_rgba(15,71,128,0.3)] relative overflow-hidden group flex flex-col justify-between transition-all hover:-translate-y-2">
+                        {/* Decorative background glow */}
+                        <div className="absolute -top-20 -right-20 w-64 h-64 bg-white/10 rounded-full blur-3xl group-hover:bg-white/20 transition-colors pointer-events-none" />
+                        
+                        <div className="relative z-10 flex flex-col items-center">
+                            <div className="mb-8 group-hover:scale-105 transition-transform origin-center select-none w-full">
+                                <div className="flex items-baseline justify-center text-[56px] md:text-[64px] font-black leading-none tracking-tighter font-bukra drop-shadow-md">
+                                    <span className="text-white relative z-10">La</span>
+                                    
+                                    <div className="relative flex items-baseline justify-center mx-[2px]">
+                                        {/* Cyan rectangle */}
+                                        <div className="absolute w-[70%] h-[120%] bg-[#22a5d8] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 shadow-sm"></div>
+                                        
+                                        {/* b and d overlapping with isolation */}
+                                        <div className="relative z-10 flex items-baseline isolate">
+                                            <span className="text-[#F14343] relative z-10">b</span>
+                                            <span className="text-[#FFCC00] relative z-20 mix-blend-multiply" style={{ marginLeft: '-0.35em' }}>d</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <span className="text-white relative z-10">iv</span>
+                                </div>
+                                <div className="text-[9px] md:text-[10px] font-black tracking-[0.4em] text-white/95 uppercase mt-3 font-sans text-center">
+                                    Expressão e Divulgação
+                                </div>
                             </div>
-                            <h3 className="text-xl font-black italic uppercase mb-2 text-brand-blue font-bukra">Lab-Div</h3>
-                            <p className="text-xs text-gray-400 font-open-sans leading-relaxed mb-6">Comunicação científica inspirada no MIT. Tutoria entre pares, escrita e design.</p>
+                            <p className="text-xs text-white/90 font-open-sans leading-relaxed mb-6 text-center">
+                                Comunicação científica inspirada no MIT. Tutoria entre pares, escrita e design.
+                            </p>
                         </div>
-                        <Link href="/iniciativas/labdiv" className="mt-auto px-6 py-3 bg-brand-blue text-white rounded-xl font-black uppercase tracking-widest text-[10px] text-center group-hover:scale-105 transition-transform">Explorar Acervo</Link>
+                        <Link href="/iniciativas/labdiv" className="relative z-10 mt-auto w-full px-6 py-3.5 bg-[#FFCC00] hover:bg-[#ffe066] text-[#0F4780] rounded-xl font-black uppercase tracking-widest text-[11px] text-center shadow-lg transition-all group-hover:scale-105">
+                            Conhecer o LabDiv
+                        </Link>
                     </div>
 
                     {/* Show da Física Card (Neon Edition) */}
@@ -176,7 +231,10 @@ export function GcifInstitutoView({ mapItems }: GcifInstitutoViewProps) {
                     </div>
 
                     {/* Boletim Supernova */}
-                    <div className="snap-center shrink-0 w-[300px] md:w-[350px] bg-[#1E1E1E] rounded-[40px] p-8 border border-white/10 shadow-xl flex flex-col justify-between group">
+                    <div className="snap-center shrink-0 w-[300px] md:w-[350px] bg-[#1E1E1E] rounded-[40px] p-8 border border-white/10 shadow-xl flex flex-col justify-between group relative overflow-hidden">
+                        <div className="absolute top-0 right-0 bg-brand-blue/90 text-white text-[9px] font-bold uppercase tracking-widest py-1.5 px-4 rounded-bl-2xl shadow-md backdrop-blur-sm z-10">
+                            Em breve no HUB
+                        </div>
                         <div>
                             <div className="size-14 bg-brand-blue/10 rounded-2xl flex items-center justify-center text-brand-blue mb-6">
                                 <span className="material-symbols-outlined text-3xl">newspaper</span>
@@ -188,7 +246,10 @@ export function GcifInstitutoView({ mapItems }: GcifInstitutoViewProps) {
                     </div>
 
                     {/* BIFUSP */}
-                    <div className="snap-center shrink-0 w-[300px] md:w-[350px] bg-[#1E1E1E] rounded-[40px] p-8 border border-white/10 shadow-xl flex flex-col justify-between group">
+                    <div className="snap-center shrink-0 w-[300px] md:w-[350px] bg-[#1E1E1E] rounded-[40px] p-8 border border-white/10 shadow-xl flex flex-col justify-between group relative overflow-hidden">
+                        <div className="absolute top-0 right-0 bg-brand-blue/90 text-white text-[9px] font-bold uppercase tracking-widest py-1.5 px-4 rounded-bl-2xl shadow-md backdrop-blur-sm z-10">
+                            Em breve no HUB
+                        </div>
                         <div>
                             <div className="size-14 bg-brand-blue/10 rounded-2xl flex items-center justify-center text-brand-blue mb-6">
                                 <span className="material-symbols-outlined text-3xl">library_books</span>
@@ -200,7 +261,10 @@ export function GcifInstitutoView({ mapItems }: GcifInstitutoViewProps) {
                     </div>
 
                     {/* Grupo Noether */}
-                    <div className="snap-center shrink-0 w-[300px] md:w-[350px] bg-[#1E1E1E] rounded-[40px] p-8 border border-white/10 shadow-xl flex flex-col justify-between group">
+                    <div className="snap-center shrink-0 w-[300px] md:w-[350px] bg-[#1E1E1E] rounded-[40px] p-8 border border-white/10 shadow-xl flex flex-col justify-between group relative overflow-hidden">
+                        <div className="absolute top-0 right-0 bg-brand-yellow/90 text-black text-[9px] font-bold uppercase tracking-widest py-1.5 px-4 rounded-bl-2xl shadow-md backdrop-blur-sm z-10">
+                            Em breve no HUB
+                        </div>
                         <div>
                             <div className="size-14 bg-brand-yellow/10 rounded-2xl flex items-center justify-center text-brand-yellow mb-6">
                                 <span className="material-symbols-outlined text-3xl">group</span>
@@ -299,16 +363,18 @@ export function GcifInstitutoView({ mapItems }: GcifInstitutoViewProps) {
                         <a href="https://portal.if.usp.br/demonstracoes/" target="_blank" rel="noopener noreferrer" className="mt-auto text-brand-red font-black uppercase tracking-wider text-xs flex items-center gap-1.5 hover:underline">Ver Fenômenos <ArrowRight className="w-4 h-4" /></a>
                     </div>
 
-                    {/* Parque CienTec */}
-                    <div className="snap-center shrink-0 w-[380px] bg-[#1E1E1E] rounded-[40px] p-8 border border-white/10 shadow-xl relative overflow-hidden group flex flex-col justify-between">
+                    {/* PROFIS */}
+                    <div className="snap-center shrink-0 w-[300px] bg-[#1E1E1E] rounded-[40px] p-8 border border-white/10 shadow-xl flex flex-col justify-between group hover:border-brand-yellow/30 transition-all">
                         <div>
-                            <div className="size-16 bg-white rounded-2xl p-3 mb-6">
-                                <img src="/cientec-logo.png" alt="CienTec" className="w-full h-full object-contain" />
+                            <div className="size-14 bg-brand-yellow/10 rounded-2xl flex items-center justify-center text-brand-yellow mb-6 group-hover:scale-110 transition-transform">
+                                <span className="material-symbols-outlined text-3xl">school</span>
                             </div>
-                            <h3 className="text-xl font-black uppercase mb-2 text-white font-bukra">CienTec</h3>
-                            <p className="text-xs text-gray-400 font-open-sans leading-relaxed mb-6">Física a céu aberto. Museus, trilhas e observação estelar.</p>
+                            <h3 className="text-lg font-black uppercase mb-2 text-white font-bukra">PROFIS</h3>
+                            <p className="text-xs text-gray-400 leading-relaxed mb-6 font-open-sans">O espaço Pró-Física. Ambiente dedicado ao acolhimento e suporte dos estudantes da Licenciatura.</p>
                         </div>
-                        <a href="https://parquecientec.usp.br" target="_blank" rel="noopener noreferrer" className="mt-auto px-6 py-3 bg-white/10 hover:bg-white/15 text-white rounded-xl font-black uppercase tracking-widest text-[10px] text-center transition-colors">Acessar Parque</a>
+                        <a href="https://fep.if.usp.br/~profis/" target="_blank" rel="noopener noreferrer" className="mt-auto text-brand-yellow font-black uppercase tracking-wider text-xs flex items-center gap-1.5 hover:underline">
+                            Conhecer a PROFIS <ArrowRight className="w-4 h-4" />
+                        </a>
                     </div>
                 </NetflixFeed>
             </div>
@@ -360,15 +426,6 @@ export function GcifInstitutoView({ mapItems }: GcifInstitutoViewProps) {
                     </div>
                 </div>
 
-                {/* Linha do Tempo */}
-                <div id="timeline-instituto" className="scroll-mt-24">
-                    <InstitutoTimeline />
-                </div>
-
-                {/* Marcos Históricos */}
-                <div id="marcos-historicos" className="scroll-mt-24">
-                    <HistoricalPosts />
-                </div>
             </div>
         </div>
     );

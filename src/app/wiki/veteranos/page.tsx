@@ -221,7 +221,7 @@ export default function VeteranosPage() {
                                             href={item.url}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className={`w-full text-center px-4 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all mt-3 shrink-0 hover:scale-[1.02] active:scale-95 ${item.botaoCor}`}
+                                            className={`w-auto sm:w-full text-center px-4 py-2 sm:py-2.5 rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all sm:mt-3 shrink-0 hover:scale-[1.02] active:scale-95 ${item.botaoCor}`}
                                         >
                                             <span>Acessar</span>
                                             <ExternalLink className="w-3.5 h-3.5" />

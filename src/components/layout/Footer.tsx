@@ -112,9 +112,9 @@ export function Footer() {
             </h4>
             
             <div className="space-y-4 font-sans">
-                {/* EIXO 1: SOCIAL (Barra Azul) */}
-                <div className="space-y-2 border-l-2 border-brand-blue pl-3 py-0.5">
-                    <span className="text-[10px] font-black uppercase tracking-wider text-brand-blue font-bukra block">
+                {/* EIXO 1: SOCIAL (Barra Branca) */}
+                <div className="space-y-2 border-l-2 border-white pl-3 py-0.5">
+                    <span className="text-[10px] font-black uppercase tracking-wider text-white font-bukra block">
                         1. Social
                     </span>
                     <ul className="space-y-1.5">
@@ -399,8 +399,12 @@ export function Footer() {
                         </p>
                     </div>
                     <div className="flex items-center gap-6">
+                        <Link href="/divulgacao" className="flex items-center gap-1.5 text-xs text-white bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 transition-all px-3 py-1.5 rounded-lg font-sans">
+                            <span className="material-symbols-outlined text-[14px]">share</span>
+                            Compartilhar o HUB
+                        </Link>
                         <div className="flex items-center">
-                            <span className="text-[9px] font-bold text-white/50 border border-white/20 px-2 py-0.5 rounded font-bukra uppercase tracking-wider">v6.4.3 BETA</span>
+                            <span className="text-[9px] font-bold text-white/50 border border-white/20 px-2 py-0.5 rounded font-bukra uppercase tracking-wider">BETA</span>
                         </div>
                         <div className="flex gap-4">
                             <div className="w-3 h-3 rounded-sm bg-brand-blue shadow-sm shadow-brand-blue/50"></div>

@@ -54,8 +54,8 @@ export default function AdminComunidadeHubPage() {
                         <div className="p-4 bg-brand-yellow/10 rounded-2xl w-max mb-6">
                             <MessageSquare className="w-8 h-8 text-brand-yellow" />
                         </div>
-                        <h2 className="text-xl font-bold uppercase tracking-widest text-gray-900 dark:text-white mb-2">Registros do IFUSP</h2>
-                        <p className="text-sm text-gray-500 mb-8 flex-grow">Moderação dos drops, discussões rápidas e bate-papos públicos da comunidade.</p>
+                        <h2 className="text-xl font-bold uppercase tracking-widest text-gray-900 dark:text-white mb-2">Moderação de Logs</h2>
+                        <p className="text-sm text-gray-500 mb-8 flex-grow">Gerenciamento de logs da comunidade, moderação de conteúdo e promoção para o USP 101 (Dicas dos Veteranos).</p>
                         <div className="flex items-center gap-2 text-brand-yellow font-bold text-xs uppercase tracking-widest">
                             Acessar Painel <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                         </div>

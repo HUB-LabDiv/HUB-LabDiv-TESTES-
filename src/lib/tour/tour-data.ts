@@ -889,7 +889,7 @@ export const CGIF_INSTITUTO_TOUR_STEPS: TourStepConfig[] = [
         element: '[data-tour="gcif-instituto-espacos"]',
         popover: {
             title: '5. Espaços de Convivência & Criação',
-            description: 'Locais abertos à comunidade: Hackerspace, DigitalLab, CEFISMA (Amélia Império), Lab Demo e Parque CienTec.',
+            description: 'Locais abertos à comunidade: Hackerspace, DigitalLab, CEFISMA (Amélia Império), Lab Demo e PROFIS.',
             side: 'top',
             align: 'center',
         }

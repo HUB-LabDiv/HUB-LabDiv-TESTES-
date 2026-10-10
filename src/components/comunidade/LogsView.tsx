@@ -39,6 +39,7 @@ export interface Drop {
         research_line?: string;
         course?: string;
         interest_area?: string;
+        institute?: string;
     };
     replies_count?: number;
     user_reaction?: 'up' | 'down' | null;
@@ -84,7 +85,7 @@ export function LogsView() {
         setIsLoading(true);
         const { data: { session } } = await supabase.auth.getSession();
         let followingIds: string[] = [];
-        const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+        const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
         
         let queryBuilder = supabase
             .from('micro_articles')
@@ -99,13 +100,14 @@ export function LogsView() {
                     user_category,
                     research_line,
                     course,
-                    interest_area
+                    interest_area,
+                    institute
                 )
             `)
             .is('parent_id', null)
             .eq('status', 'approved')
             .neq('moderation_status', 'suspended')
-            .or(`is_featured.eq.true,created_at.gte.${twentyFourHoursAgo}`);
+            .or(`is_featured.eq.true,created_at.gte.${sevenDaysAgo}`);
 
         if (scope === 'seguindo' && user) {
             const { data: follows } = await supabase
@@ -293,7 +295,7 @@ export function LogsView() {
                             </FeedSection>
                         )}
 
-                        <FeedSection title="Logs Recentes (24h)" icon={<Clock className="w-4 h-4" />} color="red">
+                        <FeedSection title="Logs Recentes (7 Dias)" icon={<Clock className="w-4 h-4" />} color="red">
                             {recentDrops.length > 0 ? (
                                 recentDrops.map(drop => <ThreadNode key={drop.id} drop={drop} level={0} onRefresh={fetchDrops} setIsSyncing={setIsSyncing} />)
                             ) : (
@@ -301,7 +303,7 @@ export function LogsView() {
                                     <div className="w-12 h-12 rounded-full bg-brand-red/10 border border-brand-red/20 flex items-center justify-center mx-auto text-brand-red">
                                         <Radio className="w-5 h-5 animate-pulse" />
                                     </div>
-                                    <p className="font-mono text-xs uppercase tracking-widest text-gray-300 font-bold">Nenhuma transmissão captada nas últimas 24h.</p>
+                                    <p className="font-mono text-xs uppercase tracking-widest text-gray-300 font-bold">Nenhuma transmissão captada nos últimos 7 dias.</p>
                                     <p className="text-xs text-gray-400 max-w-sm mx-auto">Seja o primeiro a enviar uma descoberta ou notícia rápida no campo acima!</p>
                                 </div>
                             )}
@@ -418,6 +420,11 @@ export function ThreadNode({ drop, level = 0, onRefresh, setIsSyncing }: { drop:
                     <div className="flex-1 min-w-0 flex flex-col gap-2">
                         <div className="flex flex-wrap items-center gap-2 mb-1">
                             <span className="font-black text-sm text-gray-900 dark:text-white truncate max-w-[150px]">@{drop.profiles?.handle || 'membro'}</span>
+                            {drop.profiles?.institute && (
+                                <span className="px-2 py-0.5 bg-brand-blue/10 border border-brand-blue/20 rounded-md text-[8px] font-black uppercase text-brand-blue tracking-widest shrink-0">
+                                    {drop.profiles.institute}
+                                </span>
+                            )}
                             <div className="flex items-center gap-2 text-[9px] font-black font-mono text-gray-500 bg-background-dark/20 px-2 py-1 rounded-lg border border-white/5 shrink-0">
                                 <Clock className="w-2.5 h-2.5 text-brand-red" />
                                 {new Date(drop.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
@@ -484,9 +491,17 @@ function LogTimer({ createdAt }: { createdAt: string }) {
     const [timeLeft, setTimeLeft] = useState('');
     useEffect(() => {
         const updateTimer = () => {
-            const diff = new Date(createdAt).getTime() + 24 * 60 * 60 * 1000 - Date.now();
+            const diff = new Date(createdAt).getTime() + 7 * 24 * 60 * 60 * 1000 - Date.now();
             if (diff <= 0) { setTimeLeft('00h 00m'); return; }
-            setTimeLeft(`${Math.floor(diff / (1000 * 60 * 60))}h ${Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))}m`);
+            
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            if (d > 0) {
+                setTimeLeft(`${d}d ${h}h`);
+            } else {
+                const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                setTimeLeft(`${h}h ${m}m`);
+            }
         };
         const interval = setInterval(updateTimer, 60000);
         updateTimer();

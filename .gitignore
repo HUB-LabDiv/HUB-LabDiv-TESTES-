@@ -98,3 +98,16 @@ debug/*.txt
 !debug/README_FOLDER.txt
 
 
+
+
+# Open source exclusions
+/public/*
+!/public/.gitkeep
+/scripts/
+
+# Códigos mortos
+/deprecated/
+/old/
+/dead_code/
+/_deprecated/
+

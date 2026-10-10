@@ -16,7 +16,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { supabase } from '@/lib/supabase';
 import { 
     MessageSquare, Check, X, Star, Trash2, Atom,
-    Clock, Loader2, Search, Inbox, ShieldCheck
+    Clock, Loader2, Search, Inbox, ShieldCheck, Compass
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 
@@ -97,13 +97,35 @@ export default function AdminDropsPage() {
         fetchDrops();
     }, [fetchDrops]);
 
-    const handleAction = async (id: string, action: 'approve' | 'feature' | 'remove_feature' | 'delete' | 'reject') => {
+    const handleAction = async (id: string, action: 'approve' | 'feature' | 'remove_feature' | 'delete' | 'reject' | 'to_usp101') => {
         try {
             let updateData: any = {};
             if (action === 'approve') updateData = { status: 'approved' };
             if (action === 'reject') updateData = { status: 'rejected' };
             if (action === 'feature') updateData = { is_featured: true, status: 'approved' };
             if (action === 'remove_feature') updateData = { is_featured: false };
+
+            if (action === 'to_usp101') {
+                const drop = drops.find(d => d.id === id);
+                if (!drop) throw new Error('Log não encontrado.');
+                
+                const titulo = window.prompt('Dê um título para este Conselho de Veterano (USP 101):');
+                if (!titulo) return; // Cancelado
+                
+                const { error } = await supabase.from('dicas_veteranos').insert({
+                    titulo,
+                    conteudo: drop.content,
+                    categoria: 'comunicacao',
+                    instituto: 'geral',
+                    autor_nome: drop.profiles?.name || drop.profiles?.handle || 'Veterano',
+                    autor_id: drop.author_id,
+                    status: 'approved'
+                });
+                
+                if (error) throw error;
+                toast.success('Log promovido para USP 101 com sucesso!');
+                return;
+            }
 
             if (action === 'delete') {
                 const { error } = await supabase.from('micro_articles').delete().eq('id', id);
@@ -191,20 +213,20 @@ export default function AdminDropsPage() {
                 <div className="space-y-12 pb-20">
                     {filter === 'pending' ? (
                         <>
-                            {/* Group < 24h */}
+                            {/* Group < 7 dias */}
                             <div className="space-y-6">
                                 <div className="flex items-center gap-4 px-2">
                                     <div className="h-px bg-gradient-to-r from-transparent via-brand-red/30 to-transparent flex-1"></div>
                                     <h3 className="text-brand-red font-black uppercase italic tracking-widest text-xs flex items-center gap-2">
-                                        <Clock className="w-4 h-4" /> Recentes (&lt; 24h)
+                                        <Clock className="w-4 h-4" /> Recentes (&lt; 7d)
                                     </h3>
                                     <div className="h-px bg-gradient-to-r from-transparent via-brand-red/30 to-transparent flex-1"></div>
                                 </div>
                                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                                    {filteredDrops.filter(d => (Date.now() - new Date(d.created_at).getTime()) < 24 * 60 * 60 * 1000).map((drop) => (
+                                    {filteredDrops.filter(d => (Date.now() - new Date(d.created_at).getTime()) < 7 * 24 * 60 * 60 * 1000).map((drop) => (
                                         <DropAdminCard key={drop.id} drop={drop} handleAction={handleAction} />
                                     ))}
-                                    {filteredDrops.filter(d => (Date.now() - new Date(d.created_at).getTime()) < 24 * 60 * 60 * 1000).length === 0 && (
+                                    {filteredDrops.filter(d => (Date.now() - new Date(d.created_at).getTime()) < 7 * 24 * 60 * 60 * 1000).length === 0 && (
                                         <div className="col-span-full py-10 text-center opacity-30 border border-dashed border-white/5 rounded-[2rem]">
                                             <p className="font-mono text-[10px] uppercase tracking-widest">Nenhum log pendente recente.</p>
                                         </div>
@@ -212,20 +234,20 @@ export default function AdminDropsPage() {
                                 </div>
                             </div>
 
-                            {/* Group > 24h */}
+                            {/* Group > 7 dias */}
                             <div className="space-y-6">
                                 <div className="flex items-center gap-4 px-2">
                                     <div className="h-px bg-gradient-to-r from-transparent via-gray-500/30 to-transparent flex-1"></div>
                                     <h3 className="text-gray-500 font-black uppercase italic tracking-widest text-xs flex items-center gap-2">
-                                        <Inbox className="w-4 h-4" /> Antigos (&gt; 24h)
+                                        <Inbox className="w-4 h-4" /> Antigos (&gt; 7d)
                                     </h3>
                                     <div className="h-px bg-gradient-to-r from-transparent via-gray-500/30 to-transparent flex-1"></div>
                                 </div>
                                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                                    {filteredDrops.filter(d => (Date.now() - new Date(d.created_at).getTime()) >= 24 * 60 * 60 * 1000).map((drop) => (
+                                    {filteredDrops.filter(d => (Date.now() - new Date(d.created_at).getTime()) >= 7 * 24 * 60 * 60 * 1000).map((drop) => (
                                         <DropAdminCard key={drop.id} drop={drop} handleAction={handleAction} />
                                     ))}
-                                    {filteredDrops.filter(d => (Date.now() - new Date(d.created_at).getTime()) >= 24 * 60 * 60 * 1000).length === 0 && (
+                                    {filteredDrops.filter(d => (Date.now() - new Date(d.created_at).getTime()) >= 7 * 24 * 60 * 60 * 1000).length === 0 && (
                                         <div className="col-span-full py-10 text-center opacity-30 border border-dashed border-white/5 rounded-[2rem]">
                                             <p className="font-mono text-[10px] uppercase tracking-widest">Nenhum log pendente antigo.</p>
                                         </div>
@@ -246,7 +268,7 @@ export default function AdminDropsPage() {
     );
 }
 
-function DropAdminCard({ drop, handleAction }: { drop: Drop, handleAction: (id: string, action: 'approve' | 'feature' | 'remove_feature' | 'delete' | 'reject') => void }) {
+function DropAdminCard({ drop, handleAction }: { drop: Drop, handleAction: (id: string, action: 'approve' | 'feature' | 'remove_feature' | 'delete' | 'reject' | 'to_usp101') => void }) {
     return (
         <div key={drop.id} className="group relative bg-[#1E1E1E] p-8 rounded-[3rem] border border-white/5 hover:border-brand-red/40 transition-all flex flex-col gap-6 overflow-hidden shadow-2xl hover:-translate-y-2 duration-500">
             {/* Ambient background effect */}
@@ -353,6 +375,13 @@ function DropAdminCard({ drop, handleAction }: { drop: Drop, handleAction: (id: 
                     </button>
                 )}
                 <button 
+                    onClick={() => handleAction(drop.id, 'to_usp101')}
+                    className="p-4 aspect-square bg-background-dark hover:bg-brand-blue text-brand-blue hover:text-white rounded-[1.5rem] border border-white/5 transition-all flex items-center justify-center shadow-2xl shadow-black hover:shadow-brand-blue/40"
+                    title="Promover para USP 101"
+                >
+                    <Compass size={22} />
+                </button>
+                <button 
                     onClick={() => handleAction(drop.id, 'delete')}
                     className="p-4 aspect-square bg-background-dark hover:bg-brand-red text-gray-600 hover:text-white rounded-[1.5rem] border border-white/5 transition-all flex items-center justify-center shadow-2xl shadow-black hover:shadow-brand-red/40"
                 >
@@ -374,7 +403,7 @@ function AdminTimer({ createdAt }: { createdAt: string }) {
     useEffect(() => {
         const updateTimer = () => {
             const created = new Date(createdAt).getTime();
-            const expiration = created + 24 * 60 * 60 * 1000;
+            const expiration = created + 7 * 24 * 60 * 60 * 1000;
             const now = Date.now();
             const diff = expiration - now;
 
@@ -383,9 +412,14 @@ function AdminTimer({ createdAt }: { createdAt: string }) {
                 return;
             }
 
-            const h = Math.floor(diff / (1000 * 60 * 60));
-            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            setTimeLeft(`${h}h ${m}m`);
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            if (d > 0) {
+                setTimeLeft(`${d}d ${h}h`);
+            } else {
+                const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                setTimeLeft(`${h}h ${m}m`);
+            }
         };
 
         const interval = setInterval(updateTimer, 60000); // 1 minute is enough for admin

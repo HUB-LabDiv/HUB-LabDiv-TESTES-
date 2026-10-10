@@ -400,17 +400,17 @@ export function GrandeColisorView({ oportunidades, mapItems, glossario }: Grande
                             <a href="https://portal.if.usp.br/demonstracoes/" target="_blank" className="mt-auto text-brand-red font-black uppercase tracking-tighter flex items-center gap-2 hover:underline">Ver Fenômenos <ArrowRight className="w-4 h-4" /></a>
                         </div>
 
-                        {/* Parque CienTec */}
-                        <div className="snap-center shrink-0 w-[400px] bg-white dark:bg-[#1E1E1E] rounded-[40px] p-10 border border-gray-200 dark:border-white/20 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07)] dark:shadow-none relative overflow-hidden group">
+                        {/* PROFIS */}
+                        <div className="snap-center shrink-0 w-[400px] bg-white dark:bg-[#1E1E1E] rounded-[40px] p-10 border border-gray-200 dark:border-brand-yellow/30 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07)] dark:shadow-none relative overflow-hidden group hover:border-brand-yellow transition-all">
                             <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-                                <span className="material-symbols-outlined text-9xl text-gray-900 dark:text-white">park</span>
+                                <span className="material-symbols-outlined text-9xl text-gray-900 dark:text-brand-yellow">school</span>
                             </div>
-                            <div className="size-20 bg-gray-100 dark:bg-white rounded-3xl p-4 mb-8">
-                                <img src="/cientec-logo.png" alt="CienTec" className="w-full h-full object-contain" />
+                            <div className="size-20 bg-gray-100 dark:bg-brand-yellow/10 rounded-3xl p-4 mb-8 flex items-center justify-center text-gray-900 dark:text-brand-yellow group-hover:scale-110 transition-transform">
+                                <span className="material-symbols-outlined text-4xl">school</span>
                             </div>
-                            <h3 className="text-2xl font-black uppercase mb-4 text-gray-900 dark:text-white">CienTec</h3>
-                            <p className="text-gray-600 dark:text-gray-400 font-medium leading-relaxed mb-8">Física a céu aberto. Museus, trilhas e observação estelar.</p>
-                            <a href="https://parquecientec.usp.br" target="_blank" className="px-8 py-3 bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 text-gray-900 dark:text-white border border-transparent dark:border-white/20 rounded-2xl font-black uppercase tracking-widest text-[10px] transition-colors">Acessar Parque</a>
+                            <h3 className="text-2xl font-black uppercase mb-4 text-gray-900 dark:text-white">PROFIS</h3>
+                            <p className="text-gray-600 dark:text-gray-400 font-medium leading-relaxed mb-8">O espaço Pró-Física. Ambiente dedicado ao acolhimento e suporte dos estudantes da Licenciatura.</p>
+                            <a href="https://fep.if.usp.br/~profis/" target="_blank" className="px-8 py-3 bg-gray-100 dark:bg-brand-yellow/10 hover:bg-gray-200 dark:hover:bg-brand-yellow/20 text-gray-900 dark:text-brand-yellow border border-transparent dark:border-brand-yellow/30 rounded-2xl font-black uppercase tracking-widest text-[10px] transition-colors inline-block">Conhecer a PROFIS</a>
                         </div>
                     </NetflixFeed>
                 </div>
